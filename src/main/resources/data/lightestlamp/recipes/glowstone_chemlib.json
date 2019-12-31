@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "lightestlamp",
+  "pattern": [
+    "NN",
+    "AK"
+  ],
+  "key": {
+    "N": {
+      "item": "chemlib:element_neon"
+    },
+    "A": {
+      "item": "chemlib:element_argon"
+    },
+    "K": {
+      "item": "chemlib:element_krypton"
+    }
+  },
+  "result": {
+    "item": "minecraft:glowstone_dust"
+  }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "DD",
+        "DD"
+    ],
+   
+    "key":
+    {
+        "D":
+        {
+            "item": "lightestlamp:argon_dust"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:argon_block",
+        "count": 1
+    }
+}

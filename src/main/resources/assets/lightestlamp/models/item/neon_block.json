@@ -1,0 +1,6 @@
+{
+  "parent": "lightestlamp:block/neon_block",
+  "textures": {
+    "layer0": "lightestlamp:item/neon_block"
+  }
+}

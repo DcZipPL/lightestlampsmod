@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "RBR",
+        "BLB",
+        "RBR"
+    ],
+   
+    "key":
+    {
+        "R":
+        {
+            "item": "lightestlamp:neon_rod"
+        },
+        "B":
+        {
+            "item": "lightestlamp:neon_rod_block"
+        },
+        "L":
+        {
+            "item": "lightestlamp:alfa_lamp"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:beta_lamp",
+        "count": 1
+    }
+}

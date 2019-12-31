@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "RBR",
+        "BLB",
+        "RBR"
+    ],
+   
+    "key":
+    {
+        "R":
+        {
+            "item": "lightestlamp:argon_rod"
+        },
+        "L":
+        {
+            "item": "lightestlamp:delta_lamp"
+        },
+        "B":
+        {
+            "item": "lightestlamp:argon_rod_block"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:epsilon_lamp",
+        "count": 1
+    }
+}

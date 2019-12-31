@@ -1,0 +1,57 @@
+{
+	"block.lightestlamp.big_flower":"Big Flower",
+	"block.lightestlamp.crimson_wool":"Crimson Wool",
+	"block.lightestlamp.gas_extractor":"Gas Centrifuge",
+	"block.lightestlamp.vanta_black":"Vanta Black",
+
+	"block.lightestlamp.jungle_lantern":"Lamp Fruit",
+	"block.lightestlamp.clear_lamp":"Clear Lamp",
+	"block.lightestlamp.alfa_lamp":"Alpha Lamp",
+	"block.lightestlamp.beta_lamp":"Beta Lamp",
+	"block.lightestlamp.gamma_lamp":"Gamma Lamp",
+	"block.lightestlamp.delta_lamp":"Delta Lamp",
+	"block.lightestlamp.epsilon_lamp":"Epsilon Lamp",
+	"block.lightestlamp.zeta_lamp":"Zeta Lamp",
+	"block.lightestlamp.omega_lamp":"Omega Lamp",
+	"block.lightestlamp.anti_lamp":"Anti-Lamp",
+
+	"block.lightestlamp.neon_block":"Neon Glowstone",
+	"block.lightestlamp.krypton_block":"Krypton Glowstone",
+	"block.lightestlamp.argon_block":"Argon Glowstone",
+
+	"block.lightestlamp.neon_rod_block":"Neon Rod Block",
+	"block.lightestlamp.argon_rod_block":"Argon Rod Block",
+	"block.lightestlamp.debug_chunk_cleaner":"Chunk Cleaner (Debug)",
+
+	"item.lightestlamp.debug_stick":"Debug Stick (Debug)",
+	"item.lightestlamp.written_book": "Written Book",
+	"item.lightestlamp.carbon_nanotube": "Carbon Nano Tube",
+
+	"item.lightestlamp.krypton_small_dust":"Krypton Pile",
+
+	"item.lightestlamp.neon_dust":"Neon Dust",
+	"item.lightestlamp.krypton_dust":"Krypton Dust",
+	"item.lightestlamp.argon_dust":"Argon Dust",
+
+	"item.lightestlamp.neon_rod":"Neon Rod",
+	"item.lightestlamp.krypton_rod":"Krypton Rod",
+	"item.lightestlamp.argon_rod":"Argon Rod",
+	"item.lightestlamp.empty_rod":"Glass Rod",
+
+	"tooltip.type.alpha": "Type: α (16 Blocks Light)",
+	"tooltip.type.beta": "Type: β (17 Blocks Light)",
+	"tooltip.type.gamma": "Type: γ (17 Blocks Light)",
+	"tooltip.type.delta": "Type: δ (18 Blocks Light)",
+	"tooltip.type.epsilon": "Type: ε (19 Blocks Light)",
+	"tooltip.type.zeta": "Type: ζ (20 Blocks Light)",
+	"tooltip.type.omega": "Type: Ω (30 Blocks Light)",
+	"tooltip.type.antimatter": "Antimatter",
+	"tooltip.inverted": "Always Active",
+	"tooltip.penetration": "Light Penetration",
+	"tooltip.speed_grow": "Grow Glow",
+	"tooltip.rods_only": "Can only use Rods!",
+	"tooltip.lamp.title": "How Use Lightest Lamps.",
+	"tooltip.lamp.wip": "[WIP]",
+
+	"itemGroup.lamps": "Lamps"
+}

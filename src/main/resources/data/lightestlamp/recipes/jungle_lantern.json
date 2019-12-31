@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "V",
+        "G"
+    ],
+   
+    "key":
+    {
+        "G":
+        {
+            "tag": "forge:glowstone_dusts"
+        },
+        "V":
+        {
+            "item": "minecraft:vine"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:jungle_lantern",
+        "count": 1
+    }
+}

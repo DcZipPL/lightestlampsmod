@@ -1,0 +1,6 @@
+{
+  "parent": "lightestlamp:block/jungle_lantern",
+  "textures": {
+    "layer0": "lightestlamp:block/jungle_lantern"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "lightestlamp",
+  "pattern": [
+    "AAA",
+    "ACA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "item": "lightestlamp:carbon_nanotube"
+    },
+    "C": {
+      "item": "lightestlamp:clear_lamp"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:anti_lamp"
+  }
+}

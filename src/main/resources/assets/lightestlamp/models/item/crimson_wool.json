@@ -1,0 +1,6 @@
+{
+  "parent": "lightestlamp:block/crimson_wool",
+  "textures": {
+    "layer0": "lightestlamp:block/crimson_wool"
+  }
+}

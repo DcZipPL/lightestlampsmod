@@ -1,0 +1,6 @@
+{
+  "parent": "lightestlamp:block/clear_lamp",
+  "textures": {
+    "layer0": "lightestlamp:block/clear_lamp"
+  }
+}

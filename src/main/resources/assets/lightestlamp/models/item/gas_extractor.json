@@ -1,0 +1,6 @@
+{
+  "parent": "lightestlamp:block/gas_extractor",
+  "textures": {
+    "layer0": "lightestlamp:block/gas_extractor"
+  }
+}

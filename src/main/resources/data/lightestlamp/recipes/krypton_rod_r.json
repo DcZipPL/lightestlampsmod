@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "DRD",
+        "NDN",
+        "DRD"
+    ],
+   
+    "key":
+    {
+        "R":
+        {
+            "item": "lightestlamp:empty_rod"
+        },
+        "D":
+        {
+            "item": "lightestlamp:krypton_dust"
+        },
+        "N":
+        {
+            "item": "minecraft:nether_star"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:krypton_rod",
+        "count": 2
+    }
+}

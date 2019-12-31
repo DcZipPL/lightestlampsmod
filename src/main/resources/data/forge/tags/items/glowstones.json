@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:glowstone",
+    "lightestlamp:neon_block",
+    "lightestlamp:argon_block",
+    "lightestlamp:krypton_block"
+  ]
+}

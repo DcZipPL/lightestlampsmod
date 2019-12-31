@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        " GG",
+        "GGG",
+        "GG "
+    ],
+   
+    "key":
+    {
+        "G":
+        {
+            "item": "minecraft:glass"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:empty_rod",
+        "count": 2
+    }
+}

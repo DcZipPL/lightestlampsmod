@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "lightestlamp:neon_dust"
+        },
+        {
+            "item": "lightestlamp:neon_dust"
+        },
+        {
+            "item": "lightestlamp:krypton_small_dust"
+        },
+        {
+            "item": "lightestlamp:argon_dust"
+        }
+    ],
+    "result": {
+        "item": "minecraft:glowstone_dust",
+        "count": 2
+    }
+}

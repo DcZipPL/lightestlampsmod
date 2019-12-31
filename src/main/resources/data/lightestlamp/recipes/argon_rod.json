@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "DDD",
+        "DRD",
+        "DDD"
+    ],
+   
+    "key":
+    {
+        "R":
+        {
+            "item": "lightestlamp:empty_rod"
+        },
+        "D":
+        {
+            "item": "lightestlamp:argon_dust"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:argon_rod",
+        "count": 1
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        " R ",
+        "RLR",
+        " R "
+    ],
+   
+    "key":
+    {
+        "R":
+        {
+            "item": "lightestlamp:krypton_rod"
+        },
+        "L":
+        {
+            "item": "lightestlamp:epsilon_lamp"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:zeta_lamp",
+        "count": 1
+    }
+}
