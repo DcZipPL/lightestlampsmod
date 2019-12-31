@@ -22,7 +22,7 @@ Lightest Lamps Mod
  
 
 ##### Glowstones:
-
+<img src="https://dczippl.tk/img/lightestlamps/neon_rendner.png" width="30">
 ![Neon Glowstone](https://dczippl.tk/img/lightestlamps/neon_rendner.png =30x) Neon Glowstone.
 
 ![Argon Glowstone](https://dczippl.tk/img/lightestlamps/argon_rendner.png =30x) Argon Glowstone.
