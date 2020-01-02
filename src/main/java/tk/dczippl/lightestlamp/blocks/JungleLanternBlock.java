@@ -40,11 +40,6 @@ public class JungleLanternBlock extends Block
         return Block.makeCuboidShape(4,2,4,12,14,12);
     }
 
-    //public BlockRenderLayer getRenderLayer()
-    //{
-    //    return BlockRenderLayer.CUTOUT;
-    //}
-
     @Override
     public boolean isNormalCube(BlockState p_220081_1_, IBlockReader p_220081_2_, BlockPos p_220081_3_)
     {

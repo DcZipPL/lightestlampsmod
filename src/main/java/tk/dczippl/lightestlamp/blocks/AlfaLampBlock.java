@@ -22,14 +22,12 @@ import tk.dczippl.lightestlamp.tile.AlfaLampTileEntity;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class AlfaLampBlock extends LeavesBlock
+public class AlfaLampBlock extends Block
 {
     public AlfaLampBlock()
     {
         super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).lightValue(15).hardnessAndResistance(0.3f,1));
     }
-
-
 
     @Override
     public boolean hasTileEntity(BlockState state)

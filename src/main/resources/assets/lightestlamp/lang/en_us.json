@@ -21,6 +21,7 @@
 
 	"block.lightestlamp.neon_rod_block":"Neon Rod Block",
 	"block.lightestlamp.argon_rod_block":"Argon Rod Block",
+	"block.lightestlamp.glowing_glass_block":"Glowing Glass",
 	"block.lightestlamp.debug_chunk_cleaner":"Chunk Cleaner (Debug)",
 
 	"item.lightestlamp.debug_stick":"Debug Stick (Debug)",

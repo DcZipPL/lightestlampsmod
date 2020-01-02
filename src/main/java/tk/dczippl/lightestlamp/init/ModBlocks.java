@@ -61,7 +61,7 @@ public class ModBlocks
     public static final Block ARGON_ROD_BLOCK = new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(0.85f,1).lightValue(10)).setRegistryName("argon_rod_block");
 
     @ObjectHolder(Reference.MOD_ID+":"+"vanta_black")
-    public static final Block VANTA_BLACK = new Block(Block.Properties.create(Material.ROCK).sound(SoundType.CLOTH).hardnessAndResistance(0.1f,1)).setRegistryName("vanta_black");
+    public static final Block VANTA_BLACK = new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).hardnessAndResistance(0.1f,1)).setRegistryName("vanta_black");
 
     //Glowstones
 
@@ -74,11 +74,11 @@ public class ModBlocks
     @ObjectHolder(Reference.MOD_ID+":"+"krypton_block")
     public static final Block KRYPTON_BLOCK = new Block(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS).hardnessAndResistance(0.4f,1).lightValue(15)).setRegistryName("krypton_block");
 
+    @ObjectHolder(Reference.MOD_ID+":"+"glowing_glass_block")
+    public static final Block GLOWING_GLASS_BLOCK = new GlowingGlassBlock().setRegistryName("glowing_glass_block");
+
     //public static final Block GAS_EXTRACTOR = new GasExtractorBlock(Block.Properties.create(Material.IRON).sound(SoundType.METAL).hardnessAndResistance(3,1)).setRegistryName("gas_extractor");
 
     public static final Block BIG_FLOWER = new BigFlowerBlock(Block.Properties.create(Material.PLANTS, MaterialColor.PINK).sound(SoundType.PLANT)).setRegistryName("big_flower");
     public static final Block CRIMSON_WOOL = new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH).hardnessAndResistance(1,1)).setRegistryName("crimson_wool");
-
-    //AUTO-GENERATE CODE |GC-00|
-    //END OF AUTO-GENERATE CODE |GC-01|
 }

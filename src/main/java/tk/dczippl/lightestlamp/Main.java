@@ -1,6 +1,8 @@
 package tk.dczippl.lightestlamp;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -98,6 +100,9 @@ public class Main
     private void doClientStuff(final FMLClientSetupEvent event)
     {
         // do something that can only be done on the client
+        RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN, RenderType.func_228643_e_());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK, RenderType.func_228643_e_());
+        RenderTypeLookup.setRenderLayer(ModBlocks.OMEGA_LAMP, RenderType.func_228657_l_());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
@@ -137,7 +142,7 @@ public class Main
             blockRegistryEvent.getRegistry().register(ModBlocks.EPSILON_LAMP);
             blockRegistryEvent.getRegistry().register(ModBlocks.ZETA_LAMP);
             blockRegistryEvent.getRegistry().register(ModBlocks.OMEGA_LAMP);
-            //blockRegistryEvent.getRegistry().register(ModBlocks.BIG_FLOWER);
+            blockRegistryEvent.getRegistry().register(ModBlocks.GLOWING_GLASS_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.DARK_AIR);
             blockRegistryEvent.getRegistry().register(ModBlocks.JUNGLE_LANTERN);
             //blockRegistryEvent.getRegistry().register(ModBlocks.GAS_EXTRACTOR);
@@ -223,6 +228,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.KRYPTON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.KRYPTON_BLOCK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CHUNK_CLEANER, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CHUNK_CLEANER.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.VANTA_BLACK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.VANTA_BLACK.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GLOWING_GLASS_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GLOWING_GLASS_BLOCK.getRegistryName()));
 
             // register a new item here
 
