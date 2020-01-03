@@ -1,0 +1,6 @@
+{
+  "parent": "lightestlamp:block/glowing_glass_block",
+  "textures": {
+    "layer0": "lightestlamp:block/glowing_glass_block"
+  }
+}

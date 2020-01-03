@@ -148,9 +148,10 @@ public class Main
             //blockRegistryEvent.getRegistry().register(ModBlocks.GAS_EXTRACTOR);
             blockRegistryEvent.getRegistry().register(ModBlocks.NEON_ROD_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.ARGON_ROD_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.KRYPTON_BLOCK);
+            blockRegistryEvent.getRegistry().register(ModBlocks.KRYPTON_ROD_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.NEON_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.ARGON_BLOCK);
+            blockRegistryEvent.getRegistry().register(ModBlocks.KRYPTON_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.CHUNK_CLEANER);
             blockRegistryEvent.getRegistry().register(ModBlocks.VANTA_BLACK);
 
@@ -223,6 +224,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.JUNGLE_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.JUNGLE_LANTERN.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.NEON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.NEON_ROD_BLOCK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ARGON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ARGON_ROD_BLOCK.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.KRYPTON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.KRYPTON_ROD_BLOCK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.NEON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.NEON_BLOCK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ARGON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ARGON_BLOCK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.KRYPTON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.KRYPTON_BLOCK.getRegistryName()));
