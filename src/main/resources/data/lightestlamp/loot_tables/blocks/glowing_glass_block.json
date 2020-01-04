@@ -11,7 +11,7 @@
                 {
                     "type": "item",
                     "weight": 1,
-                    "name": "minecraft:glowstone"
+                    "name": "minecraft:glowstone_dust"
                 }
             ]
         }

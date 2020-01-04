@@ -20,5 +20,7 @@ public class ModTileEntities
     public static TileEntityType<EpsilonLampTileEntity> EPSILON_TE;
     public static TileEntityType<ZetaLampTileEntity> ZETA_TE;
     public static TileEntityType<OmegaLampTileEntity> OMEGA_TE;
-    //public static TileEntityType<GasExtractorTileEntity> EXTRACTOR_TE;
+    public static TileEntityType<ClearSeaLanternTileEntity> CLEARSEALANTERN_TE;
+    public static TileEntityType<DeepSeaLanternTileEntity> DEEPSEALANTERN_TE;
+    public static TileEntityType<OceanLanternTileEntity> OCEANLANTERN_TE;
 }

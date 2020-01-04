@@ -1,0 +1,6 @@
+{
+    "parent": "block/cube_all",
+    "textures": {
+        "all": "lightestlamp:block/deep_sea_lantern"
+    }
+}

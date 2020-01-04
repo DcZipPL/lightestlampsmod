@@ -17,6 +17,9 @@ public class ModBlocks
     @ObjectHolder(Reference.MOD_ID+":"+"light_air")
     public static final Block LIGHT_AIR = new LightAirBlock().setRegistryName("light_air");
 
+    @ObjectHolder(Reference.MOD_ID+":"+"waterloggable_light_air")
+    public static final Block WATERLOGGABLE_LIGHT_AIR = new WaterLoggableLightAirBlock().setRegistryName("waterloggable_light_air");
+
     @ObjectHolder(Reference.MOD_ID+":"+"clear_lamp")
     public static final Block CLEAR_LAMP = new ClearLampBlock(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
             .hardnessAndResistance(0.3f,1).lightValue(15)).setRegistryName("clear_lamp");
@@ -41,6 +44,15 @@ public class ModBlocks
 
     @ObjectHolder(Reference.MOD_ID+":"+"omega_lamp")
     public static final Block OMEGA_LAMP = new OmegaLampBlock().setRegistryName("omega_lamp");
+
+    @ObjectHolder(Reference.MOD_ID+":clear_sea_lantern")
+    public static final Block CLEAR_SEA_LANTERN = new ClearSeaLanternBlock().setRegistryName("clear_sea_lantern");
+
+    @ObjectHolder(Reference.MOD_ID+":deep_sea_lantern")
+    public static final Block DEEP_SEA_LANTERN = new DeepSeaLanternBlock().setRegistryName("deep_sea_lantern");
+
+    @ObjectHolder(Reference.MOD_ID  +":ocean_lantern")
+    public static final Block OCEAN_LANTERN = new OceanLanternBlock().setRegistryName("ocean_lantern");
 
     @ObjectHolder(Reference.MOD_ID+":"+"debug_chunk_cleaner")
     public static final Block CHUNK_CLEANER = new ChunkCleanerBlock(Block.Properties.create(Material.WOOL)).setRegistryName("debug_chunk_cleaner");

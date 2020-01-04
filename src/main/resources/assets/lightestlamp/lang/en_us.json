@@ -13,6 +13,9 @@
 	"block.lightestlamp.epsilon_lamp":"Epsilon Lamp",
 	"block.lightestlamp.zeta_lamp":"Zeta Lamp",
 	"block.lightestlamp.omega_lamp":"Omega Lamp",
+	"block.lightestlamp.clear_sea_lantern":"Clear Sea Lantern",
+	"block.lightestlamp.deep_sea_lantern":"Deep Sea Lantern",
+	"block.lightestlamp.ocean_lantern":"Ocean Lantern",
 	"block.lightestlamp.anti_lamp":"Anti-Lamp",
 
 	"block.lightestlamp.neon_block":"Neon Glowstone",
@@ -21,6 +24,7 @@
 
 	"block.lightestlamp.neon_rod_block":"Neon Rod Block",
 	"block.lightestlamp.argon_rod_block":"Argon Rod Block",
+	"block.lightestlamp.krypton_rod_block":"Krypton Rod Block",
 	"block.lightestlamp.glowing_glass_block":"Glowing Glass",
 	"block.lightestlamp.debug_chunk_cleaner":"Chunk Cleaner (Debug)",
 

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "CLC",
+    "RCR"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:conduit"
+    },
+    "L": {
+      "item": "lightestlamp:deep_sea_lantern"
+    },
+    "R": {
+      "item": "lightestlamp:argon_rod"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:ocean_lantern"
+  }
+}

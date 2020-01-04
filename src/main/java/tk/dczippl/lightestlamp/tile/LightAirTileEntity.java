@@ -1,6 +1,7 @@
 package tk.dczippl.lightestlamp.tile;
 
 import net.minecraft.block.Blocks;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
@@ -36,6 +37,14 @@ public class LightAirTileEntity extends TileEntity implements ITickableTileEntit
                 if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
                 {
                     world.setBlockState(pos1, Blocks.AIR.getDefaultState());
+                }
+                else if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR && !world.getBlockState(pos1).get(BlockStateProperties.WATERLOGGED))
+                {
+                    world.setBlockState(pos1, Blocks.AIR.getDefaultState());
+                }
+                else if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR && world.getBlockState(pos1).get(BlockStateProperties.WATERLOGGED))
+                {
+                    world.setBlockState(pos1, Blocks.WATER.getDefaultState());
                 }
             });
             world.setBlockState(pos, Blocks.AIR.getDefaultState());

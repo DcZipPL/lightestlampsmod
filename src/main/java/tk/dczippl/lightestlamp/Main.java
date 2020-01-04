@@ -134,6 +134,7 @@ public class Main
             blockRegistryEvent.getRegistry().register(ModBlocks.ANTI_LAMP);
 
             blockRegistryEvent.getRegistry().register(ModBlocks.LIGHT_AIR);
+            blockRegistryEvent.getRegistry().register(ModBlocks.WATERLOGGABLE_LIGHT_AIR);
             blockRegistryEvent.getRegistry().register(ModBlocks.CLEAR_LAMP);
             blockRegistryEvent.getRegistry().register(ModBlocks.ALFA_LAMP);
             blockRegistryEvent.getRegistry().register(ModBlocks.BETA_LAMP);
@@ -142,6 +143,9 @@ public class Main
             blockRegistryEvent.getRegistry().register(ModBlocks.EPSILON_LAMP);
             blockRegistryEvent.getRegistry().register(ModBlocks.ZETA_LAMP);
             blockRegistryEvent.getRegistry().register(ModBlocks.OMEGA_LAMP);
+            blockRegistryEvent.getRegistry().register(ModBlocks.CLEAR_SEA_LANTERN);
+            blockRegistryEvent.getRegistry().register(ModBlocks.DEEP_SEA_LANTERN);
+            blockRegistryEvent.getRegistry().register(ModBlocks.OCEAN_LANTERN);
             blockRegistryEvent.getRegistry().register(ModBlocks.GLOWING_GLASS_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.DARK_AIR);
             blockRegistryEvent.getRegistry().register(ModBlocks.JUNGLE_LANTERN);
@@ -190,6 +194,15 @@ public class Main
             TileEntityType<OmegaLampTileEntity> type6 = TileEntityType.Builder.create(OmegaLampTileEntity::new,ModBlocks.OMEGA_LAMP).build(null);
             type6.setRegistryName(Reference.MOD_ID, "omega_te");
 
+            TileEntityType<DeepSeaLanternTileEntity> type7 = TileEntityType.Builder.create(DeepSeaLanternTileEntity::new,ModBlocks.DEEP_SEA_LANTERN).build(null);
+            type7.setRegistryName(Reference.MOD_ID, "deep_sea_lantern_te");
+
+            TileEntityType<OceanLanternTileEntity> type8 = TileEntityType.Builder.create(OceanLanternTileEntity::new,ModBlocks.OCEAN_LANTERN).build(null);
+            type8.setRegistryName(Reference.MOD_ID, "ocean_lantern_te");
+
+            TileEntityType<ClearSeaLanternTileEntity> type9 = TileEntityType.Builder.create(ClearSeaLanternTileEntity::new,ModBlocks.CLEAR_SEA_LANTERN).build(null);
+            type9.setRegistryName(Reference.MOD_ID, "clear_sea_lantern_te");
+
             ModTileEntities.ALFA_TE = type0;
             ModTileEntities.BETA_TE = type1;
             ModTileEntities.GAMMA_TE = type2;
@@ -197,6 +210,9 @@ public class Main
             ModTileEntities.EPSILON_TE = type4;
             ModTileEntities.ZETA_TE = type5;
             ModTileEntities.OMEGA_TE = type6;
+            ModTileEntities.DEEPSEALANTERN_TE = type7;
+            ModTileEntities.OCEANLANTERN_TE = type8;
+            ModTileEntities.CLEARSEALANTERN_TE = type9;
             evt.getRegistry().register(ModTileEntities.ALFA_TE);
             evt.getRegistry().register(ModTileEntities.BETA_TE);
             evt.getRegistry().register(ModTileEntities.GAMMA_TE);
@@ -204,6 +220,9 @@ public class Main
             evt.getRegistry().register(ModTileEntities.EPSILON_TE);
             evt.getRegistry().register(ModTileEntities.ZETA_TE);
             evt.getRegistry().register(ModTileEntities.OMEGA_TE);
+            evt.getRegistry().register(ModTileEntities.DEEPSEALANTERN_TE);
+            evt.getRegistry().register(ModTileEntities.OCEANLANTERN_TE);
+            evt.getRegistry().register(ModTileEntities.CLEARSEALANTERN_TE);
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -220,6 +239,9 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.EPSILON_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.EPSILON_LAMP.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ZETA_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ZETA_LAMP.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.OMEGA_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.OMEGA_LAMP.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CLEAR_SEA_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CLEAR_SEA_LANTERN.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.DEEP_SEA_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.DEEP_SEA_LANTERN.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.OCEAN_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.OCEAN_LANTERN.getRegistryName()));
 
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.JUNGLE_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.JUNGLE_LANTERN.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.NEON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.NEON_ROD_BLOCK.getRegistryName()));
