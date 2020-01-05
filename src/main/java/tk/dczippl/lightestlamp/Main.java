@@ -102,7 +102,6 @@ public class Main
         // do something that can only be done on the client
         RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN, RenderType.func_228643_e_());
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK, RenderType.func_228643_e_());
-        RenderTypeLookup.setRenderLayer(ModBlocks.OMEGA_LAMP, RenderType.func_228657_l_());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
