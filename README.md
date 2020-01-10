@@ -20,6 +20,12 @@ https://www.curseforge.com/minecraft/mc-mods/lightest-lamps
 
 <img src="https://dczippl.tk/img/lightestlamps/ol_render.png" width="30"> Omega Lamp: 30 Light Range.
 
+<img src="https://dczippl.tk/img/lightestlamps/sl_render.png" width="30"> Clear Sea Lantern: 16 Light Range. Works in water.
+
+<img src="https://dczippl.tk/img/lightestlamps/sl_render.png" width="30"> Deep Sea Lantern: 17 Light Range. Works in water.
+
+<img src="https://dczippl.tk/img/lightestlamps/oceanl_render.png" width="30"> Ocean Lantern: 18 Light Range. Works in water.
+
  
 
 ##### Glowstones:
@@ -34,3 +40,5 @@ https://www.curseforge.com/minecraft/mc-mods/lightest-lamps
 ##### Other blocks:
 
 <img src="https://dczippl.tk/img/lightestlamps/vb_rendner.png" width="30"> Vantablack: Very Black Block.
+
+<img src="https://dczippl.tk/img/lightestlamps/ggt_render.png" width="30"> Glowing Glass.
