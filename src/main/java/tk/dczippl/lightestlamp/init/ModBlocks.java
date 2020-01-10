@@ -54,6 +54,9 @@ public class ModBlocks
     @ObjectHolder(Reference.MOD_ID  +":ocean_lantern")
     public static final Block OCEAN_LANTERN = new OceanLanternBlock().setRegistryName("ocean_lantern");
 
+    @ObjectHolder(Reference.MOD_ID  +":alchemical_lamp")
+    public static final Block ALCHEMICAL_LAMP = new AlchemicalLampBlock().setRegistryName("alchemical_lamp");
+
     @ObjectHolder(Reference.MOD_ID+":"+"debug_chunk_cleaner")
     public static final Block CHUNK_CLEANER = new ChunkCleanerBlock(Block.Properties.create(Material.WOOL)).setRegistryName("debug_chunk_cleaner");
 

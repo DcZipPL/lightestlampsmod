@@ -51,6 +51,7 @@
 	"tooltip.type.zeta": "Type: ζ (20 Blocks Light)",
 	"tooltip.type.omega": "Type: Ω (30 Blocks Light)",
 	"tooltip.type.antimatter": "Antimatter",
+	"tooltip.type.alchemical": "Interdiction",
 	"tooltip.inverted": "Always Active",
 	"tooltip.penetration": "Light Penetration",
 	"tooltip.speed_grow": "Grow Glow",

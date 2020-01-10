@@ -1,13 +1,13 @@
 package tk.dczippl.lightestlamp.blocks;
 
+import net.java.games.input.Keyboard;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -15,7 +15,6 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
 import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.tile.AlfaLampTileEntity;
 

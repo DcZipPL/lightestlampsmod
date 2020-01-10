@@ -23,4 +23,5 @@ public class ModTileEntities
     public static TileEntityType<ClearSeaLanternTileEntity> CLEARSEALANTERN_TE;
     public static TileEntityType<DeepSeaLanternTileEntity> DEEPSEALANTERN_TE;
     public static TileEntityType<OceanLanternTileEntity> OCEANLANTERN_TE;
+    public static TileEntityType<AlchemicalLampTileEntity> ALCHEMICALLAMP_TE;
 }

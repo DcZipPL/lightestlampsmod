@@ -3,12 +3,20 @@ package tk.dczippl.lightestlamp;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.IProjectile;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.projectile.ArrowEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent;
@@ -131,6 +139,7 @@ public class Main
         {
             // register a new block here
             blockRegistryEvent.getRegistry().register(ModBlocks.ANTI_LAMP);
+            blockRegistryEvent.getRegistry().register(ModBlocks.ALCHEMICAL_LAMP);
 
             blockRegistryEvent.getRegistry().register(ModBlocks.LIGHT_AIR);
             blockRegistryEvent.getRegistry().register(ModBlocks.WATERLOGGABLE_LIGHT_AIR);
@@ -202,6 +211,9 @@ public class Main
             TileEntityType<ClearSeaLanternTileEntity> type9 = TileEntityType.Builder.create(ClearSeaLanternTileEntity::new,ModBlocks.CLEAR_SEA_LANTERN).build(null);
             type9.setRegistryName(Reference.MOD_ID, "clear_sea_lantern_te");
 
+            TileEntityType<AlchemicalLampTileEntity> type10 = TileEntityType.Builder.create(AlchemicalLampTileEntity::new,ModBlocks.ALCHEMICAL_LAMP).build(null);
+            type10.setRegistryName(Reference.MOD_ID, "alchemical_lamp_te");
+
             ModTileEntities.ALFA_TE = type0;
             ModTileEntities.BETA_TE = type1;
             ModTileEntities.GAMMA_TE = type2;
@@ -212,6 +224,7 @@ public class Main
             ModTileEntities.DEEPSEALANTERN_TE = type7;
             ModTileEntities.OCEANLANTERN_TE = type8;
             ModTileEntities.CLEARSEALANTERN_TE = type9;
+            ModTileEntities.ALCHEMICALLAMP_TE = type10;
             evt.getRegistry().register(ModTileEntities.ALFA_TE);
             evt.getRegistry().register(ModTileEntities.BETA_TE);
             evt.getRegistry().register(ModTileEntities.GAMMA_TE);
@@ -222,6 +235,7 @@ public class Main
             evt.getRegistry().register(ModTileEntities.DEEPSEALANTERN_TE);
             evt.getRegistry().register(ModTileEntities.OCEANLANTERN_TE);
             evt.getRegistry().register(ModTileEntities.CLEARSEALANTERN_TE);
+            evt.getRegistry().register(ModTileEntities.ALCHEMICALLAMP_TE);
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -241,6 +255,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CLEAR_SEA_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CLEAR_SEA_LANTERN.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.DEEP_SEA_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.DEEP_SEA_LANTERN.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.OCEAN_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.OCEAN_LANTERN.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ALCHEMICAL_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ALCHEMICAL_LAMP.getRegistryName()));
 
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.JUNGLE_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.JUNGLE_LANTERN.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.NEON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.NEON_ROD_BLOCK.getRegistryName()));
@@ -271,9 +286,41 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_SMALL_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.NEON_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.CARBON_NANOTUBE);
-            //itemRegistryEvent.getRegistry().register(ModItems.WRITTEN_BOOK);
+            itemRegistryEvent.getRegistry().register(ModItems.MOON_SHARD);
+            itemRegistryEvent.getRegistry().register(ModItems.ALCHEMICAL_DUST);
+            itemRegistryEvent.getRegistry().register(ModItems.STICKANDBOWL);
             itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
             LOGGER.info("HELLO from Register Item");
+        }
+    }
+
+    public static void repelEntitiesInAABBFromPoint(World world, AxisAlignedBB effectBounds, double x, double y, double z, boolean ignore)
+    {
+        List<Entity> list = world.getEntitiesWithinAABB(Entity.class, effectBounds);
+
+        for (Entity ent : list)
+        {
+            if ((ent instanceof LivingEntity) || (ent instanceof IProjectile))
+            {
+                if (!ignore && !(ent instanceof IMob || ent instanceof IProjectile))
+                {
+                    continue;
+                }
+                else
+                {
+                    if (ent instanceof ArrowEntity && ((ArrowEntity) ent).onGround)
+                    {
+                        continue;
+                    }
+                    Vec3d p = new Vec3d(x, y, z);
+                    Vec3d t = ent.getPositionVec();
+                    double distance = p.distanceTo(t) + 0.1D;
+
+                    Vec3d r = new Vec3d(t.x - p.x, t.y - p.y, t.z - p.z);
+
+                    ent.setMotion((r.x / 1.5D / distance+ent.getMotion().x),(r.y / 1.5D / distance+ent.getMotion().y),(r.z / 1.5D / distance+ent.getMotion().z));
+                }
+            }
         }
     }
 }
