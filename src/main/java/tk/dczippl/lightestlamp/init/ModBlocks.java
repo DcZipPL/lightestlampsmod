@@ -7,6 +7,7 @@ import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.registries.ObjectHolder;
 import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.blocks.*;
+import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeBlock;
 
 @ObjectHolder(Reference.MOD_ID)
 public class ModBlocks
@@ -104,8 +105,9 @@ public class ModBlocks
     @ObjectHolder(Reference.MOD_ID+":"+"glowing_glass_block")
     public static final Block GLOWING_GLASS_BLOCK = new GlowingGlassBlock().setRegistryName("glowing_glass_block");
 
-    //public static final Block GAS_EXTRACTOR = new GasExtractorBlock(Block.Properties.create(Material.IRON).sound(SoundType.METAL)
-    // .hardnessAndResistance(3,1)).setRegistryName("gas_extractor");
+    @ObjectHolder(Reference.MOD_ID+":"+"gas_centrifuge")
+    public static final Block GAS_EXTRACTOR = new GasCentrifugeBlock(Block.Properties.create(Material.IRON).sound(SoundType.METAL)
+    .hardnessAndResistance(3,1)).setRegistryName("gas_centrifuge");
 
     public static final Block BIG_FLOWER = new BigFlowerBlock(Block.Properties.create(Material.PLANTS, MaterialColor.PINK)
             .sound(SoundType.PLANT)).setRegistryName("big_flower");

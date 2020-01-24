@@ -1,9 +1,6 @@
 package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
-import net.minecraft.block.AbstractFurnaceBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
@@ -20,13 +17,16 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
-public class GasCentrifugeBlock extends AbstractFurnaceBlock
+import static net.minecraft.state.properties.BlockStateProperties.FACING;
+
+public class GasCentrifugeBlock extends ContainerBlock
 {
-    protected GasCentrifugeBlock(Block.Properties builder) {
+    public GasCentrifugeBlock(Block.Properties builder) {
         super(builder);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 
+    @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
         return new GasCentrifugeTile();
     }
@@ -45,7 +45,6 @@ public class GasCentrifugeBlock extends AbstractFurnaceBlock
      * Interface for handling interaction with blocks that impliment AbstractFurnaceBlock. Called in onBlockActivated
      * inside AbstractFurnaceBlock.
      */
-    @Override
     protected void interactWith(World worldIn, BlockPos pos, PlayerEntity player) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         if (tileentity instanceof GasCentrifugeTile) {

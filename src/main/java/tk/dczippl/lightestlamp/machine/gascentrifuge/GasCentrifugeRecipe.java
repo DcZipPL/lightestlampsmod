@@ -26,7 +26,7 @@ public class GasCentrifugeRecipe
 
         public static ItemStack[] getRecipeOutputs(ItemStack input)
         {
-            if (input == GasCentrifugeRecipe.glowstone.top_input)
+            if (input.getItem() == GasCentrifugeRecipe.glowstone.top_input.getItem())
             {
                 ItemStack[] items = new ItemStack[]{GasCentrifugeRecipe.glowstone.right_up_output, GasCentrifugeRecipe.glowstone.left_up_output, GasCentrifugeRecipe.glowstone.right_bottom_output, GasCentrifugeRecipe.glowstone.left_bottom_output};
                 return items;

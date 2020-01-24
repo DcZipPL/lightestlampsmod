@@ -2,7 +2,6 @@ package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +9,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.FurnaceContainer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -24,6 +22,8 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import tk.dczippl.lightestlamp.init.ModContainers;
+import tk.dczippl.lightestlamp.init.ModTileEntities;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -31,30 +31,36 @@ import java.util.Map;
 
 public class GasCentrifugeTile extends LockableTileEntity implements ISidedInventory, ITickableTileEntity
 {
+    public GasCentrifugeTile(TileEntityType type)
+    {
+        super(type);
+    }
     public GasCentrifugeTile()
     {
-        super();
+        super(ModTileEntities.CENTRIFUGE_TE);
     }
 
     protected ITextComponent getDefaultName()
     {
-        return new TranslationTextComponent("container.furnace");
+        return new TranslationTextComponent("container.gascentrifuge");
     }
 
     protected Container createMenu(int id, PlayerInventory player)
     {
-        return new FurnaceContainer(id, player, this, this.furnaceData);
+        return new GasCentrifugeContainer(ModContainers.GAS_CENTRIFUGE,id, player, this, this.furnaceData);
     }
 
 
     private static final int[] SLOTS_UP = new int[]{0};
     private static final int[] SLOTS_DOWN = new int[]{2, 1};
     private static final int[] SLOTS_HORIZONTAL = new int[]{1};
-    protected NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
+    protected NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
     private int burnTime;
     private int recipesUsed;
     private int cookTime;
     private int cookTimeTotal;
+    private int redstoneMode;
+    private int liquidMode;
     protected final IIntArray furnaceData = new IIntArray() {
         @Override
         public int get(int index) {
@@ -67,6 +73,10 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                     return GasCentrifugeTile.this.cookTime;
                 case 3:
                     return GasCentrifugeTile.this.cookTimeTotal;
+                case 4:
+                    return GasCentrifugeTile.this.redstoneMode;
+                case 5:
+                    return GasCentrifugeTile.this.liquidMode;
                 default:
                     return 0;
             }
@@ -86,15 +96,21 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                     break;
                 case 3:
                     GasCentrifugeTile.this.cookTimeTotal = value;
+                    break;
+                case 4:
+                    GasCentrifugeTile.this.redstoneMode = value;
+                    break;
+                case 5:
+                    GasCentrifugeTile.this.liquidMode = value;
+                    break;
             }
 
         }
 
         public int size() {
-            return 4;
+            return 6;
         }
     };
-    private final Map<ResourceLocation, Integer> field_214022_n = Maps.newHashMap();
 
     @Deprecated //Forge - get burn times by calling ForgeHooks#getBurnTime(ItemStack)
     public static Map<Item, Integer> getBurnTimes() {
@@ -129,13 +145,6 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         this.cookTimeTotal = compound.getInt("CookTimeTotal");
         this.recipesUsed = this.getBurnTime(this.items.get(1));
         int i = compound.getShort("RecipesUsedSize");
-
-        for(int j = 0; j < i; ++j) {
-            ResourceLocation resourcelocation = new ResourceLocation(compound.getString("RecipeLocation" + j));
-            int k = compound.getInt("RecipeAmount" + j);
-            this.field_214022_n.put(resourcelocation, k);
-        }
-
     }
 
     @Override
@@ -145,14 +154,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         compound.putInt("CookTime", this.cookTime);
         compound.putInt("CookTimeTotal", this.cookTimeTotal);
         ItemStackHelper.saveAllItems(compound, this.items);
-        compound.putShort("RecipesUsedSize", (short)this.field_214022_n.size());
         int i = 0;
-
-        for(Map.Entry<ResourceLocation, Integer> entry : this.field_214022_n.entrySet()) {
-            compound.putString("RecipeLocation" + i, entry.getKey().toString());
-            compound.putInt("RecipeAmount" + i, entry.getValue());
-            ++i;
-        }
 
         return compound;
     }
@@ -168,7 +170,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         if (!this.world.isRemote) {
             ItemStack itemstack = this.items.get(1);
             if (this.isBurning() || !itemstack.isEmpty() && !this.items.get(0).isEmpty()) {
-                if (!this.isBurning() && this.canSmelt(irecipe)) {
+                if (!this.isBurning() && this.canSmelt()) {
                     this.burnTime = this.getBurnTime(itemstack);
                     this.recipesUsed = this.burnTime;
                     if (this.isBurning()) {
@@ -186,12 +188,12 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                     }
                 }
 
-                if (this.isBurning() && this.canSmelt(irecipe)) {
+                if (this.isBurning() && this.canSmelt()) {
                     ++this.cookTime;
                     if (this.cookTime == this.cookTimeTotal) {
                         this.cookTime = 0;
                         this.cookTimeTotal = getCookTimeTotal();
-                        this.func_214007_c(irecipe);
+                        this.DoSomething();
                         flag1 = true;
                     }
                 } else {
@@ -203,7 +205,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
             if (flag != this.isBurning()) {
                 flag1 = true;
-                this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(AbstractFurnaceBlock.LIT, Boolean.valueOf(this.isBurning())), 3);
+                //this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(AbstractFurnaceBlock.LIT, Boolean.valueOf(this.isBurning())), 3);
             }
         }
 
@@ -237,41 +239,51 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                         return itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize(); // Forge fix: make furnace respect stack sizes in furnace recipes
                     }
                 }
+                return false;
             }
         } else {
             return false;
         }
     }
 
-    private void func_214007_c() {
-        if (p_214007_1_ != null && this.canSmelt(p_214007_1_)) {
+    private void DoSomething(/*Here was recipe*/)
+    {
+        if (this.canSmelt()) {
             ItemStack itemstack = this.items.get(0);
-            ItemStack itemstack1 = p_214007_1_.getRecipeOutput();
+            ItemStack[] itemstacks = GasCentrifugeRecipe.BasicGasCentrifugeRecipe.getRecipeOutputs(items.get(0));
             ItemStack itemstack2 = this.items.get(2);
+            ItemStack itemstack3 = this.items.get(3);
+            ItemStack itemstack4 = this.items.get(4);
             if (itemstack2.isEmpty()) {
-                this.items.set(2, itemstack1.copy());
-            } else if (itemstack2.getItem() == itemstack1.getItem()) {
-                itemstack2.grow(itemstack1.getCount());
+                this.items.set(2, itemstacks[0].copy());
+            } else if (itemstack2.getItem() == itemstacks[0].getItem()) {
+                itemstack2.grow(itemstacks[0].getCount());
             }
-
-            if (!this.world.isRemote) {
-                this.setRecipeUsed(p_214007_1_);
+            if (itemstack3.isEmpty()) {
+                this.items.set(3, itemstacks[1].copy());
+            } else if (itemstack3.getItem() == itemstacks[1].getItem()) {
+                itemstack3.grow(itemstacks[1].getCount());
+            }
+            if (itemstack4.isEmpty()) {
+                this.items.set(4, itemstacks[2].copy());
+            } else if (itemstack4.getItem() == itemstacks[2].getItem()) {
+                itemstack4.grow(itemstacks[2].getCount());
             }
 
             if (itemstack.getItem() == Blocks.WET_SPONGE.asItem() && !this.items.get(1).isEmpty() && this.items.get(1).getItem() == Items.BUCKET) {
                 this.items.set(1, new ItemStack(Items.WATER_BUCKET));
-            }
+            } //TODO: CHECK THAT
 
             itemstack.shrink(1);
         }
     }
 
-    protected int getBurnTime(ItemStack p_213997_1_) {
-        if (p_213997_1_.isEmpty()) {
+    protected int getBurnTime(ItemStack stack) {
+        if (stack.isEmpty()) {
             return 0;
         } else {
-            Item item = p_213997_1_.getItem();
-            return net.minecraftforge.common.ForgeHooks.getBurnTime(p_213997_1_);
+            Item item = stack.getItem();
+            return getBurnTimes().getOrDefault(item, 0);
         }
     }
 
@@ -279,6 +291,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         return net.minecraftforge.common.ForgeHooks.getBurnTime(p_213991_0_) > 0;
     }
 
+    @Override
     public int[] getSlotsForFace(Direction side) {
         if (side == Direction.DOWN) {
             return SLOTS_DOWN;
@@ -290,6 +303,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     /**
      * Returns true if automation can insert the given item in the given slot from the given side.
      */
+    @Override
     public boolean canInsertItem(int index, ItemStack itemStackIn, @Nullable Direction direction) {
         return this.isItemValidForSlot(index, itemStackIn);
     }
@@ -297,6 +311,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     /**
      * Returns true if automation can extract the given item in the given slot from the given side.
      */
+    @Override
     public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
         if (direction == Direction.DOWN && index == 1) {
             Item item = stack.getItem();
@@ -311,10 +326,12 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     /**
      * Returns the number of slots in the inventory.
      */
+    @Override
     public int getSizeInventory() {
         return this.items.size();
     }
 
+    @Override
     public boolean isEmpty() {
         for(ItemStack itemstack : this.items) {
             if (!itemstack.isEmpty()) {
@@ -328,6 +345,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     /**
      * Returns the stack in the given slot.
      */
+    @Override
     public ItemStack getStackInSlot(int index) {
         return this.items.get(index);
     }
@@ -335,6 +353,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     /**
      * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
      */
+    @Override
     public ItemStack decrStackSize(int index, int count) {
         return ItemStackHelper.getAndSplit(this.items, index, count);
     }
@@ -342,6 +361,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     /**
      * Removes a stack from the given slot and returns it.
      */
+    @Override
     public ItemStack removeStackFromSlot(int index) {
         return ItemStackHelper.getAndRemove(this.items, index);
     }
@@ -349,6 +369,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     /**
      * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
      */
+    @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         ItemStack itemstack = this.items.get(index);
         boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
@@ -368,6 +389,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     /**
      * Don't rename this method to canInteractWith due to conflicts with Container
      */
+    @Override
     public boolean isUsableByPlayer(PlayerEntity player) {
         if (this.world.getTileEntity(this.pos) != this) {
             return false;
@@ -395,15 +417,6 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     @Override
     public void clear() {
         this.items.clear();
-    }
-
-    public void setRecipeUsed(@Nullable IRecipe<?> recipe) {
-        if (recipe != null) {
-            this.field_214022_n.compute(recipe.getId(), (p_214004_0_, p_214004_1_) -> {
-                return 1 + (p_214004_1_ == null ? 0 : p_214004_1_);
-            });
-        }
-
     }
 
     public void onCrafting(PlayerEntity player) {

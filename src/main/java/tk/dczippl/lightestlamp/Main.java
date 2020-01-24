@@ -1,6 +1,7 @@
 package tk.dczippl.lightestlamp;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
@@ -8,6 +9,8 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -16,6 +19,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -41,8 +45,12 @@ import tk.dczippl.lightestlamp.blocks.LightAirBlock;
 import tk.dczippl.lightestlamp.blocks.OmegaLampBlock;
 import tk.dczippl.lightestlamp.datagen.DataGenerators;
 import tk.dczippl.lightestlamp.init.ModBlocks;
+import tk.dczippl.lightestlamp.init.ModContainers;
 import tk.dczippl.lightestlamp.init.ModItems;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
+import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeContainer;
+import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
+import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 import tk.dczippl.lightestlamp.tile.*;
 import tk.dczippl.lightestlamp.util.WorldGenerator;
 
@@ -102,6 +110,7 @@ public class Main
     private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
+        ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
         WorldGenerator.setupWorldGeneraton();
     }
 
@@ -157,7 +166,7 @@ public class Main
             blockRegistryEvent.getRegistry().register(ModBlocks.GLOWING_GLASS_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.DARK_AIR);
             blockRegistryEvent.getRegistry().register(ModBlocks.JUNGLE_LANTERN);
-            //blockRegistryEvent.getRegistry().register(ModBlocks.GAS_EXTRACTOR);
+            blockRegistryEvent.getRegistry().register(ModBlocks.GAS_EXTRACTOR);
             blockRegistryEvent.getRegistry().register(ModBlocks.NEON_ROD_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.ARGON_ROD_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.KRYPTON_ROD_BLOCK);
@@ -171,6 +180,13 @@ public class Main
             //END OF AUTO-GENERATE CODE |GC-01|
 
             LOGGER.info("HELLO from Register Block");
+        }
+
+        @SubscribeEvent
+        public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> containerTypeRegistryEvent)
+        {
+            // register a new block here
+            containerTypeRegistryEvent.getRegistry().register(ModContainers.GAS_CENTRIFUGE);
         }
 
         @SubscribeEvent
@@ -214,6 +230,9 @@ public class Main
             TileEntityType<AlchemicalLampTileEntity> type10 = TileEntityType.Builder.create(AlchemicalLampTileEntity::new,ModBlocks.ALCHEMICAL_LAMP).build(null);
             type10.setRegistryName(Reference.MOD_ID, "alchemical_lamp_te");
 
+            TileEntityType<GasCentrifugeTile> centrifuge_te = TileEntityType.Builder.create(GasCentrifugeTile::new,ModBlocks.GAS_EXTRACTOR).build(null);
+            centrifuge_te.setRegistryName(Reference.MOD_ID, "centrifuge_te");
+
             ModTileEntities.ALFA_TE = type0;
             ModTileEntities.BETA_TE = type1;
             ModTileEntities.GAMMA_TE = type2;
@@ -225,6 +244,7 @@ public class Main
             ModTileEntities.OCEANLANTERN_TE = type8;
             ModTileEntities.CLEARSEALANTERN_TE = type9;
             ModTileEntities.ALCHEMICALLAMP_TE = type10;
+            ModTileEntities.CENTRIFUGE_TE = centrifuge_te;
             evt.getRegistry().register(ModTileEntities.ALFA_TE);
             evt.getRegistry().register(ModTileEntities.BETA_TE);
             evt.getRegistry().register(ModTileEntities.GAMMA_TE);
@@ -236,6 +256,7 @@ public class Main
             evt.getRegistry().register(ModTileEntities.OCEANLANTERN_TE);
             evt.getRegistry().register(ModTileEntities.CLEARSEALANTERN_TE);
             evt.getRegistry().register(ModTileEntities.ALCHEMICALLAMP_TE);
+            evt.getRegistry().register(ModTileEntities.CENTRIFUGE_TE);
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -267,6 +288,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CHUNK_CLEANER, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CHUNK_CLEANER.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.VANTA_BLACK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.VANTA_BLACK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GLOWING_GLASS_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GLOWING_GLASS_BLOCK.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GAS_EXTRACTOR, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GAS_EXTRACTOR.getRegistryName()));
 
             // register a new item here
 
