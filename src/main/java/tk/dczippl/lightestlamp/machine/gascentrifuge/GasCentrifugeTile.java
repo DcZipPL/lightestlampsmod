@@ -68,14 +68,12 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                 case 0:
                     return GasCentrifugeTile.this.burnTime;
                 case 1:
-                    return GasCentrifugeTile.this.recipesUsed;
+                    return GasCentrifugeTile.this.redstoneMode;
                 case 2:
                     return GasCentrifugeTile.this.cookTime;
                 case 3:
                     return GasCentrifugeTile.this.cookTimeTotal;
                 case 4:
-                    return GasCentrifugeTile.this.redstoneMode;
-                case 5:
                     return GasCentrifugeTile.this.liquidMode;
                 default:
                     return 0;
@@ -89,7 +87,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                     GasCentrifugeTile.this.burnTime = value;
                     break;
                 case 1:
-                    GasCentrifugeTile.this.recipesUsed = value;
+                    GasCentrifugeTile.this.redstoneMode = value;
                     break;
                 case 2:
                     GasCentrifugeTile.this.cookTime = value;
@@ -98,9 +96,6 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                     GasCentrifugeTile.this.cookTimeTotal = value;
                     break;
                 case 4:
-                    GasCentrifugeTile.this.redstoneMode = value;
-                    break;
-                case 5:
                     GasCentrifugeTile.this.liquidMode = value;
                     break;
             }
@@ -108,7 +103,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         }
 
         public int size() {
-            return 6;
+            return 5;
         }
     };
 

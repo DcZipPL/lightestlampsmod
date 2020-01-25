@@ -1,15 +1,20 @@
 package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
+import com.google.common.base.Preconditions;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 import tk.dczippl.lightestlamp.init.ModItems;
 import tk.dczippl.lightestlamp.util.TheoreticalFluid;
+
+import javax.annotation.Nonnull;
 
 public class GasCentrifugeRecipe
 {
     public static final BasicGasCentrifugeRecipe glowstone = new BasicGasCentrifugeRecipe(
-            new ItemStack(ModItems.EMPTY_ROD), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.NEON_DUST),new ItemStack(ModItems.ARGON_DUST),new ItemStack(ModItems.KRYPTON_DUST),ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,5));
+            new ItemStack(ModItems.EMPTY_ROD), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.NEON_DUST),new ItemStack(ModItems.ARGON_DUST),new ItemStack(ModItems.KRYPTON_SMALL_DUST),ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,5));
 
     public static class BasicGasCentrifugeRecipe
     {
@@ -52,5 +57,21 @@ public class GasCentrifugeRecipe
         Water,
         Lava,
         Bromine
+    }
+
+    private final ItemStack input;
+    private final ItemStack output;
+
+    public GasCentrifugeRecipe(ItemStack input, ItemStack output) {
+        this.input = input;
+        this.output = output;
+    }
+
+    public ItemStack getInput() {
+        return input;
+    }
+
+    public ItemStack getOutput() {
+        return output;
     }
 }

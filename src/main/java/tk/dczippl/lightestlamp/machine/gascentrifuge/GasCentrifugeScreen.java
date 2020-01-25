@@ -60,6 +60,19 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
             if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20)
             {
                 Main.LOGGER.info("redstone button clicked!");
+                if (sc.field_217064_e.get(1) == 2)
+                {
+                    sc.field_217064_e.set(1, 0);
+                } else {
+                    sc.field_217064_e.set(1, sc.field_217064_e.get(1)+1);
+                }
+            }
+        }
+        if (mouseX - marginHorizontal >= 25 && mouseX - marginHorizontal <= 36)
+        {
+            if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20)
+            {
+                Main.LOGGER.info("redstone button clicked!");
                 if (sc.field_217064_e.get(4) == 2)
                 {
                     sc.field_217064_e.set(4, 0);
@@ -81,7 +94,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         this.font.drawString(this.playerInventory.getDisplayName().getFormattedText(), 8.0F, (float)(this.ySize - 96 + 2), 4210752);
 
         String redstone_tooltip = "Mode: Ignore Redstone";
-        switch (sc.field_217064_e.get(4))
+        switch (sc.field_217064_e.get(1))
         {
             case 0:
                 redstone_tooltip = "Mode: Ignore Redstone";
@@ -91,6 +104,19 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
                 break;
             case 2:
                 redstone_tooltip = "Mode: Redstone on";
+                break;
+        }
+        String fluid_tooltip = "Mode: Neutralize Waste";
+        switch (sc.field_217064_e.get(4))
+        {
+            case 0:
+                fluid_tooltip = "Mode: Neutralize Waste";
+                break;
+            case 1:
+                fluid_tooltip = "Mode: Store";
+                break;
+            case 2:
+                fluid_tooltip = "Mode: Dump";
                 break;
         }
 
@@ -104,7 +130,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         checker = new HoverChecker(marginVertical+9,marginVertical+20,marginHorizontal+25,marginHorizontal+36,0);
         if (checker.checkHover(mouseX,mouseY, true))
         {
-            renderTooltip("Mode: Neutralize Waste",mouseX-marginHorizontal+4,mouseY-marginVertical+4);
+            renderTooltip(fluid_tooltip,mouseX-marginHorizontal+4,mouseY-marginVertical+4);
         }
         renderHoveredToolTip(mouseX-marginHorizontal+4,mouseY-marginVertical+4);
     }
@@ -119,9 +145,36 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         int j = this.guiTop;
         this.blit(i, j, 0, 0, this.xSize, this.ySize);
         if (((GasCentrifugeContainer)this.container).func_217061_l()) {
-            int k = ((GasCentrifugeContainer)this.container).getBurnLeftScaled();
+            int k = ((GasCentrifugeContainer)this.container).getBurnLeftScaled()*4;
             //Z Y T-Z T-Y W H
-            this.blit(i + 151, j + 65 + 12 - k, 203, (64 - k)/4, 9, (k + 1)*4);
+            this.blit(i + 151, j + 65 + 12 - k, 203, 64 - k, 9, k + 1);
+        }
+
+        int marginHorizontal = (width - xSize) / 2;
+        int marginVertical = (height - ySize) / 2;
+        switch (sc.field_217064_e.get(1))
+        {
+            case 0:
+                blit(marginHorizontal+9, marginVertical+9, 176, 128, 12, 12);
+                break;
+            case 1:
+                blit(marginHorizontal+9, marginVertical+9, 176, 141, 12, 12);
+                break;
+            case 2:
+                blit(marginHorizontal+9, marginVertical+9, 176, 154, 12, 12);
+                break;
+        }
+        switch (sc.field_217064_e.get(4))
+        {
+            case 0:
+                blit(marginHorizontal+25, marginVertical+9, 192, 128, 12, 12);
+                break;
+            case 1:
+                blit(marginHorizontal+25, marginVertical+9, 192, 141, 12, 12);
+                break;
+            case 2:
+                blit(marginHorizontal+25, marginVertical+9, 192, 154, 12, 12);
+                break;
         }
 
         int l = ((GasCentrifugeContainer)this.container).getCookProgressionScaled();

@@ -24,13 +24,13 @@ public class GasCentrifugeContainer extends Container
     protected final World world;
 
     protected GasCentrifugeContainer(ContainerType<?> containerTypeIn, int id, PlayerInventory playerInventoryIn) {
-        this(containerTypeIn, id, playerInventoryIn, new Inventory(3), new IntArray(6));
+        this(containerTypeIn, id, playerInventoryIn, new Inventory(3), new IntArray(5));
     }
 
     protected GasCentrifugeContainer(ContainerType<?> containerTypeIn, int id, PlayerInventory playerInventoryIn, IInventory furnaceInventoryIn, IIntArray p_i50104_6_) {
         super(containerTypeIn, id);
-        assertInventorySize(furnaceInventoryIn, 3);
-        assertIntArraySize(p_i50104_6_, 4);
+        assertInventorySize(furnaceInventoryIn, 5);
+        assertIntArraySize(p_i50104_6_, 5);
         this.furnaceInventory = furnaceInventoryIn;
         this.field_217064_e = p_i50104_6_;
         this.world = playerInventoryIn.player.world;
@@ -56,7 +56,7 @@ public class GasCentrifugeContainer extends Container
 
     public GasCentrifugeContainer(int i, PlayerInventory playerInventory, PacketBuffer packetBuffer)
     {
-        this(ModContainers.GAS_CENTRIFUGE, i, playerInventory, new Inventory(3), new IntArray(4));
+        this(ModContainers.GAS_CENTRIFUGE, i, playerInventory, new Inventory(6), new IntArray(5));
     }
 
     public void func_201771_a(RecipeItemHelper p_201771_1_) {
