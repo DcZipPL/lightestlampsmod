@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        " B ",
+        "B#B",
+        " B "
+    ],
+   
+    "key":
+    {
+        "#":
+        {
+            "item": "minecraft:nether_star"
+        },
+        "B":
+        {
+            "item": "lightestlamp:boron_nugget"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:krypton_centrifuge_filter",
+        "count": 1
+    }
+}

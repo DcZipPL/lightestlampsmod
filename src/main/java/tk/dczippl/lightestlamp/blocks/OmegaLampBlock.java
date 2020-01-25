@@ -65,8 +65,8 @@ public class OmegaLampBlock extends Block
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.type.omega").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.penetration").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.inverted").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.omega").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").applyTextStyle(TextFormatting.GRAY));
     }
 }

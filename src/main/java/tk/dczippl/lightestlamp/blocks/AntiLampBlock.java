@@ -64,7 +64,7 @@ public class AntiLampBlock extends Block
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.type.antimatter").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lamp.wip").applyTextStyle(TextFormatting.RED));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.antimatter").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.lamp.wip").applyTextStyle(TextFormatting.RED));
     }
 }

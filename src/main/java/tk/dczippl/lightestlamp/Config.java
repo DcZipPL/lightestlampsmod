@@ -37,11 +37,11 @@ public class Config {
         COMMON_BUILDER.comment("World Generation settings").push(CATEGORY_WORLDGEN);
 
         NEON_GLOWSTONE_SPAWN = COMMON_BUILDER.comment("Generation of Neon Glowstone in nether")
-                .define("neon_gen",true);
+                .define("neon_gen",false);
         ARGON_GLOWSTONE_SPAWN = COMMON_BUILDER.comment("Generation of Argon Glowstone in nether")
-                .define("argon_gen",true);
+                .define("argon_gen",false);
         KRYPTON_GLOWSTONE_SPAWN = COMMON_BUILDER.comment("Generation of Krypton Glowstone in nether")
-                .define("krypton_gen",true);
+                .define("krypton_gen",false);
 
         COMMON_BUILDER.pop();
     }
@@ -61,9 +61,5 @@ public class Config {
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading configEvent) {
 
-    }
-
-    @SubscribeEvent
-    public static void onReload(final ModConfig.ConfigReloading configEvent) {
     }
 }

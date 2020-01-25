@@ -1,6 +1,8 @@
 package tk.dczippl.lightestlamp;
 
+import al132.chemlib.ChemLib;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -15,6 +17,9 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -23,6 +28,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.GenericEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -53,8 +59,10 @@ import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 import tk.dczippl.lightestlamp.tile.*;
 import tk.dczippl.lightestlamp.util.WorldGenerator;
+import tk.dczippl.lightestlamp.util.conditions.ChemLibCompability;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -112,13 +120,14 @@ public class Main
         // some preinit code
         ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
         WorldGenerator.setupWorldGeneraton();
+        new RecipeManager().getRecipes().removeIf(p->p.getRecipeOutput().getItem()==ModItems.BORON_INGOT);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
     {
         // do something that can only be done on the client
-        RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN, RenderType.func_228643_e_());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK, RenderType.func_228643_e_());
+        RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK, RenderType.cutout());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
@@ -185,7 +194,7 @@ public class Main
         @SubscribeEvent
         public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> containerTypeRegistryEvent)
         {
-            // register a new block here
+            // register a new container here
             containerTypeRegistryEvent.getRegistry().register(ModContainers.GAS_CENTRIFUGE);
         }
 
@@ -305,6 +314,8 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.NEON_ROD);
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_DUST);
+            itemRegistryEvent.getRegistry().register(ModItems.ARGON_PILE);
+            itemRegistryEvent.getRegistry().register(ModItems.NEON_PILE);
             itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_SMALL_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.NEON_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.CARBON_NANOTUBE);
@@ -312,6 +323,14 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.ALCHEMICAL_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.STICKANDBOWL);
             itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
+            itemRegistryEvent.getRegistry().register(ModItems.BORON_DUST);
+            itemRegistryEvent.getRegistry().register(ModItems.BORON_INGOT);
+            itemRegistryEvent.getRegistry().register(ModItems.BORON_NUGGET);
+            itemRegistryEvent.getRegistry().register(ModItems.BASIC_FILTER);
+            itemRegistryEvent.getRegistry().register(ModItems.NEON_FILTER);
+            itemRegistryEvent.getRegistry().register(ModItems.ARGON_FILTER);
+            itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_FILTER);
+            itemRegistryEvent.getRegistry().register(ModItems.BROMINE_FILTER);
             LOGGER.info("HELLO from Register Item");
         }
     }

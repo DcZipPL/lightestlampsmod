@@ -12,7 +12,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.fml.client.config.HoverChecker;
+import net.minecraftforge.fml.client.gui.HoverChecker;
 import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.Reference;
 
@@ -100,10 +100,10 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
                 redstone_tooltip = "Mode: Ignore Redstone";
                 break;
             case 1:
-                redstone_tooltip = "Mode: Redstone off";
+                redstone_tooltip = "Mode: Redstone off [WIP]";
                 break;
             case 2:
-                redstone_tooltip = "Mode: Redstone on";
+                redstone_tooltip = "Mode: Redstone on [WIP]";
                 break;
         }
         String fluid_tooltip = "Mode: Neutralize Waste";
@@ -113,10 +113,10 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
                 fluid_tooltip = "Mode: Neutralize Waste";
                 break;
             case 1:
-                fluid_tooltip = "Mode: Store";
+                fluid_tooltip = "Mode: Store [WIP]";
                 break;
             case 2:
-                fluid_tooltip = "Mode: Dump";
+                fluid_tooltip = "Mode: Dump [WIP]";
                 break;
         }
 
@@ -145,9 +145,9 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         int j = this.guiTop;
         this.blit(i, j, 0, 0, this.xSize, this.ySize);
         if (((GasCentrifugeContainer)this.container).func_217061_l()) {
-            int k = ((GasCentrifugeContainer)this.container).getBurnLeftScaled()*4;
+            int k = ((GasCentrifugeContainer)this.container).getBurnLeftScaled()*6;
             //Z Y T-Z T-Y W H
-            this.blit(i + 151, j + 65 + 12 - k, 203, 64 - k, 9, k + 1);
+            this.blit(i + 151, j + 65 + 12 - k, 203, 118 - k, 9, k + 1);
         }
 
         int marginHorizontal = (width - xSize) / 2;

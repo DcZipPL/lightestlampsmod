@@ -75,6 +75,6 @@ public class DeepSeaLanternBlock extends Block {
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.type.beta").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.beta").applyTextStyle(TextFormatting.GRAY));
     }
 }

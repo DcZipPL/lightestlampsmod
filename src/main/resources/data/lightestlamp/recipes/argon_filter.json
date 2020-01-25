@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        " B ",
+        "B#B",
+        " B "
+    ],
+   
+    "key":
+    {
+        "#":
+        {
+            "item": "minecraft:chorus_fruit"
+        },
+        "B":
+        {
+            "item": "lightestlamp:boron_nugget"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:argon_centrifuge_filter",
+        "count": 1
+    }
+}

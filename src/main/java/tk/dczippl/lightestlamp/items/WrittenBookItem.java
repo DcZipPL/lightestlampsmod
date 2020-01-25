@@ -33,7 +33,7 @@ public class WrittenBookItem extends Item
     @Override
     public void addInformation(ItemStack p_77624_1_, @Nullable World p_77624_2_, List<ITextComponent> text, ITooltipFlag p_77624_4_)
     {
-        text.add(new TextComponentTranslation("tooltip.lamp.title").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TextComponentTranslation("tooltip.lamp.wip").applyTextStyle(TextFormatting.RED));
+        text.add(new TextComponentTranslation("tooltip.lightestlamp.lamp.title").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TextComponentTranslation("tooltip.lightestlamp.lamp.wip").applyTextStyle(TextFormatting.RED));
     }*/
 }

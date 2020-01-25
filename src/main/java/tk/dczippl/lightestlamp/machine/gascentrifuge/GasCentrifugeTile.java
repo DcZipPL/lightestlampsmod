@@ -217,7 +217,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
     protected boolean canSmelt() {
         if (!this.items.get(0).isEmpty()) {
-            ItemStack[] itemstacks = GasCentrifugeRecipe.BasicGasCentrifugeRecipe.getRecipeOutputs(items.get(0));
+            ItemStack[] itemstacks = GasCentrifugeRecipe.getRecipeOutputs(items.get(0));
             if (itemstacks[0].isEmpty()&&itemstacks[1].isEmpty()&&itemstacks[2].isEmpty()&&itemstacks[3].isEmpty()) {
                 return false;
             } else {
@@ -245,7 +245,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     {
         if (this.canSmelt()) {
             ItemStack itemstack = this.items.get(0);
-            ItemStack[] itemstacks = GasCentrifugeRecipe.BasicGasCentrifugeRecipe.getRecipeOutputs(items.get(0));
+            ItemStack[] itemstacks = GasCentrifugeRecipe.getRecipeOutputs(items.get(0));
             ItemStack itemstack2 = this.items.get(2);
             ItemStack itemstack3 = this.items.get(3);
             ItemStack itemstack4 = this.items.get(4);
@@ -269,7 +269,9 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                 this.items.set(1, new ItemStack(Items.WATER_BUCKET));
             } //TODO: CHECK THAT
 
-            itemstack.shrink(1);
+            itemstack.setDamage(itemstack.getDamage()+1);//.shrink(1);
+            if (itemstack.getDamage() >= itemstack.getMaxDamage())
+                this.items.set(0, ItemStack.EMPTY);
         }
     }
 

@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "lightestlamp:boron_ingot"
+        }
+    ],
+    "result":
+    {
+        "item": "lightestlamp:boron_nugget",
+        "count": 9
+    }
+}

@@ -28,16 +28,16 @@ import java.util.List;
 
 public class GasCentrifugeRecipeJEI
 {
-    private final List<List<ItemStack>> inputs;
-    private final ItemStack output;
+    //private final List<List<ItemStack>> inputs;
+    //private final ItemStack output;
 
     public GasCentrifugeRecipeJEI(GasCentrifugeRecipe recipe) {
-        this.inputs = Collections.singletonList(Collections.singletonList(recipe.getInput().copy()));
-        this.output = recipe.getOutput().copy();
+        //this.inputs = Collections.singletonList(Collections.singletonList(recipe.getInput().copy()));
+        //this.output = recipe.getOutput().copy();
     }
 
     public void getIngredients(@Nonnull IIngredients ingredients) {
-        ingredients.setOutput(VanillaTypes.ITEM, output);
-        ingredients.setInputLists(VanillaTypes.ITEM, inputs);
+        //ingredients.setOutput(VanillaTypes.ITEM, output);
+        //ingredients.setInputLists(VanillaTypes.ITEM, inputs);
     }
 }

@@ -48,7 +48,7 @@ public class AlchemicalLampBlock extends Block
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        //text.add(new TranslationTextComponent("tooltip.type.alchemical").applyTextStyle(TextFormatting.GRAY));
-        //text.add(new TranslationTextComponent("tooltip.inverted").applyTextStyle(TextFormatting.GRAY));
+        //text.add(new TranslationTextComponent("tooltip.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.type.alchemical").applyTextStyle(TextFormatting.GRAY));
+        //text.add(new TranslationTextComponent("tooltip.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.lightestlamp.inverted").applyTextStyle(TextFormatting.GRAY));
     }
 }

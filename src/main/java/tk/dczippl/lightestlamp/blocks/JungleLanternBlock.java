@@ -64,7 +64,7 @@ public class JungleLanternBlock extends Block implements IWaterLoggable
     @Override
     public void addInformation(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<ITextComponent> text, ITooltipFlag p_190948_4_)
     {
-        text.add(new TranslationTextComponent("tooltip.speed_grow").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.speed_grow").applyTextStyle(TextFormatting.GRAY));
     }
 
     @Override
