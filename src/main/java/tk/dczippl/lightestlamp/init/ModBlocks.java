@@ -1,6 +1,7 @@
 package tk.dczippl.lightestlamp.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.OreBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -87,6 +88,10 @@ public class ModBlocks
     @ObjectHolder(Reference.MOD_ID+":"+"vanta_black")
     public static final Block VANTA_BLACK = new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH)
             .hardnessAndResistance(0.1f,1)).setRegistryName("vanta_black");
+
+    @ObjectHolder(Reference.MOD_ID+":"+"boron_ore")
+    public static final Block BORON_ORE = new SolidOreBlock(Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
+            .hardnessAndResistance(6.4f,1),2).setRegistryName("boron_ore");
 
     //Glowstones
 

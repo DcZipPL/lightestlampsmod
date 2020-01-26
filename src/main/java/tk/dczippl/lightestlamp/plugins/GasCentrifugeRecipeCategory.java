@@ -9,76 +9,74 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import tk.dczippl.lightestlamp.Reference;
+import tk.dczippl.lightestlamp.init.ModBlocks;
+import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.List;
 
-/*public class GasCentrifugeRecipeCategory implements IRecipeCategory<GasCentrifugeRecipeJEI>
+public class GasCentrifugeRecipeCategory implements IRecipeCategory<GasCentrifugeRecipeJEI>
 {
-    private final IDrawable background;
+    IDrawable bg;
+    IDrawable icon;
 
-    private final List<List<ItemStack>> inputs;
-    private final ItemStack output;
-
-    public GasCentrifugeRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation location = new ResourceLocation(Reference.MOD_ID, "textures/gui/fast_furnace.png");
-        background = guiHelper.createDrawable(location, 3, 18, 170, 30);
-        this.inputs = Collections.singletonList(Collections.singletonList(recipe.getInput().copy()));
-        this.output = recipe.getOutput().copy();
+    public GasCentrifugeRecipeCategory(IGuiHelper helper)
+    {
+        bg = helper.drawableBuilder(GasCentrifugeScreen.texture, 8, 6, 164, 74).addPadding(0, 16, 0, 0).build();
+        icon = helper.createDrawableIngredient(new ItemStack(ModBlocks.GAS_EXTRACTOR));
     }
 
-    @Nonnull
     @Override
     public ResourceLocation getUid() {
-        return new ResourceLocation(Reference.MOD_ID);
+        return new ResourceLocation(Reference.MOD_ID, JEIPlugin.GAS_CENTRIFUGE);
     }
 
-    @Override
-    public Class<? extends GasCentrifugeRecipeJEI> getRecipeClass()
-    {
-        return null;
-    }
-
-    @Nonnull
     @Override
     public String getTitle() {
-        return "Fast Furnace";
+        return I18n.format("jei.lightestlamp.gascentrifuge");
     }
 
-    @Nonnull
     @Override
     public IDrawable getBackground() {
-        return background;
+        return bg;
     }
 
     @Override
-    public IDrawable getIcon()
-    {
-        return null;
+    public void setRecipe(IRecipeLayout layout, GasCentrifugeRecipeJEI wrap, IIngredients ing) {
+        IGuiItemStackGroup stacks = layout.getItemStacks();
+        stacks.init(0, true, 7, 28);
+        stacks.init(1, true, 32, 28);
+        stacks.init(2, false, 90, 12);
+        stacks.init(3, false, 118, 12);
+        stacks.init(4, false, 90, 44);
+        stacks.init(5, false, 118, 44);
+        stacks.set(ing);
     }
 
     @Override
-    public void setIngredients(GasCentrifugeRecipeJEI gasCentrifugeRecipeJEI, IIngredients iIngredients)
-    {
-        iIngredients.setOutput(VanillaTypes.ITEM, output);
-        iIngredients.setInputLists(VanillaTypes.ITEM, inputs);
+    public IDrawable getIcon() {
+        return icon;
     }
 
     @Override
-    public void setRecipe(IRecipeLayout recipeLayout, GasCentrifugeRecipeJEI recipeWrapper, IIngredients ingredients) {
-        IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
-
-        guiItemStacks.init(0, true, 6, 6);
-        guiItemStacks.init(3, false, 114, 6);
-
-        List<ItemStack> inputs = ingredients.getInputs(VanillaTypes.ITEM).get(0);
-        List<ItemStack> outputs = ingredients.getOutputs(VanillaTypes.ITEM).get(0);
-
-        guiItemStacks.set(0, inputs);
-        guiItemStacks.set(3, outputs);
+    public Class<? extends GasCentrifugeRecipeJEI> getRecipeClass() {
+        return GasCentrifugeRecipeJEI.class;
     }
-}*/
+
+    @Override
+    public void setIngredients(GasCentrifugeRecipeJEI wrapper, IIngredients ing) {
+        wrapper.getIngredients(ing);
+    }
+
+    @Override
+    public void draw(GasCentrifugeRecipeJEI recipe, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, mouseX, mouseY);
+        recipe.drawInfo(Minecraft.getInstance(), 0, 40, mouseX, mouseY);
+    }
+}

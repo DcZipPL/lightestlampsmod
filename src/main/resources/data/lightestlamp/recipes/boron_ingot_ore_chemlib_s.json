@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient":
+    {
+        "item": "lightestlamp:boron_ore"
+    },
+    "result":
+    {
+        "item": "chemlib:ingot_boron",
+        "count": 1
+    }
+}

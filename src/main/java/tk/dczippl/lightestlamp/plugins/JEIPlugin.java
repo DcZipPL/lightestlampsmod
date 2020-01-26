@@ -1,63 +1,59 @@
 package tk.dczippl.lightestlamp.plugins;
 
+import com.google.common.collect.ImmutableSet;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
+import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.helpers.IJeiHelpers;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 import tk.dczippl.lightestlamp.Reference;
+import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.init.ModItems;
-import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeRecipe;
 
-import javax.annotation.Nullable;
 import java.util.Collections;
-import java.util.Map;
 
-//@JeiPlugin
-public class JEIPlugin //implements IModPlugin
+@JeiPlugin
+public class JEIPlugin implements IModPlugin
 {
-    /*public static final String FASTFURNACE_ID = "MyMod.FastFurnace";
-    public static final String FLOADER_ID = "MyMod.Floader";
+    public static final String GAS_CENTRIFUGE = "gas_centrifuge";
 
     @Override
-    public void register(@Nonnull IModRegistry registry) {
-        registerFastFurnaceHandling(registry);
-        registerFloaderHandling(registry);
-    }
-
-    private void registerFloaderHandling(@Nonnull IModRegistry registry) {
-        IRecipeTransferRegistry transferRegistry = registry.getRecipeTransferRegistry();
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.blockFloader), FLOADER_ID);
-        registry.addRecipes(Collections.singletonList(new FloadRecipe()), FLOADER_ID);
-        registry.handleRecipes(FloadRecipe.class, recipe -> new FloadRecipeWrapper(), FLOADER_ID);
-
-        transferRegistry.addRecipeTransferHandler(ContainerFloader.class, FLOADER_ID,
-                0, TileFloader.INPUT_SLOTS, TileFloader.INPUT_SLOTS, 36);
-    }
-
-    private void registerFastFurnaceHandling(@Nonnull IModRegistry registry) {
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.blockFastFurnace), FASTFURNACE_ID, VanillaRecipeCategoryUid.SMELTING);
-
-        registry.addRecipes(CustomRecipeRegistry.getCustomRecipeList(), FASTFURNACE_ID);
-        registry.handleRecipes(CustomRecipe.class, CustomRecipeWrapper::new, FASTFURNACE_ID);
-
-        IRecipeTransferRegistry transferRegistry = registry.getRecipeTransferRegistry();
-        transferRegistry.addRecipeTransferHandler(ContainerFastFurnace.class, VanillaRecipeCategoryUid.SMELTING,
-                0, TileFastFurnace.INPUT_SLOTS, TileFastFurnace.INPUT_SLOTS + TileFastFurnace.OUTPUT_SLOTS, 36);
-        transferRegistry.addRecipeTransferHandler(ContainerFastFurnace.class, FASTFURNACE_ID,
-                0, TileFastFurnace.INPUT_SLOTS, TileFastFurnace.INPUT_SLOTS + TileFastFurnace.OUTPUT_SLOTS, 36);
+    public void registerRecipes(IRecipeRegistration reg)
+    {
+        //Formatter::off
+        reg.addRecipes(ImmutableSet.of(
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.BASIC_FILTER), "jei.lightestlamp.boron5"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.NEON_FILTER), "jei.lightestlamp.boron10"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.ARGON_FILTER), "jei.lightestlamp.boron2"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.KRYPTON_FILTER), "jei.lightestlamp.boron15"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.BROMINE_FILTER), "jei.lightestlamp.boron50")
+        ), getPluginUid());
+        //Formatter::on
+        reg.addIngredientInfo(new ItemStack(ModItems.MOON_SHARD), VanillaTypes.ITEM, "jei.lightestlamp.instructions.moonshard");
     }
 
     @Override
-    public void registerCategories(IRecipeCategoryRegistration registry) {
-        IJeiHelpers helpers = registry.getJeiHelpers();
-        IGuiHelper guiHelper = helpers.getGuiHelper();
+    public void registerRecipeCatalysts(IRecipeCatalystRegistration reg) {
+        reg.addRecipeCatalyst(new ItemStack(ModBlocks.GAS_EXTRACTOR), getPluginUid());
+    }
 
-        registry.addRecipeCategories(new FloadRecipeCategory(guiHelper));
-        registry.addRecipeCategories(new CustomRecipeCategory(guiHelper));
-    }*/
+    @Override
+    public void registerCategories(IRecipeCategoryRegistration reg) {
+        reg.addRecipeCategories(new GasCentrifugeRecipeCategory(reg.getJeiHelpers().getGuiHelper()));
+    }
+
+    @Override
+    public ResourceLocation getPluginUid() {
+        return new ResourceLocation(Reference.MOD_ID, GAS_CENTRIFUGE);
+    }
 }

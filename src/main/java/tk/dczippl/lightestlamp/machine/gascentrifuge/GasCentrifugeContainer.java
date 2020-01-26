@@ -105,7 +105,7 @@ public class GasCentrifugeContainer extends Container
      */
     @Override
     public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
-        /*ItemStack itemstack = ItemStack.EMPTY;
+        ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
@@ -117,15 +117,7 @@ public class GasCentrifugeContainer extends Container
 
                 slot.onSlotChange(itemstack1, itemstack);
             } else if (index != 1 && index != 0) {
-                if (this.func_217057_a(itemstack1)) {
-                    if (!this.mergeItemStack(itemstack1, 0, 1, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (this.isFuel(itemstack1)) {
-                    if (!this.mergeItemStack(itemstack1, 1, 2, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (index >= 3 && index < 30) {
+                if (index >= 3 && index < 30) {
                     if (!this.mergeItemStack(itemstack1, 30, 39, false)) {
                         return ItemStack.EMPTY;
                     }
@@ -149,8 +141,7 @@ public class GasCentrifugeContainer extends Container
             slot.onTake(playerIn, itemstack1);
         }
 
-        return itemstack;*/
-        return null;
+        return itemstack;
     }
 
     @OnlyIn(Dist.CLIENT)

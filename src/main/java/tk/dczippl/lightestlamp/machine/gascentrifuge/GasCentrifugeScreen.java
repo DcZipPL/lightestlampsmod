@@ -18,7 +18,7 @@ import tk.dczippl.lightestlamp.Reference;
 
 public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
 {
-    private static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID,"textures/gui/container/gas_centrifuge.png");
+    public static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID,"textures/gui/container/gas_centrifuge.png");
     private boolean field_214090_m;
     private GasCentrifugeContainer sc;
 
@@ -152,7 +152,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
 
         int marginHorizontal = (width - xSize) / 2;
         int marginVertical = (height - ySize) / 2;
-        switch (sc.field_217064_e.get(1))
+        /*switch (sc.field_217064_e.get(1))
         {
             case 0:
                 blit(marginHorizontal+9, marginVertical+9, 176, 128, 12, 12);
@@ -175,7 +175,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
             case 2:
                 blit(marginHorizontal+25, marginVertical+9, 192, 154, 12, 12);
                 break;
-        }
+        }*/
 
         int l = ((GasCentrifugeContainer)this.container).getCookProgressionScaled();
         this.blit(i + 63, j + 34, 176, 14, l + 1, 16);

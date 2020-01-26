@@ -33,5 +33,5 @@ public class ModItems
     public static final Item BORON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_dust");
     public static final Item BORON_INGOT = new ControlledItem(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_ingot");
     public static final Item BORON_NUGGET = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_nugget");
-    public static final Item CRIMSON_DYE = new Item(new Item.Properties().group(ItemGroup.MISC)).setRegistryName("crimson_dye");
+    public static final Item WRITTEN_BOOK = new WrittenBookItem(new Item.Properties().maxStackSize(1).group(Main.main_group)).setRegistryName("written_book");
 }

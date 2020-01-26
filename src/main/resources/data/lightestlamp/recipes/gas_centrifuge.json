@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "IRI",
+        "IPI",
+        "IPI"
+    ],
+   
+    "key":
+    {
+        "R":
+        {
+            "item": "lightestlamp:empty_rod"
+        },
+        "I":
+        {
+            "item": "lightestlamp:boron_ingot"
+        },
+        "P":
+        {
+            "item": "minecraft:piston"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:gas_centrifuge",
+        "count": 1
+    }
+}

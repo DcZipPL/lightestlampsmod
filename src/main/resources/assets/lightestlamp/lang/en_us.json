@@ -1,7 +1,7 @@
 {
 	"block.lightestlamp.big_flower":"Big Flower",
 	"block.lightestlamp.crimson_wool":"Crimson Wool",
-	"block.lightestlamp.gas_extractor":"Gas Centrifuge",
+	"block.lightestlamp.gas_centrifuge":"Gas Centrifuge",
 	"block.lightestlamp.vanta_black":"Vanta Black",
 
 	"block.lightestlamp.jungle_lantern":"Lamp Fruit",
@@ -17,6 +17,7 @@
 	"block.lightestlamp.deep_sea_lantern":"Deep Sea Lantern",
 	"block.lightestlamp.ocean_lantern":"Ocean Lantern",
 	"block.lightestlamp.anti_lamp":"Anti-Lamp",
+	"block.lightestlamp.alchemical_lamp":"Alchemical Lamp",
 
 	"block.lightestlamp.neon_block":"Neon Glowstone",
 	"block.lightestlamp.krypton_block":"Krypton Glowstone",
@@ -27,6 +28,7 @@
 	"block.lightestlamp.krypton_rod_block":"Krypton Rod Block",
 	"block.lightestlamp.glowing_glass_block":"Glowing Glass",
 	"block.lightestlamp.debug_chunk_cleaner":"Chunk Cleaner (Debug)",
+	"block.lightestlamp.boron_ore":"Boron Ore",
 
 	"item.lightestlamp.basic_centrifuge_filter":"Centrifuge Filter",
 	"item.lightestlamp.neon_centrifuge_filter":"Centrifuge Filter",
@@ -35,8 +37,14 @@
 	"item.lightestlamp.bromine_centrifuge_filter":"Centrifuge Filter",
 
 	"item.lightestlamp.debug_stick":"Debug Stick (Debug)",
-	"item.lightestlamp.written_book": "Written Book",
+	"item.lightestlamp.written_book": "Lightest Lamps Guide",
 	"item.lightestlamp.carbon_nanotube": "Carbon Nano Tube",
+	"item.lightestlamp.alchemical_dust":"Alchemical Dust",
+	"item.lightestlamp.stickandbowl":"Bowl and Stick",
+	"item.lightestlamp.moon_shard":"Moon Shard",
+	"item.lightestlamp.boron_dust":"Boron Dust",
+	"item.lightestlamp.boron_ingot":"Boron Ingot",
+	"item.lightestlamp.boron_nugget":"Boron Nugget",
 
 	"item.lightestlamp.krypton_small_dust":"Krypton Pile",
 
@@ -68,10 +76,24 @@
 	"tooltip.lightestlamp.argon_filter": "Argon",
 	"tooltip.lightestlamp.krypton_filter": "Krypton",
 	"tooltip.lightestlamp.bromine_filter": "Bromine & Boron",
-	"tooltip.lightestlamp.chemlib.detected": "ChemLib Detected! Please convert this to chemlib version in crafting grid.",
+	"tooltip.lightestlamp.chemlib.detected": "Please convert this to chemlib version in crafting grid.",
 	"tooltip.lightestlamp.lamp.wip": "[WIP]",
+	"tooltip.lightestlamp.book.link": "Lightest Lamps Wiki: https://github.com/DcZipPL/lightestlampsmod/wiki",
+	"tooltip.lightestlamp.book.title0": "Block Types",
+	"tooltip.lightestlamp.book.title1": "Moon shards",
+	"tooltip.lightestlamp.book.title2": "Centrifuge Modes",
+	"tooltip.lightestlamp.book.title3": "Centrifuge Recipes",
+	"tooltip.lightestlamp.book.title4": "More: https://github.com/DcZipPL/lightestlampsmod/wiki",
 
 	"container.gascentrifuge": "Gas Centrifuge",
+
+	"jei.lightestlamp.boron2": "Created fluid: Boron 2 mb",
+	"jei.lightestlamp.boron5": "Created fluid: Boron 5 mb",
+	"jei.lightestlamp.boron10": "Created fluid: Boron 10 mb",
+	"jei.lightestlamp.boron15": "Created fluid: Boron 15 mb",
+	"jei.lightestlamp.boron50": "Created fluid: Boron 50 mb",
+	"jei.lightestlamp.instructions.moonshard": "Moon Shards is dropping from any mob during full moon.",
+	"jei.lightestlamp.gascentrifuge": "Gas Centrifuge",
 
 	"itemGroup.lamps": "Lamps"
 }

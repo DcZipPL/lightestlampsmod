@@ -1,8 +1,6 @@
 package tk.dczippl.lightestlamp;
 
-import al132.chemlib.ChemLib;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -10,29 +8,23 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.RecipeManager;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.crafting.conditions.ICondition;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.GenericEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -43,29 +35,19 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.fml.network.NetworkRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tk.dczippl.lightestlamp.blocks.AntiLampBlock;
-import tk.dczippl.lightestlamp.blocks.LightAirBlock;
-import tk.dczippl.lightestlamp.blocks.OmegaLampBlock;
-import tk.dczippl.lightestlamp.datagen.DataGenerators;
 import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.init.ModContainers;
 import tk.dczippl.lightestlamp.init.ModItems;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
-import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeContainer;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 import tk.dczippl.lightestlamp.tile.*;
 import tk.dczippl.lightestlamp.util.WorldGenerator;
-import tk.dczippl.lightestlamp.util.conditions.ChemLibCompability;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.Random;
 
 @SuppressWarnings("NullableProblems")
 @Mod(Reference.MOD_ID)
@@ -120,7 +102,7 @@ public class Main
         // some preinit code
         ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
         WorldGenerator.setupWorldGeneraton();
-        new RecipeManager().getRecipes().removeIf(p->p.getRecipeOutput().getItem()==ModItems.BORON_INGOT);
+        //new RecipeManager().getRecipes().removeIf(p->p.getRecipeOutput().getItem()==ModItems.BORON_INGOT);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
@@ -144,7 +126,20 @@ public class Main
     public void onServerStarting(FMLServerStartingEvent event)
     {
         // do something when the server starts
-        LOGGER.info("HELLO from server starting");
+    }
+
+    @SubscribeEvent
+    public void Drops(LivingDropsEvent event)
+    {
+        if(event.getEntityLiving() instanceof IMob)
+        {
+            if (event.getEntityLiving().getEntityWorld().getCurrentMoonPhaseFactor() == 1.0F)
+            {
+                Random rnd = new Random();
+                if (rnd.nextInt(4) == 2)//25% chance
+                    event.getEntityLiving().entityDropItem(new ItemStack(ModItems.MOON_SHARD));
+            }
+        }
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -184,11 +179,8 @@ public class Main
             blockRegistryEvent.getRegistry().register(ModBlocks.KRYPTON_BLOCK);
             blockRegistryEvent.getRegistry().register(ModBlocks.CHUNK_CLEANER);
             blockRegistryEvent.getRegistry().register(ModBlocks.VANTA_BLACK);
-
-            //AUTO-GENERATE CODE |GC-00|
-            //END OF AUTO-GENERATE CODE |GC-01|
-
-            LOGGER.info("HELLO from Register Block");
+            blockRegistryEvent.getRegistry().register(ModBlocks.BORON_ORE);
+            LOGGER.info("Lightest Lamps: block init");
         }
 
         @SubscribeEvent
@@ -196,6 +188,7 @@ public class Main
         {
             // register a new container here
             containerTypeRegistryEvent.getRegistry().register(ModContainers.GAS_CENTRIFUGE);
+            LOGGER.info("Lightest Lamps: container init");
         }
 
         @SubscribeEvent
@@ -298,15 +291,13 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.VANTA_BLACK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.VANTA_BLACK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GLOWING_GLASS_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GLOWING_GLASS_BLOCK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GAS_EXTRACTOR, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GAS_EXTRACTOR.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.BORON_ORE, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.BORON_ORE.getRegistryName()));
 
             // register a new item here
 
             //ib = new BlockItem(ModBlocks.GAS_EXTRACTOR, new Item.Properties().group(Main.main_group));
             //ib.setRegistryName(ModBlocks.GAS_EXTRACTOR.getRegistryName());
             //itemRegistryEvent.getRegistry().register(ib);
-
-            //AUTO-GENERATE CODE |GC-02|
-            //END OF AUTO-GENERATE CODE |GC-03|
 
             itemRegistryEvent.getRegistry().register(ModItems.EMPTY_ROD);
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_ROD);
@@ -331,7 +322,8 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.BROMINE_FILTER);
-            LOGGER.info("HELLO from Register Item");
+            //itemRegistryEvent.getRegistry().register(ModItems.WRITTEN_BOOK);
+            LOGGER.info("Lightest Lamps: item init");
         }
     }
 

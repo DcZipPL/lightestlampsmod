@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "BS"
+    ],
+   
+    "key":
+    {
+        "S":
+        {
+            "item": "minecraft:stick"
+        },
+        "B":
+        {
+            "item": "minecraft:bowl"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:stickandbowl",
+        "count": 1
+    }
+}

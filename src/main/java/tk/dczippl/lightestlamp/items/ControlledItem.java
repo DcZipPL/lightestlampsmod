@@ -5,6 +5,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
@@ -24,7 +25,7 @@ public class ControlledItem extends Item
         try
         {
             if (ChemLib.MODID!=null)
-                tooltip.add(new TranslationTextComponent("tooltip.lightestlamp.chemlib.detected"));
+                tooltip.add(new TranslationTextComponent("tooltip.lightestlamp.chemlib.detected").applyTextStyle(TextFormatting.RED));
         }
         catch (Exception ignore){}
     }

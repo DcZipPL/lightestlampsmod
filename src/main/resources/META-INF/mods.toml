@@ -14,7 +14,7 @@ issueTrackerURL="https://bitbucket.org/dczip/lightestlampsmod/issues" #optional
 # The modid of the mod
 modId="lightestlamp" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="3.1.1" #mandatory
+version="3.2.0" #mandatory
  # A display name for the mod
 displayName="Lightest Lamps" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
@@ -23,11 +23,11 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/lightest-lamps" #option
 # A file name (in the root of the mod JAR) containing a logo for display
 # logoFile="examplemod.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks to Smvtnv and Kokosu502." #optional
+credits="Thanks to creator of ChemLib (al123) for publishing developer version and creator of ProjectE for interdicion torch code." #optional
 # A text field displayed in the mod UI
 authors="DcZipPL (Prefex), Silver12 (Twelve)" #optional
 # The description text for the mod (multi line!) (#mandatory)
-description='''Mod adds new types of lamps from 16 to 30 blocks light range.
+description='''Mod adds new types of lamps from 16 to 30 blocks light range and special lamps.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.lightestlamp]] #optional
