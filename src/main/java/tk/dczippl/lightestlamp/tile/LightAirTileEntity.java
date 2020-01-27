@@ -7,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.Reference;
@@ -49,6 +50,7 @@ public class LightAirTileEntity extends TileEntity implements ITickableTileEntit
             });
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             world.setTileEntity(pos, null);
+            //Recalc Light in nearby chunks
         }
         cooldown++;
     }

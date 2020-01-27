@@ -22,11 +22,11 @@ public class ControlledItem extends Item
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        try
+        /*try
         {
             if (ChemLib.MODID!=null)
                 tooltip.add(new TranslationTextComponent("tooltip.lightestlamp.chemlib.detected").applyTextStyle(TextFormatting.RED));
         }
-        catch (Exception ignore){}
+        catch (NoClassDefFoundError ignore){}*/
     }
 }

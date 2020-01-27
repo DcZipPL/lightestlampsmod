@@ -221,20 +221,25 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
             if (itemstacks[0].isEmpty()&&itemstacks[1].isEmpty()&&itemstacks[2].isEmpty()&&itemstacks[3].isEmpty()) {
                 return false;
             } else {
-                ItemStack itemstack1 = this.items.get(2);
-                for (ItemStack itemstack : itemstacks)
+                ItemStack[] itemstacks1 = new ItemStack[] {this.items.get(2),this.items.get(3),this.items.get(4),this.items.get(5)};
+                boolean[] output0 = new boolean[] {true,true,true,true};
+                for (int i = 0; i < itemstacks.length-1; i++)
                 {
+                    ItemStack itemstack = itemstacks[i];
+                    ItemStack itemstack1 = itemstacks1[i];
                     if (itemstack1.isEmpty()) {
-                        return true;
+                        output0[i] =  true;
                     } else if (!itemstack1.isItemEqual(itemstack)) {
-                        return false;
-                    } else if (itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) { // Forge fix: make furnace respect stack sizes in furnace recipes
-                        return true;
+                        output0[i] =  false;
+                    } else if (itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) {
+                        // Forge fix: make furnace respect stack sizes in furnace recipes
+                        output0[i] =  true;
                     } else {
-                        return itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize(); // Forge fix: make furnace respect stack sizes in furnace recipes
+                        output0[i] =  itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize();
+                        // Forge fix: make furnace respect stack sizes in furnace recipes
                     }
                 }
-                return false;
+                return output0[0]&&output0[1]&&output0[2]&&output0[3];
             }
         } else {
             return false;

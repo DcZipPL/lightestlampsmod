@@ -76,7 +76,7 @@ public class GasCentrifugeRecipe
                         new TheoreticalFluid(TheoreticalFluidTypes.Bromine,50)));
             }
         }
-        catch (Exception ignore)
+        catch (NoClassDefFoundError ignore)
         {
             recipes.add(basic);
             recipes.add(neon);
