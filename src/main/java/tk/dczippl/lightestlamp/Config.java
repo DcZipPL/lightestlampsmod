@@ -24,6 +24,7 @@ public class Config {
     public static ForgeConfigSpec.BooleanValue NEON_GLOWSTONE_SPAWN;
     public static ForgeConfigSpec.BooleanValue ARGON_GLOWSTONE_SPAWN;
     public static ForgeConfigSpec.BooleanValue KRYPTON_GLOWSTONE_SPAWN;
+    public static ForgeConfigSpec.BooleanValue BORON_SPAWN;
 
 
     static {
@@ -42,6 +43,8 @@ public class Config {
                 .define("argon_gen",false);
         KRYPTON_GLOWSTONE_SPAWN = COMMON_BUILDER.comment("Generation of Krypton Glowstone in nether")
                 .define("krypton_gen",false);
+        BORON_SPAWN = COMMON_BUILDER.comment("Generation of Boron Ore in nether")
+                .define("krypton_gen",true);
 
         COMMON_BUILDER.pop();
     }

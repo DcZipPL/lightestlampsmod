@@ -31,14 +31,5 @@ public class Recipes extends RecipeProvider {
                 .setGroup(Reference.MOD_ID)
                 .addCriterion("netherrack", InventoryChangeTrigger.Instance.forItems(Blocks.NETHERRACK))
                 .build(consumer);
-        //ShapedRecipeBuilder.shapedRecipe(Items.GLOWSTONE)
-        //        .patternLine("NN")
-        //        .patternLine("AK")
-        //        .key('N', ModItems.neon)
-        //        .key('A', ModItems.argon)
-        //        .key('K', ModItems.krypton)
-        //        .setGroup(Reference.MOD_ID)
-        //        .addCriterion("neonrec", InventoryChangeTrigger.Instance.forItems(ModItems.neon))
-        //        .build(consumer);
     }
 }

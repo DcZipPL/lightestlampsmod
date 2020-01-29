@@ -39,6 +39,18 @@ public class GasCentrifugeRecipe
         this.liquid_output = liquid_output;
     }
 
+    public static TheoreticalFluid getFluid(ItemStack input)
+    {
+        for (GasCentrifugeRecipe recipe : getRecipes())
+        {
+            if (input.getItem() == recipe.top_input.getItem())
+            {
+                return recipe.liquid_output;
+            }
+        }
+        return null;
+    }
+
     public static ItemStack[] getRecipeOutputs(ItemStack input)
     {
         for (GasCentrifugeRecipe recipe : getRecipes())

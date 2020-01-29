@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.IIntArray;
 import net.minecraft.util.IntArray;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -20,20 +21,22 @@ import tk.dczippl.lightestlamp.init.ModContainers;
 public class GasCentrifugeContainer extends Container
 {
     private final IInventory furnaceInventory;
+    private final BlockPos pos;
     public final IIntArray field_217064_e;
     protected final World world;
 
-    protected GasCentrifugeContainer(ContainerType<?> containerTypeIn, int id, PlayerInventory playerInventoryIn) {
-        this(containerTypeIn, id, playerInventoryIn, new Inventory(3), new IntArray(5));
+    protected GasCentrifugeContainer(ContainerType<?> containerTypeIn, int id, PlayerInventory playerInventoryIn, PacketBuffer buf) {
+        this(containerTypeIn, id, playerInventoryIn, new Inventory(6), new IntArray(5),buf);
     }
 
-    protected GasCentrifugeContainer(ContainerType<?> containerTypeIn, int id, PlayerInventory playerInventoryIn, IInventory furnaceInventoryIn, IIntArray p_i50104_6_) {
+    protected GasCentrifugeContainer(ContainerType<?> containerTypeIn, int id, PlayerInventory playerInventoryIn, IInventory furnaceInventoryIn, IIntArray p_i50104_6_, PacketBuffer buf) {
         super(containerTypeIn, id);
         assertInventorySize(furnaceInventoryIn, 5);
         assertIntArraySize(p_i50104_6_, 5);
         this.furnaceInventory = furnaceInventoryIn;
         this.field_217064_e = p_i50104_6_;
         this.world = playerInventoryIn.player.world;
+        this.pos = buf.readBlockPos();
         this.addSlot(new Slot(furnaceInventoryIn, 0, 16, 35));
         this.addSlot(new Slot(furnaceInventoryIn, 1, 41, 35));
         this.addSlot(new FurnaceResultSlot(playerInventoryIn.player, furnaceInventoryIn, 2, 99, 19));
@@ -56,7 +59,12 @@ public class GasCentrifugeContainer extends Container
 
     public GasCentrifugeContainer(int i, PlayerInventory playerInventory, PacketBuffer packetBuffer)
     {
-        this(ModContainers.GAS_CENTRIFUGE, i, playerInventory, new Inventory(6), new IntArray(5));
+        this(ModContainers.GAS_CENTRIFUGE, i, playerInventory, new Inventory(6), new IntArray(5),packetBuffer);
+    }
+
+    public BlockPos getBlockPos()
+    {
+        return pos;
     }
 
     public void func_201771_a(RecipeItemHelper p_201771_1_) {
@@ -68,27 +76,6 @@ public class GasCentrifugeContainer extends Container
 
     public void clear() {
         this.furnaceInventory.clear();
-    }
-
-    public boolean matches(IRecipe<? super IInventory> recipeIn) {
-        return recipeIn.matches(this.furnaceInventory, this.world);
-    }
-
-    public int getOutputSlot() {
-        return 2;
-    }
-
-    public int getWidth() {
-        return 1;
-    }
-
-    public int getHeight() {
-        return 1;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public int getSize() {
-        return 3;
     }
 
     /**
@@ -152,13 +139,15 @@ public class GasCentrifugeContainer extends Container
     }
 
     @OnlyIn(Dist.CLIENT)
-    public int getBurnLeftScaled() {
-        int i = this.field_217064_e.get(1);
-        if (i == 0) {
-            i = 200;
-        }
+    public int getBurnLeftScaled()
+    {
+        return this.field_217064_e.get(0) * 13 / 180;
+    }
 
-        return this.field_217064_e.get(0) * 13 / i;
+    @OnlyIn(Dist.CLIENT)
+    public int getLiquidScaled()
+    {
+        return this.field_217064_e.get(5) * 13 / 180;
     }
 
     @OnlyIn(Dist.CLIENT)

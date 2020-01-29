@@ -45,6 +45,7 @@ import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 import tk.dczippl.lightestlamp.tile.*;
 import tk.dczippl.lightestlamp.util.WorldGenerator;
+import tk.dczippl.lightestlamp.util.network.Networking;
 
 import java.util.List;
 import java.util.Random;
@@ -102,6 +103,7 @@ public class Main
         // some preinit code
         ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
         WorldGenerator.setupWorldGeneraton();
+        Networking.registerMessages();
         //new RecipeManager().getRecipes().removeIf(p->p.getRecipeOutput().getItem()==ModItems.BORON_INGOT);
     }
 

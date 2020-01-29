@@ -51,12 +51,6 @@ public class ChunkCleanerBlock extends Block
         return true;
     }
 
-    //@Override
-    //public BlockRenderLayer getRenderLayer()
-    //{
-    //    return BlockRenderLayer.CUTOUT;
-    //}
-
     @Override
     public BlockRenderType getRenderType(BlockState p_149645_1_)
     {

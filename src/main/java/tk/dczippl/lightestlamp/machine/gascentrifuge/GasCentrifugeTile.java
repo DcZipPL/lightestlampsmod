@@ -2,6 +2,7 @@ package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import io.netty.buffer.Unpooled;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,6 +16,7 @@ import net.minecraft.item.Items;
 import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.*;
@@ -24,6 +26,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import tk.dczippl.lightestlamp.init.ModContainers;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
+import tk.dczippl.lightestlamp.util.TheoreticalFluid;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -47,7 +50,9 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
     protected Container createMenu(int id, PlayerInventory player)
     {
-        return new GasCentrifugeContainer(ModContainers.GAS_CENTRIFUGE,id, player, this, this.furnaceData);
+        PacketBuffer buffer = new PacketBuffer(Unpooled.buffer(8,8));
+        buffer.writeBlockPos(pos);
+        return new GasCentrifugeContainer(ModContainers.GAS_CENTRIFUGE,id, player, this, this.furnaceData, buffer);
     }
 
 
@@ -56,12 +61,12 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     private static final int[] SLOTS_HORIZONTAL = new int[]{1};
     protected NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
     private int burnTime;
-    private int recipesUsed;
+    private int fluid;
     private int cookTime;
     private int cookTimeTotal;
     private int redstoneMode;
     private int liquidMode;
-    protected final IIntArray furnaceData = new IIntArray() {
+    public final IIntArray furnaceData = new IIntArray() {
         @Override
         public int get(int index) {
             switch(index) {
@@ -75,6 +80,8 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                     return GasCentrifugeTile.this.cookTimeTotal;
                 case 4:
                     return GasCentrifugeTile.this.liquidMode;
+                case 5:
+                    return GasCentrifugeTile.this.fluid;
                 default:
                     return 0;
             }
@@ -98,14 +105,37 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                 case 4:
                     GasCentrifugeTile.this.liquidMode = value;
                     break;
+                case 5:
+                    GasCentrifugeTile.this.fluid = value;
+                    break;
             }
 
         }
 
         public int size() {
-            return 5;
+            return 6;
         }
     };
+
+    public void setRedstoneMode(int redstoneMode)
+    {
+        furnaceData.set(1,redstoneMode);
+    }
+
+    public int getRedstoneMode()
+    {
+        return furnaceData.get(1);
+    }
+
+    public void setLiquidMode(int liquidMode)
+    {
+        furnaceData.set(4,liquidMode);
+    }
+
+    public int getLiquidMode()
+    {
+        return furnaceData.get(4);
+    }
 
     @Deprecated //Forge - get burn times by calling ForgeHooks#getBurnTime(ItemStack)
     public static Map<Item, Integer> getBurnTimes() {
@@ -138,8 +168,9 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         this.burnTime = compound.getInt("BurnTime");
         this.cookTime = compound.getInt("CookTime");
         this.cookTimeTotal = compound.getInt("CookTimeTotal");
-        this.recipesUsed = this.getBurnTime(this.items.get(1));
-        int i = compound.getShort("RecipesUsedSize");
+        //this.recipesUsed = this.getBurnTime(this.items.get(1));
+        this.redstoneMode = compound.getInt("RedstoneMode");
+        this.liquidMode = compound.getInt("LiquidMode");
     }
 
     @Override
@@ -148,8 +179,9 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         compound.putInt("BurnTime", this.burnTime);
         compound.putInt("CookTime", this.cookTime);
         compound.putInt("CookTimeTotal", this.cookTimeTotal);
+        compound.putInt("RedstoneMode", this.redstoneMode);
+        compound.putInt("LiquidMode", this.liquidMode);
         ItemStackHelper.saveAllItems(compound, this.items);
-        int i = 0;
 
         return compound;
     }
@@ -167,7 +199,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
             if (this.isBurning() || !itemstack.isEmpty() && !this.items.get(0).isEmpty()) {
                 if (!this.isBurning() && this.canSmelt()) {
                     this.burnTime = this.getBurnTime(itemstack);
-                    this.recipesUsed = this.burnTime;
+                    //this.recipesUsed = this.burnTime;
                     if (this.isBurning()) {
                         flag1 = true;
                         if (itemstack.hasContainerItem())
@@ -188,7 +220,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                     if (this.cookTime == this.cookTimeTotal) {
                         this.cookTime = 0;
                         this.cookTimeTotal = getCookTimeTotal();
-                        this.DoSomething();
+                        this.placeItemsInRightSlot();
                         flag1 = true;
                     }
                 } else {
@@ -218,7 +250,11 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     protected boolean canSmelt() {
         if (!this.items.get(0).isEmpty()) {
             ItemStack[] itemstacks = GasCentrifugeRecipe.getRecipeOutputs(items.get(0));
-            if (itemstacks[0].isEmpty()&&itemstacks[1].isEmpty()&&itemstacks[2].isEmpty()&&itemstacks[3].isEmpty()) {
+            if (itemstacks[0].isEmpty()&&itemstacks[1].isEmpty()&&itemstacks[2].isEmpty()&&itemstacks[3].isEmpty())
+            {
+                return false;
+            } else if (redstoneMode==1&&world.getRedstonePowerFromNeighbors(pos)>0||redstoneMode==2&&world.getRedstonePowerFromNeighbors(pos)<1)
+            {
                 return false;
             } else {
                 ItemStack[] itemstacks1 = new ItemStack[] {this.items.get(2),this.items.get(3),this.items.get(4),this.items.get(5)};
@@ -246,7 +282,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         }
     }
 
-    private void DoSomething(/*Here was recipe*/)
+    private void placeItemsInRightSlot(/*Here was recipe*/)
     {
         if (this.canSmelt()) {
             ItemStack itemstack = this.items.get(0);
@@ -254,6 +290,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
             ItemStack itemstack2 = this.items.get(2);
             ItemStack itemstack3 = this.items.get(3);
             ItemStack itemstack4 = this.items.get(4);
+            TheoreticalFluid theoreticalFluid = GasCentrifugeRecipe.getFluid(items.get(0));
             if (itemstack2.isEmpty()) {
                 this.items.set(2, itemstacks[0].copy());
             } else if (itemstack2.getItem() == itemstacks[0].getItem()) {
@@ -270,13 +307,14 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                 itemstack4.grow(itemstacks[2].getCount());
             }
 
-            if (itemstack.getItem() == Blocks.WET_SPONGE.asItem() && !this.items.get(1).isEmpty() && this.items.get(1).getItem() == Items.BUCKET) {
-                this.items.set(1, new ItemStack(Items.WATER_BUCKET));
-            } //TODO: CHECK THAT
-
             itemstack.setDamage(itemstack.getDamage()+1);//.shrink(1);
             if (itemstack.getDamage() >= itemstack.getMaxDamage())
                 this.items.set(0, ItemStack.EMPTY);
+
+            if (theoreticalFluid != null)
+            {
+                furnaceData.set(5,furnaceData.get(5)+theoreticalFluid.amount);
+            }
         }
     }
 

@@ -15,6 +15,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.client.gui.HoverChecker;
 import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.Reference;
+import tk.dczippl.lightestlamp.util.network.Networking;
+import tk.dczippl.lightestlamp.util.network.PacketButtonModeControl;
+import tk.dczippl.lightestlamp.util.network.PacketButtonRedstone;
 
 public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
 {
@@ -66,6 +69,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
                 } else {
                     sc.field_217064_e.set(1, sc.field_217064_e.get(1)+1);
                 }
+                Networking.INSTANCE.sendToServer(new PacketButtonRedstone(sc.getBlockPos(),sc.world.getDimension().getType().getId()));
             }
         }
         if (mouseX - marginHorizontal >= 25 && mouseX - marginHorizontal <= 36)
@@ -79,6 +83,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
                 } else {
                     sc.field_217064_e.set(4, sc.field_217064_e.get(4)+1);
                 }
+                Networking.INSTANCE.sendToServer(new PacketButtonModeControl(sc.getBlockPos(),sc.world.getDimension().getType().getId()));
             }
         }
         //ModPacketHandler.sendToServer(5);
@@ -100,10 +105,10 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
                 redstone_tooltip = "Mode: Ignore Redstone";
                 break;
             case 1:
-                redstone_tooltip = "Mode: Redstone off [WIP]";
+                redstone_tooltip = "Mode: Redstone off";
                 break;
             case 2:
-                redstone_tooltip = "Mode: Redstone on [WIP]";
+                redstone_tooltip = "Mode: Redstone on";
                 break;
         }
         String fluid_tooltip = "Mode: Neutralize Waste";
@@ -152,7 +157,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
 
         int marginHorizontal = (width - xSize) / 2;
         int marginVertical = (height - ySize) / 2;
-        /*switch (sc.field_217064_e.get(1))
+        switch (sc.field_217064_e.get(1))
         {
             case 0:
                 blit(marginHorizontal+9, marginVertical+9, 176, 128, 12, 12);
@@ -175,7 +180,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
             case 2:
                 blit(marginHorizontal+25, marginVertical+9, 192, 154, 12, 12);
                 break;
-        }*/
+        }
 
         int l = ((GasCentrifugeContainer)this.container).getCookProgressionScaled();
         this.blit(i + 63, j + 34, 176, 14, l + 1, 16);

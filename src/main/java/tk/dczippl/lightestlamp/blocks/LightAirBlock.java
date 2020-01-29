@@ -37,12 +37,6 @@ public class LightAirBlock extends AirBlock
         return false;
     }
 
-    //@Override
-    //public boolean isSolid(BlockState p_200124_1_)
-    //{
-    //    return false;
-    //}
-
     @Override
     public boolean canBeConnectedTo(BlockState state, IBlockReader world, BlockPos pos, Direction facing)
     {
@@ -72,10 +66,4 @@ public class LightAirBlock extends AirBlock
     {
         return true;
     }
-
-    //@Override
-    //public BlockRenderLayer getRenderLayer()
-    //{
-    //    return BlockRenderLayer.TRANSLUCENT;
-    //}
 }

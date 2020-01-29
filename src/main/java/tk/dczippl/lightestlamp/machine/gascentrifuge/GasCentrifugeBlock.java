@@ -3,6 +3,7 @@ package tk.dczippl.lightestlamp.machine.gascentrifuge;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -16,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import static net.minecraft.state.properties.BlockStateProperties.FACING;
 
@@ -49,7 +51,8 @@ public class GasCentrifugeBlock extends ContainerBlock
     protected void interactWith(World worldIn, BlockPos pos, PlayerEntity player) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         if (tileentity instanceof GasCentrifugeTile) {
-            player.openContainer((INamedContainerProvider)tileentity);
+            NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider)tileentity, buf -> buf.writeBlockPos(pos));
+            //player.openContainer((INamedContainerProvider)tileentity);
             player.addStat(Stats.INTERACT_WITH_FURNACE);
         }
     }

@@ -25,9 +25,4 @@ public class DarkAirBlock extends Block
     public VoxelShape getShape(BlockState p_220053_1_, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext p_220053_4_) {
         return vs;
     }
-
-    /*@Override
-    public BlockRenderType getRenderType(BlockState p_149645_1_) {
-        return BlockRenderType.INVISIBLE;
-    }*/
 }

@@ -41,10 +41,4 @@ public class BigFlowerBlock extends Block
     {
         return true;
     }
-
-    //@Override
-    //public BlockRenderLayer getRenderLayer()
-    //{
-    //    return BlockRenderLayer.CUTOUT;
-    //}
 }

@@ -52,7 +52,6 @@ public class OmegaLampBlock extends Block
     @Override
     public void onPlayerDestroy(IWorld iworld, BlockPos pos, BlockState state)
     {
-        //Remove Lag after Breaking
         RemoveLightBlocks(iworld, pos);
     }
 
