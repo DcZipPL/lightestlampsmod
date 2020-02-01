@@ -54,13 +54,13 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
     {
         int marginHorizontal = (width - xSize) / 2;
         int marginVertical = (height - ySize) / 2;
-        Main.LOGGER.info("Clicked at: " + mouseX + ":" + mouseY + ":" + id + ", With margin: " + (mouseX - marginHorizontal) + ":" + (mouseY - marginVertical) + ":" + id);
+        //Main.LOGGER.info("Clicked at: " + mouseX + ":" + mouseY + ":" + id + ", With margin: " + (mouseX - marginHorizontal) + ":" + (mouseY - marginVertical) + ":" + id);
 
         if (mouseX - marginHorizontal >= 9 && mouseX - marginHorizontal <= 20)
         {
             if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20)
             {
-                Main.LOGGER.info("redstone button clicked!");
+                //Main.LOGGER.info("redstone button clicked!");
                 if (sc.field_217064_e.get(1) == 2)
                 {
                     sc.field_217064_e.set(1, 0);
@@ -74,7 +74,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         {
             if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20)
             {
-                Main.LOGGER.info("redstone button clicked!");
+                //Main.LOGGER.info("redstone button clicked!");
                 if (sc.field_217064_e.get(4) == 2)
                 {
                     sc.field_217064_e.set(4, 0);

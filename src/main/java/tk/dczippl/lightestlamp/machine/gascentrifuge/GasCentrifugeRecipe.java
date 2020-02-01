@@ -18,15 +18,15 @@ public class GasCentrifugeRecipe
 {
     protected static List<GasCentrifugeRecipe> recipes = new ArrayList<GasCentrifugeRecipe>();
     public static final GasCentrifugeRecipe basic = new GasCentrifugeRecipe(
-            new ItemStack(ModItems.BASIC_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.NEON_DUST),new ItemStack(ModItems.ARGON_DUST),new ItemStack(ModItems.KRYPTON_SMALL_DUST),ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,5));
+            new ItemStack(ModItems.BASIC_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.NEON_DUST),new ItemStack(ModItems.ARGON_DUST),new ItemStack(ModItems.KRYPTON_PILE),ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,5));
     public static final GasCentrifugeRecipe neon = new GasCentrifugeRecipe(
             new ItemStack(ModItems.NEON_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.NEON_DUST),new ItemStack(ModItems.NEON_DUST),new ItemStack(ModItems.NEON_PILE),new ItemStack(ModItems.ARGON_PILE),new TheoreticalFluid(TheoreticalFluidTypes.Bromine,10));
     public static final GasCentrifugeRecipe argon = new GasCentrifugeRecipe(
             new ItemStack(ModItems.ARGON_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.ARGON_DUST),new ItemStack(ModItems.ARGON_DUST),new ItemStack(ModItems.NEON_PILE),ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,2));
     public static final GasCentrifugeRecipe krypton = new GasCentrifugeRecipe(
-            new ItemStack(ModItems.KRYPTON_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.ARGON_PILE),new ItemStack(ModItems.KRYPTON_DUST),new ItemStack(ModItems.KRYPTON_SMALL_DUST),ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,15));
+            new ItemStack(ModItems.KRYPTON_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.ARGON_PILE),new ItemStack(ModItems.KRYPTON_DUST),new ItemStack(ModItems.KRYPTON_PILE),ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,15));
     public static final GasCentrifugeRecipe bromine = new GasCentrifugeRecipe(
-            new ItemStack(ModItems.BROMINE_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.BORON_DUST),ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,50));
+            new ItemStack(ModItems.BROMINE_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.BORON_PILE),ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,50));
 
     public GasCentrifugeRecipe(ItemStack top_input, ItemStack bottom_input, ItemStack right_up_output, ItemStack left_up_output, ItemStack right_bottom_output, ItemStack left_bottom_output, TheoreticalFluid liquid_output)
     {
@@ -84,7 +84,7 @@ public class GasCentrifugeRecipe
                         new ItemStack(ModItems.KRYPTON_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(al132.chemlib.items.ModItems.krypton,5),new ItemStack(al132.chemlib.items.ModItems.argon,1), ItemStack.EMPTY, ItemStack.EMPTY,
                         new TheoreticalFluid(TheoreticalFluidTypes.Bromine, 15)));
                 recipes.add(new GasCentrifugeRecipe(
-                        new ItemStack(ModItems.BROMINE_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(ModItems.BORON_DUST), ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
+                        new ItemStack(ModItems.BROMINE_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(ModItems.BORON_PILE), ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
                         new TheoreticalFluid(TheoreticalFluidTypes.Bromine,50)));
             }
         }

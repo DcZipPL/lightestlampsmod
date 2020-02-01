@@ -301,11 +301,11 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.NEON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.NEON_BLOCK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ARGON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ARGON_BLOCK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.KRYPTON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.KRYPTON_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CHUNK_CLEANER, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CHUNK_CLEANER.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.VANTA_BLACK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.VANTA_BLACK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GLOWING_GLASS_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GLOWING_GLASS_BLOCK.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.VANTA_BLACK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.VANTA_BLACK.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GAS_EXTRACTOR, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GAS_EXTRACTOR.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.BORON_ORE, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.BORON_ORE.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CHUNK_CLEANER, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CHUNK_CLEANER.getRegistryName()));
 
             // register a new item here
 
@@ -314,21 +314,21 @@ public class Main
             //itemRegistryEvent.getRegistry().register(ib);
 
             itemRegistryEvent.getRegistry().register(ModItems.EMPTY_ROD);
+            itemRegistryEvent.getRegistry().register(ModItems.NEON_ROD);
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_ROD);
             itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_ROD);
-            itemRegistryEvent.getRegistry().register(ModItems.NEON_ROD);
+            itemRegistryEvent.getRegistry().register(ModItems.NEON_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_DUST);
-            itemRegistryEvent.getRegistry().register(ModItems.ARGON_PILE);
+            itemRegistryEvent.getRegistry().register(ModItems.BORON_DUST);
+            itemRegistryEvent.getRegistry().register(ModItems.ALCHEMICAL_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.NEON_PILE);
-            itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_SMALL_DUST);
-            itemRegistryEvent.getRegistry().register(ModItems.NEON_DUST);
+            itemRegistryEvent.getRegistry().register(ModItems.ARGON_PILE);
+            itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_PILE);
+            itemRegistryEvent.getRegistry().register(ModItems.BORON_PILE);
             itemRegistryEvent.getRegistry().register(ModItems.CARBON_NANOTUBE);
             itemRegistryEvent.getRegistry().register(ModItems.MOON_SHARD);
-            itemRegistryEvent.getRegistry().register(ModItems.ALCHEMICAL_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.STICKANDBOWL);
-            itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
-            itemRegistryEvent.getRegistry().register(ModItems.BORON_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.BORON_INGOT);
             itemRegistryEvent.getRegistry().register(ModItems.BORON_NUGGET);
             itemRegistryEvent.getRegistry().register(ModItems.BASIC_FILTER);
@@ -336,6 +336,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.BROMINE_FILTER);
+            itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
             //itemRegistryEvent.getRegistry().register(ModItems.WRITTEN_BOOK);
             LOGGER.info("Lightest Lamps: item init");
         }

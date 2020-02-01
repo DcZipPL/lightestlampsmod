@@ -11,7 +11,7 @@ import tk.dczippl.lightestlamp.items.*;
 public class ModItems
 {
     public static final Item MOON_SHARD = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("moon_shard");
-    public static final Item KRYPTON_SMALL_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("krypton_small_dust");
+    public static final Item KRYPTON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("krypton_small_dust");
     public static final Item KRYPTON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("krypton_dust");
     public static final Item ARGON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("argon_dust");
     public static final Item NEON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("neon_dust");
@@ -31,6 +31,7 @@ public class ModItems
     public static final Item KRYPTON_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(83).group(Main.main_group),"tooltip.lightestlamp.krypton_filter").setRegistryName("krypton_centrifuge_filter");
     public static final Item BROMINE_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(31).group(Main.main_group),"tooltip.lightestlamp.bromine_filter").setRegistryName("bromine_centrifuge_filter");
     public static final Item BORON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_dust");
+    public static final Item BORON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_pile");
     public static final Item BORON_INGOT = new ControlledItem(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_ingot");
     public static final Item BORON_NUGGET = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_nugget");
     public static final Item WRITTEN_BOOK = new WrittenBookItem(new Item.Properties().maxStackSize(1).group(Main.main_group)).setRegistryName("written_book");

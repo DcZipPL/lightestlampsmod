@@ -46,19 +46,21 @@
 	"item.lightestlamp.boron_ingot":"Boron Ingot",
 	"item.lightestlamp.boron_nugget":"Boron Nugget",
 
-	"item.lightestlamp.krypton_small_dust":"Krypton Pile",
-
 	"item.lightestlamp.neon_dust":"Neon Dust",
 	"item.lightestlamp.krypton_dust":"Krypton Dust",
 	"item.lightestlamp.argon_dust":"Argon Dust",
 
 	"item.lightestlamp.neon_pile":"Neon Pile",
 	"item.lightestlamp.argon_pile":"Argon Pile",
+	"item.lightestlamp.krypton_small_dust":"Krypton Pile",
+	"item.lightestlamp.boron_pile":"Boron Pile",
 
 	"item.lightestlamp.neon_rod":"Neon Rod",
 	"item.lightestlamp.krypton_rod":"Krypton Rod",
 	"item.lightestlamp.argon_rod":"Argon Rod",
 	"item.lightestlamp.empty_rod":"Glass Rod",
+
+	"item.lightestlamp.bromine_fluid_bucket":"Bromine Bucket",
 
 	"tooltip.lightestlamp.type.alpha": "Type: α (16 Blocks Light)",
 	"tooltip.lightestlamp.type.beta": "Type: β (17 Blocks Light)",
@@ -67,6 +69,10 @@
 	"tooltip.lightestlamp.type.epsilon": "Type: ε (19 Blocks Light)",
 	"tooltip.lightestlamp.type.zeta": "Type: ζ (20 Blocks Light)",
 	"tooltip.lightestlamp.type.omega": "Type: Ω (30 Blocks Light)",
+	"tooltip.lightestlamp.type.energetic": "Type: Energetic (12-48 Blocks Light)",
+	"tooltip.lightestlamp.type.energetic.energy_required": "Redstone Required",
+	"tooltip.lightestlamp.type.energetic.min_range": "Min Energy: 16 FE per tick",
+	"tooltip.lightestlamp.type.energetic.max_range": "Max Energy: 8.000 FE per tick",
 	"tooltip.lightestlamp.type.antimatter": "Antimatter",
 	"tooltip.lightestlamp.type.alchemical": "Interdiction",
 	"tooltip.lightestlamp.inverted": "Always Active",

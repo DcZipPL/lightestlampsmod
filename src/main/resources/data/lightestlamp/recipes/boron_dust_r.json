@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "D"
+    ],
+   
+    "key":
+    {
+        "D":
+        {
+            "item": "lightestlamp:boron_dust"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:boron_pile",
+        "count": 4
+    }
+}
