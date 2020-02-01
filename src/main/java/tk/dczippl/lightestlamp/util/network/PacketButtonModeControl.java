@@ -1,10 +1,12 @@
 package tk.dczippl.lightestlamp.util.network;
 
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.network.NetworkEvent;
+import tk.dczippl.lightestlamp.init.ModEffect;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 
 import java.util.function.Supplier;
@@ -40,6 +42,7 @@ public class PacketButtonModeControl
             if (te instanceof GasCentrifugeTile)
             {
                 GasCentrifugeTile gte = ((GasCentrifugeTile) te);
+                gte.startTicksBeforeDumping();
                 if (gte.getLiquidMode()>=2)
                     gte.setLiquidMode(0);
                 else

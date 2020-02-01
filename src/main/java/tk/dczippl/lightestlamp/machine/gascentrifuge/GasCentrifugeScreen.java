@@ -47,8 +47,6 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         } else {
             super.render(p_render_1_, p_render_2_, p_render_3_);
         }
-
-        //this.renderHoveredToolTip(p_render_1_, p_render_2_);
     }
 
     @Override
@@ -118,10 +116,10 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
                 fluid_tooltip = "Mode: Neutralize Waste";
                 break;
             case 1:
-                fluid_tooltip = "Mode: Store [WIP]";
+                fluid_tooltip = "Mode: Store";
                 break;
             case 2:
-                fluid_tooltip = "Mode: Dump [WIP]";
+                fluid_tooltip = "Mode: Dump (Starts dumping after 3 sec)";
                 break;
         }
 
@@ -150,10 +148,13 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         int j = this.guiTop;
         this.blit(i, j, 0, 0, this.xSize, this.ySize);
         if (((GasCentrifugeContainer)this.container).func_217061_l()) {
-            int k = ((GasCentrifugeContainer)this.container).getBurnLeftScaled()*6;
+            int k = ((GasCentrifugeContainer)this.container).getBurnLeftScaled()*4;
             //Z Y T-Z T-Y W H
             this.blit(i + 151, j + 65 + 12 - k, 203, 118 - k, 9, k + 1);
         }
+        int m = ((GasCentrifugeContainer)this.container).getLiquidScaled();
+        //Z Y T-Z T-Y W H
+        this.blit(i + 160, j + 65 + 13 - m, 212, 120 - m, 9, m + 1);
 
         int marginHorizontal = (width - xSize) / 2;
         int marginVertical = (height - ySize) / 2;

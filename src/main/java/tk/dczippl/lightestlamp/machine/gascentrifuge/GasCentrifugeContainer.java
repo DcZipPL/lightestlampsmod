@@ -26,13 +26,13 @@ public class GasCentrifugeContainer extends Container
     protected final World world;
 
     protected GasCentrifugeContainer(ContainerType<?> containerTypeIn, int id, PlayerInventory playerInventoryIn, PacketBuffer buf) {
-        this(containerTypeIn, id, playerInventoryIn, new Inventory(6), new IntArray(5),buf);
+        this(containerTypeIn, id, playerInventoryIn, new Inventory(6), new IntArray(7),buf);
     }
 
     protected GasCentrifugeContainer(ContainerType<?> containerTypeIn, int id, PlayerInventory playerInventoryIn, IInventory furnaceInventoryIn, IIntArray p_i50104_6_, PacketBuffer buf) {
         super(containerTypeIn, id);
-        assertInventorySize(furnaceInventoryIn, 5);
-        assertIntArraySize(p_i50104_6_, 5);
+        assertInventorySize(furnaceInventoryIn, 6);
+        assertIntArraySize(p_i50104_6_, 7);
         this.furnaceInventory = furnaceInventoryIn;
         this.field_217064_e = p_i50104_6_;
         this.world = playerInventoryIn.player.world;
@@ -59,7 +59,7 @@ public class GasCentrifugeContainer extends Container
 
     public GasCentrifugeContainer(int i, PlayerInventory playerInventory, PacketBuffer packetBuffer)
     {
-        this(ModContainers.GAS_CENTRIFUGE, i, playerInventory, new Inventory(6), new IntArray(5),packetBuffer);
+        this(ModContainers.GAS_CENTRIFUGE, i, playerInventory, new Inventory(6), new IntArray(7),packetBuffer);
     }
 
     public BlockPos getBlockPos()
@@ -147,7 +147,7 @@ public class GasCentrifugeContainer extends Container
     @OnlyIn(Dist.CLIENT)
     public int getLiquidScaled()
     {
-        return this.field_217064_e.get(5) * 13 / 180;
+        return this.field_217064_e.get(5) / 50;
     }
 
     @OnlyIn(Dist.CLIENT)

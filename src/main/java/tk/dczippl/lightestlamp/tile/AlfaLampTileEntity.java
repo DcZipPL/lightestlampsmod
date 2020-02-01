@@ -31,6 +31,7 @@ public class AlfaLampTileEntity extends TileEntity implements ITickableTileEntit
     public void tick()
     {
         if (world.isRemote) return;
+        //world.getChunk(pos)
 
         cooldown++;
 

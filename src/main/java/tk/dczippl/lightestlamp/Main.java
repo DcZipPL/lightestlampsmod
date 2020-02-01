@@ -11,12 +11,15 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Effect;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -24,6 +27,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -37,10 +41,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tk.dczippl.lightestlamp.init.ModBlocks;
-import tk.dczippl.lightestlamp.init.ModContainers;
-import tk.dczippl.lightestlamp.init.ModItems;
-import tk.dczippl.lightestlamp.init.ModTileEntities;
+import tk.dczippl.lightestlamp.init.*;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 import tk.dczippl.lightestlamp.tile.*;
@@ -90,6 +91,10 @@ public class Main
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ModFluids.BLOCKS.register(modEventBus);
+        ModFluids.ITEMS.register(modEventBus);
+        ModFluids.FLUIDS.register(modEventBus);
 
         Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("lightestlamp-client.toml"));
         Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("lightestlamp-common.toml"));
@@ -183,6 +188,13 @@ public class Main
             blockRegistryEvent.getRegistry().register(ModBlocks.VANTA_BLACK);
             blockRegistryEvent.getRegistry().register(ModBlocks.BORON_ORE);
             LOGGER.info("Lightest Lamps: block init");
+        }
+
+        @SubscribeEvent
+        public static void registerEffects(final RegistryEvent.Register<Effect> event) {
+            event.getRegistry().registerAll(
+                    ModEffect.BROMINE_POISON
+            );
         }
 
         @SubscribeEvent

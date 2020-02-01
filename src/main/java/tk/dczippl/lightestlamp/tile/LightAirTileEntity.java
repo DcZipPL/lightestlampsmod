@@ -48,10 +48,19 @@ public class LightAirTileEntity extends TileEntity implements ITickableTileEntit
                     world.setBlockState(pos1, Blocks.WATER.getDefaultState());
                 }
             });
+            BlockPos.getAllInBox(pos.offset(Direction.UP, 16).offset(Direction.NORTH,16).offset(Direction.WEST,16), pos.offset(Direction.DOWN,16).offset(Direction.SOUTH,16).offset(Direction.EAST,16)).forEach((pos1) -> {
+                if (isAir(pos1))
+                    world.notifyBlockUpdate(pos1,world.getBlockState(pos1),world.getBlockState(pos1),3);
+            });
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             world.setTileEntity(pos, null);
             //Recalc Light in nearby chunks
         }
         cooldown++;
+    }
+
+    private boolean isAir(BlockPos pos)
+    {
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
     }
 }

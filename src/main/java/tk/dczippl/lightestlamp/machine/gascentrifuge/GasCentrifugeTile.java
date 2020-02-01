@@ -1,10 +1,10 @@
 package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -13,26 +13,36 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.crafting.AbstractCookingRecipe;
 import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 import tk.dczippl.lightestlamp.init.ModContainers;
+import tk.dczippl.lightestlamp.init.ModEffect;
+import tk.dczippl.lightestlamp.init.ModFluids;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
+import tk.dczippl.lightestlamp.util.FluidHandlerWrapper;
+import tk.dczippl.lightestlamp.util.IFluidHandlerWrapper;
 import tk.dczippl.lightestlamp.util.TheoreticalFluid;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Map;
 
-public class GasCentrifugeTile extends LockableTileEntity implements ISidedInventory, ITickableTileEntity
+public class GasCentrifugeTile extends LockableTileEntity implements ISidedInventory, ITickableTileEntity, IFluidHandlerWrapper
 {
     public GasCentrifugeTile(TileEntityType type)
     {
@@ -55,11 +65,13 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         return new GasCentrifugeContainer(ModContainers.GAS_CENTRIFUGE,id, player, this, this.furnaceData, buffer);
     }
 
+    public FluidTank tank = new FluidTank(4000);
 
-    private static final int[] SLOTS_UP = new int[]{0};
-    private static final int[] SLOTS_DOWN = new int[]{2, 1};
-    private static final int[] SLOTS_HORIZONTAL = new int[]{1};
+    private static final int[] SLOTS_UP = new int[]{0,1};
+    private static final int[] SLOTS_DOWN = new int[]{2, 3, 4, 5};
+    //private static final int[] SLOTS_HORIZONTAL = new int[]{1};
     protected NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
+    private int ticksBeforeDumping;
     private int burnTime;
     private int fluid;
     private int cookTime;
@@ -81,7 +93,9 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                 case 4:
                     return GasCentrifugeTile.this.liquidMode;
                 case 5:
-                    return GasCentrifugeTile.this.fluid;
+                    return GasCentrifugeTile.this.tank.getFluidAmount();
+                case 6:
+                    return GasCentrifugeTile.this.ticksBeforeDumping;
                 default:
                     return 0;
             }
@@ -106,14 +120,16 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                     GasCentrifugeTile.this.liquidMode = value;
                     break;
                 case 5:
-                    GasCentrifugeTile.this.fluid = value;
+                    break;
+                case 6:
+                    GasCentrifugeTile.this.ticksBeforeDumping = value;
                     break;
             }
 
         }
 
         public int size() {
-            return 6;
+            return 7;
         }
     };
 
@@ -137,10 +153,15 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         return furnaceData.get(4);
     }
 
+    public void startTicksBeforeDumping()
+    {
+        furnaceData.set(6,60);
+    }
+
     @Deprecated //Forge - get burn times by calling ForgeHooks#getBurnTime(ItemStack)
     public static Map<Item, Integer> getBurnTimes() {
         Map<Item, Integer> map = Maps.newLinkedHashMap();
-        addItemBurnTime(map, Items.GLOWSTONE_DUST, 40);
+        addItemBurnTime(map, Items.GLOWSTONE_DUST, 50);
         addItemBurnTime(map, Blocks.GLOWSTONE, 160);
         return map;
     }
@@ -187,7 +208,8 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     }
 
     @Override
-    public void tick() {
+    public void tick()
+    {
         boolean flag = this.isBurning();
         boolean flag1 = false;
         if (this.isBurning()) {
@@ -195,6 +217,27 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         }
 
         if (!this.world.isRemote) {
+            if (liquidMode == 2)
+            {
+                if (ticksBeforeDumping <= 0)
+                {
+                    if (tank.getFluidAmount() >= 10)
+                    {
+                        world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.offset(Direction.NORTH, 4).offset(Direction.WEST, 4).offset(Direction.UP, 4),
+                                pos.offset(Direction.SOUTH, 4).offset(Direction.EAST, 4).offset(Direction.DOWN, 4))).forEach(entity ->
+                        {
+                            if (entity instanceof LivingEntity)
+                                ((LivingEntity) entity).addPotionEffect(new EffectInstance(ModEffect.BROMINE_POISON, 80, 0));
+                        });
+                        tank.drain(10, IFluidHandler.FluidAction.EXECUTE);
+                    }
+                }
+                else
+                {
+                    ticksBeforeDumping--;
+                }
+            }
+
             ItemStack itemstack = this.items.get(1);
             if (this.isBurning() || !itemstack.isEmpty() && !this.items.get(0).isEmpty()) {
                 if (!this.isBurning() && this.canSmelt()) {
@@ -239,12 +282,11 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         if (flag1) {
             this.markDirty();
         }
-
     }
 
     private int getCookTimeTotal()
     {
-        return 100;
+        return 15; // 100
     }
 
     protected boolean canSmelt() {
@@ -313,7 +355,9 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
             if (theoreticalFluid != null)
             {
-                furnaceData.set(5,furnaceData.get(5)+theoreticalFluid.amount);
+                if (tank.getFluidAmount()<1000&&furnaceData.get(4)==0||tank.getFluidAmount()<4000&&furnaceData.get(4)==1)
+                    //furnaceData.set(5,furnaceData.get(5)+theoreticalFluid.amount);
+                    tank.fill(new FluidStack(ModFluids.BROMINE_FLUID.get(),theoreticalFluid.amount), IFluidHandler.FluidAction.EXECUTE);
             }
         }
     }
@@ -336,7 +380,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         if (side == Direction.DOWN) {
             return SLOTS_DOWN;
         } else {
-            return side == Direction.UP ? SLOTS_UP : SLOTS_HORIZONTAL;
+            return SLOTS_UP;
         }
     }
 
@@ -352,14 +396,8 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
      * Returns true if automation can extract the given item in the given slot from the given side.
      */
     @Override
-    public boolean canExtractItem(int index, ItemStack stack, Direction direction) {
-        if (direction == Direction.DOWN && index == 1) {
-            Item item = stack.getItem();
-            if (item != Items.WATER_BUCKET && item != Items.BUCKET) {
-                return false;
-            }
-        }
-
+    public boolean canExtractItem(int index, ItemStack stack, Direction direction)
+    {
         return true;
     }
 
@@ -482,6 +520,10 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
             else
                 return handlers[2].cast();
         }
+        if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY)
+        {
+            return CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY.orEmpty(capability, LazyOptional.of(() -> new FluidHandlerWrapper(this, facing)));
+        }
         return super.getCapability(capability, facing);
     }
 
@@ -493,5 +535,50 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         super.remove();
         for (int x = 0; x < handlers.length; x++)
             handlers[x].invalidate();
+    }
+
+    public FluidTank getTank()
+    {
+        return tank;
+    }
+
+    @Override
+    public IFluidTank[] getTankInfo(Direction from)
+    {
+        return new IFluidTank[]{tank};
+    }
+
+    @Override
+    public IFluidTank[] getAllTanks()
+    {
+        return new IFluidTank[]{tank};
+    }
+
+
+    @Override
+    public int fill(Direction from, @Nonnull FluidStack resource, IFluidHandler.FluidAction fluidAction) {
+        if (canFill(from, resource)) {
+            return tank.fill(resource, fluidAction);
+        }
+        return 0;
+    }
+
+    @Nonnull
+    @Override
+    public FluidStack drain(Direction from, int maxDrain, IFluidHandler.FluidAction fluidAction) {
+        if (canDrain(from, FluidStack.EMPTY)) {
+            return tank.drain(maxDrain, fluidAction);
+        }
+        return FluidStack.EMPTY;
+    }
+
+    @Override
+    public boolean canFill(Direction from, @Nonnull FluidStack fluid) {
+        return true;
+    }
+
+    @Override
+    public boolean canDrain(Direction from, @Nonnull FluidStack fluid) {
+        return true;
     }
 }

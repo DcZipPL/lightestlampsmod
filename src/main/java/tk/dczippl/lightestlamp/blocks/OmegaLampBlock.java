@@ -8,6 +8,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -53,6 +54,30 @@ public class OmegaLampBlock extends Block
     public void onPlayerDestroy(IWorld iworld, BlockPos pos, BlockState state)
     {
         RemoveLightBlocks(iworld, pos);
+    }
+
+    @Override
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving)
+    {
+        BlockPos.getAllInBox(pos.offset(Direction.UP, 10).offset(Direction.NORTH, 10).offset(Direction.WEST, 10),
+                pos.offset(Direction.DOWN, 10).offset(Direction.SOUTH, 10).offset(Direction.EAST, 10)).forEach((pos2) ->
+        {
+            if (isWAir(pos2,world))
+            {
+                world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+            }
+        });
+        BlockPos.getAllInBox(pos.offset(Direction.UP, 16).offset(Direction.NORTH,16).offset(Direction.WEST,16), pos.offset(Direction.DOWN,16).offset(Direction.SOUTH,16).offset(Direction.EAST,16)).forEach((pos1) -> {
+            if (isWAir(pos1,world))
+            {
+                world.notifyBlockUpdate(pos1, world.getBlockState(pos1), world.getBlockState(pos1), 3);
+            }
+        });
+    }
+
+    private boolean isWAir(BlockPos pos, World world)
+    {
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
     }
 
     private void RemoveLightBlocks(IWorld iworld, BlockPos pos)

@@ -1,4 +1,4 @@
-package tk.dczippl.lightestlamp.datagen;
+package tk.dczippl.lightestlamp.util.datagen;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

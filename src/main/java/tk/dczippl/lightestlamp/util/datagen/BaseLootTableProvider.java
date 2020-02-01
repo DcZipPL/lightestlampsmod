@@ -1,4 +1,4 @@
-package tk.dczippl.lightestlamp.datagen;
+package tk.dczippl.lightestlamp.util.datagen;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,9 +9,6 @@ import net.minecraft.data.IDataProvider;
 import net.minecraft.data.LootTableProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.*;
-import net.minecraft.world.storage.loot.functions.CopyName;
-import net.minecraft.world.storage.loot.functions.CopyNbt;
-import net.minecraft.world.storage.loot.functions.SetContents;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

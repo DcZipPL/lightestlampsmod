@@ -98,5 +98,11 @@
 	"jei.lightestlamp.instructions.moonshard": "Moon Shards is dropping from any mob during full moon.",
 	"jei.lightestlamp.gascentrifuge": "Gas Centrifuge",
 
+	"effect.lightestlamp.bromine_poison": "Bromine Poisoning",
+
+	"death.attack.bromine": "%s is Bromine Poisoned",
+
+	"fluid.lightestlamp.bromine_fluid": "Bromine",
+
 	"itemGroup.lamps": "Lamps"
 }

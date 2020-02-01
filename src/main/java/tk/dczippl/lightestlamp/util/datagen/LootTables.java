@@ -1,4 +1,4 @@
-package tk.dczippl.lightestlamp.datagen;
+package tk.dczippl.lightestlamp.util.datagen;
 
 import net.minecraft.data.DataGenerator;
 import tk.dczippl.lightestlamp.init.ModBlocks;
