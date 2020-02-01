@@ -54,7 +54,6 @@ public class GasCentrifugeBlock extends ContainerBlock
         TileEntity tileentity = worldIn.getTileEntity(pos);
         if (tileentity instanceof GasCentrifugeTile) {
             NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider)tileentity, buf -> buf.writeBlockPos(pos));
-            //player.openContainer((INamedContainerProvider)tileentity);
             player.addStat(Stats.INTERACT_WITH_FURNACE);
         }
     }
