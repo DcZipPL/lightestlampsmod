@@ -12,6 +12,8 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.HoverChecker;
 import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.Reference;
@@ -19,6 +21,7 @@ import tk.dczippl.lightestlamp.util.network.Networking;
 import tk.dczippl.lightestlamp.util.network.PacketButtonModeControl;
 import tk.dczippl.lightestlamp.util.network.PacketButtonRedstone;
 
+@OnlyIn(Dist.CLIENT)
 public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
 {
     public static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID,"textures/gui/container/gas_centrifuge.png");

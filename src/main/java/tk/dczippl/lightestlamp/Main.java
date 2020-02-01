@@ -106,7 +106,6 @@ public class Main
     private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
-        ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
         WorldGenerator.setupWorldGeneraton();
         Networking.registerMessages();
         //new RecipeManager().getRecipes().removeIf(p->p.getRecipeOutput().getItem()==ModItems.BORON_INGOT);
@@ -115,6 +114,7 @@ public class Main
     private void doClientStuff(final FMLClientSetupEvent event)
     {
         // do something that can only be done on the client
+        ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
         RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN, RenderType.cutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK, RenderType.cutout());
     }
