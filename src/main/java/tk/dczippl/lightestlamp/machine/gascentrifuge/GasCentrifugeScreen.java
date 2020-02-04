@@ -151,7 +151,9 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         int j = this.guiTop;
         this.blit(i, j, 0, 0, this.xSize, this.ySize);
         if (((GasCentrifugeContainer)this.container).func_217061_l()) {
-            int k = ((GasCentrifugeContainer)this.container).getBurnLeftScaled()*4;
+            int k = ((GasCentrifugeContainer)this.container).getBurnLeftScaled()*2;
+            if (k >= 300)
+                k = 299;
             //Z Y T-Z T-Y W H
             this.blit(i + 151, j + 65 + 12 - k, 203, 118 - k, 9, k + 1);
         }

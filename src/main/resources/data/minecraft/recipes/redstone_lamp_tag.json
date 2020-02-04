@@ -10,7 +10,7 @@
       "item": "minecraft:redstone"
     },
     "G": {
-      "tag": "forge:glowstones"
+      "tag": "lightestlamp:glowstones"
     }
   },
   "result": {

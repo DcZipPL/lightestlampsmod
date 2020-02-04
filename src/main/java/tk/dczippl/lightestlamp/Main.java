@@ -18,8 +18,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -48,6 +51,7 @@ import tk.dczippl.lightestlamp.tile.*;
 import tk.dczippl.lightestlamp.util.WorldGenerator;
 import tk.dczippl.lightestlamp.util.network.Networking;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -187,7 +191,7 @@ public class Main
             blockRegistryEvent.getRegistry().register(ModBlocks.CHUNK_CLEANER);
             blockRegistryEvent.getRegistry().register(ModBlocks.VANTA_BLACK);
             blockRegistryEvent.getRegistry().register(ModBlocks.BORON_ORE);
-            LOGGER.info("Lightest Lamps: block init");
+            //LOGGER.info("Lightest Lamps: block init");
         }
 
         @SubscribeEvent
@@ -202,7 +206,7 @@ public class Main
         {
             // register a new container here
             containerTypeRegistryEvent.getRegistry().register(ModContainers.GAS_CENTRIFUGE);
-            LOGGER.info("Lightest Lamps: container init");
+            //LOGGER.info("Lightest Lamps: container init");
         }
 
         @SubscribeEvent
@@ -338,7 +342,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.BROMINE_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
             //itemRegistryEvent.getRegistry().register(ModItems.WRITTEN_BOOK);
-            LOGGER.info("Lightest Lamps: item init");
+            //LOGGER.info("Lightest Lamps: item init");
         }
     }
 

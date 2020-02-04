@@ -2,6 +2,7 @@ package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -17,6 +18,8 @@ import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.*;
@@ -24,6 +27,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
@@ -158,10 +162,24 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         furnaceData.set(6,60);
     }
 
-    @Deprecated //Forge - get burn times by calling ForgeHooks#getBurnTime(ItemStack)
     public static Map<Item, Integer> getBurnTimes() {
         Map<Item, Integer> map = Maps.newLinkedHashMap();
-        addItemBurnTime(map, Items.GLOWSTONE_DUST, 50);
+
+        //Mekanism compatibility
+        Tag<Item> refined_glowstones = ItemTags.getCollection().get(new ResourceLocation("forge:ingots/refined_glowstone"));
+        if (refined_glowstones!=null)
+            addItemTagBurnTime(map, refined_glowstones,60);
+        Tag<Item> refined_glowstones_block = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/refined_glowstone"));
+        if (refined_glowstones_block!=null)
+            addItemTagBurnTime(map, refined_glowstones_block,520);
+        Tag<Item> refined_glowstones_nugget = ItemTags.getCollection().get(new ResourceLocation("forge:nuggets/refined_glowstone"));
+        if (refined_glowstones_nugget!=null)
+            addItemTagBurnTime(map, refined_glowstones_nugget,5);
+        Tag<Item> glowstone_blocks = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/glowstone"));
+        if (glowstone_blocks!=null)
+            addItemTagBurnTime(map, glowstone_blocks,360);
+
+        addItemTagBurnTime(map, Tags.Items.DUSTS_GLOWSTONE,40);
         addItemBurnTime(map, Blocks.GLOWSTONE, 160);
         return map;
     }
@@ -286,7 +304,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
     private int getCookTimeTotal()
     {
-        return 15; // 100
+        return 80; // 100
     }
 
     protected boolean canSmelt() {
@@ -498,13 +516,6 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     }
 
     public void onCrafting(PlayerEntity player) {
-    }
-
-    public void fillStackedContents(RecipeItemHelper helper) {
-        for(ItemStack itemstack : this.items) {
-            helper.accountStack(itemstack);
-        }
-
     }
 
     net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
