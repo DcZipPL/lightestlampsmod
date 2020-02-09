@@ -17,6 +17,8 @@
 	"block.lightestlamp.clear_sea_lantern":"Clear Sea Lantern",
 	"block.lightestlamp.deep_sea_lantern":"Deep Sea Lantern",
 	"block.lightestlamp.ocean_lantern":"Ocean Lantern",
+	"block.lightestlamp.deep_ocean_lantern":"Deep Ocean Lantern",
+	"block.lightestlamp.abyssal_lantern":"Abyssal Lantern",
 	"block.lightestlamp.anti_lamp":"Anti-Lamp",
 	"block.lightestlamp.alchemical_lamp":"Alchemical Lamp",
 
@@ -31,9 +33,12 @@
 	"block.lightestlamp.krypton_rod_block":"Krypton Rod Block",
 	"block.lightestlamp.xenon_rod_block":"Xenon Rod Block",
 	"block.lightestlamp.radon_rod_block":"Radon Rod Block",
+
 	"block.lightestlamp.glowing_glass_block":"Glowing Glass",
 	"block.lightestlamp.debug_chunk_cleaner":"Chunk Cleaner (Debug)",
 	"block.lightestlamp.boron_ore":"Boron Ore",
+
+	"item.lightestlamp.boron_mesh":"Boron Mesh",
 
 	"item.lightestlamp.basic_centrifuge_filter":"Centrifuge Filter",
 	"item.lightestlamp.neon_centrifuge_filter":"Centrifuge Filter",
@@ -123,7 +128,7 @@
 	"jei.lightestlamp.instructions.moonshard": "Moon Shards is dropping from any mob during full moon.",
 	"jei.lightestlamp.gascentrifuge": "Gas Centrifuge",
 
-	"effect.lightestlamp.bromine_poison": "Bromine Poisoning",
+	"effect.lightestlamp.bromine_poison": "Bromine Poison",
 
 	"death.attack.bromine": "%s is Bromine Poisoned",
 

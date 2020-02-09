@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:shears",
+            "data":32767
+        },
+        {
+            "item": "minecraft:chorus_fruit"
+        },
+        {
+            "item": "minecraft:chorus_fruit"
+        },
+        {
+            "item": "minecraft:chorus_fruit"
+        },
+        {
+            "item": "minecraft:chorus_fruit"
+        }
+    ],
+    "result":
+    {
+        "item": "lightestlamp:chorus_fiber",
+        "count": 1
+    }
+}

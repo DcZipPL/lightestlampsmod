@@ -9,6 +9,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.state.StateContainer;
 import net.minecraft.stats.Stats;
 import net.minecraft.tileentity.TileEntity;
@@ -19,7 +20,9 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fml.network.NetworkHooks;
+import tk.dczippl.lightestlamp.init.ModFluids;
 
 import static net.minecraft.state.properties.BlockStateProperties.FACING;
 
@@ -53,8 +56,22 @@ public class GasCentrifugeBlock extends ContainerBlock
     protected void interactWith(World worldIn, BlockPos pos, PlayerEntity player) {
         TileEntity tileentity = worldIn.getTileEntity(pos);
         if (tileentity instanceof GasCentrifugeTile) {
-            NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider)tileentity, buf -> buf.writeBlockPos(pos));
-            player.addStat(Stats.INTERACT_WITH_FURNACE);
+            if (player.getHeldItemMainhand().getItem() == Items.BUCKET)
+            {
+                ItemStack bucket = player.getHeldItemMainhand();
+                if (player.getHeldItemMainhand().getCount() == 1)
+                    if (((GasCentrifugeTile) tileentity).getTank().getFluidAmount() >= 1000)
+                    {
+                        ((GasCentrifugeTile) tileentity).getTank().drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                        player.inventory.deleteStack(bucket);
+                        player.inventory.addItemStackToInventory(new ItemStack(ModFluids.BROMINE_FLUID_BUCKET.get()));
+                    }
+            }
+            else
+            {
+                NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileentity, buf -> buf.writeBlockPos(pos));
+                player.addStat(Stats.INTERACT_WITH_FURNACE);
+            }
         }
     }
     @Override

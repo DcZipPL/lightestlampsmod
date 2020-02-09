@@ -1,6 +1,7 @@
 package tk.dczippl.lightestlamp;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -22,14 +23,19 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.GameType;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -150,6 +156,45 @@ public class Main
                 if (rnd.nextInt(4) == 2)//25% chance
                     event.getEntityLiving().entityDropItem(new ItemStack(ModItems.MOON_SHARD));
             }
+        }
+    }
+
+    @SubscribeEvent
+    public void EntityUpdate(LivingEvent.LivingUpdateEvent event)
+    {
+        LivingEntity entity = event.getEntityLiving();
+        boolean disabled = false;
+        if (entity instanceof PlayerEntity)
+        {
+            if (((PlayerEntity)entity).isSpectator())
+                disabled = true;
+        }
+        if (!disabled)
+        {
+            BlockPos pos = entity.getPosition();
+            Block b = entity.getEntityWorld().getBlockState(pos.offset(Direction.UP)).getBlock();
+            Block b1 = entity.getEntityWorld().getBlockState(pos).getBlock();
+            if (b.equals(ModFluids.BROMINE_FLUID_BLOCK.get()))
+            {
+                entity.setMotion(new Vec3d(entity.getMotion().x, 0.100000011620D, entity.getMotion().z));
+            } else if (b1.equals(ModFluids.BROMINE_FLUID_BLOCK.get()))
+            {
+                entity.setMotion(new Vec3d(entity.getMotion().x, 0.100000011620D, entity.getMotion().z));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public void setFog(EntityViewRenderEvent.FogColors fog)
+    {
+        World w = fog.getInfo().getRenderViewEntity().getEntityWorld();
+        BlockPos pos = fog.getInfo().getBlockPos();
+        BlockState bs = w.getBlockState(pos);
+        Block b = bs.getBlock();
+        if(b.equals(ModFluids.BROMINE_FLUID_BLOCK.get()))
+        {
+            float red = 0.2F, green = 0.05F, blue = 0.05F;
+            fog.setRed(red); fog.setGreen(green); fog.setBlue(blue);
         }
     }
 
@@ -377,6 +422,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.XENON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.RADON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.BROMINE_FILTER);
+            itemRegistryEvent.getRegistry().register(ModItems.BORON_MESH);
             itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
             //itemRegistryEvent.getRegistry().register(ModItems.WRITTEN_BOOK);
             //LOGGER.info("Lightest Lamps: item init");

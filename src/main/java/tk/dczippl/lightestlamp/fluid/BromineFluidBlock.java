@@ -1,11 +1,14 @@
 package tk.dczippl.lightestlamp.fluid;
 
 import net.minecraft.block.*;
+import net.minecraft.block.material.MaterialColor;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -57,11 +60,29 @@ public class BromineFluidBlock extends FlowingFluidBlock
         return true;
     }
 
-    @Override
+    /*@Override
     @OnlyIn(Dist.CLIENT)
     public Vec3d getFogColor(BlockState state, IWorldReader world, BlockPos pos, Entity entity, Vec3d originalColor, float partialTicks)
     {
-        return new Vec3d(0.6F, 0.1F, 0.0F);
+        float f12 = 0.0F;
+
+        if (entity instanceof LivingEntity)
+        {
+            LivingEntity ent = (LivingEntity)entity;
+            f12 = (float) EnchantmentHelper.getRespirationModifier(ent) * 0.2F;
+
+            if (ent.isPotionActive(Effects.WATER_BREATHING))
+            {
+                f12 = f12 * 0.3F + 0.6F;
+            }
+        }
+        return new Vec3d(0.02F + f12, 0.02F + f12, 0.2F + f12);
+    }*/
+
+    @Override
+    public MaterialColor getMaterialColor(BlockState p_180659_1_, IBlockReader p_180659_2_, BlockPos p_180659_3_)
+    {
+        return MaterialColor.RED;
     }
 
     @Override

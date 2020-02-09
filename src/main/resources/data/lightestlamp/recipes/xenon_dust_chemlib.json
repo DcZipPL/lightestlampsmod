@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "DD",
+        "DD"
+    ],
+   
+    "key":
+    {
+        "D":
+        {
+            "item": "chemlib:element_xenon"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:xenon_dust",
+        "count": 1
+    }
+}
