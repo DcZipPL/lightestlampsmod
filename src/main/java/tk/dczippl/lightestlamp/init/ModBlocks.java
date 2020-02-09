@@ -44,6 +44,9 @@ public class ModBlocks
     @ObjectHolder(Reference.MOD_ID+":"+"zeta_lamp")
     public static final Block ZETA_LAMP = new ZetaLampBlock().setRegistryName("zeta_lamp");
 
+    @ObjectHolder(Reference.MOD_ID+":"+"eta_lamp")
+    public static final Block ETA_LAMP = new EtaLampBlock().setRegistryName("eta_lamp");
+
     @ObjectHolder(Reference.MOD_ID+":"+"omega_lamp")
     public static final Block OMEGA_LAMP = new OmegaLampBlock().setRegistryName("omega_lamp");
 
@@ -55,6 +58,12 @@ public class ModBlocks
 
     @ObjectHolder(Reference.MOD_ID  +":ocean_lantern")
     public static final Block OCEAN_LANTERN = new OceanLanternBlock().setRegistryName("ocean_lantern");
+
+    @ObjectHolder(Reference.MOD_ID+":deep_ocean_lantern")
+    public static final Block DEEP_OCEAN_LANTERN = new DeepOceanLanternBlock().setRegistryName("deep_ocean_lantern");
+
+    @ObjectHolder(Reference.MOD_ID  +":abyssal_lantern")
+    public static final Block ABYSSAL_LANTERN = new AbyssalLanternBlock().setRegistryName("abyssal_lantern");
 
     @ObjectHolder(Reference.MOD_ID  +":alchemical_lamp")
     public static final Block ALCHEMICAL_LAMP = new AlchemicalLampBlock().setRegistryName("alchemical_lamp");
@@ -83,7 +92,15 @@ public class ModBlocks
 
     @ObjectHolder(Reference.MOD_ID+":"+"krypton_rod_block")
     public static final Block KRYPTON_ROD_BLOCK = new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
-            .hardnessAndResistance(0.85f,1).lightValue(15)).setRegistryName("krypton_rod_block");
+            .hardnessAndResistance(0.85f,1).lightValue(14)).setRegistryName("krypton_rod_block");
+
+    @ObjectHolder(Reference.MOD_ID+":"+"xenon_rod_block")
+    public static final Block XENON_ROD_BLOCK = new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+            .hardnessAndResistance(0.85f,1).lightValue(14)).setRegistryName("xenon_rod_block");
+
+    @ObjectHolder(Reference.MOD_ID+":"+"radon_rod_block")
+    public static final Block RADON_ROD_BLOCK = new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+            .hardnessAndResistance(0.85f,1).lightValue(15)).setRegistryName("radon_rod_block");
 
     @ObjectHolder(Reference.MOD_ID+":"+"vanta_black")
     public static final Block VANTA_BLACK = new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH)
@@ -106,6 +123,14 @@ public class ModBlocks
     @ObjectHolder(Reference.MOD_ID+":"+"krypton_block")
     public static final Block KRYPTON_BLOCK = new Block(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
             .hardnessAndResistance(0.4f,1).lightValue(15)).setRegistryName("krypton_block");
+
+    @ObjectHolder(Reference.MOD_ID+":"+"xenon_block")
+    public static final Block XENON_BLOCK = new Block(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
+            .hardnessAndResistance(0.4f,1).lightValue(15)).setRegistryName("xenon_block");
+
+    @ObjectHolder(Reference.MOD_ID+":"+"radon_block")
+    public static final Block RADON_BLOCK = new Block(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
+            .hardnessAndResistance(0.4f,1).lightValue(15)).setRegistryName("radon_block");
 
     @ObjectHolder(Reference.MOD_ID+":"+"glowing_glass_block")
     public static final Block GLOWING_GLASS_BLOCK = new GlowingGlassBlock().setRegistryName("glowing_glass_block");

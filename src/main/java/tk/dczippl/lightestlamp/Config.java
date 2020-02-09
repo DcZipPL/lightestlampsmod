@@ -44,7 +44,7 @@ public class Config {
         KRYPTON_GLOWSTONE_SPAWN = COMMON_BUILDER.comment("Generation of Krypton Glowstone in nether")
                 .define("krypton_gen",false);
         BORON_SPAWN = COMMON_BUILDER.comment("Generation of Boron Ore in nether")
-                .define("krypton_gen",true);
+                .define("boron_gen",true);
 
         COMMON_BUILDER.pop();
     }

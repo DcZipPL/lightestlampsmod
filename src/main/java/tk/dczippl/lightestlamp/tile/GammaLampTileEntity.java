@@ -35,43 +35,8 @@ public class GammaLampTileEntity extends TileEntity implements ITickableTileEnti
 
         if (cooldown == 5)
         {
-            BlockPos pos1 = pos.offset(Direction.UP, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.DOWN, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.NORTH, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.SOUTH, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.WEST, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.EAST, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            BlockPos.getAllInBox(pos.offset(Direction.UP, 1).offset(Direction.NORTH, 1).offset(Direction.WEST, 1), pos.offset(Direction.DOWN, 1).offset(Direction.SOUTH, 1).offset(Direction.EAST, 1)).forEach((pos2) ->
+            BlockPos.getAllInBox(pos.offset(Direction.UP, 2).offset(Direction.NORTH, 2).offset(Direction.WEST, 2),
+                    pos.offset(Direction.DOWN, 2).offset(Direction.SOUTH, 2).offset(Direction.EAST, 2)).forEach((pos2) ->
             {
                 if (isAir(pos2))
                 {

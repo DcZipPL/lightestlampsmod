@@ -34,7 +34,7 @@ public class LightAirTileEntity extends TileEntity implements ITickableTileEntit
         if (world.isRemote) return;
         if (cooldown >= 1)
         {
-            BlockPos.getAllInBox(pos.offset(Direction.UP, 13).offset(Direction.NORTH,13).offset(Direction.WEST,13), pos.offset(Direction.DOWN,13).offset(Direction.SOUTH,13).offset(Direction.EAST,13)).forEach((pos1) -> {
+            BlockPos.getAllInBox(pos.offset(Direction.UP, 18).offset(Direction.NORTH,18).offset(Direction.WEST,18), pos.offset(Direction.DOWN,18).offset(Direction.SOUTH,18).offset(Direction.EAST,18)).forEach((pos1) -> {
                 if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
                 {
                     world.setBlockState(pos1, Blocks.AIR.getDefaultState());
@@ -48,7 +48,7 @@ public class LightAirTileEntity extends TileEntity implements ITickableTileEntit
                     world.setBlockState(pos1, Blocks.WATER.getDefaultState());
                 }
             });
-            BlockPos.getAllInBox(pos.offset(Direction.UP, 16).offset(Direction.NORTH,16).offset(Direction.WEST,16), pos.offset(Direction.DOWN,16).offset(Direction.SOUTH,16).offset(Direction.EAST,16)).forEach((pos1) -> {
+            BlockPos.getAllInBox(pos.offset(Direction.UP, 19).offset(Direction.NORTH,19).offset(Direction.WEST,19), pos.offset(Direction.DOWN,19).offset(Direction.SOUTH,19).offset(Direction.EAST,19)).forEach((pos1) -> {
                 if (isAir(pos1))
                     world.notifyBlockUpdate(pos1,world.getBlockState(pos1),world.getBlockState(pos1),3);
             });

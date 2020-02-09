@@ -52,8 +52,9 @@ public class WorldGenerator
                     biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, GLOWSTONE.func_225566_b_(
                             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.KRYPTON_BLOCK.getDefaultState(),KRYPTON_BLOCK_VEINSIZE))
                             .func_227228_a_( Placement.COUNT_RANGE.func_227446_a_(KRYPTON_BLOCK)));
-                biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,OreFeature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.BORON_ORE.getDefaultState(),BORON_BLOCK_VEINSIZE))
-                        .func_227228_a_( Placement.COUNT_RANGE.func_227446_a_(BORON_BLOCK)));
+                if (Config.BORON_SPAWN.get())
+                    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,OreFeature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.BORON_ORE.getDefaultState(),BORON_BLOCK_VEINSIZE))
+                            .func_227228_a_( Placement.COUNT_RANGE.func_227446_a_(BORON_BLOCK)));
             }
         }
     }

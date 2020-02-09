@@ -32,10 +32,10 @@ public class ZetaLampTileEntity extends TileEntity implements ITickableTileEntit
 
         cooldown++;
 
-        if (cooldown == 5)
+        if (cooldown == 10)
         {
-            BlockPos.getAllInBox(pos.offset(Direction.UP, 5).offset(Direction.NORTH, 5).offset(Direction.WEST, 5),
-                    pos.offset(Direction.DOWN, 5).offset(Direction.SOUTH, 5).offset(Direction.EAST, 5)).forEach((pos2) ->
+            BlockPos.getAllInBox(pos.offset(Direction.UP, 9).offset(Direction.NORTH, 9).offset(Direction.WEST, 9),
+                    pos.offset(Direction.DOWN, 9).offset(Direction.SOUTH, 9).offset(Direction.EAST, 9)).forEach((pos2) ->
             {
                 if (isAir(pos2))
                 {

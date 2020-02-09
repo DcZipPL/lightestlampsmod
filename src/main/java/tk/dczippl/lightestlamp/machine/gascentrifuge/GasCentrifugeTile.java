@@ -210,6 +210,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         //this.recipesUsed = this.getBurnTime(this.items.get(1));
         this.redstoneMode = compound.getInt("RedstoneMode");
         this.liquidMode = compound.getInt("LiquidMode");
+        this.tank.setFluid(new FluidStack(ModFluids.BROMINE_FLUID.get(),compound.getInt("WasteAmount")));
     }
 
     @Override
@@ -220,6 +221,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         compound.putInt("CookTimeTotal", this.cookTimeTotal);
         compound.putInt("RedstoneMode", this.redstoneMode);
         compound.putInt("LiquidMode", this.liquidMode);
+        compound.putInt("WasteAmount", this.tank.getFluidAmount());
         ItemStackHelper.saveAllItems(compound, this.items);
 
         return compound;

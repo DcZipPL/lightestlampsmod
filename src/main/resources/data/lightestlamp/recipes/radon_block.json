@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "DD",
+        "DD"
+    ],
+   
+    "key":
+    {
+        "D":
+        {
+            "item": "lightestlamp:radon_dust"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:radon_block",
+        "count": 1
+    }
+}

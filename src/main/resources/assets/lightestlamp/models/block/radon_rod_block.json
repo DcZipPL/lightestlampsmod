@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle":"lightestlamp:block/radon_rod_block_top",
+      "up": "lightestlamp:block/radon_rod_block_top",
+      "down": "lightestlamp:block/radon_rod_block_top",
+      "west": "lightestlamp:block/radon_rod_block_side",
+      "east": "lightestlamp:block/radon_rod_block_side",
+      "north": "lightestlamp:block/radon_rod_block_side",
+      "south": "lightestlamp:block/radon_rod_block_side"
+    }
+  }

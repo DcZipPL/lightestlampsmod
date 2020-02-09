@@ -31,10 +31,10 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
 
         cooldown++;
 
-        if (cooldown == 5)
+        if (cooldown == 20)
         {
-            BlockPos.getAllInBox(pos.offset(Direction.UP, 10).offset(Direction.NORTH, 10).offset(Direction.WEST, 10),
-                    pos.offset(Direction.DOWN, 10).offset(Direction.SOUTH, 10).offset(Direction.EAST, 10)).forEach((pos2) ->
+            BlockPos.getAllInBox(pos.offset(Direction.UP, 15).offset(Direction.NORTH, 15).offset(Direction.WEST, 15),
+                    pos.offset(Direction.DOWN, 15).offset(Direction.SOUTH, 15).offset(Direction.EAST, 15)).forEach((pos2) ->
             {
                 if (isAir(pos2))
                 {

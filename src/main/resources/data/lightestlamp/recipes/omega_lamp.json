@@ -4,7 +4,7 @@
     "pattern":
     [
         "RLR",
-        "LRL",
+        "LBL",
         "RLR"
     ],
    
@@ -12,11 +12,15 @@
     {
         "R":
         {
-            "item": "lightestlamp:krypton_rod"
+            "item": "lightestlamp:radon_rod"
         },
         "L":
         {
-            "item": "lightestlamp:zeta_lamp"
+            "item": "lightestlamp:eta_lamp"
+        },
+        "B":
+        {
+            "item": "lightestlamp:xenon_rod_block"
         }
     },
    

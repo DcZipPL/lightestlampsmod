@@ -35,185 +35,50 @@ public class BetaLampTileEntity extends TileEntity implements ITickableTileEntit
 
         if (cooldown == 5)
         {
-            BlockPos pos1 = pos.offset(Direction.UP);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+            BlockPos pos1 = pos.offset(Direction.UP, 2);
+            if (isAir(pos1))
             {
                 world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
             }
 
-            pos1 = pos.offset(Direction.DOWN);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+            pos1 = pos.offset(Direction.DOWN, 2);
+            if (isAir(pos1))
             {
                 world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
             }
 
-            pos1 = pos.offset(Direction.NORTH);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+            pos1 = pos.offset(Direction.NORTH, 2);
+            if (isAir(pos1))
             {
                 world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
             }
 
-            pos1 = pos.offset(Direction.SOUTH);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+            pos1 = pos.offset(Direction.SOUTH, 2);
+            if (isAir(pos1))
             {
                 world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
             }
 
-            pos1 = pos.offset(Direction.WEST);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+            pos1 = pos.offset(Direction.WEST, 2);
+            if (isAir(pos1))
             {
                 world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
             }
 
-            pos1 = pos.offset(Direction.EAST);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+            pos1 = pos.offset(Direction.EAST, 2);
+            if (isAir(pos1))
             {
                 world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
             }
 
-            /*BlockPos.getAllInBox(pos.offset(Direction.UP, 1).offset(Direction.NORTH,1).offset(Direction.WEST,1), pos.offset(Direction.DOWN, 1).offset(Direction.SOUTH,1).offset(Direction.EAST,1)).forEach((pos2) -> {
+            BlockPos.getAllInBox(pos.offset(Direction.UP, 1).offset(Direction.NORTH, 1).offset(Direction.WEST, 1), pos.offset(Direction.DOWN, 1).offset(Direction.SOUTH, 1).offset(Direction.EAST, 1)).forEach((pos2) ->
+            {
                 if (isAir(pos2))
                 {
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
                 }
-            });*/
+            });
 
-            pos1 = pos.offset(Direction.UP,2);
-
-            if (isAir(pos.offset(Direction.UP,1)))
-                if (isAir(pos1))
-                {
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                }
-
-            pos1 = pos.offset(Direction.DOWN,2);
-
-            if (isAir(pos.offset(Direction.DOWN,1)))
-                if (isAir(pos1))
-                {
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                }
-
-            pos1 = pos.offset(Direction.NORTH,2);
-
-            if (isAir(pos.offset(Direction.NORTH,1)))
-                if (isAir(pos1))
-                {
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                }
-
-            pos1 = pos.offset(Direction.SOUTH,2);
-
-            if (isAir(pos.offset(Direction.SOUTH,1)))
-                if (isAir(pos1))
-                {
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                }
-
-            pos1 = pos.offset(Direction.WEST,2);
-
-            if (isAir(pos.offset(Direction.WEST,1)))
-                if (isAir(pos1))
-                {
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                }
-
-            pos1 = pos.offset(Direction.EAST,2);
-
-            if (isAir(pos.offset(Direction.EAST,1)))
-                if (isAir(pos1))
-                {
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                }
-
-            //SIDES
-
-            pos1 = pos.offset(Direction.EAST,1).offset(Direction.UP,1).offset(Direction.NORTH,1);
-            if (isAir(pos1))
-            {
-                if (isAir(pos.offset(Direction.EAST,1))||isAir(pos.offset(Direction.UP,1))||isAir(pos.offset(Direction.NORTH,1)))
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                else
-                    world.setBlockState(pos1, Blocks.AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.WEST,1).offset(Direction.UP,1).offset(Direction.NORTH);
-            if (isAir(pos1))
-            {
-                if (isAir(pos.offset(Direction.WEST,1))||isAir(pos.offset(Direction.UP,1))||isAir(pos.offset(Direction.NORTH,1)))
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                else
-                    world.setBlockState(pos1, Blocks.AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.EAST,1).offset(Direction.UP,1).offset(Direction.SOUTH);
-            if (isAir(pos1))
-            {
-                if (isAir(pos.offset(Direction.EAST,1))||isAir(pos.offset(Direction.UP,1))||isAir(pos.offset(Direction.SOUTH,1)))
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                else
-                    world.setBlockState(pos1, Blocks.AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.WEST,1).offset(Direction.UP,1).offset(Direction.SOUTH);
-            if (isAir(pos1))
-            {
-                if (isAir(pos.offset(Direction.WEST,1))||isAir(pos.offset(Direction.UP,1))||isAir(pos.offset(Direction.SOUTH,1)))
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                else
-                    world.setBlockState(pos1, Blocks.AIR.getDefaultState());
-            }
-
-            //SIDES NEXT
-
-            pos1 = pos.offset(Direction.EAST,1).offset(Direction.DOWN,1).offset(Direction.NORTH,1);
-            if (isAir(pos1))
-            {
-                if (isAir(pos.offset(Direction.EAST,1))||isAir(pos.offset(Direction.DOWN,1))||isAir(pos.offset(Direction.NORTH,1)))
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                else
-                    world.setBlockState(pos1, Blocks.AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.WEST,1).offset(Direction.DOWN,1).offset(Direction.NORTH);
-            if (isAir(pos1))
-            {
-                if (isAir(pos.offset(Direction.WEST,1))||isAir(pos.offset(Direction.DOWN,1))||isAir(pos.offset(Direction.NORTH,1)))
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                else
-                    world.setBlockState(pos1, Blocks.AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.EAST,1).offset(Direction.DOWN,1).offset(Direction.SOUTH);
-            if (isAir(pos1))
-            {
-                if (isAir(pos.offset(Direction.EAST,1))||isAir(pos.offset(Direction.DOWN,1))||isAir(pos.offset(Direction.SOUTH,1)))
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                else
-                    world.setBlockState(pos1, Blocks.AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.WEST,1).offset(Direction.DOWN,1).offset(Direction.SOUTH);
-            if (isAir(pos1))
-            {
-                if (isAir(pos.offset(Direction.WEST,1))||isAir(pos.offset(Direction.DOWN,1))||isAir(pos.offset(Direction.SOUTH,1)))
-                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-                else
-                    world.setBlockState(pos1, Blocks.AIR.getDefaultState());
-            }
-
-            //END OF SIDES
-
-            /*Random r = new Random();
-            if (r.nextInt(80) == 2)
-            {
-                BlockPos.getAllInBox(pos.offset(Direction.UP, 2).offset(Direction.NORTH,2).offset(Direction.WEST,2), pos.offset(Direction.DOWN, 2).offset(Direction.SOUTH,2).offset(Direction.EAST,2)).forEach((pos2) -> {
-                    if (world.getBlockState(pos2).getBlock() == ModBlocks.LIGHT_AIR)
-                    {
-                        world.setBlockState(pos2, Blocks.AIR.getDefaultState());
-                    }
-                });
-            }*/
             cooldown = 0;
         }
     }

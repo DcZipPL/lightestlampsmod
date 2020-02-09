@@ -10,24 +10,38 @@ import tk.dczippl.lightestlamp.items.*;
 @ObjectHolder(Reference.MOD_ID)
 public class ModItems
 {
+    @ObjectHolder(Reference.MOD_ID+":"+"chorus_fiber")
+    public static final Item CHORUS_FIBER = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("chorus_fiber");
     @ObjectHolder(Reference.MOD_ID+":"+"moon_shard")
     public static final Item MOON_SHARD = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("moon_shard");
     @ObjectHolder(Reference.MOD_ID+":"+"krypton_small_dust")
     public static final Item KRYPTON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("krypton_small_dust");
+    @ObjectHolder(Reference.MOD_ID+":"+"radon_dust")
+    public static final Item RADON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("radon_dust");
+    @ObjectHolder(Reference.MOD_ID+":"+"xenon_dust")
+    public static final Item XENON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("xenon_dust");
     @ObjectHolder(Reference.MOD_ID+":"+"krypton_dust")
     public static final Item KRYPTON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("krypton_dust");
     @ObjectHolder(Reference.MOD_ID+":"+"argon_dust")
     public static final Item ARGON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("argon_dust");
     @ObjectHolder(Reference.MOD_ID+":"+"neon_dust")
     public static final Item NEON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("neon_dust");
+    @ObjectHolder(Reference.MOD_ID+":"+"radon_pile")
+    public static final Item RADON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("radon_pile");
+    @ObjectHolder(Reference.MOD_ID+":"+"xenon_pile")
+    public static final Item XENON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("xenon_pile");
     @ObjectHolder(Reference.MOD_ID+":"+"argon_pile")
     public static final Item ARGON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("argon_pile");
     @ObjectHolder(Reference.MOD_ID+":"+"neon_pile")
     public static final Item NEON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("neon_pile");
     @ObjectHolder(Reference.MOD_ID+":"+"empty_rod")
     public static final Item EMPTY_ROD = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("empty_rod");
+    @ObjectHolder(Reference.MOD_ID+":"+"radon_rod")
+    public static final Item RADON_ROD = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("radon_rod");
+    @ObjectHolder(Reference.MOD_ID+":"+"xenon_rod")
+    public static final Item XENON_ROD = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("xenon_rod");
     @ObjectHolder(Reference.MOD_ID+":"+"krypton_rod")
-    public static final Item KRYPTON_ROD = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("krypton_rod");
+    public static final Item KRYPTON_ROD = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("krypton_rod");
     @ObjectHolder(Reference.MOD_ID+":"+"argon_rod")
     public static final Item ARGON_ROD = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("argon_rod");
     @ObjectHolder(Reference.MOD_ID+":"+"neon_rod")
@@ -45,6 +59,8 @@ public class ModItems
     public static final Item ARGON_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(105).group(Main.main_group),"tooltip.lightestlamp.argon_filter").setRegistryName("argon_centrifuge_filter");
     public static final Item KRYPTON_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(83).group(Main.main_group),"tooltip.lightestlamp.krypton_filter").setRegistryName("krypton_centrifuge_filter");
     public static final Item BROMINE_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(31).group(Main.main_group),"tooltip.lightestlamp.bromine_filter").setRegistryName("bromine_centrifuge_filter");
+    public static final Item XENON_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(92).group(Main.main_group),"tooltip.lightestlamp.xenon_filter").setRegistryName("xenon_centrifuge_filter");
+    public static final Item RADON_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(62).group(Main.main_group),"tooltip.lightestlamp.radon_filter").setRegistryName("radon_centrifuge_filter");
     public static final Item BORON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_dust");
     public static final Item BORON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_pile");
     public static final Item BORON_INGOT = new ControlledItem(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_ingot");

@@ -3,9 +3,9 @@
    
     "pattern":
     [
-        "RRR",
-        "RLR",
-        "RRR"
+        "RBR",
+        "BLB",
+        "RBR"
     ],
    
     "key":
@@ -17,6 +17,10 @@
         "L":
         {
             "item": "lightestlamp:gamma_lamp"
+        },
+        "B":
+        {
+            "item": "lightestlamp:argon_rod_block"
         }
     },
    

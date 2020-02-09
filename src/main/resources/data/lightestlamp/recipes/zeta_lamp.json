@@ -3,9 +3,9 @@
    
     "pattern":
     [
-        " R ",
-        "RLR",
-        " R "
+        "RBR",
+        "BLB",
+        "RBR"
     ],
    
     "key":
@@ -17,6 +17,10 @@
         "L":
         {
             "item": "lightestlamp:epsilon_lamp"
+        },
+        "B":
+        {
+            "item": "lightestlamp:krypton_rod_block"
         }
     },
    

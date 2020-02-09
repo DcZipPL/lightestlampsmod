@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " R ",
+    "RLR",
+    " R "
+  ],
+  "key": {
+    "L": {
+      "item": "lightestlamp:ocean_lantern"
+    },
+    "R": {
+      "item": "lightestlamp:xenon_rod"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:deep_ocean_lantern"
+  }
+}

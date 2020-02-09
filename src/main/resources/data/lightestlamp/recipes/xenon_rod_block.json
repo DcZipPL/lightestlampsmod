@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "RR",
+        "RR"
+    ],
+   
+    "key":
+    {
+        "R":
+        {
+            "item": "lightestlamp:xenon_rod"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:xenon_rod_block",
+        "count": 1
+    }
+}

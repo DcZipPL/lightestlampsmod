@@ -36,7 +36,9 @@ public class JEIPlugin implements IModPlugin
                 new GasCentrifugeRecipeJEI(new ItemStack(ModItems.NEON_FILTER), "jei.lightestlamp.boron10"),
                 new GasCentrifugeRecipeJEI(new ItemStack(ModItems.ARGON_FILTER), "jei.lightestlamp.boron2"),
                 new GasCentrifugeRecipeJEI(new ItemStack(ModItems.KRYPTON_FILTER), "jei.lightestlamp.boron15"),
-                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.BROMINE_FILTER), "jei.lightestlamp.boron50")
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.XENON_FILTER), "jei.lightestlamp.boron2"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.RADON_FILTER), "jei.lightestlamp.boron50"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.BROMINE_FILTER), "jei.lightestlamp.boron75")
         ), getPluginUid());
         //Formatter::on
         reg.addIngredientInfo(new ItemStack(ModItems.MOON_SHARD), VanillaTypes.ITEM, "jei.lightestlamp.instructions.moonshard");

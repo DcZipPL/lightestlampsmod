@@ -3,24 +3,20 @@
    
     "pattern":
     [
-        "RBR",
-        "BLB",
-        "RBR"
+        " R ",
+        "RLR",
+        " R "
     ],
    
     "key":
     {
         "R":
         {
-            "item": "lightestlamp:argon_rod"
+            "item": "lightestlamp:krypton_rod"
         },
         "L":
         {
             "item": "lightestlamp:delta_lamp"
-        },
-        "B":
-        {
-            "item": "lightestlamp:argon_rod_block"
         }
     },
    
