@@ -352,6 +352,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
             ItemStack itemstack2 = this.items.get(2);
             ItemStack itemstack3 = this.items.get(3);
             ItemStack itemstack4 = this.items.get(4);
+            ItemStack itemstack5 = this.items.get(5);
             TheoreticalFluid theoreticalFluid = GasCentrifugeRecipe.getFluid(items.get(0));
             if (itemstack2.isEmpty()) {
                 this.items.set(2, itemstacks[0].copy());
@@ -367,6 +368,11 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                 this.items.set(4, itemstacks[2].copy());
             } else if (itemstack4.getItem() == itemstacks[2].getItem()) {
                 itemstack4.grow(itemstacks[2].getCount());
+            }
+            if (itemstack5.isEmpty()) {
+                this.items.set(5, itemstacks[3].copy());
+            } else if (itemstack5.getItem() == itemstacks[3].getItem()) {
+                itemstack5.grow(itemstacks[3].getCount());
             }
 
             itemstack.setDamage(itemstack.getDamage()+1);//.shrink(1);

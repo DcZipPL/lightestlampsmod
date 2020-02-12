@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DHD",
+    "HMH",
+    "DHD"
+  ],
+  "key": {
+    "D": {
+      "item": "lightestlamp:alchemical_dust"
+    },
+    "M": {
+      "item": "lightestlamp:boron_mesh"
+    },
+    "H": {
+      "item": "minecraft:honeycomb"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:alchemical_mesh"
+  }
+}

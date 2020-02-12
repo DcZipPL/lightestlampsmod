@@ -1,0 +1,19 @@
+{
+  "type": "mekanism:rotary",
+  "fluidInput": {
+    "amount": 1,
+    "fluid": "lightestlamp:bromine_fluid"
+  },
+  "gasOutput": {
+    "gas": "lightestlamp:bromine_vapour",
+    "amount": 1
+  },
+  "gasInput": {
+    "amount": 1,
+    "gas": "lightestlamp:bromine_vapour"
+  },
+  "fluidOutput": {
+    "fluid": "lightestlamp:bromine_fluid",
+    "amount": 1
+  }
+}

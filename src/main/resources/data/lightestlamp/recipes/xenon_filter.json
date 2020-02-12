@@ -12,7 +12,7 @@
     {
         "#":
         {
-            "item": "lightestlamp:boron_mesh"
+            "item": "lightestlamp:chorus_fiber"
         },
         "B":
         {
@@ -22,7 +22,7 @@
    
     "result":
     {
-        "item": "lightestlamp:argon_centrifuge_filter",
+        "item": "lightestlamp:xenon_centrifuge_filter",
         "count": 1
     }
 }

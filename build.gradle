@@ -110,6 +110,7 @@ dependencies {
     runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
 
     compile files("R:\\chemlib-1.15.2-1-dev.jar") // For one .jar file in folder
+    compile files("R:\\MekanismAll-1.15.2-9.9.9.401-api.jar") // For one .jar file in folder
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
     // compile "some.group:artifact:version"

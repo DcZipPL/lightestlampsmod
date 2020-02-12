@@ -39,6 +39,7 @@
 	"block.lightestlamp.boron_ore":"Boron Ore",
 
 	"item.lightestlamp.boron_mesh":"Boron Mesh",
+	"item.lightestlamp.alchemical_mesh":"Alchemical Mesh",
 
 	"item.lightestlamp.basic_centrifuge_filter":"Centrifuge Filter",
 	"item.lightestlamp.neon_centrifuge_filter":"Centrifuge Filter",
@@ -79,6 +80,7 @@
 	"item.lightestlamp.empty_rod":"Glass Rod",
 
 	"item.lightestlamp.chorus_fiber":"Chorus Fiber",
+	"item.lightestlamp.bromine_crystal":"Bromine Crystal",
 
 	"item.lightestlamp.bromine_fluid_bucket":"Bromine Bucket",
 
@@ -127,6 +129,8 @@
 	"jei.lightestlamp.boron75": "Created fluid: Boron 75 mb",
 	"jei.lightestlamp.instructions.moonshard": "Moon Shards is dropping from any mob during full moon.",
 	"jei.lightestlamp.gascentrifuge": "Gas Centrifuge",
+
+	"gas.lightestlamp.bromine_vapour": "Bromine Vapor",
 
 	"effect.lightestlamp.bromine_poison": "Bromine Poison",
 

@@ -3,18 +3,18 @@
    
     "pattern":
     [
-        " B ",
-        "B#B",
-        " B "
+        "DDD",
+        "DID",
+        "DDD"
     ],
    
     "key":
     {
-        "#":
+        "I":
         {
-            "item": "lightestlamp:boron_mesh"
+            "item": "chemlib:ingot_boron"
         },
-        "B":
+        "D":
         {
             "item": "lightestlamp:boron_nugget"
         }
@@ -22,7 +22,7 @@
    
     "result":
     {
-        "item": "lightestlamp:argon_centrifuge_filter",
+        "item": "lightestlamp:boron_mesh",
         "count": 1
     }
 }

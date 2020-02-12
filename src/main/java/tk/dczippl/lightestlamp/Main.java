@@ -1,5 +1,8 @@
 package tk.dczippl.lightestlamp;
 
+import mekanism.api.MekanismAPI;
+import mekanism.api.gas.Gas;
+import mekanism.api.gas.GasAttributes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.ScreenManager;
@@ -9,36 +12,32 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.GameType;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -48,6 +47,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.DeferredRegister;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tk.dczippl.lightestlamp.init.*;
@@ -57,7 +57,7 @@ import tk.dczippl.lightestlamp.tile.*;
 import tk.dczippl.lightestlamp.util.WorldGenerator;
 import tk.dczippl.lightestlamp.util.network.Networking;
 
-import java.util.Collections;
+import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
@@ -111,6 +111,14 @@ public class Main
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        // Mekanism
+        //if (ModList.get().isLoaded("mekanism"))
+        //{
+            //DeferredRegister<Gas> GASES = new DeferredRegister<>(MekanismAPI.GAS_REGISTRY, Reference.MOD_ID);
+            //RegistryObject<Gas> BROMINE_VAPOUR = GASES.register("bromine_vapour",() -> new Gas(GasAttributes.builder().color(new Color(102,16,0).getRGB())));
+            //GASES.register(modEventBus);
+            //LOGGER.info("Lightest Lamps: Mekanism is loaded.");
+        //}
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -185,6 +193,7 @@ public class Main
     }
 
     @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
     public void setFog(EntityViewRenderEvent.FogColors fog)
     {
         World w = fog.getInfo().getRenderViewEntity().getEntityWorld();
@@ -414,6 +423,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.CARBON_NANOTUBE);
             itemRegistryEvent.getRegistry().register(ModItems.MOON_SHARD);
             itemRegistryEvent.getRegistry().register(ModItems.CHORUS_FIBER);
+            itemRegistryEvent.getRegistry().register(ModItems.BROMINE_CRYSTAL);
             itemRegistryEvent.getRegistry().register(ModItems.STICKANDBOWL);
             itemRegistryEvent.getRegistry().register(ModItems.BASIC_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.NEON_FILTER);
@@ -423,6 +433,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.RADON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.BROMINE_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.BORON_MESH);
+            itemRegistryEvent.getRegistry().register(ModItems.ALCHEMICAL_MESH);
             itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
             //itemRegistryEvent.getRegistry().register(ModItems.WRITTEN_BOOK);
             //LOGGER.info("Lightest Lamps: item init");

@@ -48,8 +48,12 @@ public class ModItems
     public static final Item NEON_ROD = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("neon_rod");
     @ObjectHolder(Reference.MOD_ID+":"+"carbon_nanotube")
     public static final Item CARBON_NANOTUBE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("carbon_nanotube");
+    @ObjectHolder(Reference.MOD_ID+":"+"bromine_crystal")
+    public static final Item BROMINE_CRYSTAL = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("bromine_crystal");
     @ObjectHolder(Reference.MOD_ID+":"+"boron_mesh")
     public static final Item BORON_MESH = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("boron_mesh");
+    @ObjectHolder(Reference.MOD_ID+":"+"alchemical_mesh")
+    public static final Item ALCHEMICAL_MESH = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("alchemical_mesh");
     @ObjectHolder(Reference.MOD_ID+":"+"debug_stick")
     public static final Item DEBUG_STICK = new DebugStickItem(new Item.Properties().group(Main.main_group)).setRegistryName("debug_stick");
     @ObjectHolder(Reference.MOD_ID+":"+"alchemical_dust")

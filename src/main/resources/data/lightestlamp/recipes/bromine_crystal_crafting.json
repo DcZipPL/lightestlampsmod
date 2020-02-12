@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "lightestlamp:boron_nugget"
+        },
+        {
+            "item": "lightestlamp:bromine_fluid_bucket"
+        },
+        {
+            "item": "lightestlamp:bromine_fluid_bucket"
+        },
+        {
+            "item": "lightestlamp:bromine_fluid_bucket"
+        }
+    ],
+    "result":
+    {
+        "item": "lightestlamp:bromine_crystal",
+        "count": 1
+    }
+}
