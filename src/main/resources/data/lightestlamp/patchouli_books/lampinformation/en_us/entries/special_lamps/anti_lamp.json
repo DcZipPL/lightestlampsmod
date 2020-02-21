@@ -1,0 +1,11 @@
+{
+    "name": "Anti Lamp",
+    "icon": "lightestlamp:anti_lamp",
+    "category": "special_lamps_category",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Work in progress..."
+        }
+    ]
+}

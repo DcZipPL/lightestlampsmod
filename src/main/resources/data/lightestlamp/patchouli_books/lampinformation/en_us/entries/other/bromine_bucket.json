@@ -1,0 +1,11 @@
+{
+    "name": "Bromine Fluid",
+    "icon": "lightestlamp:bromine_fluid_bucket",
+    "category": "other_category",
+    "pages": [
+        {
+            "type": "text",
+            "text": "You can get $(#1f22e0)Bromine Fluid$() using Fluid pipes from other mods on $(#1f22e0)Gas Centrifuge$() of right clicking with a 1 $(#1f22e0)Bucket$() on a $(#1f22e0)Gas Centrifuge$()"
+        }
+    ]
+}

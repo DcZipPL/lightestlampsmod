@@ -1,0 +1,11 @@
+{
+    "name": "Lamp Fruit",
+    "icon": "lightestlamp:jungle_lantern",
+    "category": "other_category",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Can be placed under water. Decoration block."
+        }
+    ]
+}

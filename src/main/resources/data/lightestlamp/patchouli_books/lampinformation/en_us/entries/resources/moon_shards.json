@@ -1,0 +1,11 @@
+{
+    "name": "Moon Shard",
+    "icon": "lightestlamp:moon_shard",
+    "category": "resources_category",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Moon Shards is dropping from any mob during full moon."
+        }
+    ]
+}

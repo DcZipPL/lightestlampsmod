@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
@@ -31,6 +32,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -59,6 +61,7 @@ import tk.dczippl.lightestlamp.util.network.Networking;
 
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 @SuppressWarnings("NullableProblems")
@@ -153,7 +156,7 @@ public class Main
         // do something when the server starts
     }
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public void Drops(LivingDropsEvent event)
     {
         if(event.getEntityLiving() instanceof IMob)
@@ -161,8 +164,26 @@ public class Main
             if (event.getEntityLiving().getEntityWorld().getCurrentMoonPhaseFactor() == 1.0F)
             {
                 Random rnd = new Random();
+                event.get
                 if (rnd.nextInt(4) == 2)//25% chance
+                    //event.getEntityLiving().entityDropItem();
+            }
+        }
+    }*/
+
+    @SubscribeEvent
+    public void onEntityLivingDeath(LivingDeathEvent event)
+    {
+        if (event.getSource().getDamageType().equals("player"))
+        {
+            if(event.getEntityLiving() instanceof IMob)
+            {
+                if (event.getEntityLiving().getEntityWorld().getCurrentMoonPhaseFactor() == 1.0F)
+                {
+                    Random rnd = new Random();
+                    if (rnd.nextInt(4) == 2)//25% chance
                     event.getEntityLiving().entityDropItem(new ItemStack(ModItems.MOON_SHARD));
+                }
             }
         }
     }
@@ -204,6 +225,7 @@ public class Main
         {
             float red = 0.2F, green = 0.05F, blue = 0.05F;
             fog.setRed(red); fog.setGreen(green); fog.setBlue(blue);
+
         }
     }
 
@@ -435,6 +457,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.BORON_MESH);
             itemRegistryEvent.getRegistry().register(ModItems.ALCHEMICAL_MESH);
             itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
+            itemRegistryEvent.getRegistry().register(ModItems.GLOWING_DUST_AGGLOMERATIO);
             //itemRegistryEvent.getRegistry().register(ModItems.WRITTEN_BOOK);
             //LOGGER.info("Lightest Lamps: item init");
         }

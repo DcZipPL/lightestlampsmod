@@ -1,0 +1,15 @@
+{
+    "name": "Lamps",
+    "icon": "lightestlamp:zeta_lamp",
+    "category": "lamps_category",
+    "pages": [
+        {
+            "type": "text",
+            "text": "Lamps that don't works underwater but have bigger range than underwater ones. Lamps are $(#1f22e0)Always Active$() and have $(#1f22e0)Light Penetration$() that mean lamps works fine if are underground/hidden."
+        },
+        {
+            "type": "text",
+            "text": "Tiers:$(br)Type α: 16 Blocks Light$(br)Type β: 17 Blocks Light$(br)Type γ: 18 Blocks Light$(br)Type δ: 19 Blocks Light$(br)Type ε: 20 Blocks Light$(br)Type ζ: 24 Blocks Light$(br)Type η: 26 Blocks Light$(br)Type Ω: 30 Blocks Light"
+        }
+    ]
+}

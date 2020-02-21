@@ -1,0 +1,27 @@
+{
+    "name": "Decoration Blocks",
+    "icon": "lightestlamp:neon_rod_block",
+    "category": "other_category",
+    "pages": [
+        {
+            "type": "spotlight",
+            "item": "lightestlamp:xenon_rod_block",
+            "text": "Rod block crafted from any rod ($(item)except Glass Rod$())."
+        },
+        {
+            "type": "spotlight",
+            "item": "lightestlamp:radon_block",
+            "text": "Glowstone created from any glowing dust. Drops 1/4 to 3/4 glowing dust."
+        },
+        {
+            "type": "spotlight",
+            "item": "lightestlamp:glowing_glass_block",
+            "text": "Glowing Glass crafting from 8 glowing dust and glass"
+        },
+        {
+            "type": "spotlight",
+            "item": "lightestlamp:vanta_black",
+            "text": "Black Block created from carbon nanotubes."
+        }
+    ]
+}
