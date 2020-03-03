@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "powered=false": {
       "model": "lightestlamp:block/beta_lamp"
+    },
+    "powered=true": {
+      "model": "lightestlamp:block/beta_lamp_off"
     }
   }
 }

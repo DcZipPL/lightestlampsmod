@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "lightestlamp:block/alpha_lamp"
+    "all": "lightestlamp:block/clear_lamp_off"
   }
 }

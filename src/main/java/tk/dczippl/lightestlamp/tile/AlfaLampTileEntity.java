@@ -13,6 +13,8 @@ import tk.dczippl.lightestlamp.init.ModTileEntities;
 
 import java.util.Random;
 
+import static net.minecraft.state.properties.BlockStateProperties.POWERED;
+
 public class AlfaLampTileEntity extends TileEntity implements ITickableTileEntity
 {
     private int cooldown = 0;
@@ -37,52 +39,65 @@ public class AlfaLampTileEntity extends TileEntity implements ITickableTileEntit
 
         if (cooldown == 5)
         {
-            BlockPos pos1 = pos.offset(Direction.UP);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+            if (world.getRedstonePowerFromNeighbors(pos) > 0)
             {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
+                if (!getBlockState().get(POWERED))
+                {
+                    world.setBlockState(pos, getBlockState().with(POWERED, true));
 
-            pos1 = pos.offset(Direction.DOWN);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.NORTH);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.SOUTH);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.WEST);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.EAST);
-            if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            /*Random r = new Random();
-            if (r.nextInt(40) == 2)
-            {
-                BlockPos.getAllInBox(pos.offset(Direction.UP, 1).offset(Direction.NORTH,1).offset(Direction.WEST,1), pos.offset(Direction.DOWN, 1).offset(Direction.SOUTH,1).offset(Direction.EAST,1)).forEach((pos2) -> {
-                    if (world.getBlockState(pos2).getBlock() == ModBlocks.LIGHT_AIR)
+                    BlockPos.getAllInBox(pos.offset(Direction.UP, 1).offset(Direction.NORTH, 1).offset(Direction.WEST, 1), pos.offset(Direction.DOWN, 1).offset(Direction.SOUTH, 1).offset(Direction.EAST, 1)).forEach((pos1) ->
                     {
-                        world.setBlockState(pos2, Blocks.AIR.getDefaultState());
-                    }
-                });
-            }*/
+                        if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
+                        {
+                            world.setBlockState(pos1, Blocks.AIR.getDefaultState());
+                        }
+                    });
+                }
+            }
+            else
+            {
+                if (getBlockState().get(POWERED))
+                    world.setBlockState(pos, getBlockState().with(POWERED,false));
+            }
+
+            if (!getBlockState().get(POWERED))
+            {
+                BlockPos pos1 = pos.offset(Direction.UP);
+                if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.DOWN);
+                if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.NORTH);
+                if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.SOUTH);
+                if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.WEST);
+                if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.EAST);
+                if (world.getBlockState(pos1).getBlock() == Blocks.AIR || world.getBlockState(pos1).getBlock() == Blocks.CAVE_AIR)
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+            }
             cooldown = 0;
         }
     }

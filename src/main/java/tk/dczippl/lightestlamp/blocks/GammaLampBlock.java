@@ -5,7 +5,9 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.state.StateContainer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
@@ -22,6 +24,8 @@ import tk.dczippl.lightestlamp.tile.GammaLampTileEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
+
+import static net.minecraft.state.properties.BlockStateProperties.POWERED;
 
 public class GammaLampBlock extends Block
 {
@@ -62,5 +66,24 @@ public class GammaLampBlock extends Block
         text.add(new TranslationTextComponent("tooltip.lightestlamp.type.gamma").applyTextStyle(TextFormatting.GRAY));
         text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").applyTextStyle(TextFormatting.GRAY));
         text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").applyTextStyle(TextFormatting.GRAY));
+    }
+
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
+    {
+        super.fillStateContainer(builder);
+        builder.add(POWERED);
+    }
+
+    @Override
+    @Nullable
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        return this.getDefaultState().with(POWERED,false);
+    }
+
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos)
+    {
+        return state.get(POWERED) ? 0 : 15;
     }
 }

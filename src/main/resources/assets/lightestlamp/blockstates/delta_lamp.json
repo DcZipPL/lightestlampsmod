@@ -1,7 +1,10 @@
 {
   "variants": {
-    "": {
+    "powered=false": {
       "model": "lightestlamp:block/delta_lamp"
+    },
+    "powered=true": {
+      "model": "lightestlamp:block/delta_lamp_off"
     }
   }
 }

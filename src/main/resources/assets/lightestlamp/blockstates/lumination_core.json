@@ -1,3 +1,5 @@
 {
-  "parent": "lightestlamp:block/lumination_core"
+  "variants": {
+      "": { "model": "lightestlamp:block/lumination_core" }
+  }
 }

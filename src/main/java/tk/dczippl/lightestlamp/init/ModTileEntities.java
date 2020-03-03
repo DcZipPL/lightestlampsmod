@@ -14,6 +14,8 @@ public class ModTileEntities
     @ObjectHolder(Reference.MOD_ID+":"+"light_air_te")
     public static TileEntityType<LightAirTileEntity> AIR_TE;
 
+    @ObjectHolder(Reference.MOD_ID+":"+"clear_te")
+    public static TileEntityType<ClearLampTileEntity> CLEAR_TE;
     @ObjectHolder(Reference.MOD_ID+":"+"alfa_te")
     public static TileEntityType<AlfaLampTileEntity> ALFA_TE;
     @ObjectHolder(Reference.MOD_ID+":"+"beta_te")

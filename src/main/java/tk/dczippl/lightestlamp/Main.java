@@ -84,14 +84,6 @@ public class Main
     
     public Main()
     {
-        //Register GUI Handler
-        //ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.GUIFACTORY, () -> GuiHandler::getClientGuiElement);
-
-        //ModPacketHandler.registerMessages();
-        //NetworkRegistry.newSimpleChannel(new ResourceLocation(Reference.MOD_ID, "lampschannel"), () -> Integer.toString(1), s -> true, s -> true);
-
-        //CapabilityManager.INSTANCE.register(IArgon.class, new ArgonStorage(), ArgonFactory.class);
-
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -114,14 +106,6 @@ public class Main
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        // Mekanism
-        //if (ModList.get().isLoaded("mekanism"))
-        //{
-            //DeferredRegister<Gas> GASES = new DeferredRegister<>(MekanismAPI.GAS_REGISTRY, Reference.MOD_ID);
-            //RegistryObject<Gas> BROMINE_VAPOUR = GASES.register("bromine_vapour",() -> new Gas(GasAttributes.builder().color(new Color(102,16,0).getRGB())));
-            //GASES.register(modEventBus);
-            //LOGGER.info("Lightest Lamps: Mekanism is loaded.");
-        //}
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -129,7 +113,6 @@ public class Main
         // some preinit code
         WorldGenerator.setupWorldGeneraton();
         Networking.registerMessages();
-        //new RecipeManager().getRecipes().removeIf(p->p.getRecipeOutput().getItem()==ModItems.BORON_INGOT);
     }
 
     private void doClientStuff(final FMLClientSetupEvent event)
@@ -291,16 +274,18 @@ public class Main
         {
             // register a new container here
             containerTypeRegistryEvent.getRegistry().register(ModContainers.GAS_CENTRIFUGE);
-            //LOGGER.info("Lightest Lamps: container init");
         }
 
         @SubscribeEvent
         public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt)
         {
-            //Reference.EXTRACTOR_TE = TileEntityType.register("extractor_te", TileEntityType.Builder.create(GasExtractorTileEntity::new));
-
             evt.getRegistry().register(TileEntityType.Builder.create(LightAirTileEntity::new,ModBlocks.LIGHT_AIR,ModBlocks.CHUNK_CLEANER).build(null).setRegistryName("light_air_te"));
             evt.getRegistry().register(TileEntityType.Builder.create(AntiLampTileEntity::new,ModBlocks.ANTI_LAMP).build(null).setRegistryName("antilamp_te"));
+
+            TileEntityType<ClearLampTileEntity> clear_te = TileEntityType.Builder.create(ClearLampTileEntity::new,ModBlocks.CLEAR_LAMP).build(null);
+            clear_te.setRegistryName(Reference.MOD_ID, "clear_te");
+            ModTileEntities.CLEAR_TE = clear_te;
+            evt.getRegistry().register(ModTileEntities.CLEAR_TE);
 
             TileEntityType<AlfaLampTileEntity> type0 = TileEntityType.Builder.create(AlfaLampTileEntity::new,ModBlocks.ALFA_LAMP).build(null);
             type0.setRegistryName(Reference.MOD_ID, "alfa_te");
@@ -420,11 +405,6 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.LUMINATIUM_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.LUMINATIUM_BLOCK.getRegistryName()));
 
             // register a new item here
-
-            //ib = new BlockItem(ModBlocks.GAS_EXTRACTOR, new Item.Properties().group(Main.main_group));
-            //ib.setRegistryName(ModBlocks.GAS_EXTRACTOR.getRegistryName());
-            //itemRegistryEvent.getRegistry().register(ib);
-
             itemRegistryEvent.getRegistry().register(ModItems.EMPTY_ROD);
             itemRegistryEvent.getRegistry().register(ModItems.NEON_ROD);
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_ROD);
@@ -462,8 +442,6 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.ALCHEMICAL_MESH);
             itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
             itemRegistryEvent.getRegistry().register(ModItems.GLOWING_DUST_AGGLOMERATIO);
-            //itemRegistryEvent.getRegistry().register(ModItems.WRITTEN_BOOK);
-            //LOGGER.info("Lightest Lamps: item init");
         }
     }
 

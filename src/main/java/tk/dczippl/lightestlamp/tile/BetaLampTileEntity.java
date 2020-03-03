@@ -12,6 +12,8 @@ import tk.dczippl.lightestlamp.init.ModTileEntities;
 
 import java.util.Random;
 
+import static net.minecraft.state.properties.BlockStateProperties.POWERED;
+
 public class BetaLampTileEntity extends TileEntity implements ITickableTileEntity
 {
     private int cooldown = 0;
@@ -35,49 +37,73 @@ public class BetaLampTileEntity extends TileEntity implements ITickableTileEntit
 
         if (cooldown == 5)
         {
-            BlockPos pos1 = pos.offset(Direction.UP, 2);
-            if (isAir(pos1))
+            if (world.getRedstonePowerFromNeighbors(pos) > 0)
             {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.DOWN, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.NORTH, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.SOUTH, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.WEST, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            pos1 = pos.offset(Direction.EAST, 2);
-            if (isAir(pos1))
-            {
-                world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-
-            BlockPos.getAllInBox(pos.offset(Direction.UP, 1).offset(Direction.NORTH, 1).offset(Direction.WEST, 1), pos.offset(Direction.DOWN, 1).offset(Direction.SOUTH, 1).offset(Direction.EAST, 1)).forEach((pos2) ->
-            {
-                if (isAir(pos2))
+                if (!getBlockState().get(POWERED))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                    world.setBlockState(pos, getBlockState().with(POWERED, true));
+
+                    BlockPos.getAllInBox(pos.offset(Direction.UP, 2).offset(Direction.NORTH, 2).offset(Direction.WEST, 2), pos.offset(Direction.DOWN, 2).offset(Direction.SOUTH, 2).offset(Direction.EAST, 2)).forEach((pos1) ->
+                    {
+                        if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
+                        {
+                            world.setBlockState(pos1, Blocks.AIR.getDefaultState());
+                        }
+                    });
                 }
-            });
+            }
+            else
+            {
+                if (getBlockState().get(POWERED))
+                    world.setBlockState(pos, getBlockState().with(POWERED,false));
+            }
+
+            if (!getBlockState().get(POWERED))
+            {
+                BlockPos pos1 = pos.offset(Direction.UP, 2);
+                if (isAir(pos1))
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.DOWN, 2);
+                if (isAir(pos1))
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.NORTH, 2);
+                if (isAir(pos1))
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.SOUTH, 2);
+                if (isAir(pos1))
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.WEST, 2);
+                if (isAir(pos1))
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                pos1 = pos.offset(Direction.EAST, 2);
+                if (isAir(pos1))
+                {
+                    world.setBlockState(pos1, ModBlocks.LIGHT_AIR.getDefaultState());
+                }
+
+                BlockPos.getAllInBox(pos.offset(Direction.UP, 1).offset(Direction.NORTH, 1).offset(Direction.WEST, 1), pos.offset(Direction.DOWN, 1).offset(Direction.SOUTH, 1).offset(Direction.EAST, 1)).forEach((pos2) ->
+                {
+                    if (isAir(pos2))
+                    {
+                        world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                    }
+                });
+            }
 
             cooldown = 0;
         }

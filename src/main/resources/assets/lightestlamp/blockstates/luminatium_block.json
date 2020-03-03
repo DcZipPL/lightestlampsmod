@@ -1,3 +1,5 @@
 {
-  "parent": "lightestlamp:block/luminatium_block"
+  "variants": {
+      "": { "model": "lightestlamp:block/luminatium_block" }
+  }
 }
