@@ -110,6 +110,14 @@ public class ModBlocks
     public static final Block BORON_ORE = new SolidOreBlock(Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
             .hardnessAndResistance(6.4f,1),2).setRegistryName("boron_ore");
 
+    @ObjectHolder("lightestlamp:lumination_core")
+    public static final Block LUMINATION_CORE = new Block(Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
+            .hardnessAndResistance(2.0f,1).lightValue(15)).setRegistryName("lumination_core");
+
+    @ObjectHolder("lightestlamp:luminatium_block")
+    public static final Block LUMINATIUM_BLOCK = new Block(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
+            .hardnessAndResistance(0.4f,1).lightValue(15)).setRegistryName("luminatium_block");
+
     //Glowstones
 
     @ObjectHolder(Reference.MOD_ID+":"+"neon_block")

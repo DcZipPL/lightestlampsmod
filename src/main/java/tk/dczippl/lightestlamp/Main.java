@@ -274,6 +274,8 @@ public class Main
             blockRegistryEvent.getRegistry().register(ModBlocks.CHUNK_CLEANER);
             blockRegistryEvent.getRegistry().register(ModBlocks.VANTA_BLACK);
             blockRegistryEvent.getRegistry().register(ModBlocks.BORON_ORE);
+            blockRegistryEvent.getRegistry().register(ModBlocks.LUMINATION_CORE);
+            blockRegistryEvent.getRegistry().register(ModBlocks.LUMINATIUM_BLOCK);
             //LOGGER.info("Lightest Lamps: block init");
         }
 
@@ -414,6 +416,8 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GAS_EXTRACTOR, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GAS_EXTRACTOR.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.BORON_ORE, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.BORON_ORE.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CHUNK_CLEANER, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CHUNK_CLEANER.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.LUMINATION_CORE, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.LUMINATION_CORE.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.LUMINATIUM_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.LUMINATIUM_BLOCK.getRegistryName()));
 
             // register a new item here
 
