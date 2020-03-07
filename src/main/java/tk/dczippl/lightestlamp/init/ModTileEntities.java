@@ -4,6 +4,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
+import tk.dczippl.lightestlamp.machine.lumination_core.LuminationCoreTileEntity;
 import tk.dczippl.lightestlamp.tile.*;
 
 public class ModTileEntities
@@ -44,5 +45,7 @@ public class ModTileEntities
     public static TileEntityType<AbyssalLanternTileEntity> ABYSSALLANTERN_TE;
     @ObjectHolder(Reference.MOD_ID+":"+"alchemical_lamp_te")
     public static TileEntityType<AlchemicalLampTileEntity> ALCHEMICALLAMP_TE;
+    @ObjectHolder(Reference.MOD_ID+":"+"luminator_te")
+    public static TileEntityType<LuminationCoreTileEntity> LUMINATOR_TE;
     public static TileEntityType<GasCentrifugeTile> CENTRIFUGE_TE;
 }

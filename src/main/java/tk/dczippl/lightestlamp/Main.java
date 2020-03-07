@@ -55,6 +55,7 @@ import org.apache.logging.log4j.Logger;
 import tk.dczippl.lightestlamp.init.*;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
+import tk.dczippl.lightestlamp.machine.lumination_core.LuminationCoreTileEntity;
 import tk.dczippl.lightestlamp.tile.*;
 import tk.dczippl.lightestlamp.util.WorldGenerator;
 import tk.dczippl.lightestlamp.util.network.Networking;
@@ -337,6 +338,11 @@ public class Main
             abyssal_lantern_te.setRegistryName(Reference.MOD_ID, "abyssal_lantern_te");
             ModTileEntities.ABYSSALLANTERN_TE = abyssal_lantern_te;
             evt.getRegistry().register(ModTileEntities.ABYSSALLANTERN_TE);
+
+            TileEntityType<LuminationCoreTileEntity> luminator_te = TileEntityType.Builder.create(LuminationCoreTileEntity::new,ModBlocks.LUMINATION_CORE).build(null);
+            luminator_te.setRegistryName(Reference.MOD_ID, "luminator_te");
+            ModTileEntities.LUMINATOR_TE = luminator_te;
+            evt.getRegistry().register(ModTileEntities.LUMINATOR_TE);
 
             ModTileEntities.ALFA_TE = type0;
             ModTileEntities.BETA_TE = type1;

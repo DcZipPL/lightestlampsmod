@@ -9,6 +9,7 @@ import net.minecraftforge.registries.ObjectHolder;
 import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.blocks.*;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeBlock;
+import tk.dczippl.lightestlamp.machine.lumination_core.LuminationCoreBlock;
 
 @ObjectHolder(Reference.MOD_ID)
 public class ModBlocks
@@ -111,11 +112,10 @@ public class ModBlocks
             .hardnessAndResistance(6.4f,1),2).setRegistryName("boron_ore");
 
     @ObjectHolder("lightestlamp:lumination_core")
-    public static final Block LUMINATION_CORE = new Block(Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
-            .hardnessAndResistance(2.0f,1).lightValue(15)).setRegistryName("lumination_core");
+    public static final Block LUMINATION_CORE = new LuminationCoreBlock().setRegistryName("lumination_core");
 
     @ObjectHolder("lightestlamp:luminatium_block")
-    public static final Block LUMINATIUM_BLOCK = new Block(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
+        public static final Block LUMINATIUM_BLOCK = new Block(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
             .hardnessAndResistance(0.4f,1).lightValue(15)).setRegistryName("luminatium_block");
 
     //Glowstones

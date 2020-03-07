@@ -31,7 +31,7 @@ public class EtaLampTileEntity extends TileEntity implements ITickableTileEntity
 
         cooldown++;
 
-        if (cooldown == 10)
+        if (cooldown == 14)
         {
             BlockPos.getAllInBox(pos.offset(Direction.UP, 11).offset(Direction.NORTH, 11).offset(Direction.WEST, 11),
                     pos.offset(Direction.DOWN, 11).offset(Direction.SOUTH, 11).offset(Direction.EAST, 11)).forEach((pos2) ->
@@ -48,6 +48,6 @@ public class EtaLampTileEntity extends TileEntity implements ITickableTileEntity
 
     private boolean isAir(BlockPos pos)
     {
-        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR;
     }
 }

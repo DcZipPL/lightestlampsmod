@@ -32,7 +32,7 @@ public class ZetaLampTileEntity extends TileEntity implements ITickableTileEntit
 
         cooldown++;
 
-        if (cooldown == 10)
+        if (cooldown == 14)
         {
             BlockPos.getAllInBox(pos.offset(Direction.UP, 9).offset(Direction.NORTH, 9).offset(Direction.WEST, 9),
                     pos.offset(Direction.DOWN, 9).offset(Direction.SOUTH, 9).offset(Direction.EAST, 9)).forEach((pos2) ->
