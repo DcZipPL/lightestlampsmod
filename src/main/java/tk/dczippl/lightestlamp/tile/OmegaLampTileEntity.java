@@ -34,14 +34,24 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
         if (cooldown == 20)
         {
             BlockPos.getAllInBox(pos.offset(Direction.UP, 15).offset(Direction.NORTH, 15).offset(Direction.WEST, 15),
+                    pos.offset(Direction.DOWN, 5).offset(Direction.SOUTH, 5).offset(Direction.EAST, 5)).forEach((pos2) ->
+            {
+                if (isAir(pos2))
+                {
+                    world.setBlockState(pos2, ModBlocks.RADON_BLOCK.getDefaultState());
+                }
+            });
+        }
+        if (cooldown == 30)
+        {
+            BlockPos.getAllInBox(pos.offset(Direction.UP, 5).offset(Direction.NORTH, 5).offset(Direction.WEST, 5),
                     pos.offset(Direction.DOWN, 15).offset(Direction.SOUTH, 15).offset(Direction.EAST, 15)).forEach((pos2) ->
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                    world.setBlockState(pos2, ModBlocks.XENON_BLOCK.getDefaultState());
                 }
             });
-
             cooldown = 0;
         }
     }
