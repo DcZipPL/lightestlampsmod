@@ -5,18 +5,18 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-//import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import tk.dczippl.lightestlamp.tile.LightAirTileEntity;
+import tk.dczippl.lightestlamp.tile.OmegaChunkCleanerTileEntity;
 
 import javax.annotation.Nullable;
 
-public class ChunkCleanerBlock extends Block
+public class OmegaChunkCleanerBlock extends Block
 {
-    public ChunkCleanerBlock(Properties properties)
+    public OmegaChunkCleanerBlock(Properties properties)
     {
         super(properties.hardnessAndResistance(-1,-1));
     }
@@ -31,7 +31,7 @@ public class ChunkCleanerBlock extends Block
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world)
     {
-        return new LightAirTileEntity();
+        return new OmegaChunkCleanerTileEntity();
     }
 
     @Override

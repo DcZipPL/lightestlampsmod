@@ -1,8 +1,5 @@
 package tk.dczippl.lightestlamp;
 
-import mekanism.api.MekanismAPI;
-import mekanism.api.gas.Gas;
-import mekanism.api.gas.GasAttributes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.ScreenManager;
@@ -258,6 +255,7 @@ public class Main
             blockRegistryEvent.getRegistry().register(ModBlocks.VANTA_BLACK);
             blockRegistryEvent.getRegistry().register(ModBlocks.BORON_ORE);
             blockRegistryEvent.getRegistry().register(ModBlocks.LUMINATIUM_BLOCK);
+            blockRegistryEvent.getRegistry().register(ModBlocks.OCC);
             //LOGGER.info("Lightest Lamps: block init");
         }
 
@@ -337,6 +335,11 @@ public class Main
             ModTileEntities.ABYSSALLANTERN_TE = abyssal_lantern_te;
             evt.getRegistry().register(ModTileEntities.ABYSSALLANTERN_TE);
 
+            TileEntityType<OmegaChunkCleanerTileEntity> occ_te = TileEntityType.Builder.create(OmegaChunkCleanerTileEntity::new,ModBlocks.OCC).build(null);
+            occ_te.setRegistryName(Reference.MOD_ID, "occ_te");
+            ModTileEntities.OCC_TE = occ_te;
+            evt.getRegistry().register(ModTileEntities.OCC_TE);
+
             ModTileEntities.ALFA_TE = type0;
             ModTileEntities.BETA_TE = type1;
             ModTileEntities.GAMMA_TE = type2;
@@ -401,6 +404,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.BORON_ORE, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.BORON_ORE.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CHUNK_CLEANER, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CHUNK_CLEANER.getRegistryName()));
             itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.LUMINATIUM_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.LUMINATIUM_BLOCK.getRegistryName()));
+            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.OCC, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.OCC.getRegistryName()));
 
             // register a new item here
             itemRegistryEvent.getRegistry().register(ModItems.EMPTY_ROD);

@@ -14,6 +14,9 @@ public class ModTileEntities
     @ObjectHolder(Reference.MOD_ID+":"+"light_air_te")
     public static TileEntityType<LightAirTileEntity> AIR_TE;
 
+    @ObjectHolder(Reference.MOD_ID+":"+"omega_chunkcleaner_te")
+    public static TileEntityType<OmegaChunkCleanerTileEntity> OCC_TE;
+
     @ObjectHolder(Reference.MOD_ID+":"+"clear_te")
     public static TileEntityType<ClearLampTileEntity> CLEAR_TE;
     @ObjectHolder(Reference.MOD_ID+":"+"alfa_te")

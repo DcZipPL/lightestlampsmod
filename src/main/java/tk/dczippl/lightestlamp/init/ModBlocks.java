@@ -143,6 +143,9 @@ public class ModBlocks
     public static final Block GAS_EXTRACTOR = new GasCentrifugeBlock(Block.Properties.create(Material.IRON).sound(SoundType.METAL)
     .hardnessAndResistance(3,1)).setRegistryName("gas_centrifuge");
 
+    @ObjectHolder(Reference.MOD_ID+":"+"occ")
+    public static final Block OCC = new OmegaChunkCleanerBlock(Block.Properties.create(Material.IRON)).setRegistryName("occ");
+
     public static final Block BIG_FLOWER = new BigFlowerBlock(Block.Properties.create(Material.PLANTS, MaterialColor.PINK)
             .sound(SoundType.PLANT)).setRegistryName("big_flower");
     public static final Block CRIMSON_WOOL = new Block(Block.Properties.create(Material.WOOL).sound(SoundType.CLOTH)

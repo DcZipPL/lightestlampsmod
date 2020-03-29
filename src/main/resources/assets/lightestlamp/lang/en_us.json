@@ -1,6 +1,5 @@
 {
-	"block.lightestlamp.big_flower":"Big Flower",
-	"block.lightestlamp.crimson_wool":"Crimson Wool",
+	"block.lightestlamp.luminatium_block":"Luminatium Block",
 	"block.lightestlamp.gas_centrifuge":"Gas Centrifuge",
 	"block.lightestlamp.vanta_black":"Vanta Black",
 
@@ -37,6 +36,8 @@
 	"block.lightestlamp.glowing_glass_block":"Glowing Glass",
 	"block.lightestlamp.debug_chunk_cleaner":"Chunk Cleaner (Debug)",
 	"block.lightestlamp.boron_ore":"Boron Ore",
+
+	"item.lightestlamp.glowing_dust_agglomeratio":"Glowing Dust Agglomeratio",
 
 	"item.lightestlamp.boron_mesh":"Boron Mesh",
 	"item.lightestlamp.alchemical_mesh":"Alchemical Mesh",

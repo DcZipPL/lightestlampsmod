@@ -59,7 +59,7 @@ public class OmegaLampBlock extends Block
     @Override
     public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving)
     {
-        BlockPos.getAllInBox(pos.offset(Direction.UP, 10).offset(Direction.NORTH, 10).offset(Direction.WEST, 10),
+        /*BlockPos.getAllInBox(pos.offset(Direction.UP, 10).offset(Direction.NORTH, 10).offset(Direction.WEST, 10),
                 pos.offset(Direction.DOWN, 10).offset(Direction.SOUTH, 10).offset(Direction.EAST, 10)).forEach((pos2) ->
         {
             if (isWAir(pos2,world))
@@ -72,7 +72,7 @@ public class OmegaLampBlock extends Block
             {
                 world.notifyBlockUpdate(pos1, world.getBlockState(pos1), world.getBlockState(pos1), 3);
             }
-        });
+        });*/
     }
 
     private boolean isWAir(BlockPos pos, World world)
@@ -83,7 +83,7 @@ public class OmegaLampBlock extends Block
     private void RemoveLightBlocks(IWorld iworld, BlockPos pos)
     {
         World world = (World) iworld;
-        world.setBlockState(pos, ModBlocks.CHUNK_CLEANER.getDefaultState());
+        world.setBlockState(pos, ModBlocks.OCC.getDefaultState());
     }
 
     @Override
