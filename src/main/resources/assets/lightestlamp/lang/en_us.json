@@ -35,6 +35,7 @@
 
 	"block.lightestlamp.glowing_glass_block":"Glowing Glass",
 	"block.lightestlamp.debug_chunk_cleaner":"Chunk Cleaner (Debug)",
+	"block.lightestlamp.occ":"OCC Chunk Cleaner (Debug)",
 	"block.lightestlamp.boron_ore":"Boron Ore",
 
 	"item.lightestlamp.glowing_dust_agglomeratio":"Glowing Dust Agglomeratio",
@@ -99,7 +100,8 @@
 	"tooltip.lightestlamp.type.energetic.max_range": "Max Energy: 8.000 FE per tick",
 	"tooltip.lightestlamp.type.antimatter": "Antimatter",
 	"tooltip.lightestlamp.type.alchemical": "Interdiction",
-	"tooltip.lightestlamp.inverted": "Always Active",
+	"tooltip.lightestlamp.always_active": "Always Active",
+	"tooltip.lightestlamp.inverted": "Redstone Inverted",
 	"tooltip.lightestlamp.penetration": "Light Penetration",
 	"tooltip.lightestlamp.speed_grow": "Grow Glow",
 	"tooltip.lightestlamp.rods_only": "Can only use Rods!",

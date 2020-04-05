@@ -16,6 +16,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.BlockTags;
@@ -34,6 +36,7 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.init.ModContainers;
 import tk.dczippl.lightestlamp.init.ModEffect;
 import tk.dczippl.lightestlamp.init.ModFluids;
@@ -45,6 +48,7 @@ import tk.dczippl.lightestlamp.util.TheoreticalFluid;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
+import java.util.Random;
 
 public class GasCentrifugeTile extends LockableTileEntity implements ISidedInventory, ITickableTileEntity, IFluidHandlerWrapper
 {
@@ -306,7 +310,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
     private int getCookTimeTotal()
     {
-        return 80; // 100
+        return 100;
     }
 
     protected boolean canSmelt() {
@@ -375,7 +379,24 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
                 itemstack5.grow(itemstacks[3].getCount());
             }
 
-            itemstack.setDamage(itemstack.getDamage()+1);//.shrink(1);
+            int unbreaking_lvl = 0;
+            for (INBT enchantment : itemstack.getEnchantmentTagList())
+            {
+                if (((CompoundNBT) enchantment).getString("id").equals("minecraft:unbreaking"))
+                unbreaking_lvl = ((CompoundNBT)enchantment).getShort("lvl");
+                Main.LOGGER.info(enchantment);
+            }
+
+            itemstack.setDamage(itemstack.getDamage()+
+                    (
+                            unbreaking_lvl==0
+                                    ?
+                                    1
+                                    :
+                                    (new Random().nextInt(unbreaking_lvl+1)==1?1:0)
+                    ));
+            //unbreaking_lvl==0 ? 1 : (new Random().nextInt(unbreaking_lvl+1)==1?1:0)
+
             if (itemstack.getDamage() >= itemstack.getMaxDamage())
                 this.items.set(0, ItemStack.EMPTY);
 

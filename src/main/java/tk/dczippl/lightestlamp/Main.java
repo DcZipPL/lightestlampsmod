@@ -73,8 +73,7 @@ public class Main
         @Override
         public ItemStack createIcon()
         {
-            ItemStack stack = new ItemStack(ModItems.NEON_ROD);
-            stack.setCount(8);
+            ItemStack stack = new ItemStack(ModBlocks.OMEGA_LAMP);
             return stack;
         }
     };
@@ -116,8 +115,8 @@ public class Main
     {
         // do something that can only be done on the client
         ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
-        RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN, RenderType.cutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK, RenderType.cutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK, RenderType.getCutout());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)

@@ -80,5 +80,6 @@ public class DeepOceanLanternBlock extends Block
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
         text.add(new TranslationTextComponent("tooltip.lightestlamp.type.delta").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").applyTextStyle(TextFormatting.GRAY));
     }
 }

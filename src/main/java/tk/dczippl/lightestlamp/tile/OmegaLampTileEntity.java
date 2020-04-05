@@ -13,6 +13,7 @@ import tk.dczippl.lightestlamp.init.ModTileEntities;
 public class OmegaLampTileEntity extends TileEntity implements ITickableTileEntity
 {
     private int cooldown = 0;
+    private boolean updated = false;
 
     public OmegaLampTileEntity(TileEntityType<?> type)
     {
@@ -140,6 +141,18 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
                 }
             });
+
+            if (!updated)
+            {
+                updated = true;
+                BlockPos.getAllInBox(pos.offset(Direction.UP, 18).offset(Direction.NORTH,18).offset(Direction.WEST,18), pos.offset(Direction.DOWN,18).offset(Direction.SOUTH,18).offset(Direction.EAST,18)).forEach((pos1) -> {
+                    if (isAir(pos1))
+                    {
+                        world.notifyBlockUpdate(pos1, world.getBlockState(pos1), world.getBlockState(pos1), 3);
+                    }
+                });
+            }
+
             cooldown = 0;
         }
     }

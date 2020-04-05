@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    },
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    },
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    },
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    },
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    },
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    },
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    },
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    }
+  ],
+  "result":
+  {
+    "item": "lightestlamp:xenon_dust",
+    "count": 2
+  }
+}

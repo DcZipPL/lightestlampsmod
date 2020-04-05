@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    },
+    {
+      "item": "mysticalagriculture:glowing_dust_essence"
+    }
+  ],
+  "result":
+  {
+    "item": "lightestlamp:neon_dust",
+    "count": 8
+  }
+}

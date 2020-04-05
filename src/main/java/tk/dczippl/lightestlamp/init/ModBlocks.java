@@ -78,7 +78,7 @@ public class ModBlocks
 
     @ObjectHolder(Reference.MOD_ID+":"+"jungle_lantern")
     public static final Block JUNGLE_LANTERN = new JungleLanternBlock(Block.Properties.create(Material.LEAVES).sound(SoundType.PLANT)
-            .hardnessAndResistance(0.2f,1).lightValue(12)).setRegistryName("jungle_lantern");
+            .hardnessAndResistance(0.2f,1).lightValue(12).notSolid()).setRegistryName("jungle_lantern");
 
     //Other Blocks
 

@@ -16,7 +16,7 @@ public class GlowingGlassBlock extends GlassBlock
 {
     public GlowingGlassBlock()
     {
-        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).lightValue(15).hardnessAndResistance(0.3f,1).func_226896_b_());
+        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).lightValue(15).hardnessAndResistance(0.3f,1).notSolid());
     }
 
     @Override

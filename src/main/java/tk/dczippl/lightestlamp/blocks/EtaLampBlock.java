@@ -58,6 +58,6 @@ public class EtaLampBlock extends Block
     {
         text.add(new TranslationTextComponent("tooltip.lightestlamp.type.eta").applyTextStyle(TextFormatting.GRAY));
         text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").applyTextStyle(TextFormatting.GRAY));
     }
 }

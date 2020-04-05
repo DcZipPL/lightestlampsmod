@@ -23,7 +23,7 @@ displayURL="https://www.curseforge.com/minecraft/mc-mods/lightest-lamps" #option
 # A file name (in the root of the mod JAR) containing a logo for display
 # logoFile="examplemod.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks to creator of ChemLib (al123) for publishing developer version and creator of ProjectE for interdicion torch code." #optional
+credits="Thanks to creator of ChemLib (al123) for publishing developer version and creator of ProjectE for interdicion torch code. xhz313123 for zh_cn translation" #optional
 # A text field displayed in the mod UI
 authors="DcZipPL (Prefex), Silver12 (Twelve)" #optional
 # The description text for the mod (multi line!) (#mandatory)

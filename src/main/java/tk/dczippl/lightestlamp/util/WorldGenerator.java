@@ -41,20 +41,20 @@ public class WorldGenerator
             if (biome.getCategory() == Biome.Category.NETHER)
             {
                 if (Config.NEON_GLOWSTONE_SPAWN.get())
-                    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, GLOWSTONE.func_225566_b_(
+                    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, GLOWSTONE.withConfiguration(
                             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.NEON_BLOCK.getDefaultState(),NEON_BLOCK_VEINSIZE))
-                            .func_227228_a_( Placement.COUNT_RANGE.func_227446_a_(NEON_BLOCK)));
+                            .withPlacement( Placement.COUNT_RANGE.configure(NEON_BLOCK)));
                 if (Config.ARGON_GLOWSTONE_SPAWN.get())
-                    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, GLOWSTONE.func_225566_b_(
+                    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, GLOWSTONE.withConfiguration(
                             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.ARGON_BLOCK.getDefaultState(),ARGON_BLOCK_VEINSIZE))
-                            .func_227228_a_( Placement.COUNT_RANGE.func_227446_a_(ARGON_BLOCK)));
+                            .withPlacement( Placement.COUNT_RANGE.configure(ARGON_BLOCK)));
                 if (Config.KRYPTON_GLOWSTONE_SPAWN.get())
-                    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, GLOWSTONE.func_225566_b_(
+                    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES, GLOWSTONE.withConfiguration(
                             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.KRYPTON_BLOCK.getDefaultState(),KRYPTON_BLOCK_VEINSIZE))
-                            .func_227228_a_( Placement.COUNT_RANGE.func_227446_a_(KRYPTON_BLOCK)));
+                            .withPlacement( Placement.COUNT_RANGE.configure(KRYPTON_BLOCK)));
                 if (Config.BORON_SPAWN.get())
-                    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,OreFeature.ORE.func_225566_b_(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.BORON_ORE.getDefaultState(),BORON_BLOCK_VEINSIZE))
-                            .func_227228_a_( Placement.COUNT_RANGE.func_227446_a_(BORON_BLOCK)));
+                    biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,OreFeature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.BORON_ORE.getDefaultState(),BORON_BLOCK_VEINSIZE))
+                            .withPlacement( Placement.COUNT_RANGE.configure(BORON_BLOCK)));
             }
         }
     }
