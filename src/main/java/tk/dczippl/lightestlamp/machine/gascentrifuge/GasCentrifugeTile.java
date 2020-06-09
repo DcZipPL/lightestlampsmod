@@ -36,6 +36,7 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import tk.dczippl.lightestlamp.Config;
 import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.init.ModContainers;
 import tk.dczippl.lightestlamp.init.ModEffect;
@@ -169,22 +170,23 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     public static Map<Item, Integer> getBurnTimes() {
         Map<Item, Integer> map = Maps.newLinkedHashMap();
 
+        int multiplier = Config.GLOWSTONE_FUEL_MULTIPLIER.get() >= 2 ? Config.GLOWSTONE_FUEL_MULTIPLIER.get() : 2;
         //Mekanism compatibility
         Tag<Item> refined_glowstones = ItemTags.getCollection().get(new ResourceLocation("forge:ingots/refined_glowstone"));
         if (refined_glowstones!=null)
-            addItemTagBurnTime(map, refined_glowstones,60);
+            addItemTagBurnTime(map, refined_glowstones,60*multiplier);
         Tag<Item> refined_glowstones_block = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/refined_glowstone"));
         if (refined_glowstones_block!=null)
-            addItemTagBurnTime(map, refined_glowstones_block,520);
+            addItemTagBurnTime(map, refined_glowstones_block,520*multiplier);
         Tag<Item> refined_glowstones_nugget = ItemTags.getCollection().get(new ResourceLocation("forge:nuggets/refined_glowstone"));
         if (refined_glowstones_nugget!=null)
-            addItemTagBurnTime(map, refined_glowstones_nugget,5);
+            addItemTagBurnTime(map, refined_glowstones_nugget,5*multiplier);
         Tag<Item> glowstone_blocks = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/glowstone"));
         if (glowstone_blocks!=null)
-            addItemTagBurnTime(map, glowstone_blocks,360);
+            addItemTagBurnTime(map, glowstone_blocks,360*multiplier);
 
-        addItemTagBurnTime(map, Tags.Items.DUSTS_GLOWSTONE,40);
-        addItemBurnTime(map, Blocks.GLOWSTONE, 160);
+        addItemTagBurnTime(map, Tags.Items.DUSTS_GLOWSTONE,40*multiplier);
+        addItemBurnTime(map, Blocks.GLOWSTONE, 160*multiplier);
         return map;
     }
 
@@ -384,7 +386,6 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
             {
                 if (((CompoundNBT) enchantment).getString("id").equals("minecraft:unbreaking"))
                 unbreaking_lvl = ((CompoundNBT)enchantment).getShort("lvl");
-                Main.LOGGER.info(enchantment);
             }
 
             itemstack.setDamage(itemstack.getDamage()+

@@ -432,6 +432,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.CHORUS_FIBER);
             itemRegistryEvent.getRegistry().register(ModItems.BROMINE_CRYSTAL);
             itemRegistryEvent.getRegistry().register(ModItems.STICKANDBOWL);
+            itemRegistryEvent.getRegistry().register(ModItems.BORIC_ACID);
             itemRegistryEvent.getRegistry().register(ModItems.BASIC_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.NEON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_FILTER);

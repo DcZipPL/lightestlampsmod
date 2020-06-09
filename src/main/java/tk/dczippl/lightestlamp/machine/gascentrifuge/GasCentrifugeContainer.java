@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import tk.dczippl.lightestlamp.Config;
 import tk.dczippl.lightestlamp.init.ModContainers;
 
 public class GasCentrifugeContainer extends Container
@@ -141,7 +142,8 @@ public class GasCentrifugeContainer extends Container
     @OnlyIn(Dist.CLIENT)
     public int getBurnLeftScaled()
     {
-        return this.field_217064_e.get(0) * 13 / 180;
+        int multiplier = Config.GLOWSTONE_FUEL_MULTIPLIER.get() >= 2 ? Config.GLOWSTONE_FUEL_MULTIPLIER.get() : 2;
+        return this.field_217064_e.get(0) * 13 / 180 / multiplier;
     }
 
     @OnlyIn(Dist.CLIENT)

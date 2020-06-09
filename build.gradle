@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '3.4.0'
+version = '3.4.2'
 group = 'tk.dczippl.lightestlamp' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'lightestlamp'
 
@@ -110,7 +110,7 @@ dependencies {
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-1.15.2:6.0.0.2")
 
-    compile fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-28.19")
+    //compile fg.deobf("vazkii.patchouli:Patchouli:1.15.2-1.2-28.19")
 
     compile files("R:\\chemlib-1.15.2-1-dev.jar") // For one .jar file in folder
     compile files("R:\\MekanismAll-1.15.2-9.9.9.401-api.jar") // For one .jar file in folder

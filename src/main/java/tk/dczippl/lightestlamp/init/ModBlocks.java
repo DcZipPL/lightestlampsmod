@@ -2,6 +2,7 @@ package tk.dczippl.lightestlamp.init;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.OreBlock;
+import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -83,23 +84,23 @@ public class ModBlocks
     //Other Blocks
 
     @ObjectHolder(Reference.MOD_ID+":"+"neon_rod_block")
-    public static final Block NEON_ROD_BLOCK = new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+    public static final Block NEON_ROD_BLOCK = new RotatedPillarBlock(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
             .hardnessAndResistance(0.85f,1).lightValue(10)).setRegistryName("neon_rod_block");
 
     @ObjectHolder(Reference.MOD_ID+":"+"argon_rod_block")
-    public static final Block ARGON_ROD_BLOCK = new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+    public static final Block ARGON_ROD_BLOCK = new RotatedPillarBlock(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
             .hardnessAndResistance(0.85f,1).lightValue(10)).setRegistryName("argon_rod_block");
 
     @ObjectHolder(Reference.MOD_ID+":"+"krypton_rod_block")
-    public static final Block KRYPTON_ROD_BLOCK = new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+    public static final Block KRYPTON_ROD_BLOCK = new RotatedPillarBlock(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
             .hardnessAndResistance(0.85f,1).lightValue(14)).setRegistryName("krypton_rod_block");
 
     @ObjectHolder(Reference.MOD_ID+":"+"xenon_rod_block")
-    public static final Block XENON_ROD_BLOCK = new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+    public static final Block XENON_ROD_BLOCK = new RotatedPillarBlock(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
             .hardnessAndResistance(0.85f,1).lightValue(14)).setRegistryName("xenon_rod_block");
 
     @ObjectHolder(Reference.MOD_ID+":"+"radon_rod_block")
-    public static final Block RADON_ROD_BLOCK = new Block(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
+    public static final Block RADON_ROD_BLOCK = new RotatedPillarBlock(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS)
             .hardnessAndResistance(0.85f,1).lightValue(15)).setRegistryName("radon_rod_block");
 
     @ObjectHolder(Reference.MOD_ID+":"+"vanta_black")

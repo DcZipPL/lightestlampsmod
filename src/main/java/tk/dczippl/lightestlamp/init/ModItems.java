@@ -52,6 +52,8 @@ public class ModItems
     public static final Item BROMINE_CRYSTAL = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("bromine_crystal");
     @ObjectHolder(Reference.MOD_ID+":"+"boron_mesh")
     public static final Item BORON_MESH = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("boron_mesh");
+    @ObjectHolder(Reference.MOD_ID+":"+"boric_acid")
+    public static final Item BORIC_ACID = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("boric_acid");
     @ObjectHolder(Reference.MOD_ID+":"+"alchemical_mesh")
     public static final Item ALCHEMICAL_MESH = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("alchemical_mesh");
     @ObjectHolder(Reference.MOD_ID+":"+"debug_stick")
