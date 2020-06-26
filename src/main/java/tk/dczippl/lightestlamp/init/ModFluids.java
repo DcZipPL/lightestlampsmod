@@ -26,9 +26,8 @@ public class ModFluids
     public static final ResourceLocation FLUID_STILL = new ResourceLocation(Reference.MOD_ID,"fluid/bromine_still");
     public static final ResourceLocation FLUID_FLOWING = new ResourceLocation(Reference.MOD_ID,"fluid/bromine_flow");
 
-    public static final DeferredRegister<Block> BLOCKS = new DeferredRegister<>(ForgeRegistries.BLOCKS, Reference.MOD_ID);
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, Reference.MOD_ID);
-    public static final DeferredRegister<Fluid> FLUIDS = new DeferredRegister<>(ForgeRegistries.FLUIDS, Reference.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MOD_ID);
+    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Reference.MOD_ID);
 
     public static RegistryObject<FlowingFluid> BROMINE_FLUID = FLUIDS.register("bromine_fluid", () ->
             new ForgeFlowingFluid.Source(ModFluids.test_fluid_properties)
@@ -37,7 +36,7 @@ public class ModFluids
             new ForgeFlowingFluid.Flowing(ModFluids.test_fluid_properties)
     );
 
-    public static RegistryObject<FlowingFluidBlock> BROMINE_FLUID_BLOCK = BLOCKS.register("bromine_fluid_block", () ->
+    public static RegistryObject<FlowingFluidBlock> BROMINE_FLUID_BLOCK = ModBlocks.BLOCKS.register("bromine_fluid_block", () ->
             new BromineFluidBlock(BROMINE_FLUID, Block.Properties.create(Material.WATER).doesNotBlockMovement().hardnessAndResistance(100.0F).noDrops())
     );
     public static RegistryObject<Item> BROMINE_FLUID_BUCKET = ITEMS.register("bromine_fluid_bucket", () ->

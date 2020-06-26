@@ -44,7 +44,7 @@ public class EpsilonLampTileEntity extends TileEntity implements ITickableTileEn
 
                     BlockPos.getAllInBox(pos.offset(Direction.UP, 5).offset(Direction.NORTH, 5).offset(Direction.WEST, 5), pos.offset(Direction.DOWN, 5).offset(Direction.SOUTH, 5).offset(Direction.EAST, 5)).forEach((pos1) ->
                     {
-                        if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
+                        if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR.get())
                         {
                             world.setBlockState(pos1, Blocks.AIR.getDefaultState());
                         }
@@ -64,7 +64,7 @@ public class EpsilonLampTileEntity extends TileEntity implements ITickableTileEn
                 {
                     if (isAir(pos2))
                     {
-                        world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                        world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                     }
                 });
             }

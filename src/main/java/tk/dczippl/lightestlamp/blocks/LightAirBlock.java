@@ -22,19 +22,13 @@ public class LightAirBlock extends AirBlock
 {
     public LightAirBlock()
     {
-        super(Block.Properties.create(Material.AIR).lightValue(15));
+        super(Block.Properties.create(Material.AIR).notSolid());
     }
 
     @Override
     public BlockRenderType getRenderType(BlockState p_149645_1_)
     {
         return BlockRenderType.INVISIBLE;
-    }
-
-    @Override
-    public boolean isNormalCube(BlockState state, IBlockReader world, BlockPos pos)
-    {
-        return false;
     }
 
     @Override
@@ -62,8 +56,12 @@ public class LightAirBlock extends AirBlock
     }
 
     @Override
-    public boolean isAir(BlockState state)
-    {
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 15;
+    }
+
+    @Override
+    public boolean isAir(BlockState state, IBlockReader world, BlockPos pos) {
         return true;
     }
 }

@@ -37,61 +37,61 @@ public class ClearSeaLanternTileEntity extends TileEntity implements ITickableTi
             BlockPos pos1 = pos.offset(Direction.UP);
             if (isAir(pos1))
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,false));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,false));
             }
             else if (world.getBlockState(pos1).getBlock() == Blocks.WATER)
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,true));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,true));
             }
 
             pos1 = pos.offset(Direction.DOWN);
             if (isAir(pos1))
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,false));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,false));
             }
             else if (world.getBlockState(pos1).getBlock() == Blocks.WATER)
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,true));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,true));
             }
 
             pos1 = pos.offset(Direction.NORTH);
             if (isAir(pos1))
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,false));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,false));
             }
             else if (world.getBlockState(pos1).getBlock() == Blocks.WATER)
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,true));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,true));
             }
 
             pos1 = pos.offset(Direction.SOUTH);
             if (isAir(pos1))
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,false));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,false));
             }
             else if (world.getBlockState(pos1).getBlock() == Blocks.WATER)
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,true));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,true));
             }
 
             pos1 = pos.offset(Direction.WEST);
             if (isAir(pos1))
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,false));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,false));
             }
             else if (world.getBlockState(pos1).getBlock() == Blocks.WATER)
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,true));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,true));
             }
 
             pos1 = pos.offset(Direction.EAST);
             if (isAir(pos1))
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,false));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,false));
             }
             else if (world.getBlockState(pos1).getBlock() == Blocks.WATER)
             {
-                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,true));
+                world.setBlockState(pos1, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,true));
             }
 
             cooldown = 0;
@@ -100,6 +100,6 @@ public class ClearSeaLanternTileEntity extends TileEntity implements ITickableTi
 
     private boolean isAir(BlockPos pos)
     {
-        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR.get();
     }
 }

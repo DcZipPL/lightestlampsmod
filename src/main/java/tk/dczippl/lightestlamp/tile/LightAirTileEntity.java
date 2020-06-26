@@ -35,15 +35,15 @@ public class LightAirTileEntity extends TileEntity implements ITickableTileEntit
         if (cooldown >= 1)
         {
             BlockPos.getAllInBox(pos.offset(Direction.UP, 18).offset(Direction.NORTH,18).offset(Direction.WEST,18), pos.offset(Direction.DOWN,18).offset(Direction.SOUTH,18).offset(Direction.EAST,18)).forEach((pos1) -> {
-                if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
+                if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR.get())
                 {
                     world.setBlockState(pos1, Blocks.AIR.getDefaultState());
                 }
-                else if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR && !world.getBlockState(pos1).get(BlockStateProperties.WATERLOGGED))
+                else if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR.get() && !world.getBlockState(pos1).get(BlockStateProperties.WATERLOGGED))
                 {
                     world.setBlockState(pos1, Blocks.AIR.getDefaultState());
                 }
-                else if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR && world.getBlockState(pos1).get(BlockStateProperties.WATERLOGGED))
+                else if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR.get() && world.getBlockState(pos1).get(BlockStateProperties.WATERLOGGED))
                 {
                     world.setBlockState(pos1, Blocks.WATER.getDefaultState());
                 }
@@ -61,6 +61,6 @@ public class LightAirTileEntity extends TileEntity implements ITickableTileEntit
 
     private boolean isAir(BlockPos pos)
     {
-        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR.get();
     }
 }

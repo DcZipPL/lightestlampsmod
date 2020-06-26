@@ -41,11 +41,11 @@ public class OceanLanternTileEntity extends TileEntity implements ITickableTileE
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,false));
+                    world.setBlockState(pos2, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,false));
                 }
                 else if (world.getBlockState(pos2).getBlock() == Blocks.WATER)
                 {
-                    world.setBlockState(pos2, ModBlocks.WATERLOGGABLE_LIGHT_AIR.getDefaultState().with(WATERLOGGED,true));
+                    world.setBlockState(pos2, ModBlocks.WATERLOGGABLE_LIGHT_AIR.get().getDefaultState().with(WATERLOGGED,true));
                 }
             });
 
@@ -55,6 +55,6 @@ public class OceanLanternTileEntity extends TileEntity implements ITickableTileE
 
     private boolean isAir(BlockPos pos)
     {
-        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR.get();
     }
 }

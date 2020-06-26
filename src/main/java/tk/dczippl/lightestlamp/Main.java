@@ -6,12 +6,12 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ArrowEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -22,7 +22,7 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -47,6 +47,7 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.IForgeRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import tk.dczippl.lightestlamp.init.*;
@@ -73,13 +74,20 @@ public class Main
         @Override
         public ItemStack createIcon()
         {
-            ItemStack stack = new ItemStack(ModBlocks.OMEGA_LAMP);
+            ItemStack stack = new ItemStack(ModBlocks.OMEGA_LAMP.get());
             return stack;
         }
     };
     
     public Main()
     {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        ModBlocks.init(modEventBus);
+
+        ModFluids.ITEMS.register(modEventBus);
+        ModFluids.FLUIDS.register(modEventBus);
+
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -92,11 +100,6 @@ public class Main
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModFluids.BLOCKS.register(modEventBus);
-        ModFluids.ITEMS.register(modEventBus);
-        ModFluids.FLUIDS.register(modEventBus);
-
         Config.loadConfig(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("lightestlamp-client.toml"));
         Config.loadConfig(Config.COMMON_CONFIG, FMLPaths.CONFIGDIR.get().resolve("lightestlamp-common.toml"));
 
@@ -106,6 +109,7 @@ public class Main
 
     private void setup(final FMLCommonSetupEvent event)
     {
+        LOGGER.debug(ModBlocks.ANTI_LAMP.get().toString());
         // some preinit code
         WorldGenerator.setupWorldGeneraton();
         Networking.registerMessages();
@@ -114,9 +118,9 @@ public class Main
     private void doClientStuff(final FMLClientSetupEvent event)
     {
         // do something that can only be done on the client
-        ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
-        RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN, RenderType.getCutout());
-        RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK, RenderType.getCutout());
+        //ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new); //TODO: Uncomment that
+        RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN.get(), RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK.get(), RenderType.getCutout());
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event)
@@ -179,15 +183,15 @@ public class Main
         }
         if (!disabled)
         {
-            BlockPos pos = entity.getPosition();
+            BlockPos pos = new BlockPos(entity.getPositionVec());
             Block b = entity.getEntityWorld().getBlockState(pos.offset(Direction.UP)).getBlock();
             Block b1 = entity.getEntityWorld().getBlockState(pos).getBlock();
             if (b.equals(ModFluids.BROMINE_FLUID_BLOCK.get()))
             {
-                entity.setMotion(new Vec3d(entity.getMotion().x, 0.100000011620D, entity.getMotion().z));
+                entity.setMotion(new Vector3d(entity.getMotion().x, 0.100000011620D, entity.getMotion().z));
             } else if (b1.equals(ModFluids.BROMINE_FLUID_BLOCK.get()))
             {
-                entity.setMotion(new Vec3d(entity.getMotion().x, 0.100000011620D, entity.getMotion().z));
+                entity.setMotion(new Vector3d(entity.getMotion().x, 0.100000011620D, entity.getMotion().z));
             }
         }
     }
@@ -213,50 +217,6 @@ public class Main
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents
     {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent)
-        {
-            // register a new block here
-            blockRegistryEvent.getRegistry().register(ModBlocks.ANTI_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.ALCHEMICAL_LAMP);
-
-            blockRegistryEvent.getRegistry().register(ModBlocks.LIGHT_AIR);
-            blockRegistryEvent.getRegistry().register(ModBlocks.WATERLOGGABLE_LIGHT_AIR);
-            blockRegistryEvent.getRegistry().register(ModBlocks.CLEAR_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.ALFA_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.BETA_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.GAMMA_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.DELTA_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.EPSILON_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.ZETA_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.ETA_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.OMEGA_LAMP);
-            blockRegistryEvent.getRegistry().register(ModBlocks.CLEAR_SEA_LANTERN);
-            blockRegistryEvent.getRegistry().register(ModBlocks.DEEP_SEA_LANTERN);
-            blockRegistryEvent.getRegistry().register(ModBlocks.OCEAN_LANTERN);
-            blockRegistryEvent.getRegistry().register(ModBlocks.DEEP_OCEAN_LANTERN);
-            blockRegistryEvent.getRegistry().register(ModBlocks.ABYSSAL_LANTERN);
-            blockRegistryEvent.getRegistry().register(ModBlocks.GLOWING_GLASS_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.DARK_AIR);
-            blockRegistryEvent.getRegistry().register(ModBlocks.JUNGLE_LANTERN);
-            blockRegistryEvent.getRegistry().register(ModBlocks.GAS_EXTRACTOR);
-            blockRegistryEvent.getRegistry().register(ModBlocks.NEON_ROD_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.ARGON_ROD_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.KRYPTON_ROD_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.XENON_ROD_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.RADON_ROD_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.NEON_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.ARGON_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.KRYPTON_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.XENON_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.RADON_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.CHUNK_CLEANER);
-            blockRegistryEvent.getRegistry().register(ModBlocks.VANTA_BLACK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.BORON_ORE);
-            blockRegistryEvent.getRegistry().register(ModBlocks.LUMINATIUM_BLOCK);
-            blockRegistryEvent.getRegistry().register(ModBlocks.OCC);
-            //LOGGER.info("Lightest Lamps: block init");
-        }
 
         @SubscribeEvent
         public static void registerEffects(final RegistryEvent.Register<Effect> event) {
@@ -275,66 +235,66 @@ public class Main
         @SubscribeEvent
         public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt)
         {
-            evt.getRegistry().register(TileEntityType.Builder.create(LightAirTileEntity::new,ModBlocks.LIGHT_AIR,ModBlocks.CHUNK_CLEANER).build(null).setRegistryName("light_air_te"));
-            evt.getRegistry().register(TileEntityType.Builder.create(AntiLampTileEntity::new,ModBlocks.ANTI_LAMP).build(null).setRegistryName("antilamp_te"));
+            evt.getRegistry().register(TileEntityType.Builder.create(LightAirTileEntity::new,ModBlocks.LIGHT_AIR.get(),ModBlocks.CHUNK_CLEANER.get()).build(null).setRegistryName("light_air_te"));
+            evt.getRegistry().register(TileEntityType.Builder.create(AntiLampTileEntity::new,ModBlocks.ANTI_LAMP.get()).build(null).setRegistryName("antilamp_te"));
 
-            TileEntityType<ClearLampTileEntity> clear_te = TileEntityType.Builder.create(ClearLampTileEntity::new,ModBlocks.CLEAR_LAMP).build(null);
+            TileEntityType<ClearLampTileEntity> clear_te = TileEntityType.Builder.create(ClearLampTileEntity::new,ModBlocks.CLEAR_LAMP.get()).build(null);
             clear_te.setRegistryName(Reference.MOD_ID, "clear_te");
             ModTileEntities.CLEAR_TE = clear_te;
             evt.getRegistry().register(ModTileEntities.CLEAR_TE);
 
-            TileEntityType<AlfaLampTileEntity> type0 = TileEntityType.Builder.create(AlfaLampTileEntity::new,ModBlocks.ALFA_LAMP).build(null);
+            TileEntityType<AlfaLampTileEntity> type0 = TileEntityType.Builder.create(AlfaLampTileEntity::new,ModBlocks.ALPHA_LAMP.get()).build(null);
             type0.setRegistryName(Reference.MOD_ID, "alfa_te");
 
-            TileEntityType<BetaLampTileEntity> type1 = TileEntityType.Builder.create(BetaLampTileEntity::new,ModBlocks.BETA_LAMP).build(null);
+            TileEntityType<BetaLampTileEntity> type1 = TileEntityType.Builder.create(BetaLampTileEntity::new,ModBlocks.BETA_LAMP.get()).build(null);
             type1.setRegistryName(Reference.MOD_ID, "beta_te");
 
-            TileEntityType<GammaLampTileEntity> type2 = TileEntityType.Builder.create(GammaLampTileEntity::new,ModBlocks.GAMMA_LAMP).build(null);
+            TileEntityType<GammaLampTileEntity> type2 = TileEntityType.Builder.create(GammaLampTileEntity::new,ModBlocks.GAMMA_LAMP.get()).build(null);
             type2.setRegistryName(Reference.MOD_ID, "gamma_te");
 
-            TileEntityType<DeltaLampTileEntity> type3 = TileEntityType.Builder.create(DeltaLampTileEntity::new,ModBlocks.DELTA_LAMP).build(null);
+            TileEntityType<DeltaLampTileEntity> type3 = TileEntityType.Builder.create(DeltaLampTileEntity::new,ModBlocks.DELTA_LAMP.get()).build(null);
             type3.setRegistryName(Reference.MOD_ID, "delta_te");
 
-            TileEntityType<EpsilonLampTileEntity> type4 = TileEntityType.Builder.create(EpsilonLampTileEntity::new,ModBlocks.EPSILON_LAMP).build(null);
+            TileEntityType<EpsilonLampTileEntity> type4 = TileEntityType.Builder.create(EpsilonLampTileEntity::new,ModBlocks.EPSILON_LAMP.get()).build(null);
             type4.setRegistryName(Reference.MOD_ID, "epsilon_te");
 
-            TileEntityType<ZetaLampTileEntity> type5 = TileEntityType.Builder.create(ZetaLampTileEntity::new,ModBlocks.ZETA_LAMP).build(null);
+            TileEntityType<ZetaLampTileEntity> type5 = TileEntityType.Builder.create(ZetaLampTileEntity::new,ModBlocks.ZETA_LAMP.get()).build(null);
             type5.setRegistryName(Reference.MOD_ID, "zeta_te");
 
-            TileEntityType<OmegaLampTileEntity> type6 = TileEntityType.Builder.create(OmegaLampTileEntity::new,ModBlocks.OMEGA_LAMP).build(null);
+            TileEntityType<OmegaLampTileEntity> type6 = TileEntityType.Builder.create(OmegaLampTileEntity::new,ModBlocks.OMEGA_LAMP.get()).build(null);
             type6.setRegistryName(Reference.MOD_ID, "omega_te");
 
-            TileEntityType<DeepSeaLanternTileEntity> type7 = TileEntityType.Builder.create(DeepSeaLanternTileEntity::new,ModBlocks.DEEP_SEA_LANTERN).build(null);
+            TileEntityType<DeepSeaLanternTileEntity> type7 = TileEntityType.Builder.create(DeepSeaLanternTileEntity::new,ModBlocks.DEEP_SEA_LANTERN.get()).build(null);
             type7.setRegistryName(Reference.MOD_ID, "deep_sea_lantern_te");
 
-            TileEntityType<OceanLanternTileEntity> type8 = TileEntityType.Builder.create(OceanLanternTileEntity::new,ModBlocks.OCEAN_LANTERN).build(null);
+            TileEntityType<OceanLanternTileEntity> type8 = TileEntityType.Builder.create(OceanLanternTileEntity::new,ModBlocks.OCEAN_LANTERN.get()).build(null);
             type8.setRegistryName(Reference.MOD_ID, "ocean_lantern_te");
 
-            TileEntityType<ClearSeaLanternTileEntity> type9 = TileEntityType.Builder.create(ClearSeaLanternTileEntity::new,ModBlocks.CLEAR_SEA_LANTERN).build(null);
+            TileEntityType<ClearSeaLanternTileEntity> type9 = TileEntityType.Builder.create(ClearSeaLanternTileEntity::new,ModBlocks.CLEAR_SEA_LANTERN.get()).build(null);
             type9.setRegistryName(Reference.MOD_ID, "clear_sea_lantern_te");
 
-            TileEntityType<AlchemicalLampTileEntity> type10 = TileEntityType.Builder.create(AlchemicalLampTileEntity::new,ModBlocks.ALCHEMICAL_LAMP).build(null);
+            TileEntityType<AlchemicalLampTileEntity> type10 = TileEntityType.Builder.create(AlchemicalLampTileEntity::new,ModBlocks.ALCHEMICAL_LAMP.get()).build(null);
             type10.setRegistryName(Reference.MOD_ID, "alchemical_lamp_te");
 
-            TileEntityType<GasCentrifugeTile> centrifuge_te = TileEntityType.Builder.create(GasCentrifugeTile::new,ModBlocks.GAS_EXTRACTOR).build(null);
+            TileEntityType<GasCentrifugeTile> centrifuge_te = TileEntityType.Builder.create(GasCentrifugeTile::new,ModBlocks.GAS_EXTRACTOR.get()).build(null);
             centrifuge_te.setRegistryName(Reference.MOD_ID, "centrifuge_te");
 
-            TileEntityType<EtaLampTileEntity> eta_te = TileEntityType.Builder.create(EtaLampTileEntity::new,ModBlocks.ETA_LAMP).build(null);
+            TileEntityType<EtaLampTileEntity> eta_te = TileEntityType.Builder.create(EtaLampTileEntity::new,ModBlocks.ETA_LAMP.get()).build(null);
             eta_te.setRegistryName(Reference.MOD_ID, "eta_te");
             ModTileEntities.ETA_TE = eta_te;
             evt.getRegistry().register(ModTileEntities.ETA_TE);
 
-            TileEntityType<DeepOceanLanternTileEntity> deep_ocean_lantern_te = TileEntityType.Builder.create(DeepOceanLanternTileEntity::new,ModBlocks.DEEP_OCEAN_LANTERN).build(null);
+            TileEntityType<DeepOceanLanternTileEntity> deep_ocean_lantern_te = TileEntityType.Builder.create(DeepOceanLanternTileEntity::new,ModBlocks.DEEP_OCEAN_LANTERN.get()).build(null);
             deep_ocean_lantern_te.setRegistryName(Reference.MOD_ID, "deep_ocean_lantern_te");
             ModTileEntities.DEEPOCEANLANTERN_TE = deep_ocean_lantern_te;
             evt.getRegistry().register(ModTileEntities.DEEPOCEANLANTERN_TE);
 
-            TileEntityType<AbyssalLanternTileEntity> abyssal_lantern_te = TileEntityType.Builder.create(AbyssalLanternTileEntity::new,ModBlocks.ABYSSAL_LANTERN).build(null);
+            TileEntityType<AbyssalLanternTileEntity> abyssal_lantern_te = TileEntityType.Builder.create(AbyssalLanternTileEntity::new,ModBlocks.ABYSSAL_LANTERN.get()).build(null);
             abyssal_lantern_te.setRegistryName(Reference.MOD_ID, "abyssal_lantern_te");
             ModTileEntities.ABYSSALLANTERN_TE = abyssal_lantern_te;
             evt.getRegistry().register(ModTileEntities.ABYSSALLANTERN_TE);
 
-            TileEntityType<OmegaChunkCleanerTileEntity> occ_te = TileEntityType.Builder.create(OmegaChunkCleanerTileEntity::new,ModBlocks.OCC).build(null);
+            TileEntityType<OmegaChunkCleanerTileEntity> occ_te = TileEntityType.Builder.create(OmegaChunkCleanerTileEntity::new,ModBlocks.OCC.get()).build(null);
             occ_te.setRegistryName(Reference.MOD_ID, "occ_te");
             ModTileEntities.OCC_TE = occ_te;
             evt.getRegistry().register(ModTileEntities.OCC_TE);
@@ -369,41 +329,14 @@ public class Main
         @SubscribeEvent
         public static void onItemRegistry(final RegistryEvent.Register<Item> itemRegistryEvent)
         {
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ANTI_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ANTI_LAMP.getRegistryName()));
-
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CLEAR_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CLEAR_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ALFA_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ALFA_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.BETA_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.BETA_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GAMMA_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GAMMA_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.DELTA_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.DELTA_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.EPSILON_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.EPSILON_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ZETA_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ZETA_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ETA_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ETA_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.OMEGA_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.OMEGA_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CLEAR_SEA_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CLEAR_SEA_LANTERN.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.DEEP_SEA_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.DEEP_SEA_LANTERN.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.OCEAN_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.OCEAN_LANTERN.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.DEEP_OCEAN_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.DEEP_OCEAN_LANTERN.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ALCHEMICAL_LAMP, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ALCHEMICAL_LAMP.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ABYSSAL_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ABYSSAL_LANTERN.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.JUNGLE_LANTERN, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.JUNGLE_LANTERN.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.NEON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.NEON_ROD_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ARGON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ARGON_ROD_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.KRYPTON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.KRYPTON_ROD_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.XENON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.XENON_ROD_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.RADON_ROD_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.RADON_ROD_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.NEON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.NEON_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.ARGON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.ARGON_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.KRYPTON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.KRYPTON_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.XENON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.XENON_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.RADON_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.RADON_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GLOWING_GLASS_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GLOWING_GLASS_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.VANTA_BLACK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.VANTA_BLACK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.GAS_EXTRACTOR, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.GAS_EXTRACTOR.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.BORON_ORE, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.BORON_ORE.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.CHUNK_CLEANER, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.CHUNK_CLEANER.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.LUMINATIUM_BLOCK, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.LUMINATIUM_BLOCK.getRegistryName()));
-            itemRegistryEvent.getRegistry().register(new BlockItem(ModBlocks.OCC, new Item.Properties().group(Main.main_group)).setRegistryName(ModBlocks.OCC.getRegistryName()));
+            IForgeRegistry<Item> registry = itemRegistryEvent.getRegistry();
+            ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
+                Item.Properties properties = new Item.Properties();
+                properties = properties.group(main_group);
+                BlockItem blockItem = new BlockItem(block, properties);
+                blockItem.setRegistryName(block.getRegistryName());
+                registry.register(blockItem);
+            });
 
             // register a new item here
             itemRegistryEvent.getRegistry().register(ModItems.EMPTY_ROD);
@@ -453,23 +386,24 @@ public class Main
 
         for (Entity ent : list)
         {
-            if ((ent instanceof LivingEntity) || (ent instanceof IProjectile))
+            if ((ent instanceof LivingEntity) || (ent instanceof ProjectileEntity))
             {
-                if (!ignore && !(ent instanceof IMob || ent instanceof IProjectile))
+                if (!ignore && !(ent instanceof IMob || ent instanceof ProjectileEntity))
                 {
                     continue;
                 }
                 else
                 {
-                    if (ent instanceof ArrowEntity && ((ArrowEntity) ent).onGround)
+                    //TODO: In Ground (Pull request to forge)
+                    /*if (ent instanceof ArrowEntity && ((ArrowEntity) ent).inGound)
                     {
                         continue;
-                    }
-                    Vec3d p = new Vec3d(x, y, z);
-                    Vec3d t = ent.getPositionVec();
+                    }*/
+                    Vector3d p = new Vector3d(x, y, z);
+                    Vector3d t = ent.getPositionVec();
                     double distance = p.distanceTo(t) + 0.1D;
 
-                    Vec3d r = new Vec3d(t.x - p.x, t.y - p.y, t.z - p.z);
+                    Vector3d r = new Vector3d(t.x - p.x, t.y - p.y, t.z - p.z);
 
                     ent.setMotion((r.x / 1.5D / distance+ent.getMotion().x),(r.y / 1.5D / distance+ent.getMotion().y),(r.z / 1.5D / distance+ent.getMotion().z));
                 }

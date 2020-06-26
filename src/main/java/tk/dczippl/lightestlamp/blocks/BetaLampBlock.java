@@ -33,7 +33,7 @@ public class BetaLampBlock extends Block
 {
     public BetaLampBlock()
     {
-        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).lightValue(15).hardnessAndResistance(0.3f,1));
+        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(0.3f,1));
     }
 
     @Override
@@ -60,7 +60,7 @@ public class BetaLampBlock extends Block
     {
         World world = iworld.getWorld();
         BlockPos.getAllInBox(pos.offset(Direction.UP, 2).offset(Direction.NORTH,2).offset(Direction.WEST,2), pos.offset(Direction.DOWN, 2).offset(Direction.SOUTH,2).offset(Direction.EAST,2)).forEach((pos1) -> {
-            if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
+            if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR.get())
             {
                 world.setBlockState(pos1, Blocks.AIR.getDefaultState());
             }
@@ -70,8 +70,8 @@ public class BetaLampBlock extends Block
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.beta").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.beta").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").func_240699_a_(TextFormatting.GRAY));
     }
 
     @Override

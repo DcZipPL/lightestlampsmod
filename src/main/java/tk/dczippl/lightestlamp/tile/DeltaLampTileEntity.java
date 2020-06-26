@@ -44,7 +44,7 @@ public class DeltaLampTileEntity extends TileEntity implements ITickableTileEnti
 
                     BlockPos.getAllInBox(pos.offset(Direction.UP, 4).offset(Direction.NORTH, 4).offset(Direction.WEST, 4), pos.offset(Direction.DOWN, 4).offset(Direction.SOUTH, 4).offset(Direction.EAST, 4)).forEach((pos1) ->
                     {
-                        if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
+                        if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR.get())
                         {
                             world.setBlockState(pos1, Blocks.AIR.getDefaultState());
                         }
@@ -64,7 +64,7 @@ public class DeltaLampTileEntity extends TileEntity implements ITickableTileEnti
                 {
                     if (isAir(pos2))
                     {
-                        world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                        world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                     }
                 });
             }

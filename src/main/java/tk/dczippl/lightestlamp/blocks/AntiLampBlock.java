@@ -27,7 +27,12 @@ public class AntiLampBlock extends Block
 {
     public AntiLampBlock()
     {
-        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).lightValue(10).hardnessAndResistance(0.3f,1));
+        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(0.3f,1));
+    }
+
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 10;
     }
 
     @Override
@@ -54,7 +59,7 @@ public class AntiLampBlock extends Block
     {
         World world = iworld.getWorld();
         BlockPos.getAllInBox(pos.offset(Direction.UP, 1).offset(Direction.NORTH,1).offset(Direction.WEST,1), pos.offset(Direction.DOWN, 1).offset(Direction.SOUTH,1).offset(Direction.EAST,1)).forEach((pos1) -> {
-            if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
+            if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR.get())
             {
                 world.setBlockState(pos1, Blocks.AIR.getDefaultState());
             }
@@ -64,7 +69,7 @@ public class AntiLampBlock extends Block
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.antimatter").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.lamp.wip").applyTextStyle(TextFormatting.RED));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.antimatter").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.lamp.wip").func_240699_a_(TextFormatting.RED));
     }
 }

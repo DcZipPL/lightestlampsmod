@@ -25,7 +25,7 @@ public class FilterItem extends Item
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
     {
-        tooltip.add(new TranslationTextComponent(this.tooltip).applyTextStyle(TextFormatting.GRAY));
+        tooltip.add(new TranslationTextComponent(this.tooltip).func_240699_a_(TextFormatting.GRAY));
     }
 
     @Override

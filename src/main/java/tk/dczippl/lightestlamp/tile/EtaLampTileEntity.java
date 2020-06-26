@@ -38,7 +38,7 @@ public class EtaLampTileEntity extends TileEntity implements ITickableTileEntity
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
 

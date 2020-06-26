@@ -28,7 +28,12 @@ public class DeepOceanLanternBlock extends Block
 {
     public DeepOceanLanternBlock() {
         super(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
-                .hardnessAndResistance(0.3f,1).lightValue(15));
+                .hardnessAndResistance(0.3f,1));
+    }
+
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 15;
     }
 
     @Override
@@ -55,7 +60,7 @@ public class DeepOceanLanternBlock extends Block
     {
         World world = iworld.getWorld();
         BlockPos.getAllInBox(pos.offset(Direction.UP, 4).offset(Direction.NORTH,4).offset(Direction.WEST,4), pos.offset(Direction.DOWN, 4).offset(Direction.SOUTH,4).offset(Direction.EAST,4)).forEach((pos1) -> {
-            if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR)
+            if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR.get())
             {
                 if (world.getBlockState(pos1).get(WATERLOGGED))
                     world.setBlockState(pos1, Blocks.WATER.getDefaultState());
@@ -73,13 +78,14 @@ public class DeepOceanLanternBlock extends Block
 
     private boolean isWAir(BlockPos pos, World world)
     {
-        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR.get();
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.delta").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.delta").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.underwater").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").func_240699_a_(TextFormatting.GRAY));
     }
 }

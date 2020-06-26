@@ -10,6 +10,8 @@ import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
 
+import java.util.Random;
+
 public class OmegaLampTileEntity extends TileEntity implements ITickableTileEntity
 {
     private int cooldown = 0;
@@ -32,6 +34,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
 
         cooldown++;
 
+        Random random = new Random();
+        
         if (cooldown == 20)
         {
             BlockPos.getAllInBox(pos.offset(Direction.UP, 15).offset(Direction.NORTH, 15).offset(Direction.WEST, 15),
@@ -39,7 +43,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
         }
@@ -50,7 +55,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
         }
@@ -61,7 +67,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
         }
@@ -72,7 +79,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
         }
@@ -86,7 +94,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
         }
@@ -97,7 +106,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
         }
@@ -108,7 +118,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
         }
@@ -119,7 +130,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
         }
@@ -130,7 +142,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
             BlockPos.getAllInBox(pos.offset(Direction.UP, 15),
@@ -138,7 +151,8 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+					if(random.nextInt(10)==5)
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
 

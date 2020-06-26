@@ -3,6 +3,7 @@ package tk.dczippl.lightestlamp.machine.gascentrifuge;
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -21,6 +22,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tileentity.*;
@@ -172,16 +174,16 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
         int multiplier = Config.GLOWSTONE_FUEL_MULTIPLIER.get() >= 2 ? Config.GLOWSTONE_FUEL_MULTIPLIER.get() : 2;
         //Mekanism compatibility
-        Tag<Item> refined_glowstones = ItemTags.getCollection().get(new ResourceLocation("forge:ingots/refined_glowstone"));
+        ITag<Item> refined_glowstones = ItemTags.getCollection().get(new ResourceLocation("forge:ingots/refined_glowstone"));
         if (refined_glowstones!=null)
             addItemTagBurnTime(map, refined_glowstones,60*multiplier);
-        Tag<Item> refined_glowstones_block = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/refined_glowstone"));
+        ITag<Item> refined_glowstones_block = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/refined_glowstone"));
         if (refined_glowstones_block!=null)
             addItemTagBurnTime(map, refined_glowstones_block,520*multiplier);
-        Tag<Item> refined_glowstones_nugget = ItemTags.getCollection().get(new ResourceLocation("forge:nuggets/refined_glowstone"));
+        ITag<Item> refined_glowstones_nugget = ItemTags.getCollection().get(new ResourceLocation("forge:nuggets/refined_glowstone"));
         if (refined_glowstones_nugget!=null)
             addItemTagBurnTime(map, refined_glowstones_nugget,5*multiplier);
-        Tag<Item> glowstone_blocks = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/glowstone"));
+        ITag<Item> glowstone_blocks = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/glowstone"));
         if (glowstone_blocks!=null)
             addItemTagBurnTime(map, glowstone_blocks,360*multiplier);
 
@@ -190,8 +192,8 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         return map;
     }
 
-    private static void addItemTagBurnTime(Map<Item, Integer> map, Tag<Item> itemTag, int p_213992_2_) {
-        for(Item item : itemTag.getAllElements()) {
+    private static void addItemTagBurnTime(Map<Item, Integer> map, ITag<Item> itemTag, int p_213992_2_) {
+        for(Item item : itemTag.func_230236_b_()) {
             map.put(item, p_213992_2_);
         }
 
@@ -206,8 +208,8 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     }
 
     @Override
-    public void read(CompoundNBT compound) {
-        super.read(compound);
+    public void func_230337_a_(BlockState state,CompoundNBT compound) {
+        super.func_230337_a_(state, compound);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(compound, this.items);
         this.burnTime = compound.getInt("BurnTime");
@@ -403,9 +405,9 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
             if (theoreticalFluid != null)
             {
-                if (tank.getFluidAmount()<1000&&furnaceData.get(4)==0||tank.getFluidAmount()<4000&&furnaceData.get(4)==1)
+                /*if (tank.getFluidAmount()<1000&&furnaceData.get(4)==0||tank.getFluidAmount()<4000&&furnaceData.get(4)==1)
                     //furnaceData.set(5,furnaceData.get(5)+theoreticalFluid.amount);
-                    tank.fill(new FluidStack(ModFluids.BROMINE_FLUID.get(),theoreticalFluid.amount), IFluidHandler.FluidAction.EXECUTE);
+                    tank.fill(new FluidStack(ModFluids.BROMINE_FLUID.get(),theoreticalFluid.amount), IFluidHandler.FluidAction.EXECUTE);*/
             }
         }
     }

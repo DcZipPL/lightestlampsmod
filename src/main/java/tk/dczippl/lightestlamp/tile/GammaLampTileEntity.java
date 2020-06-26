@@ -45,7 +45,7 @@ public class GammaLampTileEntity extends TileEntity implements ITickableTileEnti
 
                     BlockPos.getAllInBox(pos.offset(Direction.UP, 2).offset(Direction.NORTH, 2).offset(Direction.WEST, 2), pos.offset(Direction.DOWN, 2).offset(Direction.SOUTH, 2).offset(Direction.EAST, 2)).forEach((pos1) ->
                     {
-                        if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
+                        if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR.get())
                         {
                             world.setBlockState(pos1, Blocks.AIR.getDefaultState());
                         }
@@ -65,7 +65,7 @@ public class GammaLampTileEntity extends TileEntity implements ITickableTileEnti
                 {
                     if (isAir(pos2))
                     {
-                        world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                        world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                     }
                 });
             }

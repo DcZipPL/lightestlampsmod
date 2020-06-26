@@ -71,9 +71,8 @@ public class ModItems
     public static final Item RADON_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(62).group(Main.main_group),"tooltip.lightestlamp.radon_filter").setRegistryName("radon_centrifuge_filter");
     public static final Item BORON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_dust");
     public static final Item BORON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_pile");
-    public static final Item BORON_INGOT = new ControlledItem(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_ingot");
+    public static final Item BORON_INGOT = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_ingot");
     public static final Item BORON_NUGGET = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_nugget");
-    public static final Item WRITTEN_BOOK = new WrittenBookItem(new Item.Properties().maxStackSize(1).group(Main.main_group)).setRegistryName("written_book");
 
     public static final Item GLOWING_DUST_AGGLOMERATIO = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("glowing_dust_agglomeratio");
 }

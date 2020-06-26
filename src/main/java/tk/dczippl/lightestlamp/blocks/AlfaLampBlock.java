@@ -29,7 +29,7 @@ public class AlfaLampBlock extends Block
 {
     public AlfaLampBlock()
     {
-        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).lightValue(15).hardnessAndResistance(0.3f,1));
+        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(0.3f,1));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class AlfaLampBlock extends Block
     {
         World world = iworld.getWorld();
         BlockPos.getAllInBox(pos.offset(Direction.UP, 1).offset(Direction.NORTH,1).offset(Direction.WEST,1), pos.offset(Direction.DOWN, 1).offset(Direction.SOUTH,1).offset(Direction.EAST,1)).forEach((pos1) -> {
-            if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR)
+            if (world.getBlockState(pos1).getBlock() == ModBlocks.LIGHT_AIR.get())
             {
                 world.setBlockState(pos1, Blocks.AIR.getDefaultState());
             }
@@ -66,8 +66,8 @@ public class AlfaLampBlock extends Block
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.alpha").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.alpha").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").func_240699_a_(TextFormatting.GRAY));
     }
 
     @Override

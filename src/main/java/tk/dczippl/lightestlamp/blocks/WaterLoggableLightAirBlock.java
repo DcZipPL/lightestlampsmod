@@ -6,7 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.material.Material;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.FluidTags;
@@ -25,10 +24,15 @@ import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 public class WaterLoggableLightAirBlock extends Block implements IWaterLoggable
 {
     public WaterLoggableLightAirBlock() {
-        super(Block.Properties.create(Material.AIR).lightValue(15));
+        super(Block.Properties.create(Material.AIR).notSolid());
     }
 
     VoxelShape rs = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 0.0D, 0.0D, 0.0D);
+
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 15;
+    }
 
     @Override
     public VoxelShape getRenderShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
@@ -44,12 +48,6 @@ public class WaterLoggableLightAirBlock extends Block implements IWaterLoggable
     public BlockRenderType getRenderType(BlockState p_149645_1_)
     {
         return BlockRenderType.INVISIBLE;
-    }
-
-    @Override
-    public boolean isNormalCube(BlockState state, IBlockReader world, BlockPos pos)
-    {
-        return false;
     }
 
     @Override
@@ -84,23 +82,11 @@ public class WaterLoggableLightAirBlock extends Block implements IWaterLoggable
     }
 
     @Override
-    @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        IFluidState ifluidstate = context.getWorld().getFluidState(context.getPos());
-        return this.getDefaultState().with(WATERLOGGED, Boolean.valueOf(ifluidstate.isTagged(FluidTags.WATER) && ifluidstate.getLevel() == 8));
-    }
-
-    @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         if (stateIn.get(WATERLOGGED)) {
             worldIn.getPendingFluidTicks().scheduleTick(currentPos, Fluids.WATER, Fluids.WATER.getTickRate(worldIn));
         }
 
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
-    }
-
-    @Override
-    public IFluidState getFluidState(BlockState state) {
-        return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 }

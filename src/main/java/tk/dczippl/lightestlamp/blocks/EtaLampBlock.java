@@ -24,7 +24,12 @@ public class EtaLampBlock extends Block
 {
     public EtaLampBlock()
     {
-        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).lightValue(15).hardnessAndResistance(0.3f,1));
+        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(0.3f,1));
+    }
+
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 15;
     }
 
     @Override
@@ -50,14 +55,14 @@ public class EtaLampBlock extends Block
     public void onPlayerDestroy(IWorld iworld, BlockPos pos, BlockState state)
     {
         World world = (World) iworld;
-        world.setBlockState(pos, ModBlocks.CHUNK_CLEANER.getDefaultState());
+        world.setBlockState(pos, ModBlocks.CHUNK_CLEANER.get().getDefaultState());
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.eta").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.eta").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").func_240699_a_(TextFormatting.GRAY));
     }
 }

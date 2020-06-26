@@ -24,7 +24,12 @@ import java.util.List;
 public class OceanLanternBlock extends Block {
     public OceanLanternBlock() {
         super(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
-                .hardnessAndResistance(0.3f,1).lightValue(15));
+                .hardnessAndResistance(0.3f,1));
+    }
+
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 15;
     }
 
     @Override
@@ -54,7 +59,7 @@ public class OceanLanternBlock extends Block {
         {
             if (isWAir(pos2,world))
             {
-                world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
             }
         });
         BlockPos.getAllInBox(pos.offset(Direction.UP, 8).offset(Direction.NORTH,8).offset(Direction.WEST,8), pos.offset(Direction.DOWN,8).offset(Direction.SOUTH,8).offset(Direction.EAST,8)).forEach((pos1) -> {
@@ -67,19 +72,20 @@ public class OceanLanternBlock extends Block {
 
     private boolean isWAir(BlockPos pos, World world)
     {
-        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR.get();
     }
 
     @Override
     public void onPlayerDestroy(IWorld iworld, BlockPos pos, BlockState state)
     {
         World world = (World) iworld;
-        world.setBlockState(pos, ModBlocks.CHUNK_CLEANER.getDefaultState());
+        world.setBlockState(pos, ModBlocks.CHUNK_CLEANER.get().getDefaultState());
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.gamma").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.gamma").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.underwater").func_240699_a_(TextFormatting.GRAY));
     }
 }

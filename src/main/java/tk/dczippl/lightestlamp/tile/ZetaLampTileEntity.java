@@ -39,7 +39,7 @@ public class ZetaLampTileEntity extends TileEntity implements ITickableTileEntit
             {
                 if (isAir(pos2))
                 {
-                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                    world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
 
@@ -49,6 +49,6 @@ public class ZetaLampTileEntity extends TileEntity implements ITickableTileEntit
 
     private boolean isAir(BlockPos pos)
     {
-        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR.get();
     }
 }

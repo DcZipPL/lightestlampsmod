@@ -71,43 +71,13 @@ public class GasCentrifugeRecipe
 
     public static List<GasCentrifugeRecipe> getRecipes()
     {
-        try
-        {
-            if (al132.chemlib.ChemLib.MODID!=null)
-            {
-                recipes.add(new GasCentrifugeRecipe(
-                        new ItemStack(ModItems.BASIC_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(al132.chemlib.items.ModItems.neon,4), new ItemStack(al132.chemlib.items.ModItems.argon,4), new ItemStack(al132.chemlib.items.ModItems.krypton,1), ItemStack.EMPTY,
-                        new TheoreticalFluid(TheoreticalFluidTypes.Bromine, 5)));
-                recipes.add(new GasCentrifugeRecipe(
-                        new ItemStack(ModItems.NEON_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(al132.chemlib.items.ModItems.neon,8), new ItemStack(al132.chemlib.items.ModItems.neon,1), new ItemStack(al132.chemlib.items.ModItems.argon,1), ItemStack.EMPTY,
-                        new TheoreticalFluid(TheoreticalFluidTypes.Bromine, 10)));
-                recipes.add(new GasCentrifugeRecipe(
-                        new ItemStack(ModItems.ARGON_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(al132.chemlib.items.ModItems.argon,8), new ItemStack(al132.chemlib.items.ModItems.neon,1), ItemStack.EMPTY, ItemStack.EMPTY,
-                        new TheoreticalFluid(TheoreticalFluidTypes.Bromine, 2)));
-                recipes.add(new GasCentrifugeRecipe(
-                        new ItemStack(ModItems.KRYPTON_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(al132.chemlib.items.ModItems.krypton,5),new ItemStack(al132.chemlib.items.ModItems.argon,1), ItemStack.EMPTY, ItemStack.EMPTY,
-                        new TheoreticalFluid(TheoreticalFluidTypes.Bromine, 15)));
-                recipes.add(new GasCentrifugeRecipe(
-                        new ItemStack(ModItems.XENON_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(al132.chemlib.items.ModItems.krypton,2),new ItemStack(al132.chemlib.items.ModItems.xenon,4), new ItemStack(al132.chemlib.items.ModItems.radon,1), ItemStack.EMPTY,
-                        new TheoreticalFluid(TheoreticalFluidTypes.Bromine, 1)));
-                recipes.add(new GasCentrifugeRecipe(
-                        new ItemStack(ModItems.RADON_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(al132.chemlib.items.ModItems.xenon,2), new ItemStack(al132.chemlib.items.ModItems.radon,3), ItemStack.EMPTY, ItemStack.EMPTY,
-                        new TheoreticalFluid(TheoreticalFluidTypes.Bromine,50)));
-                recipes.add(new GasCentrifugeRecipe(
-                        new ItemStack(ModItems.BROMINE_FILTER), new ItemStack(Items.GLOWSTONE), new ItemStack(ModItems.BORON_PILE), ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY,
-                        new TheoreticalFluid(TheoreticalFluidTypes.Bromine,75)));
-            }
-        }
-        catch (NoClassDefFoundError ignore)
-        {
-            recipes.add(basic);
-            recipes.add(neon);
-            recipes.add(argon);
-            recipes.add(krypton);
-            recipes.add(xenon);
-            recipes.add(radon);
-            recipes.add(bromine);
-        }
+        recipes.add(basic);
+        recipes.add(neon);
+        recipes.add(argon);
+        recipes.add(krypton);
+        recipes.add(xenon);
+        recipes.add(radon);
+        recipes.add(bromine);
         return recipes;
     }
 

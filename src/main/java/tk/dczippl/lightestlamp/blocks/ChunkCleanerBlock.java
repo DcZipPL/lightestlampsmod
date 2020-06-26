@@ -18,7 +18,7 @@ public class ChunkCleanerBlock extends Block
 {
     public ChunkCleanerBlock(Properties properties)
     {
-        super(properties.hardnessAndResistance(-1,-1));
+        super(properties.hardnessAndResistance(-1,-1).notSolid());
     }
 
     @Override
@@ -41,14 +41,8 @@ public class ChunkCleanerBlock extends Block
     }
 
     @Override
-    public boolean isNormalCube(BlockState state, IBlockReader world, BlockPos pos)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isAir(BlockState p_196261_1_) {
-        return false;
+    public boolean isAir(BlockState state, IBlockReader world, BlockPos pos) {
+        return true;
     }
 
     @Override

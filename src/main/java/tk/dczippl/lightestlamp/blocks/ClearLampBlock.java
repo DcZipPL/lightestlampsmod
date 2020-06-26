@@ -42,7 +42,7 @@ public class ClearLampBlock extends Block
     @Override
     public void addInformation(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<ITextComponent> text, ITooltipFlag p_190948_4_)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").func_240699_a_(TextFormatting.GRAY));
     }
 
     @Override

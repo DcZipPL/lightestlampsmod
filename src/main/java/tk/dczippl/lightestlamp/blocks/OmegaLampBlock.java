@@ -28,7 +28,12 @@ public class OmegaLampBlock extends Block
 {
     public OmegaLampBlock()
     {
-        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).lightValue(15).hardnessAndResistance(1f,1));
+        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(1f,1));
+    }
+
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 15;
     }
 
     @Override
@@ -56,41 +61,17 @@ public class OmegaLampBlock extends Block
         RemoveLightBlocks(iworld, pos);
     }
 
-    @Override
-    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean isMoving)
-    {
-        /*BlockPos.getAllInBox(pos.offset(Direction.UP, 10).offset(Direction.NORTH, 10).offset(Direction.WEST, 10),
-                pos.offset(Direction.DOWN, 10).offset(Direction.SOUTH, 10).offset(Direction.EAST, 10)).forEach((pos2) ->
-        {
-            if (isWAir(pos2,world))
-            {
-                world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
-            }
-        });
-        BlockPos.getAllInBox(pos.offset(Direction.UP, 16).offset(Direction.NORTH,16).offset(Direction.WEST,16), pos.offset(Direction.DOWN,16).offset(Direction.SOUTH,16).offset(Direction.EAST,16)).forEach((pos1) -> {
-            if (isWAir(pos1,world))
-            {
-                world.notifyBlockUpdate(pos1, world.getBlockState(pos1), world.getBlockState(pos1), 3);
-            }
-        });*/
-    }
-
-    private boolean isWAir(BlockPos pos, World world)
-    {
-        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
-    }
-
     private void RemoveLightBlocks(IWorld iworld, BlockPos pos)
     {
         World world = (World) iworld;
-        world.setBlockState(pos, ModBlocks.OCC.getDefaultState());
+        world.setBlockState(pos, ModBlocks.OCC.get().getDefaultState());
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.omega").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.omega").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").func_240699_a_(TextFormatting.GRAY));
     }
 }

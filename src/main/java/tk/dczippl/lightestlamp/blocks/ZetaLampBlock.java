@@ -29,7 +29,12 @@ public class ZetaLampBlock extends Block
 {
     public ZetaLampBlock()
     {
-        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).lightValue(15).hardnessAndResistance(0.3f,1));
+        super(Block.Properties.create(Material.GLASS).sound(SoundType.GLASS).hardnessAndResistance(0.3f,1));
+    }
+
+    @Override
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
+        return 15;
     }
 
     @Override
@@ -55,7 +60,7 @@ public class ZetaLampBlock extends Block
     public void onPlayerDestroy(IWorld iworld, BlockPos pos, BlockState state)
     {
         World world = (World) iworld;
-        world.setBlockState(pos, ModBlocks.CHUNK_CLEANER.getDefaultState());
+        world.setBlockState(pos, ModBlocks.CHUNK_CLEANER.get().getDefaultState());
     }
 
     @Override
@@ -66,7 +71,7 @@ public class ZetaLampBlock extends Block
         {
             if (isWAir(pos2,world))
             {
-                world.setBlockState(pos2, ModBlocks.LIGHT_AIR.getDefaultState());
+                world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
             }
         });
         BlockPos.getAllInBox(pos.offset(Direction.UP, 12).offset(Direction.NORTH,12).offset(Direction.WEST,12), pos.offset(Direction.DOWN,12).offset(Direction.SOUTH,12).offset(Direction.EAST,12)).forEach((pos1) -> {
@@ -79,14 +84,14 @@ public class ZetaLampBlock extends Block
 
     private boolean isWAir(BlockPos pos, World world)
     {
-        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR;
+        return world.getBlockState(pos).getBlock() == Blocks.AIR || world.getBlockState(pos).getBlock() == Blocks.CAVE_AIR || world.getBlockState(pos).getBlock() == ModBlocks.LIGHT_AIR.get();
     }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.zeta").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").applyTextStyle(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").applyTextStyle(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.zeta").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").func_240699_a_(TextFormatting.GRAY));
     }
 }
