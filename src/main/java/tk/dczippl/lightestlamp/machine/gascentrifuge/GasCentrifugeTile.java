@@ -405,9 +405,9 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
             if (theoreticalFluid != null)
             {
-                /*if (tank.getFluidAmount()<1000&&furnaceData.get(4)==0||tank.getFluidAmount()<4000&&furnaceData.get(4)==1)
+                if (tank.getFluidAmount()<1000&&furnaceData.get(4)==0||tank.getFluidAmount()<4000&&furnaceData.get(4)==1)
                     //furnaceData.set(5,furnaceData.get(5)+theoreticalFluid.amount);
-                    tank.fill(new FluidStack(ModFluids.BROMINE_FLUID.get(),theoreticalFluid.amount), IFluidHandler.FluidAction.EXECUTE);*/
+                    tank.fill(new FluidStack(ModFluids.BROMINE_FLUID.get(),theoreticalFluid.amount), IFluidHandler.FluidAction.EXECUTE);
             }
         }
     }

@@ -45,9 +45,50 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
 
     @Override
     protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
-        //this.field_230712_o_.func_238422_b_(matrixStack, new StringTextComponent(sc.getCookProgressionScaled()+""), 72.0F, 40.0F, 4210752);
-        //this.field_230712_o_.func_238422_b_(matrixStack, new StringTextComponent(sc.getBurnLeftScaled()+""), 153.0F, 40.0F, 4210752);
-        this.field_230712_o_.func_238422_b_(matrixStack, this.playerInventory.getDisplayName(), 8.0F, (float) (this.ySize - 96 + 2), 4210752);
+        this.field_230712_o_.func_238422_b_(matrixStack, this.field_230704_d_, (float)(this.xSize / 2 - this.field_230712_o_.getStringWidth(field_230704_d_.toString()) / 2), 6.0F, 4210752);
+        this.field_230712_o_.func_238422_b_(matrixStack, this.playerInventory.getDisplayName(), 8.0F, (float)(this.ySize - 96 + 2), 4210752);
+
+        String redstone_tooltip = "Mode: Ignore Redstone";
+        switch (sc.field_217064_e.get(1))
+        {
+            case 0:
+                redstone_tooltip = "Mode: Ignore Redstone";
+                break;
+            case 1:
+                redstone_tooltip = "Mode: Redstone off";
+                break;
+            case 2:
+                redstone_tooltip = "Mode: Redstone on";
+                break;
+        }
+        String fluid_tooltip = "Mode: Neutralize Waste";
+        switch (sc.field_217064_e.get(4))
+        {
+            case 0:
+                fluid_tooltip = "Mode: Neutralize Waste";
+                break;
+            case 1:
+                fluid_tooltip = "Mode: Store";
+                break;
+            case 2:
+                fluid_tooltip = "Mode: Dump (Starts dumping after 3 sec)";
+                break;
+        }
+
+        int marginHorizontal = (field_230708_k_ - xSize) / 2;
+        int marginVertical = (field_230709_l_ - ySize) / 2;
+
+        /*HoverChecker checker = new HoverChecker(marginVertical+9,marginVertical+20,marginHorizontal+9,marginHorizontal+20,0);
+        if (checker.checkHover(mouseX,mouseY, true))
+        {
+            renderTooltip(redstone_tooltip,mouseX-marginHorizontal+4,mouseY-marginVertical+4);
+        }
+        checker = new HoverChecker(marginVertical+9,marginVertical+20,marginHorizontal+25,marginHorizontal+36,0);
+        if (checker.checkHover(mouseX,mouseY, true))
+        {
+            renderTooltip(fluid_tooltip,mouseX-marginHorizontal+4,mouseY-marginVertical+4);
+        }*/
+        //renderHoveredToolTip(mouseX-marginHorizontal+4,mouseY-marginVertical+4);
     }
 
     @Override

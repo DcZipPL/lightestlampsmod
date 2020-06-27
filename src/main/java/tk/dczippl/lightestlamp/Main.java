@@ -197,6 +197,20 @@ public class Main
         }
     }
 
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void setFogDensity(EntityViewRenderEvent.FogDensity fog)
+    {
+        World w = fog.getInfo().getRenderViewEntity().getEntityWorld();
+        BlockPos pos = fog.getInfo().getBlockPos();
+        BlockState bs = w.getBlockState(pos);
+        Block b = bs.getBlock();
+        if(b.equals(ModFluids.BROMINE_FLUID_BLOCK.get()))
+        {
+            fog.setDensity(1f);
+        }
+    }
+
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
