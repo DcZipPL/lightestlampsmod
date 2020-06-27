@@ -5,6 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeature;
@@ -29,7 +30,7 @@ public class WorldGenerator
 
         for (Biome biome : ForgeRegistries.BIOMES)
         {
-            if (biome.getCategory() == Biome.Category.NETHER)
+            if (biome.getCategory() == Biome.Category.NETHER && biome != Biomes.field_235251_aB_)
             {
                 if (Config.MONAZITE_SPAWN.get())
                     biome.addFeature(GenerationStage.Decoration.UNDERGROUND_ORES,OreFeature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.MONAZITE_ORE.get().getDefaultState(),MONAZITE_BLOCK_VEINSIZE))

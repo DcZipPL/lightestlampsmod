@@ -50,12 +50,10 @@ public class ModItems
     public static final Item CARBON_NANOTUBE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("carbon_nanotube");
     @ObjectHolder(Reference.MOD_ID+":"+"bromine_crystal")
     public static final Item BROMINE_CRYSTAL = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("bromine_crystal");
-    @ObjectHolder(Reference.MOD_ID+":"+"boron_mesh")
-    public static final Item BORON_MESH = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("boron_mesh");
-    @ObjectHolder(Reference.MOD_ID+":"+"boric_acid")
-    public static final Item BORIC_ACID = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("boric_acid");
-    @ObjectHolder(Reference.MOD_ID+":"+"alchemical_mesh")
-    public static final Item ALCHEMICAL_MESH = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("alchemical_mesh");
+    @ObjectHolder(Reference.MOD_ID+":"+"lanthanum_mesh")
+    public static final Item BORON_MESH = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("lanthanum_mesh");
+    @ObjectHolder(Reference.MOD_ID+":"+"netherite_mesh")
+    public static final Item NETHERITE_MESH = new Item(new Item.Properties().maxStackSize(16).group(Main.main_group)).setRegistryName("netherite_mesh");
     @ObjectHolder(Reference.MOD_ID+":"+"debug_stick")
     public static final Item DEBUG_STICK = new DebugStickItem(new Item.Properties().group(Main.main_group)).setRegistryName("debug_stick");
     @ObjectHolder(Reference.MOD_ID+":"+"alchemical_dust")
@@ -69,10 +67,10 @@ public class ModItems
     public static final Item BROMINE_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(31).group(Main.main_group),"tooltip.lightestlamp.bromine_filter").setRegistryName("bromine_centrifuge_filter");
     public static final Item XENON_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(92).group(Main.main_group),"tooltip.lightestlamp.xenon_filter").setRegistryName("xenon_centrifuge_filter");
     public static final Item RADON_FILTER = new FilterItem(new Item.Properties().maxStackSize(1).maxDamage(62).group(Main.main_group),"tooltip.lightestlamp.radon_filter").setRegistryName("radon_centrifuge_filter");
-    public static final Item BORON_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_dust");
-    public static final Item BORON_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_pile");
-    public static final Item BORON_INGOT = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_ingot");
-    public static final Item BORON_NUGGET = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("boron_nugget");
+    public static final Item LANTHANUM_DUST = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("lanthanum_dust");
+    public static final Item LANTHANUM_PILE = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("lanthanum_pile");
+    public static final Item LANTHANUM_INGOT = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("lanthanum_ingot");
+    public static final Item LANTHANUM_NUGGET = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("lanthanum_nugget");
 
     public static final Item GLOWING_DUST_AGGLOMERATIO = new Item(new Item.Properties().maxStackSize(64).group(Main.main_group)).setRegistryName("glowing_dust_agglomeratio");
 }

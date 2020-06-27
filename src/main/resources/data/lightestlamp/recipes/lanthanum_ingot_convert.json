@@ -1,0 +1,13 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "lightestlamp:lanthanum_ingot"
+        }
+    ],
+    "result":
+    {
+        "item": "chemlib:ingot_lanthanum",
+        "count": 1
+    }
+}

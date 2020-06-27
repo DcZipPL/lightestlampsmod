@@ -36,12 +36,12 @@
 	"block.lightestlamp.glowing_glass_block":"Glowing Glass",
 	"block.lightestlamp.debug_chunk_cleaner":"Chunk Cleaner (Debug)",
 	"block.lightestlamp.occ":"OCC Chunk Cleaner (Debug)",
-	"block.lightestlamp.boron_ore":"Boron Ore",
+	"block.lightestlamp.monazite_ore":"Monazite Ore",
 
 	"item.lightestlamp.glowing_dust_agglomeratio":"Glowing Dust Agglomeratio",
 
-	"item.lightestlamp.boron_mesh":"Boron Mesh",
-	"item.lightestlamp.alchemical_mesh":"Alchemical Mesh",
+	"item.lightestlamp.lanthanum_mesh":"Lanthanum Mesh",
+	"item.lightestlamp.netherite_mesh":"Netherite Mesh",
 
 	"item.lightestlamp.basic_centrifuge_filter":"Centrifuge Filter",
 	"item.lightestlamp.neon_centrifuge_filter":"Centrifuge Filter",
@@ -57,9 +57,9 @@
 	"item.lightestlamp.alchemical_dust":"Alchemical Dust",
 	"item.lightestlamp.stickandbowl":"Bowl and Stick",
 	"item.lightestlamp.moon_shard":"Moon Shard",
-	"item.lightestlamp.boron_dust":"Boron Dust",
-	"item.lightestlamp.boron_ingot":"Boron Ingot",
-	"item.lightestlamp.boron_nugget":"Boron Nugget",
+	"item.lightestlamp.lanthanum_dust":"Lanthanum Dust",
+	"item.lightestlamp.lanthanum_ingot":"Lanthanum Ingot",
+	"item.lightestlamp.lanthanum_nugget":"Lanthanum Nugget",
 
 	"item.lightestlamp.neon_dust":"Neon Dust",
 	"item.lightestlamp.krypton_dust":"Krypton Dust",
@@ -72,7 +72,7 @@
 	"item.lightestlamp.krypton_small_dust":"Krypton Pile",
 	"item.lightestlamp.xenon_pile":"Xenon Pile",
 	"item.lightestlamp.radon_pile":"Radon Pile",
-	"item.lightestlamp.boron_pile":"Boron Pile",
+	"item.lightestlamp.lanthanum_pile":"Lanthanum Pile",
 
 	"item.lightestlamp.neon_rod":"Neon Rod",
 	"item.lightestlamp.krypton_rod":"Krypton Rod",
@@ -124,12 +124,12 @@
 
 	"container.gascentrifuge": "Gas Centrifuge",
 
-	"jei.lightestlamp.boron2": "Created fluid: Boron 2 mb",
-	"jei.lightestlamp.boron5": "Created fluid: Boron 5 mb",
-	"jei.lightestlamp.boron10": "Created fluid: Boron 10 mb",
-	"jei.lightestlamp.boron15": "Created fluid: Boron 15 mb",
-	"jei.lightestlamp.boron50": "Created fluid: Boron 50 mb",
-	"jei.lightestlamp.boron75": "Created fluid: Boron 75 mb",
+	"jei.lightestlamp.bromine2": "Created fluid: Boron 2 mb",
+	"jei.lightestlamp.bromine5": "Created fluid: Boron 5 mb",
+	"jei.lightestlamp.bromine10": "Created fluid: Boron 10 mb",
+	"jei.lightestlamp.bromine15": "Created fluid: Boron 15 mb",
+	"jei.lightestlamp.bromine50": "Created fluid: Boron 50 mb",
+	"jei.lightestlamp.bromine75": "Created fluid: Boron 75 mb",
 	"jei.lightestlamp.instructions.moonshard": "Moon Shards is dropping from any mob during full moon.",
 	"jei.lightestlamp.gascentrifuge": "Gas Centrifuge",
 

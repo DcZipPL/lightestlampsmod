@@ -12,11 +12,11 @@
     {
         "#":
         {
-            "item": "lightestlamp:alchemical_mesh"
+            "item": "lightestlamp:netherite_mesh"
         },
         "B":
         {
-            "item": "lightestlamp:boron_nugget"
+            "item": "lightestlamp:lanthanum_nugget"
         }
     },
    

@@ -43,7 +43,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
@@ -55,7 +55,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
@@ -67,7 +67,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
@@ -79,7 +79,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
@@ -94,7 +94,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
@@ -106,7 +106,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
@@ -118,7 +118,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
@@ -130,7 +130,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
@@ -142,7 +142,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
@@ -151,12 +151,12 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             {
                 if (isAir(pos2))
                 {
-					if(random.nextInt(10)==5)
+					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
                 }
             });
 
-            if (!updated)
+            /*if (!updated)
             {
                 updated = true;
                 BlockPos.getAllInBox(pos.offset(Direction.UP, 18).offset(Direction.NORTH,18).offset(Direction.WEST,18), pos.offset(Direction.DOWN,18).offset(Direction.SOUTH,18).offset(Direction.EAST,18)).forEach((pos1) -> {
@@ -165,7 +165,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
                         world.notifyBlockUpdate(pos1, world.getBlockState(pos1), world.getBlockState(pos1), 3);
                     }
                 });
-            }
+            }*/
 
             cooldown = 0;
         }

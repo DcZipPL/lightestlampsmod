@@ -118,7 +118,7 @@ public class Main
     private void doClientStuff(final FMLClientSetupEvent event)
     {
         // do something that can only be done on the client
-        //ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new); //TODO: Uncomment that
+        ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
         RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK.get(), RenderType.getCutout());
     }
@@ -138,21 +138,6 @@ public class Main
     {
         // do something when the server starts
     }
-
-    /*@SubscribeEvent
-    public void Drops(LivingDropsEvent event)
-    {
-        if(event.getEntityLiving() instanceof IMob)
-        {
-            if (event.getEntityLiving().getEntityWorld().getCurrentMoonPhaseFactor() == 1.0F)
-            {
-                Random rnd = new Random();
-                event.get
-                if (rnd.nextInt(4) == 2)//25% chance
-                    //event.getEntityLiving().entityDropItem();
-            }
-        }
-    }*/
 
     @SubscribeEvent
     public void onEntityLivingDeath(LivingDeathEvent event)
@@ -332,7 +317,8 @@ public class Main
             IForgeRegistry<Item> registry = itemRegistryEvent.getRegistry();
             ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
                 Item.Properties properties = new Item.Properties();
-                properties = properties.group(main_group);
+                if (block!=ModBlocks.LIGHT_AIR.get()&&block!=ModBlocks.WATERLOGGABLE_LIGHT_AIR.get()&&block!=ModFluids.BROMINE_FLUID_BLOCK.get())
+                    properties = properties.group(main_group);
                 BlockItem blockItem = new BlockItem(block, properties);
                 blockItem.setRegistryName(block.getRegistryName());
                 registry.register(blockItem);
@@ -350,22 +336,21 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.XENON_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.RADON_DUST);
-            itemRegistryEvent.getRegistry().register(ModItems.BORON_DUST);
+            itemRegistryEvent.getRegistry().register(ModItems.LANTHANUM_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.ALCHEMICAL_DUST);
             itemRegistryEvent.getRegistry().register(ModItems.NEON_PILE);
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_PILE);
             itemRegistryEvent.getRegistry().register(ModItems.KRYPTON_PILE);
             itemRegistryEvent.getRegistry().register(ModItems.XENON_PILE);
             itemRegistryEvent.getRegistry().register(ModItems.RADON_PILE);
-            itemRegistryEvent.getRegistry().register(ModItems.BORON_PILE);
-            itemRegistryEvent.getRegistry().register(ModItems.BORON_INGOT);
-            itemRegistryEvent.getRegistry().register(ModItems.BORON_NUGGET);
+            itemRegistryEvent.getRegistry().register(ModItems.LANTHANUM_PILE);
+            itemRegistryEvent.getRegistry().register(ModItems.LANTHANUM_INGOT);
+            itemRegistryEvent.getRegistry().register(ModItems.LANTHANUM_NUGGET);
             itemRegistryEvent.getRegistry().register(ModItems.CARBON_NANOTUBE);
             itemRegistryEvent.getRegistry().register(ModItems.MOON_SHARD);
             itemRegistryEvent.getRegistry().register(ModItems.CHORUS_FIBER);
             itemRegistryEvent.getRegistry().register(ModItems.BROMINE_CRYSTAL);
             itemRegistryEvent.getRegistry().register(ModItems.STICKANDBOWL);
-            itemRegistryEvent.getRegistry().register(ModItems.BORIC_ACID);
             itemRegistryEvent.getRegistry().register(ModItems.BASIC_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.NEON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.ARGON_FILTER);
@@ -374,7 +359,7 @@ public class Main
             itemRegistryEvent.getRegistry().register(ModItems.RADON_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.BROMINE_FILTER);
             itemRegistryEvent.getRegistry().register(ModItems.BORON_MESH);
-            itemRegistryEvent.getRegistry().register(ModItems.ALCHEMICAL_MESH);
+            itemRegistryEvent.getRegistry().register(ModItems.NETHERITE_MESH);
             itemRegistryEvent.getRegistry().register(ModItems.DEBUG_STICK);
             itemRegistryEvent.getRegistry().register(ModItems.GLOWING_DUST_AGGLOMERATIO);
         }

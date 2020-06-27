@@ -35,10 +35,10 @@
 
   "block.lightestlamp.glowing_glass_block":"Świecące Szkło",
   "block.lightestlamp.debug_chunk_cleaner":"Czyściciel Chunka (Przeznaczone tylko do testowania)",
-  "block.lightestlamp.boron_ore":"Ruda Boru",
+  "block.lightestlamp.lanthanum_ore":"Ruda Monacytu",
 
-  "item.lightestlamp.boron_mesh":"Siateczka z Boru",
-  "item.lightestlamp.alchemical_mesh":"Alchemiczna Siateczka",
+  "item.lightestlamp.lanthanum_mesh":"Siateczka z Lantanu",
+  "item.lightestlamp.netherite_mesh":"Siateczka z Netherytu",
 
   "item.lightestlamp.basic_centrifuge_filter":"Filtr do Wirówki",
   "item.lightestlamp.neon_centrifuge_filter":"Filtr do Wirówki",
@@ -54,9 +54,9 @@
   "item.lightestlamp.alchemical_dust":"Proszek Alchemiczny",
   "item.lightestlamp.stickandbowl":"Moździerz",
   "item.lightestlamp.moon_shard":"Lśniący Odłamek Księżyca",
-  "item.lightestlamp.boron_dust":"Proszek Boru",
-  "item.lightestlamp.boron_ingot":"Sztabka Boru",
-  "item.lightestlamp.boron_nugget":"Bryłka Boru",
+  "item.lightestlamp.lanthanum_dust":"Proszek Lantanu",
+  "item.lightestlamp.lanthanum_ingot":"Sztabka Lantanu",
+  "item.lightestlamp.lanthanum_nugget":"Bryłka Lantanu",
 
   "item.lightestlamp.neon_dust":"Proszek Neonu",
   "item.lightestlamp.krypton_dust":"Proszek Kryptonu",
@@ -69,7 +69,7 @@
   "item.lightestlamp.krypton_small_dust":"Szczypta Kryptonu",
   "item.lightestlamp.xenon_pile":"Szczypta Ksenonu",
   "item.lightestlamp.radon_pile":"Szczypta Radonu",
-  "item.lightestlamp.boron_pile":"Szczypta Boru",
+  "item.lightestlamp.lanthanum_pile":"Szczypta Lantanu",
 
   "item.lightestlamp.neon_rod":"Pręt Neonu",
   "item.lightestlamp.krypton_rod":"Pręt Kryptonu",
@@ -115,12 +115,12 @@
 
   "container.gascentrifuge": "Wirówka Gazowa",
 
-  "jei.lightestlamp.boron2": "Wygenerowany Płyn: Brom 2 mb",
-  "jei.lightestlamp.boron5": "Wygenerowany Płyn: Brom 5 mb",
-  "jei.lightestlamp.boron10": "Wygenerowany Płyn: Brom 10 mb",
-  "jei.lightestlamp.boron15": "Wygenerowany Płyn: Brom 15 mb",
-  "jei.lightestlamp.boron50": "Wygenerowany Płyn: Brom 50 mb",
-  "jei.lightestlamp.boron75": "Wygenerowany Płyn: Brom 75 mb",
+  "jei.lightestlamp.bromine2": "Wygenerowany Płyn: Brom 2 mb",
+  "jei.lightestlamp.bromine5": "Wygenerowany Płyn: Brom 5 mb",
+  "jei.lightestlamp.bromine10": "Wygenerowany Płyn: Brom 10 mb",
+  "jei.lightestlamp.bromine15": "Wygenerowany Płyn: Brom 15 mb",
+  "jei.lightestlamp.bromine50": "Wygenerowany Płyn: Brom 50 mb",
+  "jei.lightestlamp.bromine75": "Wygenerowany Płyn: Brom 75 mb",
   "jei.lightestlamp.instructions.moonshard": "Lśniący Odłamek Księżyca wypada z każdego potwora podczas pełni.",
   "jei.lightestlamp.gascentrifuge": "Wirówka Gazowa",
 

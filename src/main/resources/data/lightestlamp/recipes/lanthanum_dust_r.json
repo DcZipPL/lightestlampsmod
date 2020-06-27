@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "D"
+    ],
+   
+    "key":
+    {
+        "D":
+        {
+            "item": "lightestlamp:lanthanum_dust"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:lanthanum_pile",
+        "count": 4
+    }
+}

@@ -3,18 +3,18 @@
    
     "pattern":
     [
-        " B ",
-        "B#B",
-        " B "
+        "DDD",
+        "DID",
+        "DDD"
     ],
    
     "key":
     {
-        "#":
+        "I":
         {
-            "item": "lightestlamp:chorus_fiber"
+            "item": "lightestlamp:lanthanum_ingot"
         },
-        "B":
+        "D":
         {
             "item": "lightestlamp:lanthanum_nugget"
         }
@@ -22,7 +22,7 @@
    
     "result":
     {
-        "item": "lightestlamp:xenon_centrifuge_filter",
+        "item": "lightestlamp:lanthanum_mesh",
         "count": 1
     }
 }

@@ -12,11 +12,11 @@
     {
         "#":
         {
-            "item": "lightestlamp:boron_mesh"
+            "item": "lightestlamp:lanthanum_mesh"
         },
         "B":
         {
-            "item": "lightestlamp:boron_nugget"
+            "item": "lightestlamp:lanthanum_nugget"
         }
     },
    

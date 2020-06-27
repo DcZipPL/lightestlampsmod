@@ -2,7 +2,7 @@
     "type": "minecraft:crafting_shapeless",
     "ingredients": [
         {
-            "item": "lightestlamp:boron_nugget"
+            "item": "lightestlamp:lanthanum_nugget"
         },
         {
             "item": "lightestlamp:bromine_fluid_bucket"
