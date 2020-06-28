@@ -33,4 +33,8 @@ public class FilterItem extends Item
     {
         return true;
     }
+
+    public boolean filterIsActivated(){
+        return true;
+    }
 }

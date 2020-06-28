@@ -38,10 +38,8 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import tk.dczippl.lightestlamp.Config;
 import tk.dczippl.lightestlamp.Main;
-import tk.dczippl.lightestlamp.init.ModContainers;
-import tk.dczippl.lightestlamp.init.ModEffect;
-import tk.dczippl.lightestlamp.init.ModFluids;
-import tk.dczippl.lightestlamp.init.ModTileEntities;
+import tk.dczippl.lightestlamp.init.*;
+import tk.dczippl.lightestlamp.items.FilterItem;
 import tk.dczippl.lightestlamp.util.FluidHandlerWrapper;
 import tk.dczippl.lightestlamp.util.IFluidHandlerWrapper;
 import tk.dczippl.lightestlamp.util.TheoreticalFluid;
@@ -419,8 +417,8 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         }
     }
 
-    public static boolean isFuel(ItemStack p_213991_0_) {
-        return net.minecraftforge.common.ForgeHooks.getBurnTime(p_213991_0_) > 0;
+    public boolean isFuel(ItemStack p_213991_0_) {
+        return getBurnTime(p_213991_0_) > 0;
     }
 
     @Override
@@ -524,19 +522,22 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
         }
     }
 
+    public boolean isFilter(ItemStack stack){
+        return stack.getItem() instanceof FilterItem;
+    }
+
     /**
      * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot. For
      * guis use Slot.isItemValid
      */
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        if (index == 2) {
-            return false;
-        } else if (index != 1) {
-            return true;
+        if (index == 0) {
+            return isFilter(stack);
+        } else if (index == 1) {
+            return isFuel(stack);
         } else {
-            ItemStack itemstack = this.items.get(1);
-            return isFuel(stack) || stack.getItem() == Items.BUCKET && itemstack.getItem() != Items.BUCKET;
+            return false;
         }
     }
 
