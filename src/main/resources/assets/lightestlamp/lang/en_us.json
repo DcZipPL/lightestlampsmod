@@ -5,7 +5,7 @@
 
 	"block.lightestlamp.jungle_lantern":"Lamp Fruit",
 	"block.lightestlamp.clear_lamp":"Clear Lamp",
-	"block.lightestlamp.alfa_lamp":"Alpha Lamp",
+	"block.lightestlamp.alpha_lamp":"Alpha Lamp",
 	"block.lightestlamp.beta_lamp":"Beta Lamp",
 	"block.lightestlamp.gamma_lamp":"Gamma Lamp",
 	"block.lightestlamp.delta_lamp":"Delta Lamp",
@@ -86,6 +86,7 @@
 
 	"item.lightestlamp.bromine_fluid_bucket":"Bromine Bucket",
 
+	"tooltip.lightestlamp.underwater": "Works underwater.",
 	"tooltip.lightestlamp.type.alpha": "Type: α (16 Blocks Light)",
 	"tooltip.lightestlamp.type.beta": "Type: β (17 Blocks Light)",
 	"tooltip.lightestlamp.type.gamma": "Type: γ (18 Blocks Light)",

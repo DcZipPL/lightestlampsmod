@@ -42,7 +42,7 @@ public class ModBlocks
     public static final RegistryObject<Block> DEEP_OCEAN_LANTERN = BLOCKS.register("deep_ocean_lantern", () -> new DeepOceanLanternBlock());
     public static final RegistryObject<Block> ABYSSAL_LANTERN = BLOCKS.register("abyssal_lantern", () -> new AbyssalLanternBlock());
     public static final RegistryObject<Block> ALCHEMICAL_LAMP = BLOCKS.register("alchemical_lamp", () -> new AlchemicalLampBlock());
-    public static final RegistryObject<Block> SPOTLIGHT = BLOCKS.register("spotlight", () -> new AlchemicalLampBlock());
+    //public static final RegistryObject<Block> SPOTLIGHT = BLOCKS.register("spotlight", () -> new AlchemicalLampBlock());
     public static final RegistryObject<Block> CHUNK_CLEANER = BLOCKS.register("debug_chunk_cleaner", () -> new ChunkCleanerBlock(Block.Properties.create(Material.WOOL)));
 
     //Other lamps

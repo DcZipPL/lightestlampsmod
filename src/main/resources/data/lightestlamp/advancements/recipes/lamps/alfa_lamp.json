@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "lightestlamp:alfa_lamp"
+      "lightestlamp:alpha_lamp"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "lightestlamp:alfa_lamp"
+        "recipe": "lightestlamp:alpha_lamp"
       }
     }
   },
