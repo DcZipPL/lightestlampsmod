@@ -27,7 +27,7 @@ If applicable, add screenshots to help explain your problem.
  - Forge: [e.g. 31.0.1]
  - Minecraft: [e.g. 1.15.2]
  - Mod: [e.g. 2.3.0]
- - Other Mods?
+ - Other Mods / Modpack?
 
 **Additional context**
 Add any other context about the problem here.
