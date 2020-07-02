@@ -22,6 +22,8 @@ import tk.dczippl.lightestlamp.util.network.Networking;
 import tk.dczippl.lightestlamp.util.network.PacketButtonModeControl;
 import tk.dczippl.lightestlamp.util.network.PacketButtonRedstone;
 
+import java.util.Collections;
+
 @SuppressWarnings("NullableProblems")
 @OnlyIn(Dist.CLIENT)
 public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
@@ -78,16 +80,17 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         int marginHorizontal = (field_230708_k_ - xSize) / 2;
         int marginVertical = (field_230709_l_ - ySize) / 2;
 
-        /*HoverChecker checker = new HoverChecker(marginVertical+9,marginVertical+20,marginHorizontal+9,marginHorizontal+20,0);
+        //(marginHorizontal+9 <V>,marginHorizontal+20,marginVertical+9 <V>,marginVertical+20, 0 <V>)
+        HoverChecker checker = new HoverChecker(marginHorizontal+9,marginHorizontal+20,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(mouseX,mouseY, true))
         {
-            renderTooltip(redstone_tooltip,mouseX-marginHorizontal+4,mouseY-marginVertical+4);
+            func_238654_b_(matrixStack, Collections.singletonList(new StringTextComponent(redstone_tooltip)),mouseX-marginHorizontal+4,mouseY-marginVertical+4);
         }
-        checker = new HoverChecker(marginVertical+9,marginVertical+20,marginHorizontal+25,marginHorizontal+36,0);
+        checker = new HoverChecker(marginHorizontal+25,marginHorizontal+36,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(mouseX,mouseY, true))
         {
-            renderTooltip(fluid_tooltip,mouseX-marginHorizontal+4,mouseY-marginVertical+4);
-        }*/
+            func_238654_b_(matrixStack, Collections.singletonList(new StringTextComponent(fluid_tooltip)),mouseX-marginHorizontal+4,mouseY-marginVertical+4);
+        }
         //renderHoveredToolTip(mouseX-marginHorizontal+4,mouseY-marginVertical+4);
     }
 
@@ -183,5 +186,23 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
         }
 
         return super.func_231048_c_(mouseX, mouseY, id); //Forge, Call parent to release buttons
+    }
+
+    public class HoverChecker{
+        double buttonX0,buttonX1,buttonY0,buttonY1;
+
+        public HoverChecker(double buttonX0, double buttonX1,double buttonY0, double buttonY1,int id){
+            this.buttonX0 = buttonX0;
+            this.buttonX1 = buttonX1;
+            this.buttonY0 = buttonY0;
+            this.buttonY1 = buttonY1;
+        }
+
+        public boolean checkHover(double mouseX, double mouseY,boolean simulate){
+            return mouseX >= buttonX0 && mouseY >= buttonY1 && mouseX <= buttonX1 && mouseY <= buttonY0;
+        }
+        /*public boolean checkHoverLegacy(double mouseX, double mouseY, double buttonX0, double buttonX1,double buttonY0, double buttonY1){
+            return mouseX >= this.field_230690_l_ && mouseY >= this.field_230691_m_ && mouseX < this.field_230690_l_ + this.field_230688_j_ && mouseY < this.field_230691_m_ + this.field_230689_k_;
+        }*/
     }
 }
