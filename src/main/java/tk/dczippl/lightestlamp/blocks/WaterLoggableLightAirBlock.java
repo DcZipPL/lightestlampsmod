@@ -51,9 +51,13 @@ public class WaterLoggableLightAirBlock extends Block implements IWaterLoggable
     }
 
     @Override
-    public boolean canBeConnectedTo(BlockState state, IBlockReader world, BlockPos pos, Direction facing)
-    {
+    public boolean canStickTo(BlockState state, BlockState other) {
         return false;
+    }
+
+    @Override
+    public boolean canSpawnInBlock() {
+        return true;
     }
 
     @Override

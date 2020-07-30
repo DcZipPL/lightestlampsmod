@@ -194,7 +194,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     }
 
     private static void addItemTagBurnTime(Map<Item, Integer> map, ITag<Item> itemTag, int p_213992_2_) {
-        for(Item item : itemTag.func_230236_b_()) {
+        for(Item item : itemTag.getAllElements()) {
             map.put(item, p_213992_2_);
         }
 
@@ -209,8 +209,8 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     }
 
     @Override
-    public void func_230337_a_(BlockState state,CompoundNBT compound) {
-        super.func_230337_a_(state, compound);
+    public void read(BlockState state,CompoundNBT compound) {
+        super.read(state, compound);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(compound, this.items);
         this.burnTime = compound.getInt("BurnTime");

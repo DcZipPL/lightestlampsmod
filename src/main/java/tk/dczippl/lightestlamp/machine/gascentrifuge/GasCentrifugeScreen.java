@@ -39,16 +39,17 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
     }
 
     @Override
-    public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.func_230446_a_(matrixStack);
-        super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks);
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(matrixStack);
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.func_230459_a_(matrixStack, mouseX, mouseY);
     }
 
     @Override
     protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
-        this.field_230712_o_.func_238422_b_(matrixStack, this.field_230704_d_, (float)(this.xSize / 2 - this.field_230712_o_.getStringWidth(field_230704_d_.toString()) / 2), 6.0F, 4210752);
-        this.field_230712_o_.func_238422_b_(matrixStack, this.playerInventory.getDisplayName(), 8.0F, (float)(this.ySize - 96 + 2), 4210752);
+        int tmp = 20;
+        this.font.func_238422_b_(matrixStack, this.title, (float)(this.xSize / 2 - tmp / 2), 6.0F, 4210752);
+        this.font.func_238422_b_(matrixStack, this.playerInventory.getDisplayName(), 8.0F, (float)(this.ySize - 96 + 2), 4210752);
 
         String redstone_tooltip = "Mode: Ignore Redstone";
         switch (sc.field_217064_e.get(1))
@@ -77,19 +78,19 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
                 break;
         }
 
-        int marginHorizontal = (field_230708_k_ - xSize) / 2;
-        int marginVertical = (field_230709_l_ - ySize) / 2;
+        int marginHorizontal = (width - xSize) / 2;
+        int marginVertical = (height - ySize) / 2;
 
         //(marginHorizontal+9 <V>,marginHorizontal+20,marginVertical+9 <V>,marginVertical+20, 0 <V>)
         HoverChecker checker = new HoverChecker(marginHorizontal+9,marginHorizontal+20,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(mouseX,mouseY, true))
         {
-            func_238654_b_(matrixStack, Collections.singletonList(new StringTextComponent(redstone_tooltip)),mouseX-marginHorizontal+4,mouseY-marginVertical+4);
+            renderToolTip(matrixStack, Collections.singletonList(new StringTextComponent(redstone_tooltip)),mouseX-marginHorizontal+4,mouseY-marginVertical+4,font);
         }
         checker = new HoverChecker(marginHorizontal+25,marginHorizontal+36,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(mouseX,mouseY, true))
         {
-            func_238654_b_(matrixStack, Collections.singletonList(new StringTextComponent(fluid_tooltip)),mouseX-marginHorizontal+4,mouseY-marginVertical+4);
+            renderToolTip(matrixStack, Collections.singletonList(new StringTextComponent(fluid_tooltip)),mouseX-marginHorizontal+4,mouseY-marginVertical+4,font);
         }
         //renderHoveredToolTip(mouseX-marginHorizontal+4,mouseY-marginVertical+4);
     }
@@ -98,12 +99,12 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
     protected void func_230450_a_(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        this.field_230706_i_.getTextureManager().bindTexture(this.texture);
+        this.minecraft.getTextureManager().bindTexture(this.texture);
 
-        int x = (this.field_230708_k_ - this.xSize) / 2;
-        int y = (this.field_230709_l_ - this.ySize) / 2;
+        int x = (this.width - this.xSize) / 2;
+        int y = (this.height - this.ySize) / 2;
 
-        func_238463_a_(matrixStack, x, y, 0, 0, this.xSize, this.ySize, 256,256);
+        blit(matrixStack, x, y, 0, 0, this.xSize, this.ySize, 256,256);
 
         int i = this.guiLeft;
         int j = this.guiTop;
@@ -113,47 +114,47 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
             if (k >= 300)
                 k = 299;
             //Z Y T-Z T-Y W H
-            this.func_238474_b_(matrixStack,i + 151, j + 65 + 12 - k, 203, 118 - k, 9, k + 1);
+            this.blit(matrixStack,i + 151, j + 65 + 12 - k, 203, 118 - k, 9, k + 1);
         }
         int m = ((GasCentrifugeContainer)this.container).getLiquidScaled();
         //Z Y T-Z T-Y W H
-        this.func_238474_b_(matrixStack,i + 160, j + 65 + 13 - m, 212, 120 - m, 9, m + 1);
+        this.blit(matrixStack,i + 160, j + 65 + 13 - m, 212, 120 - m, 9, m + 1);
 
-        int marginHorizontal = (field_230708_k_ - xSize) / 2;
-        int marginVertical = (field_230709_l_ - ySize) / 2;
+        int marginHorizontal = (width - xSize) / 2;
+        int marginVertical = (height - ySize) / 2;
         switch (sc.field_217064_e.get(1))
         {
             case 0:
-                this.func_238474_b_(matrixStack,marginHorizontal+9, marginVertical+9, 176, 128, 12, 12);
+                this.blit(matrixStack,marginHorizontal+9, marginVertical+9, 176, 128, 12, 12);
                 break;
             case 1:
-                this.func_238474_b_(matrixStack,marginHorizontal+9, marginVertical+9, 176, 141, 12, 12);
+                this.blit(matrixStack,marginHorizontal+9, marginVertical+9, 176, 141, 12, 12);
                 break;
             case 2:
-                this.func_238474_b_(matrixStack,marginHorizontal+9, marginVertical+9, 176, 154, 12, 12);
+                this.blit(matrixStack,marginHorizontal+9, marginVertical+9, 176, 154, 12, 12);
                 break;
         }
         switch (sc.field_217064_e.get(4))
         {
             case 0:
-                this.func_238474_b_(matrixStack,marginHorizontal+25, marginVertical+9, 192, 128, 12, 12);
+                this.blit(matrixStack,marginHorizontal+25, marginVertical+9, 192, 128, 12, 12);
                 break;
             case 1:
-                this.func_238474_b_(matrixStack,marginHorizontal+25, marginVertical+9, 192, 141, 12, 12);
+                this.blit(matrixStack,marginHorizontal+25, marginVertical+9, 192, 141, 12, 12);
                 break;
             case 2:
-                this.func_238474_b_(matrixStack,marginHorizontal+25, marginVertical+9, 192, 154, 12, 12);
+                this.blit(matrixStack,marginHorizontal+25, marginVertical+9, 192, 154, 12, 12);
                 break;
         }
 
         int l = ((GasCentrifugeContainer)this.container).getCookProgressionScaled();
-        this.func_238474_b_(matrixStack,i + 63, j + 34, 176, 14, l + 1, 16);
+        this.blit(matrixStack,i + 63, j + 34, 176, 14, l + 1, 16);
     }
 
     @Override
-    public boolean func_231048_c_(double mouseX, double mouseY, int id) {
-        int marginHorizontal = (field_230708_k_ - xSize) / 2;
-        int marginVertical = (field_230709_l_ - ySize) / 2;
+    public boolean mouseClicked(double mouseX, double mouseY, int id) {
+        int marginHorizontal = (width - xSize) / 2;
+        int marginVertical = (height - ySize) / 2;
         //Main.LOGGER.info("Clicked at: " + mouseX + ":" + mouseY + ":" + id + ", With margin: " + (mouseX - marginHorizontal) + ":" + (mouseY - marginVertical) + ":" + id);
 
         if (mouseX - marginHorizontal >= 9 && mouseX - marginHorizontal <= 20)
@@ -185,7 +186,7 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
             }
         }
 
-        return super.func_231048_c_(mouseX, mouseY, id); //Forge, Call parent to release buttons
+        return super.mouseClicked(mouseX, mouseY, id); //Forge, Call parent to release buttons
     }
 
     public class HoverChecker{

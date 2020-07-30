@@ -1,11 +1,10 @@
 package tk.dczippl.lightestlamp.blocks;
 
-import net.minecraft.block.AirBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.tileentity.TileEntity;
 //import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
@@ -13,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
 import tk.dczippl.lightestlamp.tile.LightAirTileEntity;
 
 import javax.annotation.Nullable;
@@ -22,7 +22,7 @@ public class LightAirBlock extends AirBlock
 {
     public LightAirBlock()
     {
-        super(Block.Properties.create(Material.AIR).notSolid());
+        super(Block.Properties.create(Material.AIR).notSolid().setAir());
     }
 
     @Override
@@ -32,9 +32,13 @@ public class LightAirBlock extends AirBlock
     }
 
     @Override
-    public boolean canBeConnectedTo(BlockState state, IBlockReader world, BlockPos pos, Direction facing)
-    {
+    public boolean canStickTo(BlockState state, BlockState other) {
         return false;
+    }
+
+    @Override
+    public boolean canSpawnInBlock() {
+        return true;
     }
 
     @Override
@@ -42,6 +46,26 @@ public class LightAirBlock extends AirBlock
     {
         return false;
     }
+
+    @Override
+    public boolean isReplaceable(BlockState p_225541_1_, Fluid p_225541_2_) {
+        return true;
+    }
+
+    @Override
+    public boolean isReplaceable(BlockState state, BlockItemUseContext useContext) {
+        return true;
+    }
+
+    @Override
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        return isValid(worldIn,pos);
+    }
+
+    private boolean isValid(IWorldReader world, BlockPos pos){
+        return ((World) world.getChunk(pos).getWorldForge()).getBlockState(pos.up()).getBlock() != Blocks.VINE;
+    }
+
 
     @Override
     public boolean canBeReplacedByLeaves(BlockState state, IWorldReader world, BlockPos pos)

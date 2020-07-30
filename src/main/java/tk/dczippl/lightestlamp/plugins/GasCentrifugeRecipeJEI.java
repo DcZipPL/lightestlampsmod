@@ -61,22 +61,22 @@ public class GasCentrifugeRecipeJEI
         //Mekanism compatibility
         ITag<Item> refined_glowstones = ItemTags.getCollection().get(new ResourceLocation("forge:ingots/refined_glowstone"));
         if (refined_glowstones!=null)
-            ((Tag)refined_glowstones).func_230236_b_().forEach(item -> {
+            ((Tag)refined_glowstones).getAllElements().forEach(item -> {
                 GLOWSTONES.add(new ItemStack((Item)item));
             });
         ITag<Item> refined_glowstones_block = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/refined_glowstone"));
         if (refined_glowstones_block!=null)
-            ((Tag)refined_glowstones_block).func_230236_b_().forEach(item -> {
+            ((Tag)refined_glowstones_block).getAllElements().forEach(item -> {
                 GLOWSTONES.add(new ItemStack((Item)item));
             });
         ITag<Item> refined_glowstones_nugget = ItemTags.getCollection().get(new ResourceLocation("forge:nuggets/refined_glowstone"));
         if (refined_glowstones_nugget!=null)
-            ((Tag)refined_glowstones_nugget).func_230236_b_().forEach(item -> {
+            ((Tag)refined_glowstones_nugget).getAllElements().forEach(item -> {
                 GLOWSTONES.add(new ItemStack((Item)item));
             });
         ITag<Item> glowstone_blocks = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/glowstone"));
         if (glowstone_blocks!=null)
-            ((Tag)glowstone_blocks).func_230236_b_().forEach(item -> {
+            ((Tag)glowstone_blocks).getAllElements().forEach(item -> {
                 GLOWSTONES.add(new ItemStack((Item)item));
             });
         ingredients.setInputLists(VanillaTypes.ITEM, Arrays.asList(Collections.singletonList(modifier), GLOWSTONES));

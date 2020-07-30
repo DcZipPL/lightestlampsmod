@@ -6,6 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
@@ -41,7 +42,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.UP, 15).offset(Direction.NORTH, 15).offset(Direction.WEST, 15),
                     pos.offset(Direction.UP, 1).offset(Direction.NORTH, 0).offset(Direction.WEST, 1)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
@@ -53,7 +54,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.UP, 15).offset(Direction.SOUTH, 15).offset(Direction.WEST, 15),
                     pos.offset(Direction.UP, 1).offset(Direction.SOUTH, 1).offset(Direction.WEST, 0)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
@@ -65,7 +66,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.UP, 15).offset(Direction.NORTH, 15).offset(Direction.EAST, 15),
                     pos.offset(Direction.UP, 1).offset(Direction.NORTH, 1).offset(Direction.EAST, 0)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
@@ -77,7 +78,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.UP, 15).offset(Direction.SOUTH, 15).offset(Direction.EAST, 15),
                     pos.offset(Direction.UP, 1).offset(Direction.SOUTH, 0).offset(Direction.EAST, 1)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
@@ -92,7 +93,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.DOWN, 15).offset(Direction.NORTH, 15).offset(Direction.WEST, 15),
                     pos.offset(Direction.NORTH, 1).offset(Direction.WEST, 0)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
@@ -104,7 +105,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.DOWN, 15).offset(Direction.SOUTH, 15).offset(Direction.WEST, 15),
                     pos.offset(Direction.SOUTH, 0).offset(Direction.WEST, 1)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
@@ -116,7 +117,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.DOWN, 15).offset(Direction.NORTH, 15).offset(Direction.EAST, 15),
                     pos.offset(Direction.NORTH, 0).offset(Direction.EAST, 1)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
@@ -128,7 +129,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.DOWN, 15).offset(Direction.SOUTH, 15).offset(Direction.EAST, 15),
                     pos.offset(Direction.SOUTH, 1).offset(Direction.EAST, 0)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
@@ -140,7 +141,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.DOWN, 15),
                     pos.offset(Direction.DOWN, 1)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
@@ -149,7 +150,7 @@ public class OmegaLampTileEntity extends TileEntity implements ITickableTileEnti
             BlockPos.getAllInBox(pos.offset(Direction.UP, 15),
                     pos.offset(Direction.UP, 1)).forEach((pos2) ->
             {
-                if (isAir(pos2))
+                if (isAir(pos2)&&world.getBlockState(pos2.up()).getBlock() != Blocks.VINE)
                 {
 					if(random.nextInt(20)==5)
                     world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());

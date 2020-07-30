@@ -41,11 +41,6 @@ public class OmegaChunkCleanerBlock extends Block
     }
 
     @Override
-    public boolean isAir(BlockState state, IBlockReader world, BlockPos pos) {
-        return true;
-    }
-
-    @Override
     public BlockRenderType getRenderType(BlockState p_149645_1_)
     {
         return BlockRenderType.INVISIBLE;
