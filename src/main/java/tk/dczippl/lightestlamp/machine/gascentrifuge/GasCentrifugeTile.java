@@ -190,6 +190,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
 
         addItemTagBurnTime(map, Tags.Items.DUSTS_GLOWSTONE,40*multiplier);
         addItemBurnTime(map, Blocks.GLOWSTONE, 160*multiplier);
+        addItemBurnTime(map, Blocks.SHROOMLIGHT, 240*multiplier);
         return map;
     }
 

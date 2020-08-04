@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "package": "tk.dczippl.lightestlamp.mixin",
+    "compatibilityLevel": "JAVA_8",
+    "refmap": "lightestlamp.refmap.json",
+    "mixins": [
+    ],
+    "client":[
+
+    ],
+    "injectors": {
+      "defaultRequire": 1
+    },
+    "minVersion": "0.8"
+}
