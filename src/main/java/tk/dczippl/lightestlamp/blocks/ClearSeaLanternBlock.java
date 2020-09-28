@@ -60,7 +60,7 @@ public class ClearSeaLanternBlock extends Block {
     @Override
     public void onPlayerDestroy(IWorld iworld, BlockPos pos, BlockState state)
     {
-        World world = iworld.getWorld();
+        World world = (World) iworld;
         BlockPos.getAllInBox(pos.offset(Direction.UP, 2).offset(Direction.NORTH,2).offset(Direction.WEST,2), pos.offset(Direction.DOWN, 2).offset(Direction.SOUTH,2).offset(Direction.EAST,2)).forEach((pos1) -> {
             if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR.get())
             {

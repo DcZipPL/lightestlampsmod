@@ -22,7 +22,7 @@ public class LightAirBlock extends AirBlock
 {
     public LightAirBlock()
     {
-        super(Block.Properties.create(Material.AIR).notSolid().setAir());
+        super(Block.Properties.create(Material.AIR).notSolid().setAir().setLightLevel(x->15));
     }
 
     @Override

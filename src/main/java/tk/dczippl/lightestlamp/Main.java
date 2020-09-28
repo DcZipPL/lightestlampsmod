@@ -24,6 +24,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.OreFeature;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
@@ -32,6 +37,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -114,7 +120,6 @@ public class Main
     {
         LOGGER.debug(ModBlocks.ANTI_LAMP.get().toString());
         // some preinit code
-        WorldGenerator.setupWorldGeneraton();
         Networking.registerMessages();
     }
 
@@ -149,7 +154,7 @@ public class Main
         {
             if(event.getEntityLiving() instanceof IMob)
             {
-                if (event.getEntityLiving().getEntityWorld().getCurrentMoonPhaseFactor() == 1.0F)
+                if (event.getEntityLiving().getEntityWorld().getMoonFactor() == 1.0F)
                 {
                     Random rnd = new Random();
                     if (rnd.nextInt(4) == 2)//25% chance
@@ -211,6 +216,14 @@ public class Main
         if(b.equals(ModFluids.BROMINE_FLUID_BLOCK.get()))
         {
             fog.setDensity(1f);
+        }
+    }
+
+    @SubscribeEvent
+    public void biomeLoad(BiomeLoadingEvent event){
+        if (event.getCategory() == Biome.Category.NETHER){
+            event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(()->OreFeature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241883_b, ModBlocks.MONAZITE_ORE.get().getDefaultState(),WorldGenerator.MONAZITE_BLOCK_VEINSIZE))
+                    .withPlacement(Placement.field_242899_c.configure(WorldGenerator.MONAZITE_BLOCK)));
         }
     }
 
@@ -396,7 +409,6 @@ public class Main
                 }
                 else
                 {
-                    //TODO: In Ground (Pull request to forge)
                     /*if (ent instanceof ArrowEntity && ((ArrowEntity) ent).inGound)
                     {
                         continue;

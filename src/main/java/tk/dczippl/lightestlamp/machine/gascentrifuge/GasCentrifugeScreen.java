@@ -11,6 +11,7 @@ import net.minecraft.inventory.container.AbstractFurnaceContainer;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -42,14 +43,15 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.func_230459_a_(matrixStack, mouseX, mouseY);
+        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
     }
 
     @Override
-    protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
+    protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
+        super.drawGuiContainerForegroundLayer(matrixStack, x, y);
         int tmp = 20;
-        this.font.func_238422_b_(matrixStack, this.title, (float)(this.xSize / 2 - tmp / 2), 6.0F, 4210752);
-        this.font.func_238422_b_(matrixStack, this.playerInventory.getDisplayName(), 8.0F, (float)(this.ySize - 96 + 2), 4210752);
+        this.font.func_238422_b_(matrixStack, (IReorderingProcessor)this.title, (float)(this.xSize / 2 - tmp / 2), 6.0F, 4210752);
+        this.font.func_238422_b_(matrixStack, (IReorderingProcessor)this.playerInventory.getDisplayName(), 8.0F, (float)(this.ySize - 96 + 2), 4210752);
 
         String redstone_tooltip = "Mode: Ignore Redstone";
         switch (sc.field_217064_e.get(1))
@@ -83,20 +85,20 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
 
         //(marginHorizontal+9 <V>,marginHorizontal+20,marginVertical+9 <V>,marginVertical+20, 0 <V>)
         HoverChecker checker = new HoverChecker(marginHorizontal+9,marginHorizontal+20,marginVertical+20,marginVertical+9,0);
-        if (checker.checkHover(mouseX,mouseY, true))
+        if (checker.checkHover(x,y, true))
         {
-            renderToolTip(matrixStack, Collections.singletonList(new StringTextComponent(redstone_tooltip)),mouseX-marginHorizontal+4,mouseY-marginVertical+4,font);
+            renderToolTip(matrixStack, Collections.singletonList((IReorderingProcessor) new StringTextComponent(redstone_tooltip)),x-marginHorizontal+4,y-marginVertical+4,font);
         }
         checker = new HoverChecker(marginHorizontal+25,marginHorizontal+36,marginVertical+20,marginVertical+9,0);
-        if (checker.checkHover(mouseX,mouseY, true))
+        if (checker.checkHover(x,y, true))
         {
-            renderToolTip(matrixStack, Collections.singletonList(new StringTextComponent(fluid_tooltip)),mouseX-marginHorizontal+4,mouseY-marginVertical+4,font);
+            renderToolTip(matrixStack, Collections.singletonList((IReorderingProcessor) new StringTextComponent(fluid_tooltip)),x-marginHorizontal+4,y-marginVertical+4,font);
         }
         //renderHoveredToolTip(mouseX-marginHorizontal+4,mouseY-marginVertical+4);
     }
 
     @Override
-    protected void func_230450_a_(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
         this.minecraft.getTextureManager().bindTexture(this.texture);

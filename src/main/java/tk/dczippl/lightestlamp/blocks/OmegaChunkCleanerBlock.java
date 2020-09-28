@@ -51,4 +51,9 @@ public class OmegaChunkCleanerBlock extends Block
     {
         return Block.makeCuboidShape(0,0,0,0,0,0);
     }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return Block.makeCuboidShape(0,0,0,0,0,0);
+    }
 }

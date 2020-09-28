@@ -10,9 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -58,7 +56,7 @@ public class DeepOceanLanternBlock extends Block
     @Override
     public void onPlayerDestroy(IWorld iworld, BlockPos pos, BlockState state)
     {
-        World world = iworld.getWorld();
+        World world = (World) iworld;
         BlockPos.getAllInBox(pos.offset(Direction.UP, 4).offset(Direction.NORTH,4).offset(Direction.WEST,4), pos.offset(Direction.DOWN, 4).offset(Direction.SOUTH,4).offset(Direction.EAST,4)).forEach((pos1) -> {
             if (world.getBlockState(pos1).getBlock() == ModBlocks.WATERLOGGABLE_LIGHT_AIR.get())
             {
@@ -84,8 +82,8 @@ public class DeepOceanLanternBlock extends Block
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.delta").func_240699_a_(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.underwater").func_240699_a_(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.delta").setStyle(Style.EMPTY.setColor(Color.fromTextFormatting(TextFormatting.GRAY))));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.underwater").setStyle(Style.EMPTY.setColor(Color.fromTextFormatting(TextFormatting.GRAY))));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").setStyle(Style.EMPTY.setColor(Color.fromTextFormatting(TextFormatting.GRAY))));
     }
 }

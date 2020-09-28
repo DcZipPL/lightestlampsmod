@@ -141,10 +141,10 @@ public class OmegaChunkCleanerTileEntity extends TileEntity implements ITickable
         }
         if (cooldown >= 20)
         {
-            BlockPos.getAllInBox(pos.offset(Direction.UP, 19).offset(Direction.NORTH,19).offset(Direction.WEST,19), pos.offset(Direction.DOWN,19).offset(Direction.SOUTH,19).offset(Direction.EAST,19)).forEach((pos1) -> {
+            /*BlockPos.getAllInBox(pos.offset(Direction.UP, 19).offset(Direction.NORTH,19).offset(Direction.WEST,19), pos.offset(Direction.DOWN,19).offset(Direction.SOUTH,19).offset(Direction.EAST,19)).forEach((pos1) -> {
                 if (isAir(pos1))
                     world.notifyBlockUpdate(pos1,world.getBlockState(pos1),world.getBlockState(pos1),3);
-            });
+            });*/
             world.setBlockState(pos, Blocks.AIR.getDefaultState());
             world.setTileEntity(pos, null);
             //Recalc Light in nearby chunks

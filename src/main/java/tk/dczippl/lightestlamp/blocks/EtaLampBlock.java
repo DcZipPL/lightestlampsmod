@@ -16,6 +16,7 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.tile.EtaLampTileEntity;
+import net.minecraft.util.text.*;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -61,8 +62,8 @@ public class EtaLampBlock extends Block
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader reader, List<ITextComponent> text, ITooltipFlag flag)
     {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.eta").func_240699_a_(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").func_240699_a_(TextFormatting.GRAY));
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").func_240699_a_(TextFormatting.GRAY));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.type.eta").setStyle(Style.EMPTY.setColor(Color.fromTextFormatting(TextFormatting.GRAY))));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.penetration").setStyle(Style.EMPTY.setColor(Color.fromTextFormatting(TextFormatting.GRAY))));
+        text.add(new TranslationTextComponent("tooltip.lightestlamp.always_active").setStyle(Style.EMPTY.setColor(Color.fromTextFormatting(TextFormatting.GRAY))));
     }
 }
