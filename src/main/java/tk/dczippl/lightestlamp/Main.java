@@ -1,5 +1,6 @@
 package tk.dczippl.lightestlamp;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.ScreenManager;
@@ -216,6 +217,22 @@ public class Main
         if(b.equals(ModFluids.BROMINE_FLUID_BLOCK.get()))
         {
             fog.setDensity(1f);
+        }
+    }
+
+    @SubscribeEvent
+    @OnlyIn(Dist.CLIENT)
+    public void setFogLength(EntityViewRenderEvent.RenderFogEvent fog)
+    {
+        World w = fog.getInfo().getRenderViewEntity().getEntityWorld();
+        BlockPos pos = fog.getInfo().getBlockPos();
+        BlockState bs = w.getBlockState(pos);
+        Block b = bs.getBlock();
+        if(b.equals(ModFluids.BROMINE_FLUID_BLOCK.get()))
+        {
+            float progress = 36f / 30f;
+            RenderSystem.fogStart((1 - progress) * fog.getFarPlaneDistance() * .75f);
+            RenderSystem.fogEnd(fog.getFarPlaneDistance() * (1 - .8f * progress));
         }
     }
 
