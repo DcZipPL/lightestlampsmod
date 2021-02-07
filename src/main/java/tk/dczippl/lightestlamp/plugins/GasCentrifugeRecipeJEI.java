@@ -73,6 +73,6 @@ public class GasCentrifugeRecipeJEI
 
     public void drawInfo(Minecraft mc, MatrixStack matrixStack, int width, int height, double mouseX, double mouseY) {
         for (int i = 0; i < tooltips.length; i++)
-            mc.fontRenderer.func_238422_b_(matrixStack,(IReorderingProcessor) new StringTextComponent(I18n.format(tooltips[i])), 0, 80, 0);
+            mc.fontRenderer.func_238422_b_(matrixStack, IReorderingProcessor.fromString(new StringTextComponent(I18n.format(tooltips[i])).getString(), Style.EMPTY), 0, 80, 0);
     }
 }
