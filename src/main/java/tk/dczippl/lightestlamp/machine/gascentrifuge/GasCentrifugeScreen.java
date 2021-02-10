@@ -42,9 +42,9 @@ public class GasCentrifugeScreen extends ContainerScreen<GasCentrifugeContainer>
     @Override
     protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int x, int y) {
         //super.drawGuiContainerForegroundLayer(matrixStack, x, y);
-        int tmp = 20;
+        int tmp = 75;
         this.font.func_238422_b_(matrixStack, this.title.func_241878_f(), (float)(this.xSize / 2 - tmp / 2), 6.0F, 4210752);
-        this.font.func_238422_b_(matrixStack, this.playerInventory.getDisplayName().func_241878_f(), 5.0F, (float)(this.ySize - 96 + 2), 4210752);
+        this.font.func_238422_b_(matrixStack, this.playerInventory.getDisplayName().func_241878_f(), 8.0F, (float)(this.ySize - 96 + 2), 4210752);
 
         String redstone_tooltip = "Mode: Ignore Redstone";
         switch (sc.field_217064_e.get(1))

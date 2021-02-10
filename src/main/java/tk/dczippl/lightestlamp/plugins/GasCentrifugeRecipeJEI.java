@@ -15,6 +15,7 @@ import net.minecraft.tags.Tag;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeRecipe;
 
 import java.util.ArrayList;

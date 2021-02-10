@@ -71,12 +71,12 @@ public class EpsilonLampBlock extends Block
                 world.setBlockState(pos2, ModBlocks.LIGHT_AIR.get().getDefaultState());
             }
         });
-        BlockPos.getAllInBox(pos.offset(Direction.UP, 12).offset(Direction.NORTH,12).offset(Direction.WEST,12), pos.offset(Direction.DOWN,12).offset(Direction.SOUTH,12).offset(Direction.EAST,12)).forEach((pos1) -> {
+        /*BlockPos.getAllInBox(pos.offset(Direction.UP, 12).offset(Direction.NORTH,12).offset(Direction.WEST,12), pos.offset(Direction.DOWN,12).offset(Direction.SOUTH,12).offset(Direction.EAST,12)).forEach((pos1) -> {
             if (isWAir(pos1,world))
             {
                 world.notifyBlockUpdate(pos1, world.getBlockState(pos1), world.getBlockState(pos1), 3);
             }
-        });
+        });*/
     }
 
     private boolean isWAir(BlockPos pos, World world)

@@ -103,7 +103,7 @@
   "tooltip.lightestlamp.krypton_filter": "Kryptonowy",
   "tooltip.lightestlamp.xenon_filter": "Ksenonowy",
   "tooltip.lightestlamp.radon_filter": "Radonowy",
-  "tooltip.lightestlamp.bromine_filter": "Bromowy i Borowy",
+  "tooltip.lightestlamp.bromine_filter": "Bromowy",
   "tooltip.lightestlamp.chemlib.detected": "Zalecane żeby zamienić tą sztabkę na wersje ChemLib w stole wytwarzania",
   "tooltip.lightestlamp.lamp.wip": "Podczas Tworzenia [Nie działa jeszcze]",
   "tooltip.lightestlamp.book.link": "Lightest Lamps Wiki: https://github.com/DcZipPL/lightestlampsmod/wiki",

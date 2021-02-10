@@ -24,21 +24,24 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.OreFeature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.world.BiomeGenerationSettingsBuilder;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -72,8 +75,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static tk.dczippl.lightestlamp.Reference.MOD_ID;
+import static tk.dczippl.lightestlamp.util.WorldGenerator.netherOres;
+
 @SuppressWarnings("NullableProblems")
-@Mod(Reference.MOD_ID)
+@Mod(MOD_ID)
 public class Main
 {
     // Directly reference a log4j logger.
@@ -119,6 +125,9 @@ public class Main
 
     private void setup(final FMLCommonSetupEvent event)
     {
+        netherOres.add(register("mozaite_ore",Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.MONAZITE_ORE.get().getDefaultState(),WorldGenerator.MONAZITE_BLOCK_VEINSIZE))
+                .range(84).square().func_242731_b(20)));
+
         LOGGER.debug(ModBlocks.ANTI_LAMP.get().toString());
         // some preinit code
         Networking.registerMessages();
@@ -236,12 +245,18 @@ public class Main
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void biomeLoad(BiomeLoadingEvent event){
-        if (event.getCategory() == Biome.Category.NETHER){
-            event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(()->OreFeature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.field_241883_b, ModBlocks.MONAZITE_ORE.get().getDefaultState(),WorldGenerator.MONAZITE_BLOCK_VEINSIZE))
-                    .withPlacement(Placement.field_242899_c.configure(WorldGenerator.MONAZITE_BLOCK)));
+        BiomeGenerationSettingsBuilder generation = event.getGeneration();
+        if(event.getCategory().equals(Biome.Category.NETHER)){
+            for(ConfiguredFeature<?, ?> ore : netherOres){
+                if (ore != null) generation.withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, ore);
+            }
         }
+    }
+
+    private static <FC extends IFeatureConfig> ConfiguredFeature<FC, ?> register(String name, ConfiguredFeature<FC, ?> configuredFeature) {
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, MOD_ID + ":" + name, configuredFeature);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -271,63 +286,63 @@ public class Main
             evt.getRegistry().register(TileEntityType.Builder.create(AntiLampTileEntity::new,ModBlocks.ANTI_LAMP.get()).build(null).setRegistryName("antilamp_te"));
 
             TileEntityType<ClearLampTileEntity> clear_te = TileEntityType.Builder.create(ClearLampTileEntity::new,ModBlocks.CLEAR_LAMP.get()).build(null);
-            clear_te.setRegistryName(Reference.MOD_ID, "clear_te");
+            clear_te.setRegistryName(MOD_ID, "clear_te");
             ModTileEntities.CLEAR_TE = clear_te;
             evt.getRegistry().register(ModTileEntities.CLEAR_TE);
 
             TileEntityType<AlfaLampTileEntity> type0 = TileEntityType.Builder.create(AlfaLampTileEntity::new,ModBlocks.ALPHA_LAMP.get()).build(null);
-            type0.setRegistryName(Reference.MOD_ID, "alfa_te");
+            type0.setRegistryName(MOD_ID, "alfa_te");
 
             TileEntityType<BetaLampTileEntity> type1 = TileEntityType.Builder.create(BetaLampTileEntity::new,ModBlocks.BETA_LAMP.get()).build(null);
-            type1.setRegistryName(Reference.MOD_ID, "beta_te");
+            type1.setRegistryName(MOD_ID, "beta_te");
 
             TileEntityType<GammaLampTileEntity> type2 = TileEntityType.Builder.create(GammaLampTileEntity::new,ModBlocks.GAMMA_LAMP.get()).build(null);
-            type2.setRegistryName(Reference.MOD_ID, "gamma_te");
+            type2.setRegistryName(MOD_ID, "gamma_te");
 
             TileEntityType<DeltaLampTileEntity> type3 = TileEntityType.Builder.create(DeltaLampTileEntity::new,ModBlocks.DELTA_LAMP.get()).build(null);
-            type3.setRegistryName(Reference.MOD_ID, "delta_te");
+            type3.setRegistryName(MOD_ID, "delta_te");
 
             TileEntityType<EpsilonLampTileEntity> type4 = TileEntityType.Builder.create(EpsilonLampTileEntity::new,ModBlocks.EPSILON_LAMP.get()).build(null);
-            type4.setRegistryName(Reference.MOD_ID, "epsilon_te");
+            type4.setRegistryName(MOD_ID, "epsilon_te");
 
             TileEntityType<ZetaLampTileEntity> type5 = TileEntityType.Builder.create(ZetaLampTileEntity::new,ModBlocks.ZETA_LAMP.get()).build(null);
-            type5.setRegistryName(Reference.MOD_ID, "zeta_te");
+            type5.setRegistryName(MOD_ID, "zeta_te");
 
             TileEntityType<OmegaLampTileEntity> type6 = TileEntityType.Builder.create(OmegaLampTileEntity::new,ModBlocks.OMEGA_LAMP.get()).build(null);
-            type6.setRegistryName(Reference.MOD_ID, "omega_te");
+            type6.setRegistryName(MOD_ID, "omega_te");
 
             TileEntityType<DeepSeaLanternTileEntity> type7 = TileEntityType.Builder.create(DeepSeaLanternTileEntity::new,ModBlocks.DEEP_SEA_LANTERN.get()).build(null);
-            type7.setRegistryName(Reference.MOD_ID, "deep_sea_lantern_te");
+            type7.setRegistryName(MOD_ID, "deep_sea_lantern_te");
 
             TileEntityType<OceanLanternTileEntity> type8 = TileEntityType.Builder.create(OceanLanternTileEntity::new,ModBlocks.OCEAN_LANTERN.get()).build(null);
-            type8.setRegistryName(Reference.MOD_ID, "ocean_lantern_te");
+            type8.setRegistryName(MOD_ID, "ocean_lantern_te");
 
             TileEntityType<ClearSeaLanternTileEntity> type9 = TileEntityType.Builder.create(ClearSeaLanternTileEntity::new,ModBlocks.CLEAR_SEA_LANTERN.get()).build(null);
-            type9.setRegistryName(Reference.MOD_ID, "clear_sea_lantern_te");
+            type9.setRegistryName(MOD_ID, "clear_sea_lantern_te");
 
             TileEntityType<AlchemicalLampTileEntity> type10 = TileEntityType.Builder.create(AlchemicalLampTileEntity::new,ModBlocks.ALCHEMICAL_LAMP.get()).build(null);
-            type10.setRegistryName(Reference.MOD_ID, "alchemical_lamp_te");
+            type10.setRegistryName(MOD_ID, "alchemical_lamp_te");
 
             TileEntityType<GasCentrifugeTile> centrifuge_te = TileEntityType.Builder.create(GasCentrifugeTile::new,ModBlocks.GAS_EXTRACTOR.get()).build(null);
-            centrifuge_te.setRegistryName(Reference.MOD_ID, "centrifuge_te");
+            centrifuge_te.setRegistryName(MOD_ID, "centrifuge_te");
 
             TileEntityType<EtaLampTileEntity> eta_te = TileEntityType.Builder.create(EtaLampTileEntity::new,ModBlocks.ETA_LAMP.get()).build(null);
-            eta_te.setRegistryName(Reference.MOD_ID, "eta_te");
+            eta_te.setRegistryName(MOD_ID, "eta_te");
             ModTileEntities.ETA_TE = eta_te;
             evt.getRegistry().register(ModTileEntities.ETA_TE);
 
             TileEntityType<DeepOceanLanternTileEntity> deep_ocean_lantern_te = TileEntityType.Builder.create(DeepOceanLanternTileEntity::new,ModBlocks.DEEP_OCEAN_LANTERN.get()).build(null);
-            deep_ocean_lantern_te.setRegistryName(Reference.MOD_ID, "deep_ocean_lantern_te");
+            deep_ocean_lantern_te.setRegistryName(MOD_ID, "deep_ocean_lantern_te");
             ModTileEntities.DEEPOCEANLANTERN_TE = deep_ocean_lantern_te;
             evt.getRegistry().register(ModTileEntities.DEEPOCEANLANTERN_TE);
 
             TileEntityType<AbyssalLanternTileEntity> abyssal_lantern_te = TileEntityType.Builder.create(AbyssalLanternTileEntity::new,ModBlocks.ABYSSAL_LANTERN.get()).build(null);
-            abyssal_lantern_te.setRegistryName(Reference.MOD_ID, "abyssal_lantern_te");
+            abyssal_lantern_te.setRegistryName(MOD_ID, "abyssal_lantern_te");
             ModTileEntities.ABYSSALLANTERN_TE = abyssal_lantern_te;
             evt.getRegistry().register(ModTileEntities.ABYSSALLANTERN_TE);
 
             TileEntityType<OmegaChunkCleanerTileEntity> occ_te = TileEntityType.Builder.create(OmegaChunkCleanerTileEntity::new,ModBlocks.OCC.get()).build(null);
-            occ_te.setRegistryName(Reference.MOD_ID, "occ_te");
+            occ_te.setRegistryName(MOD_ID, "occ_te");
             ModTileEntities.OCC_TE = occ_te;
             evt.getRegistry().register(ModTileEntities.OCC_TE);
 

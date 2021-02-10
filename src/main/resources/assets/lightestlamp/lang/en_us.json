@@ -113,7 +113,7 @@
 	"tooltip.lightestlamp.krypton_filter": "Krypton",
 	"tooltip.lightestlamp.xenon_filter": "Xenon",
 	"tooltip.lightestlamp.radon_filter": "Radon",
-	"tooltip.lightestlamp.bromine_filter": "Bromine & Boron",
+	"tooltip.lightestlamp.bromine_filter": "Bromine",
 	"tooltip.lightestlamp.chemlib.detected": "Please convert this to chemlib version in crafting grid.",
 	"tooltip.lightestlamp.lamp.wip": "[WIP]",
 	"tooltip.lightestlamp.book.link": "Lightest Lamps Wiki: https://github.com/DcZipPL/lightestlampsmod/wiki",

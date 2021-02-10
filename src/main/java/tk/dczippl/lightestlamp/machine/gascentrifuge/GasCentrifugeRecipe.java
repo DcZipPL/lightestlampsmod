@@ -30,7 +30,7 @@ public class GasCentrifugeRecipe
     public static final GasCentrifugeRecipe radon = new GasCentrifugeRecipe(
             new ItemStack(ModItems.RADON_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.XENON_PILE,2),new ItemStack(ModItems.RADON_PILE,3),ItemStack.EMPTY,ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,50));
     public static final GasCentrifugeRecipe bromine = new GasCentrifugeRecipe(
-            new ItemStack(ModItems.BROMINE_FILTER), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.LANTHANUM_PILE),ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,75));
+            new ItemStack(ModItems.BROMINE_FILTER), new ItemStack(Items.GLOWSTONE),ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,new TheoreticalFluid(TheoreticalFluidTypes.Bromine,75));
 
     public GasCentrifugeRecipe(ItemStack top_input, ItemStack bottom_input, ItemStack right_up_output, ItemStack left_up_output, ItemStack right_bottom_output, ItemStack left_bottom_output, TheoreticalFluid liquid_output)
     {
