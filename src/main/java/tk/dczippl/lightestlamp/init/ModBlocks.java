@@ -1,18 +1,15 @@
 package tk.dczippl.lightestlamp.init;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.OreBlock;
-import net.minecraft.block.RotatedPillarBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ObjectHolder;
 import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.blocks.*;
+import tk.dczippl.lightestlamp.machine.craftingtest.WorkbenchBlock;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeBlock;
 
 public class ModBlocks
@@ -86,4 +83,17 @@ public class ModBlocks
     .hardnessAndResistance(3,1)));
 
     public static final RegistryObject<Block> OCC = BLOCKS.register("occ", () -> new OmegaChunkCleanerBlock(Block.Properties.create(Material.IRON)));
+
+    public static final RegistryObject<Block> WORKBENCH = BLOCKS.register("workbench", () -> new WorkbenchBlock(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD)
+            .hardnessAndResistance(0.3f,1)));
+    public static final RegistryObject<Block> FLUID_WORKBENCH = BLOCKS.register("fluid_workbench", () -> new WorkbenchBlock(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD)
+            .hardnessAndResistance(0.3f,1)));
+    public static final RegistryObject<Block> AUTO_WORKBENCH = BLOCKS.register("auto_workbench", () -> new Block(Block.Properties.create(Material.IRON).sound(SoundType.METAL)
+            .hardnessAndResistance(0.3f,1)));
+    public static final RegistryObject<Block> SMITING_BENCH = BLOCKS.register("smithingbench", () -> new Block(Block.Properties.create(Material.WOOD).sound(SoundType.WOOD)
+            .hardnessAndResistance(0.3f,1)));
+    public static final RegistryObject<Block> AUTO_SMITING_BENCH = BLOCKS.register("auto_smithingbench", () -> new Block(Block.Properties.create(Material.IRON).sound(SoundType.METAL)
+            .hardnessAndResistance(0.3f,1)));
+    public static final RegistryObject<Block> STONECUTTER = BLOCKS.register("stonecutter", () -> new Block(Block.Properties.create(Material.ROCK).sound(SoundType.STONE)
+            .hardnessAndResistance(0.3f,1)));
 }

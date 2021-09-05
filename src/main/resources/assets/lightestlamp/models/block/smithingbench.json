@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+	"particle":"minecraft:block/smithingbench_bottom",
+	"up": "minecraft:block/smithing_table_top",
+	"down": "lightestlamp:block/smithing_table_bottom",
+	"west": "lightestlamp:block/smithingbench_side",
+	"east": "lightestlamp:block/smithingbench_side",
+	"north": "lightestlamp:block/smithingbench_side",
+	"south": "lightestlamp:block/smithingbench_side"
+  }
+}

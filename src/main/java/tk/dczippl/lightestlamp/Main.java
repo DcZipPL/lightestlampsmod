@@ -64,6 +64,8 @@ import org.spongepowered.asm.launch.MixinBootstrap;
 import org.spongepowered.asm.mixin.MixinEnvironment;
 import org.spongepowered.asm.mixin.Mixins;
 import tk.dczippl.lightestlamp.init.*;
+import tk.dczippl.lightestlamp.machine.craftingtest.WorkbenchScreen;
+import tk.dczippl.lightestlamp.machine.craftingtest.WorkbenchTile;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 import tk.dczippl.lightestlamp.tile.*;
@@ -137,6 +139,7 @@ public class Main
     {
         // do something that can only be done on the client
         ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new);
+        ScreenManager.registerFactory(ModContainers.WORKBENCH, WorkbenchScreen::new);
         RenderTypeLookup.setRenderLayer(ModBlocks.JUNGLE_LANTERN.get(), RenderType.getCutout());
         RenderTypeLookup.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK.get(), RenderType.getCutout());
     }
@@ -277,6 +280,7 @@ public class Main
         {
             // register a new container here
             containerTypeRegistryEvent.getRegistry().register(ModContainers.GAS_CENTRIFUGE);
+            containerTypeRegistryEvent.getRegistry().register(ModContainers.WORKBENCH);
         }
 
         @SubscribeEvent
@@ -326,6 +330,9 @@ public class Main
             TileEntityType<GasCentrifugeTile> centrifuge_te = TileEntityType.Builder.create(GasCentrifugeTile::new,ModBlocks.GAS_EXTRACTOR.get()).build(null);
             centrifuge_te.setRegistryName(MOD_ID, "centrifuge_te");
 
+            TileEntityType<WorkbenchTile> workbench_te = TileEntityType.Builder.create(WorkbenchTile::new,ModBlocks.WORKBENCH.get(),ModBlocks.FLUID_WORKBENCH.get()).build(null);
+            workbench_te.setRegistryName(MOD_ID, "workbench_te");
+
             TileEntityType<EtaLampTileEntity> eta_te = TileEntityType.Builder.create(EtaLampTileEntity::new,ModBlocks.ETA_LAMP.get()).build(null);
             eta_te.setRegistryName(MOD_ID, "eta_te");
             ModTileEntities.ETA_TE = eta_te;
@@ -358,6 +365,7 @@ public class Main
             ModTileEntities.CLEARSEALANTERN_TE = type9;
             ModTileEntities.ALCHEMICALLAMP_TE = type10;
             ModTileEntities.CENTRIFUGE_TE = centrifuge_te;
+            ModTileEntities.WORKBENCH_TE = workbench_te;
             evt.getRegistry().register(ModTileEntities.ALFA_TE);
             evt.getRegistry().register(ModTileEntities.BETA_TE);
             evt.getRegistry().register(ModTileEntities.GAMMA_TE);
@@ -370,6 +378,7 @@ public class Main
             evt.getRegistry().register(ModTileEntities.CLEARSEALANTERN_TE);
             evt.getRegistry().register(ModTileEntities.ALCHEMICALLAMP_TE);
             evt.getRegistry().register(ModTileEntities.CENTRIFUGE_TE);
+            evt.getRegistry().register(ModTileEntities.WORKBENCH_TE);
         }
 
         @SuppressWarnings("ConstantConditions")

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+	"particle":"lightestlamp:block/workbench_bottom",
+	"up": "lightestlamp:block/fluid_workbench_top",
+	"down": "lightestlamp:block/workbench_bottom",
+	"west": "lightestlamp:block/fluid_workbench_side",
+	"east": "lightestlamp:block/fluid_workbench_side",
+	"north": "lightestlamp:block/fluid_workbench_side",
+	"south": "lightestlamp:block/fluid_workbench_side"
+  }
+}

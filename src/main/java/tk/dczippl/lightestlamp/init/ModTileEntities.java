@@ -3,6 +3,7 @@ package tk.dczippl.lightestlamp.init;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.registries.ObjectHolder;
 import tk.dczippl.lightestlamp.Reference;
+import tk.dczippl.lightestlamp.machine.craftingtest.WorkbenchTile;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 import tk.dczippl.lightestlamp.tile.*;
 
@@ -48,4 +49,5 @@ public class ModTileEntities
     @ObjectHolder(Reference.MOD_ID+":"+"alchemical_lamp_te")
     public static TileEntityType<AlchemicalLampTileEntity> ALCHEMICALLAMP_TE;
     public static TileEntityType<GasCentrifugeTile> CENTRIFUGE_TE;
+    public static TileEntityType<WorkbenchTile> WORKBENCH_TE;
 }
