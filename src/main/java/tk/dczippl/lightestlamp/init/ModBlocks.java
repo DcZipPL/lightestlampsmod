@@ -1,16 +1,12 @@
 package tk.dczippl.lightestlamp.init;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.OreBlock;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraftforge.registries.RegistryObject;
 import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.blocks.*;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeBlock;
@@ -28,7 +24,7 @@ public class ModBlocks
     public static final RegistryObject<Block> WATERLOGGABLE_LIGHT_AIR = BLOCKS.register("waterloggable_light_air", () -> new WaterLoggableLightAirBlock());
     public static final RegistryObject<Block> CLEAR_LAMP = BLOCKS.register("clear_lamp", () -> new ClearLampBlock(Block.Properties.create(Material.REDSTONE_LIGHT).sound(SoundType.GLASS)
             .hardnessAndResistance(0.3f,1)));
-    public static final RegistryObject<Block> ALPHA_LAMP = BLOCKS.register("alpha_lamp", () -> new AlfaLampBlock());
+    public static final RegistryObject<Block> ALPHA_LAMP = BLOCKS.register("alpha_lamp", () -> new AlphaLampBlock());
     public static final RegistryObject<Block> BETA_LAMP = BLOCKS.register("beta_lamp", () -> new BetaLampBlock());
     public static final RegistryObject<Block> GAMMA_LAMP = BLOCKS.register("gamma_lamp", () -> new GammaLampBlock());
     public static final RegistryObject<Block> DELTA_LAMP = BLOCKS.register("delta_lamp", () -> new DeltaLampBlock());

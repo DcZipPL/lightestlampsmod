@@ -2,35 +2,15 @@ package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.ISidedInventory;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.RecipeItemHelper;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
+import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
-import net.minecraft.tileentity.*;
-import net.minecraft.util.*;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
@@ -38,6 +18,7 @@ import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.registries.tags.ITag;
 import tk.dczippl.lightestlamp.Config;
 import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.init.ModContainers;
@@ -54,9 +35,9 @@ import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Random;
 
-public class GasCentrifugeTile extends LockableTileEntity implements ISidedInventory, ITickableTileEntity, IFluidHandlerWrapper
+public class GasCentrifugeTile extends LockableBlockEntity implements ISidedInventory, ITickableBlockEntity, IFluidHandlerWrapper
 {
-    public GasCentrifugeTile(TileEntityType type)
+    public GasCentrifugeTile(BlockEntityType type)
     {
         super(type);
     }
@@ -210,7 +191,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
     }
 
     @Override
-    public void read(BlockState state,CompoundNBT compound) {
+    public void read(BlockState state, CompoundNBT compound) {
         super.read(state, compound);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(compound, this.items);
@@ -389,7 +370,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
             for (INBT enchantment : itemstack.getEnchantmentTagList())
             {
                 if (((CompoundNBT) enchantment).getString("id").equals("minecraft:unbreaking"))
-                unbreaking_lvl = ((CompoundNBT)enchantment).getShort("lvl");
+                    unbreaking_lvl = ((CompoundNBT)enchantment).getShort("lvl");
             }
 
             itemstack.setDamage(itemstack.getDamage()+
@@ -521,7 +502,7 @@ public class GasCentrifugeTile extends LockableTileEntity implements ISidedInven
      */
     @Override
     public boolean isUsableByPlayer(PlayerEntity player) {
-        if (this.world.getTileEntity(this.pos) != this) {
+        if (this.world.getBlockEntity(this.pos) != this) {
             return false;
         } else {
             return player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;

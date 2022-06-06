@@ -1,20 +1,13 @@
 package tk.dczippl.lightestlamp.tile;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import tk.dczippl.lightestlamp.Reference;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
 
-import java.util.Random;
-
-import static net.minecraft.state.properties.BlockStateProperties.POWERED;
-
-public class GammaLampTileEntity extends TileEntity implements ITickableTileEntity
+public class GammaLampTileEntity extends BlockEntity implements ITickableTileEntity
 {
     private int cooldown = 0;
 

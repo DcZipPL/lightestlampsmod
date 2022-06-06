@@ -1,15 +1,9 @@
 package tk.dczippl.lightestlamp.tile;
 
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.world.LightType;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
 
-import static tk.dczippl.lightestlamp.Main.repelEntitiesInAABBFromPoint;
-
-public class AntiLampTileEntity extends TileEntity implements ITickableTileEntity
+public class AntiLampTileEntity extends BlockEntity implements ITickableTileEntity
 {
     public AntiLampTileEntity()
     {

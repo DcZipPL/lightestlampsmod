@@ -1,9 +1,8 @@
 package tk.dczippl.lightestlamp.util.network;
 
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraftforge.network.NetworkEvent;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 
 import java.util.function.Supplier;
@@ -35,7 +34,7 @@ public class PacketButtonRedstone
     {
         ctx.get().enqueueWork(() ->
         {
-            TileEntity te = ctx.get().getSender().getServerWorld().getTileEntity(pos);
+            BlockEntity te = ctx.get().getSender().getLevel().getBlockEntity(pos);
             if (te instanceof GasCentrifugeTile)
             {
                 GasCentrifugeTile gte = ((GasCentrifugeTile) te);

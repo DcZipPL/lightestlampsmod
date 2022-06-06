@@ -1,12 +1,7 @@
 package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
-import com.google.common.base.Preconditions;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import tk.dczippl.lightestlamp.init.ModItems;
 import tk.dczippl.lightestlamp.util.TheoreticalFluid;
 

@@ -6,6 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.blocks.LightAirBlock;
 import tk.dczippl.lightestlamp.init.ModBlocks;
@@ -15,7 +16,7 @@ import java.util.Random;
 
 import static net.minecraft.state.properties.BlockStateProperties.POWERED;
 
-public class AlfaLampTileEntity extends TileEntity implements ITickableTileEntity
+public class AlfaLampTileEntity extends BlockEntity implements ITickableTileEntity
 {
     private int cooldown = 0;
 

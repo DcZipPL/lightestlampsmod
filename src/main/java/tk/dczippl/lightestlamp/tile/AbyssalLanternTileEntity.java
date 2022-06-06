@@ -6,12 +6,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
 
 import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
-public class AbyssalLanternTileEntity extends TileEntity implements ITickableTileEntity
+public class AbyssalLanternTileEntity extends BlockEntity implements ITickableTileEntity
 {
     private int cooldown = 0;
 

@@ -1,20 +1,13 @@
 package tk.dczippl.lightestlamp.tile;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.LightType;
-import net.minecraft.world.World;
-import tk.dczippl.lightestlamp.Main;
-import tk.dczippl.lightestlamp.Reference;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
 
-public class LightAirTileEntity extends TileEntity implements ITickableTileEntity
+public class LightAirTileEntity extends BlockEntity implements ITickableTileEntity
 {
     private int cooldown = 0;
 

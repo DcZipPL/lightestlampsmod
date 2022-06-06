@@ -1,6 +1,6 @@
 package tk.dczippl.lightestlamp.util;
 
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 
 import java.util.ArrayList;
 

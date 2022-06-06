@@ -1,31 +1,16 @@
 package tk.dczippl.lightestlamp.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.*;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
 import tk.dczippl.lightestlamp.init.ModBlocks;
-import tk.dczippl.lightestlamp.tile.AlfaLampTileEntity;
-import tk.dczippl.lightestlamp.tile.BetaLampTileEntity;
 
 import javax.annotation.Nullable;
-import java.util.List;
-
-import static net.minecraft.state.properties.BlockStateProperties.POWERED;
 
 public class BetaLampBlock extends Block
 {
@@ -35,16 +20,16 @@ public class BetaLampBlock extends Block
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state)
+    public boolean hasBlockEntity(BlockState state)
     {
         return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world)
     {
-        return new BetaLampTileEntity();
+        return new BetaLampBlockEntity();
     }
 
     @Override

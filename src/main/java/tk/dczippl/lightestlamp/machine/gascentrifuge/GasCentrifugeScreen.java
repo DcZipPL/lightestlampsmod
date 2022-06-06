@@ -1,16 +1,9 @@
 package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.button.ImageButton;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.util.network.Networking;
 import tk.dczippl.lightestlamp.util.network.PacketButtonModeControl;

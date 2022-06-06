@@ -7,7 +7,7 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.BlockEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.*;
@@ -15,8 +15,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import tk.dczippl.lightestlamp.init.ModBlocks;
-import tk.dczippl.lightestlamp.tile.AlfaLampTileEntity;
-import tk.dczippl.lightestlamp.tile.AntiLampTileEntity;
+import tk.dczippl.lightestlamp.tile.AlfaLampBlockEntity;
+import tk.dczippl.lightestlamp.tile.AntiLampBlockEntity;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -34,16 +34,16 @@ public class AntiLampBlock extends Block
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state)
+    public boolean hasBlockEntity(BlockState state)
     {
         return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world)
     {
-        return new AntiLampTileEntity();
+        return new AntiLampBlockEntity();
     }
 
     @Override

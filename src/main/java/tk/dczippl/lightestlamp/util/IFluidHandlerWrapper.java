@@ -1,5 +1,6 @@
 package tk.dczippl.lightestlamp.util;
 
+import net.minecraft.core.Direction;
 import net.minecraft.util.Direction;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;

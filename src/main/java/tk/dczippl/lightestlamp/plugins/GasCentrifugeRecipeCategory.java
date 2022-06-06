@@ -1,8 +1,5 @@
 package tk.dczippl.lightestlamp.plugins;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import mezz.jei.api.JeiPlugin;
-import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
 import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
@@ -10,17 +7,12 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import tk.dczippl.lightestlamp.Reference;
 import tk.dczippl.lightestlamp.init.ModBlocks;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
-
-import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
 
 public class GasCentrifugeRecipeCategory implements IRecipeCategory<GasCentrifugeRecipeJEI>
 {

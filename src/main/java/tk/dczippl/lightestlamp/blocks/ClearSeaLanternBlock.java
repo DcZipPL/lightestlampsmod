@@ -1,31 +1,8 @@
 package tk.dczippl.lightestlamp.blocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
+
 import tk.dczippl.lightestlamp.init.ModBlocks;
-import tk.dczippl.lightestlamp.tile.ClearSeaLanternTileEntity;
 
 import javax.annotation.Nullable;
-
-import static net.minecraft.state.properties.BlockStateProperties.WATERLOGGED;
 
 public class ClearSeaLanternBlock extends Block {
     public ClearSeaLanternBlock() {
@@ -39,16 +16,16 @@ public class ClearSeaLanternBlock extends Block {
     }
 
     @Override
-    public boolean hasTileEntity(BlockState state)
+    public boolean hasBlockEntity(BlockState state)
     {
         return true;
     }
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    public BlockEntity createBlockEntity(BlockState state, IBlockReader world)
     {
-        return new ClearSeaLanternTileEntity();
+        return new ClearSeaLanternBlockEntity();
     }
 
     @Override

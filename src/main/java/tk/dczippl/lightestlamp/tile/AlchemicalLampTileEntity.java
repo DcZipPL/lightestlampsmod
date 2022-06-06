@@ -4,13 +4,14 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import tk.dczippl.lightestlamp.init.ModTileEntities;
 
 import java.util.List;
 
 import static tk.dczippl.lightestlamp.Main.repelEntitiesInAABBFromPoint;
 
-public class AlchemicalLampTileEntity extends TileEntity implements ITickableTileEntity
+public class AlchemicalLampTileEntity extends BlockEntity implements ITickableTileEntity
 {
     public AlchemicalLampTileEntity()
     {

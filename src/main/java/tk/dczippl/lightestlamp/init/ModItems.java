@@ -1,7 +1,6 @@
 package tk.dczippl.lightestlamp.init;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.Reference;

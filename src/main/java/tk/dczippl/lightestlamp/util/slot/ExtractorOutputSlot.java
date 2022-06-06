@@ -1,9 +1,6 @@
 package tk.dczippl.lightestlamp.util.slot;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.item.ItemStack;
 
 public class ExtractorOutputSlot extends OutputSlot
 {

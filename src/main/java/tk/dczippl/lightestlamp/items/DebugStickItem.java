@@ -1,13 +1,7 @@
 package tk.dczippl.lightestlamp.items;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
-import net.minecraft.item.SimpleFoiledItem;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SimpleFoiledItem;
 
 public class DebugStickItem extends SimpleFoiledItem
 {

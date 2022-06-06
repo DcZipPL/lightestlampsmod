@@ -1,14 +1,5 @@
 package tk.dczippl.lightestlamp.util.handler;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
-import net.minecraftforge.fml.network.FMLPlayMessages;
-import tk.dczippl.lightestlamp.Main;
-
 public class GuiHandler
 {
     /*public static GuiScreen getClientGuiElement(FMLPlayMessages.OpenContainer message)
