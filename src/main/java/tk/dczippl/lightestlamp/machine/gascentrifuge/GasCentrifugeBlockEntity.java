@@ -2,59 +2,63 @@ package tk.dczippl.lightestlamp.machine.gascentrifuge;
 
 import com.google.common.collect.Maps;
 import io.netty.buffer.Unpooled;
-import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.core.*;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.Mth;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
-import net.minecraftforge.fluids.capability.templates.FluidTank;
-import net.minecraftforge.registries.tags.ITag;
+import net.minecraftforge.registries.ForgeRegistries;
 import tk.dczippl.lightestlamp.Config;
 import tk.dczippl.lightestlamp.init.ModContainers;
 import tk.dczippl.lightestlamp.init.ModBlockEntities;
 import tk.dczippl.lightestlamp.items.FilterItem;
 import tk.dczippl.lightestlamp.util.FluidHandlerWrapper;
-import tk.dczippl.lightestlamp.util.IFluidHandlerWrapper;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Random;
 
-public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISidedInventory, ITickableBlockEntity, IFluidHandlerWrapper
+public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, StackedContentsCompatible, BlockEntityTicker<GasCentrifugeBlockEntity>
 {
-    public GasCentrifugeBlockEntity(BlockEntityType type)
-    {
-        super(type);
-    }
-    public GasCentrifugeBlockEntity()
-    {
-        super(ModBlockEntities.CENTRIFUGE_TE);
+
+    public GasCentrifugeBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
-    protected ITextComponent getDefaultName()
-    {
-        return new TranslationTextComponent("container.gascentrifuge");
+    @Override
+    protected Component getDefaultName() {
+        return new TranslatableComponent("container.lightestlamp.gascentrifuge");
     }
 
-    protected Container createMenu(int id, PlayerInventory player)
-    {
-        PacketBuffer buffer = new PacketBuffer(Unpooled.buffer(8,8));
-        buffer.writeBlockPos(pos);
-        return new GasCentrifugeContainer(ModContainers.GAS_CENTRIFUGE,id, player, this, this.furnaceData, buffer);
-    }
+    public GasCentrifugeBlockEntity(BlockPos pos, BlockState state) {this(ModBlockEntities.CENTRIFUGE_BE, pos, state);}
 
-    public FluidTank tank = new FluidTank(4000);
+    @Override
+    protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
+        FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer(8,8));
+        buffer.writeBlockPos(worldPosition);
+        return new GasCentrifugeMenu(ModContainers.GAS_CENTRIFUGE,pContainerId, pInventory, this, this.furnaceData, buffer);
+    }
 
     private static final int[] SLOTS_UP = new int[]{0,1};
     private static final int[] SLOTS_DOWN = new int[]{2, 3, 4, 5};
@@ -62,12 +66,11 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
     protected NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
     private int ticksBeforeDumping;
     private int burnTime;
-    private int fluid;
     private int cookTime;
     private int cookTimeTotal;
     private int redstoneMode;
     private int liquidMode;
-    public final IIntArray furnaceData = new IIntArray() {
+    public final ContainerData furnaceData = new ContainerData() {
         @Override
         public int get(int index) {
             switch(index) {
@@ -117,7 +120,8 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
 
         }
 
-        public int size() {
+        @Override
+        public int getCount() {
             return 7;
         }
     };
@@ -152,34 +156,34 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
 
         int multiplier = Config.GLOWSTONE_FUEL_MULTIPLIER.get() >= 2 ? Config.GLOWSTONE_FUEL_MULTIPLIER.get() : 2;
         //Mekanism compatibility
-        ITag<Item> refined_glowstones = ItemTags.getCollection().get(new ResourceLocation("forge:ingots/refined_glowstone"));
+        /*ITag<Item> refined_glowstones = ItemTags.getCollection().get(new ResourceLocation("forge:ingots/refined_glowstone"));
         if (refined_glowstones!=null)
-            addItemTagBurnTime(map, refined_glowstones,60*multiplier);
+            add(map, refined_glowstones,60*multiplier);
         ITag<Item> refined_glowstones_block = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/refined_glowstone"));
         if (refined_glowstones_block!=null)
-            addItemTagBurnTime(map, refined_glowstones_block,520*multiplier);
+            add(map, refined_glowstones_block,520*multiplier);
         ITag<Item> refined_glowstones_nugget = ItemTags.getCollection().get(new ResourceLocation("forge:nuggets/refined_glowstone"));
         if (refined_glowstones_nugget!=null)
-            addItemTagBurnTime(map, refined_glowstones_nugget,5*multiplier);
+            add(map, refined_glowstones_nugget,5*multiplier);
         ITag<Item> glowstone_blocks = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/glowstone"));
         if (glowstone_blocks!=null)
-            addItemTagBurnTime(map, glowstone_blocks,360*multiplier);
+            add(map, glowstone_blocks,360*multiplier);*/ // TODO: Create tag for this stuff
 
-        addItemTagBurnTime(map, Tags.Items.DUSTS_GLOWSTONE,40*multiplier);
-        addItemBurnTime(map, Blocks.GLOWSTONE, 160*multiplier);
-        addItemBurnTime(map, Blocks.SHROOMLIGHT, 240*multiplier);
+        add(map, Tags.Items.DUSTS_GLOWSTONE,40*multiplier);
+        add(map, Blocks.GLOWSTONE, 160*multiplier);
+        add(map, Blocks.SHROOMLIGHT, 240*multiplier);
         return map;
     }
 
-    private static void addItemTagBurnTime(Map<Item, Integer> map, ITag<Item> itemTag, int p_213992_2_) {
-        for(Item item : itemTag.getAllElements()) {
-            map.put(item, p_213992_2_);
+    private static void add(Map<Item, Integer> pMap, TagKey<Item> pItemTag, int pBurnTime) {
+        for(Item item : ForgeRegistries.ITEMS.tags().getTag(pItemTag)) {
+                pMap.put(item, pBurnTime);
         }
 
     }
 
-    private static void addItemBurnTime(Map<Item, Integer> map, IItemProvider itemProvider, int burnTimeIn) {
-        map.put(itemProvider.asItem(), burnTimeIn);
+    private static void add(Map<Item, Integer> pMap, ItemLike pItem, int pBurnTime) {
+        pMap.put(pItem.asItem(), pBurnTime);
     }
 
     private boolean isBurning() {
@@ -187,107 +191,82 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT compound) {
-        super.read(state, compound);
+    public void deserializeNBT(CompoundTag nbt) {
+        super.deserializeNBT(nbt);
         this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
-        ItemStackHelper.loadAllItems(compound, this.items);
-        this.burnTime = compound.getInt("BurnTime");
-        this.cookTime = compound.getInt("CookTime");
-        this.cookTimeTotal = compound.getInt("CookTimeTotal");
+        ContainerHelper.loadAllItems(nbt, this.items);
+        this.burnTime = nbt.getInt("BurnTime");
+        this.cookTime = nbt.getInt("CookTime");
+        this.cookTimeTotal = nbt.getInt("CookTimeTotal");
         //this.recipesUsed = this.getBurnTime(this.items.get(1));
-        this.redstoneMode = compound.getInt("RedstoneMode");
-        this.liquidMode = compound.getInt("LiquidMode");
-        this.tank.setFluid(new FluidStack(ModFluids.BROMINE_FLUID.get(),compound.getInt("WasteAmount")));
+        this.redstoneMode = nbt.getInt("RedstoneMode");
+        this.liquidMode = nbt.getInt("LiquidMode");
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
-        super.write(compound);
-        compound.putInt("BurnTime", this.burnTime);
-        compound.putInt("CookTime", this.cookTime);
-        compound.putInt("CookTimeTotal", this.cookTimeTotal);
-        compound.putInt("RedstoneMode", this.redstoneMode);
-        compound.putInt("LiquidMode", this.liquidMode);
-        compound.putInt("WasteAmount", this.tank.getFluidAmount());
-        ItemStackHelper.saveAllItems(compound, this.items);
-
-        return compound;
+    public CompoundTag serializeNBT() {
+        CompoundTag nbt = super.serializeNBT();
+        nbt.putInt("BurnTime", this.burnTime);
+        nbt.putInt("CookTime", this.cookTime);
+        nbt.putInt("CookTimeTotal", this.cookTimeTotal);
+        nbt.putInt("RedstoneMode", this.redstoneMode);
+        nbt.putInt("LiquidMode", this.liquidMode);
+        ContainerHelper.saveAllItems(nbt, this.items);
+        return nbt;
     }
 
     @Override
-    public void tick()
-    {
-        boolean flag = this.isBurning();
+    public void tick(Level pLevel, BlockPos pPos, BlockState pState, GasCentrifugeBlockEntity pBlockEntity) {
+        boolean flag = pBlockEntity.isBurning();
         boolean flag1 = false;
-        if (this.isBurning()) {
-            --this.burnTime;
+        if (pBlockEntity.isBurning()) {
+            --pBlockEntity.burnTime;
         }
 
-        if (!this.world.isRemote) {
-            if (liquidMode == 2)
-            {
-                if (ticksBeforeDumping <= 0)
-                {
-                    if (tank.getFluidAmount() >= 10)
-                    {
-                        world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.offset(Direction.NORTH, 4).offset(Direction.WEST, 4).offset(Direction.UP, 4),
-                                pos.offset(Direction.SOUTH, 4).offset(Direction.EAST, 4).offset(Direction.DOWN, 4))).forEach(entity ->
-                        {
-                            if (entity instanceof LivingEntity)
-                                ((LivingEntity) entity).addPotionEffect(new EffectInstance(ModEffect.BROMINE_POISON, 80, 0));
-                        });
-                        tank.drain(10, IFluidHandler.FluidAction.EXECUTE);
-                    }
-                }
-                else
-                {
-                    ticksBeforeDumping--;
-                }
-            }
-
-            ItemStack itemstack = this.items.get(1);
-            if (this.isBurning() || !itemstack.isEmpty() && !this.items.get(0).isEmpty()) {
-                if (!this.isBurning() && this.canSmelt()) {
-                    this.burnTime = this.getBurnTime(itemstack);
-                    //this.recipesUsed = this.burnTime;
-                    if (this.isBurning()) {
+        if (!pLevel.isClientSide) {
+            ItemStack itemstack = pBlockEntity.items.get(1);
+            if (pBlockEntity.isBurning() || !itemstack.isEmpty() && !pBlockEntity.items.get(0).isEmpty()) {
+                if (!pBlockEntity.isBurning() && pBlockEntity.canSmelt()) {
+                    pBlockEntity.burnTime = pBlockEntity.getBurnTime(itemstack);
+                    //pBlockEntity.recipesUsed = pBlockEntity.burnTime;
+                    if (pBlockEntity.isBurning()) {
                         flag1 = true;
                         if (itemstack.hasContainerItem())
-                            this.items.set(1, itemstack.getContainerItem());
+                            pBlockEntity.items.set(1, itemstack.getContainerItem());
                         else
                         if (!itemstack.isEmpty()) {
                             Item item = itemstack.getItem();
                             itemstack.shrink(1);
                             if (itemstack.isEmpty()) {
-                                this.items.set(1, itemstack.getContainerItem());
+                                pBlockEntity.items.set(1, itemstack.getContainerItem());
                             }
                         }
                     }
                 }
 
-                if (this.isBurning() && this.canSmelt()) {
-                    ++this.cookTime;
-                    if (this.cookTime == this.cookTimeTotal) {
-                        this.cookTime = 0;
-                        this.cookTimeTotal = getCookTimeTotal();
-                        this.placeItemsInRightSlot();
+                if (pBlockEntity.isBurning() && pBlockEntity.canSmelt()) {
+                    ++pBlockEntity.cookTime;
+                    if (pBlockEntity.cookTime == pBlockEntity.cookTimeTotal) {
+                        pBlockEntity.cookTime = 0;
+                        pBlockEntity.cookTimeTotal = getCookTimeTotal();
+                        pBlockEntity.placeItemsInRightSlot();
                         flag1 = true;
                     }
                 } else {
-                    this.cookTime = 0;
+                    pBlockEntity.cookTime = 0;
                 }
-            } else if (!this.isBurning() && this.cookTime > 0) {
-                this.cookTime = MathHelper.clamp(this.cookTime - 2, 0, this.cookTimeTotal);
+            } else if (!pBlockEntity.isBurning() && pBlockEntity.cookTime > 0) {
+                pBlockEntity.cookTime = Mth.clamp(pBlockEntity.cookTime - 2, 0, pBlockEntity.cookTimeTotal);
             }
 
-            if (flag != this.isBurning()) {
+            if (flag != pBlockEntity.isBurning()) {
                 flag1 = true;
-                //this.world.setBlockState(this.pos, this.world.getBlockState(this.pos).with(AbstractFurnaceBlock.LIT, Boolean.valueOf(this.isBurning())), 3);
+                //pBlockEntity.world.setBlockState(pBlockEntity.pos, pBlockEntity.world.getBlockState(pBlockEntity.pos).with(AbstractFurnaceBlock.LIT, Boolean.valueOf(pBlockEntity.isBurning())), 3);
             }
         }
 
         if (flag1) {
-            this.markDirty();
+            setChanged(pLevel, pPos, pState);
         }
     }
 
@@ -302,7 +281,7 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
             if (itemstacks[0].isEmpty()&&itemstacks[1].isEmpty()&&itemstacks[2].isEmpty()&&itemstacks[3].isEmpty())
             {
                 return false;
-            } else if (redstoneMode==1&&world.getRedstonePowerFromNeighbors(pos)>0||redstoneMode==2&&world.getRedstonePowerFromNeighbors(pos)<1)
+            } else if (redstoneMode==1&&level.getDirectSignalTo(worldPosition)>0||redstoneMode==2&&level.getDirectSignalTo(worldPosition)<1) // Redstone
             {
                 return false;
             } else {
@@ -314,9 +293,9 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
                     ItemStack itemstack1 = itemstacks1[i];
                     if (itemstack1.isEmpty()) {
                         output0[i] =  true;
-                    } else if (!itemstack1.isItemEqual(itemstack)) {
+                    } else if (!itemstack1.sameItem(itemstack)) {
                         output0[i] =  false;
-                    } else if (itemstack1.getCount() + itemstack.getCount() <= this.getInventoryStackLimit() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) {
+                    } else if (itemstack1.getCount() + itemstack.getCount() <= getMaxStackSize() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) {
                         // Forge fix: make furnace respect stack sizes in furnace recipes
                         output0[i] =  true;
                     } else {
@@ -340,7 +319,6 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
             ItemStack itemstack3 = this.items.get(3);
             ItemStack itemstack4 = this.items.get(4);
             ItemStack itemstack5 = this.items.get(5);
-            TheoreticalFluid theoreticalFluid = GasCentrifugeRecipe.getFluid(items.get(0));
             if (itemstack2.isEmpty()) {
                 this.items.set(2, itemstacks[0].copy());
             } else if (itemstack2.getItem() == itemstacks[0].getItem()) {
@@ -381,13 +359,6 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
 
             if (itemstack.getDamage() >= itemstack.getMaxDamage())
                 this.items.set(0, ItemStack.EMPTY);
-
-            if (theoreticalFluid != null)
-            {
-                if (tank.getFluidAmount()<1000&&furnaceData.get(4)==0||tank.getFluidAmount()<4000&&furnaceData.get(4)==1)
-                    //furnaceData.set(5,furnaceData.get(5)+theoreticalFluid.amount);
-                    tank.fill(new FluidStack(ModFluids.BROMINE_FLUID.get(),theoreticalFluid.amount), IFluidHandler.FluidAction.EXECUTE);
-            }
         }
     }
 
@@ -434,7 +405,7 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
      * Returns the number of slots in the inventory.
      */
     @Override
-    public int getSizeInventory() {
+    public int getContainerSize() {
         return this.items.size();
     }
 
@@ -452,43 +423,39 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
     /**
      * Returns the stack in the given slot.
      */
-    @Override
-    public ItemStack getStackInSlot(int index) {
-        return this.items.get(index);
+    public ItemStack getItem(int pIndex) {
+        return this.items.get(pIndex);
     }
 
     /**
      * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
      */
-    @Override
-    public ItemStack decrStackSize(int index, int count) {
-        return ItemStackHelper.getAndSplit(this.items, index, count);
+    public ItemStack removeItem(int pIndex, int pCount) {
+        return ContainerHelper.removeItem(this.items, pIndex, pCount);
     }
 
     /**
      * Removes a stack from the given slot and returns it.
      */
-    @Override
-    public ItemStack removeStackFromSlot(int index) {
-        return ItemStackHelper.getAndRemove(this.items, index);
+    public ItemStack removeItemNoUpdate(int pIndex) {
+        return ContainerHelper.takeItem(this.items, pIndex);
     }
 
     /**
      * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
      */
-    @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
-        ItemStack itemstack = this.items.get(index);
-        boolean flag = !stack.isEmpty() && stack.isItemEqual(itemstack) && ItemStack.areItemStackTagsEqual(stack, itemstack);
-        this.items.set(index, stack);
-        if (stack.getCount() > this.getInventoryStackLimit()) {
-            stack.setCount(this.getInventoryStackLimit());
+    public void setItem(int pIndex, ItemStack pStack) {
+        ItemStack itemstack = this.items.get(pIndex);
+        boolean flag = !pStack.isEmpty() && pStack.sameItem(itemstack) && ItemStack.tagMatches(pStack, itemstack);
+        this.items.set(pIndex, pStack);
+        if (pStack.getCount() > this.getMaxStackSize()) {
+            pStack.setCount(this.getMaxStackSize());
         }
 
-        if (index == 0 && !flag) {
-            this.cookTimeTotal = getCookTimeTotal();
+        if (pIndex == 0 && !flag) {
+            this.cookTimeTotal = getCookTimeTotal();//this.level, this.recipeType, this
             this.cookTime = 0;
-            this.markDirty();
+            this.setChanged();
         }
 
     }
@@ -496,12 +463,11 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
     /**
      * Don't rename this method to canInteractWith due to conflicts with Container
      */
-    @Override
-    public boolean isUsableByPlayer(PlayerEntity player) {
-        if (this.world.getBlockEntity(this.pos) != this) {
+    public boolean stillValid(Player pPlayer) {
+        if (this.level.getBlockEntity(this.worldPosition) != this) {
             return false;
         } else {
-            return player.getDistanceSq((double)this.pos.getX() + 0.5D, (double)this.pos.getY() + 0.5D, (double)this.pos.getZ() + 0.5D) <= 64.0D;
+            return pPlayer.distanceToSqr((double)this.worldPosition.getX() + 0.5D, (double)this.worldPosition.getY() + 0.5D, (double)this.worldPosition.getZ() + 0.5D) <= 64.0D;
         }
     }
 
@@ -522,14 +488,6 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
         } else {
             return false;
         }
-    }
-
-    @Override
-    public void clear() {
-        this.items.clear();
-    }
-
-    public void onCrafting(PlayerEntity player) {
     }
 
     net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
@@ -560,50 +518,5 @@ public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISi
         super.remove();
         for (int x = 0; x < handlers.length; x++)
             handlers[x].invalidate();
-    }
-
-    public FluidTank getTank()
-    {
-        return tank;
-    }
-
-    @Override
-    public IFluidTank[] getTankInfo(Direction from)
-    {
-        return new IFluidTank[]{tank};
-    }
-
-    @Override
-    public IFluidTank[] getAllTanks()
-    {
-        return new IFluidTank[]{tank};
-    }
-
-
-    @Override
-    public int fill(Direction from, @Nonnull FluidStack resource, IFluidHandler.FluidAction fluidAction) {
-        if (canFill(from, resource)) {
-            return tank.fill(resource, fluidAction);
-        }
-        return 0;
-    }
-
-    @Nonnull
-    @Override
-    public FluidStack drain(Direction from, int maxDrain, IFluidHandler.FluidAction fluidAction) {
-        if (canDrain(from, FluidStack.EMPTY)) {
-            return tank.drain(maxDrain, fluidAction);
-        }
-        return FluidStack.EMPTY;
-    }
-
-    @Override
-    public boolean canFill(Direction from, @Nonnull FluidStack fluid) {
-        return true;
-    }
-
-    @Override
-    public boolean canDrain(Direction from, @Nonnull FluidStack fluid) {
-        return true;
     }
 }

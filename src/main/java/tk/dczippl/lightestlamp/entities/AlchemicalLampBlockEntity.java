@@ -16,7 +16,7 @@ public class AlchemicalLampBlockEntity extends BlockEntity implements BlockEntit
     public AlchemicalLampBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pType, pWorldPosition, pBlockState);
     }
-    public AlchemicalLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.ALCHEMICALLAMP_TE, pWorldPosition, pBlockState);}
+    public AlchemicalLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.ALCHEMICALLAMP_BE, pWorldPosition, pBlockState);}
 
     @Override
     public void tick(Level pLevel, BlockPos pPos, BlockState pState, AlchemicalLampBlockEntity pBlockEntity) {

@@ -123,7 +123,7 @@
 	"tooltip.lightestlamp.book.title3": "Centrifuge Recipes",
 	"tooltip.lightestlamp.book.title4": "More: https://github.com/DcZipPL/lightestlampsmod/wiki",
 
-	"container.gascentrifuge": "Gas Centrifuge",
+	"container.lightestlamp.gascentrifuge": "Gas Centrifuge",
 
 	"jei.lightestlamp.bromine2": "Created fluid: Boron 2 mb",
 	"jei.lightestlamp.bromine5": "Created fluid: Boron 5 mb",

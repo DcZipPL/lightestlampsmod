@@ -10,22 +10,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.antlr.runtime.misc.IntArray;
 import tk.dczippl.lightestlamp.Config;
 import tk.dczippl.lightestlamp.init.ModContainers;
 
-public class GasCentrifugeContainer extends AbstractContainerMenu
+public class GasCentrifugeMenu extends AbstractContainerMenu
 {
     private final Container furnaceInventory;
     private final BlockPos pos;
     public final ContainerData field_217064_e;
     protected final Level level;
 
-    protected GasCentrifugeContainer(MenuType<?> containerTypeIn, int id, Inventory playerInventoryIn, PacketBuffer buf) {
+    protected GasCentrifugeMenu(MenuType<?> containerTypeIn, int id, Inventory playerInventoryIn, PacketBuffer buf) {
         this(containerTypeIn, id, playerInventoryIn, new SimpleContainer(6), new SimpleContainerData(7),buf);
     }
 
-    protected GasCentrifugeContainer(MenuType<?> containerTypeIn, int id, Inventory playerInventoryIn, Container furnaceInventoryIn, ContainerData p_i50104_6_, PacketBuffer buf) {
+    protected GasCentrifugeMenu(MenuType<?> containerTypeIn, int id, Inventory playerInventoryIn, Container furnaceInventoryIn, ContainerData p_i50104_6_, PacketBuffer buf) {
         super(containerTypeIn, id);
         checkContainerSize(furnaceInventoryIn, 6);
         checkContainerDataCount(p_i50104_6_, 7);
@@ -53,7 +52,7 @@ public class GasCentrifugeContainer extends AbstractContainerMenu
         this.addDataSlots(p_i50104_6_);
     }
 
-    public GasCentrifugeContainer(int i, Inventory playerInventory, PacketBuffer packetBuffer)
+    public GasCentrifugeMenu(int i, Inventory playerInventory, PacketBuffer packetBuffer)
     {
         this(ModContainers.GAS_CENTRIFUGE, i, playerInventory, new SimpleContainer(6), new SimpleContainerData(7),packetBuffer);
     }

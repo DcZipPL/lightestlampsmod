@@ -5,24 +5,30 @@ import net.minecraft.core.Direction;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.network.NetworkHooks;
+import org.jetbrains.annotations.Nullable;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
-public class GasCentrifugeBlock extends ContainerBlock
+public class GasCentrifugeBlock extends BaseEntityBlock
 {
     public GasCentrifugeBlock(Block.Properties builder) {
         super(builder);
         this.setDefaultState(this.stateContainer.getBaseState().with(FACING, Direction.NORTH));
     }
 
+    @Nullable
     @Override
-    public BlockEntity createNewBlockEntity(IBlockReader worldIn) {
-        return new GasCentrifugeBlockEntity();
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new GasCentrifugeBlockEntity(pPos, pState);
     }
 
     @Override
@@ -41,22 +47,22 @@ public class GasCentrifugeBlock extends ContainerBlock
      * inside AbstractFurnaceBlock.
      */
     protected void interactWith(World worldIn, BlockPos pos, PlayerEntity player) {
-        BlockEntity tileentity = worldIn.getBlockEntity(pos);
-        if (tileentity instanceof GasCentrifugeBlockEntity) {
+        BlockEntity blockentity = worldIn.getBlockEntity(pos);
+        if (blockentity instanceof GasCentrifugeBlockEntity) {
             if (player.getHeldItemMainhand().getItem() == Items.BUCKET)
             {
                 ItemStack bucket = player.getHeldItemMainhand();
                 if (player.getHeldItemMainhand().getCount() == 1)
-                    if (((GasCentrifugeBlockEntity) tileentity).getTank().getFluidAmount() >= 1000)
+                    if (((GasCentrifugeBlockEntity) blockentity).getTank().getFluidAmount() >= 1000)
                     {
-                        ((GasCentrifugeBlockEntity) tileentity).getTank().drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                        ((GasCentrifugeBlockEntity) blockentity).getTank().drain(1000, IFluidHandler.FluidAction.EXECUTE);
                         player.inventory.deleteStack(bucket);
                         player.inventory.addItemStackToInventory(new ItemStack(ModFluids.BROMINE_FLUID_BUCKET.get()));
                     }
             }
             else
             {
-                NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileentity, buf -> buf.writeBlockPos(pos));
+                NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) blockentity, buf -> buf.writeBlockPos(pos));
                 player.addStat(Stats.INTERACT_WITH_FURNACE);
             }
         }
@@ -72,9 +78,9 @@ public class GasCentrifugeBlock extends ContainerBlock
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         if (stack.hasDisplayName()) {
-            BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof GasCentrifugeBlockEntity) {
-                ((GasCentrifugeBlockEntity)tileentity).setCustomName(stack.getDisplayName());
+            BlockEntity blockentity = worldIn.getBlockEntity(pos);
+            if (blockentity instanceof GasCentrifugeBlockEntity) {
+                ((GasCentrifugeBlockEntity)blockentity).setCustomName(stack.getDisplayName());
             }
         }
 
@@ -82,9 +88,9 @@ public class GasCentrifugeBlock extends ContainerBlock
     @Override
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
-            BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof GasCentrifugeBlockEntity) {
-                InventoryHelper.dropInventoryItems(worldIn, pos, (GasCentrifugeBlockEntity)tileentity);
+            BlockEntity blockentity = worldIn.getBlockEntity(pos);
+            if (blockentity instanceof GasCentrifugeBlockEntity) {
+                InventoryHelper.dropInventoryItems(worldIn, pos, (GasCentrifugeBlockEntity)blockentity);
             }
             super.onReplaced(state, worldIn, pos, newState, isMoving);
         }

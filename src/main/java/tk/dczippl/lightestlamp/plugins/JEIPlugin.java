@@ -20,34 +20,33 @@ public class JEIPlugin implements IModPlugin
 
     @Override
     public void registerRecipes(IRecipeRegistration reg)
-    {
+    {/*
         //Formatter::off
         reg.addRecipes(ImmutableSet.of(
-                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.BASIC_FILTER), "jei.lightestlamp.bromine5"),
-                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.NEON_FILTER), "jei.lightestlamp.bromine10"),
-                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.ARGON_FILTER), "jei.lightestlamp.bromine2"),
-                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.KRYPTON_FILTER), "jei.lightestlamp.bromine15"),
-                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.XENON_FILTER), "jei.lightestlamp.bromine2"),
-                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.RADON_FILTER), "jei.lightestlamp.bromine50"),
-                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.BROMINE_FILTER), "jei.lightestlamp.bromine75")
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.BASIC_FILTER.get()), "jei.lightestlamp.bromine5"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.NEON_FILTER.get()), "jei.lightestlamp.bromine10"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.ARGON_FILTER.get()), "jei.lightestlamp.bromine2"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.KRYPTON_FILTER.get()), "jei.lightestlamp.bromine15"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.XENON_FILTER.get()), "jei.lightestlamp.bromine2"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.RADON_FILTER.get()), "jei.lightestlamp.bromine50"),
+                new GasCentrifugeRecipeJEI(new ItemStack(ModItems.BROMINE_FILTER.get()), "jei.lightestlamp.bromine75")
         ), getPluginUid());
         //Formatter::on
-        reg.addIngredientInfo(new ItemStack(ModItems.MOON_SHARD), VanillaTypes.ITEM, "jei.lightestlamp.instructions.moonshard");
-        reg.addIngredientInfo(new ItemStack(ModItems.NETHERITE_MESH), VanillaTypes.ITEM, "jei.lightestlamp.instructions.mesh");
-    }
+        reg.addIngredientInfo(new ItemStack(ModItems.NETHERITE_MESH.get()), VanillaTypes.ITEM, "jei.lightestlamp.instructions.mesh");
+    */}
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration reg) {
-        reg.addRecipeCatalyst(new ItemStack(ModBlocks.GAS_EXTRACTOR.get()), getPluginUid());
+        //reg.addRecipeCatalyst(new ItemStack(ModBlocks.GAS_EXTRACTOR.get()), getPluginUid());
     }
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration reg) {
-        reg.addRecipeCategories(new GasCentrifugeRecipeCategory(reg.getJeiHelpers().getGuiHelper()));
+        //reg.addRecipeCategories(new GasCentrifugeRecipeCategory(reg.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Reference.MOD_ID, GAS_CENTRIFUGE);
+        //return new ResourceLocation(Reference.MOD_ID, GAS_CENTRIFUGE);
     }
 }
