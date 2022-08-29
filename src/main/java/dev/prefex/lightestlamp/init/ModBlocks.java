@@ -11,7 +11,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import dev.prefex.lightestlamp.Reference;
-import tk.dczippl.lightestlamp.blocks.*;
+import dev.prefex.lightestlamp.blocks.*;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeBlock;
 
 import static dev.prefex.lightestlamp.blocks.LightestLampBlock.Type.NORMAL;

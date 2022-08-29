@@ -20,7 +20,7 @@ public class OmegaLampBlockEntity extends BlockEntity
 		super(pType, pWorldPosition, pBlockState);
 	}
 
-	public OmegaLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.OMEGA_BE, pWorldPosition, pBlockState);}
+	public OmegaLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.OMEGA_BE.get(), pWorldPosition, pBlockState);}
 
 	private static boolean isAir(Level level, BlockPos pPos)
 	{

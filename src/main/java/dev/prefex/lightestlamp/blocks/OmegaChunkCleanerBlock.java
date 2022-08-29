@@ -26,6 +26,6 @@ public class OmegaChunkCleanerBlock extends ChunkCleanerBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pBlockEntityType == ModBlockEntities.OCC_BE ? OmegaChunkCleanerBlockEntity::tick : null;
+        return pBlockEntityType == ModBlockEntities.OCC_BE.get() ? OmegaChunkCleanerBlockEntity::tick : null;
     }
 }

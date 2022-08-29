@@ -1,5 +1,6 @@
 package dev.prefex.lightestlamp;
 
+import dev.prefex.lightestlamp.init.ModBlockEntities;
 import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModContainers;
 import dev.prefex.lightestlamp.init.ModItems;
@@ -32,7 +33,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import tk.dczippl.lightestlamp.init.*;
 import dev.prefex.lightestlamp.util.network.Networking;
 
 import java.util.List;
@@ -58,6 +58,7 @@ public class Main
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         ModBlocks.init(modEventBus);
+        ModBlockEntities.init(modEventBus);
         ModItems.init(modEventBus);
 
         // Register the setup method for modloading

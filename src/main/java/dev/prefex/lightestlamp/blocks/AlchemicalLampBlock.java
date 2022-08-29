@@ -60,6 +60,6 @@ public class AlchemicalLampBlock extends BaseEntityBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pBlockEntityType == ModBlockEntities.ALCHEMICALLAMP_BE ? AlchemicalLampBlockEntity::tick : null;
+        return pBlockEntityType == ModBlockEntities.ALCHEMICALLAMP_BE.get() ? AlchemicalLampBlockEntity::tick : null;
     }
 }

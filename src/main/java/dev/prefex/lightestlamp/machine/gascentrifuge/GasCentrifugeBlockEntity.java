@@ -50,7 +50,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		return new TranslatableComponent("container.lightestlamp.gascentrifuge");
 	}
 
-	public GasCentrifugeBlockEntity(BlockPos pos, BlockState state) {this(ModBlockEntities.CENTRIFUGE_BE, pos, state);}
+	public GasCentrifugeBlockEntity(BlockPos pos, BlockState state) {this(ModBlockEntities.CENTRIFUGE_BE.get(), pos, state);}
 
 	@Override
 	protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {

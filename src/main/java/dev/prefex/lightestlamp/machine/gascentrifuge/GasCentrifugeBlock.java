@@ -115,6 +115,6 @@ public class GasCentrifugeBlock extends BaseEntityBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pBlockEntityType == ModBlockEntities.CENTRIFUGE_BE ? GasCentrifugeBlockEntity::tick : null;
+        return pBlockEntityType == ModBlockEntities.CENTRIFUGE_BE.get() ? GasCentrifugeBlockEntity::tick : null;
     }
 }

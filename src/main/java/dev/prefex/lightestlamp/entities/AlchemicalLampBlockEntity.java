@@ -14,7 +14,7 @@ public class AlchemicalLampBlockEntity extends BlockEntity
     public AlchemicalLampBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pType, pWorldPosition, pBlockState);
     }
-    public AlchemicalLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.ALCHEMICALLAMP_BE, pWorldPosition, pBlockState);}
+    public AlchemicalLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.ALCHEMICALLAMP_BE.get(), pWorldPosition, pBlockState);}
 
     public static <T extends BlockEntity> void tick(Level pLevel, BlockPos pPos, BlockState pState, T pBlockEntity) {
         Main.repelEntitiesInAABBFromPoint(pLevel, new AABB(pPos.offset(-8, -8, -8), pPos.offset(8, 8, 8)), pPos.getX() + 0.5, pPos.getY() + 0.5, pPos.getZ() + 0.5, false);

@@ -15,7 +15,7 @@ public class ChunkCleanerBlockEntity extends BlockEntity
     public ChunkCleanerBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
         super(pType, pWorldPosition, pBlockState);
     }
-    public ChunkCleanerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.CLEANER_BE, pWorldPosition, pBlockState);}
+    public ChunkCleanerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.CLEANER_BE.get(), pWorldPosition, pBlockState);}
 
     private boolean isAir(BlockPos pos)
     {

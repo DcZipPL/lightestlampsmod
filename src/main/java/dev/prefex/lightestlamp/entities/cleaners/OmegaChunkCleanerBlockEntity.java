@@ -17,7 +17,7 @@ public class OmegaChunkCleanerBlockEntity extends BlockEntity
         super(pType, pWorldPosition, pBlockState);
     }
     public OmegaChunkCleanerBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {
-        this(ModBlockEntities.OCC_BE, pWorldPosition, pBlockState);
+        this(ModBlockEntities.OCC_BE.get(), pWorldPosition, pBlockState);
     }
 
     public static <T extends BlockEntity> void tick(Level pLevel, BlockPos pPos, BlockState pState, BlockEntity pBlockEntity) {

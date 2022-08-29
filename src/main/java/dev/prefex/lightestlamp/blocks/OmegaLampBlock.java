@@ -70,6 +70,6 @@ public class OmegaLampBlock extends BaseEntityBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pBlockEntityType == ModBlockEntities.OMEGA_BE ? OmegaLampBlockEntity::tick : null;
+        return pBlockEntityType == ModBlockEntities.OMEGA_BE.get() ? OmegaLampBlockEntity::tick : null;
     }
 }

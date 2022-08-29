@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import tk.dczippl.lightestlamp.items.*;
+import dev.prefex.lightestlamp.items.*;
 
 public class ModItems
 {

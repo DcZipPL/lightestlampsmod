@@ -42,7 +42,7 @@ public class LightestLampBlock extends BaseEntityBlock {
 
     public LightestLampBlock(Type type, Tier tier){
         super(Properties.copy(Blocks.GLOWSTONE));
-        this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.POWERED, Boolean.TRUE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.POWERED, Boolean.FALSE));
         _type = type;
         _tier = tier;
     }
@@ -62,6 +62,7 @@ public class LightestLampBlock extends BaseEntityBlock {
     @Override
     public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
         super.destroy(pLevel, pPos, pState);
+        NormalLampBlockEntity.cleanLight((Level) pLevel,pPos,pState, _tier.power, true);
     }
 
     @Override
@@ -94,7 +95,7 @@ public class LightestLampBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pBlockEntityType == ModBlockEntities.NORMAL_LAMP_BE ? NormalLampBlockEntity::tick : null;
+        return pBlockEntityType == ModBlockEntities.NORMAL_LAMP_BE.get() ? NormalLampBlockEntity::tick : null;
     }
 
     public enum Tier{
@@ -103,12 +104,17 @@ public class LightestLampBlock extends BaseEntityBlock {
         GAMMA(2),
         DELTA(4),
         EPSILON(5),
-        ZETA(0),
-        ETA(0);
+        ZETA(9, true),
+        ETA(11, true);
 
         public final int power;
+        public final boolean always_active;
         Tier(int power) {
+            this(power, false);
+        }
+        Tier(int power, boolean always_active) {
             this.power = power;
+            this.always_active = always_active;
         }
     }
 

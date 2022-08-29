@@ -46,6 +46,6 @@ public class ChunkCleanerBlock extends BaseEntityBlock
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pBlockEntityType == ModBlockEntities.CLEANER_BE ? ChunkCleanerBlockEntity::tick : null;
+        return pBlockEntityType == ModBlockEntities.CLEANER_BE.get() ? ChunkCleanerBlockEntity::tick : null;
     }
 }

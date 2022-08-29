@@ -24,7 +24,7 @@ public class NormalLampBlockEntity extends BlockEntity {
         _tier = ((LightestLampBlock) pBlockState.getBlock()).getTier();
         lightBlockType = ((LightestLampBlock) pBlockState.getBlock()).getType() == LightestLampBlock.Type.NORMAL ? ModBlocks.LIGHT_AIR.get() : ModBlocks.WATERLOGGABLE_LIGHT_AIR.get();
     }
-    public NormalLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.NORMAL_LAMP_BE,pWorldPosition,pBlockState);}
+    public NormalLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.NORMAL_LAMP_BE.get(),pWorldPosition,pBlockState);}
 
     private static boolean isAir(Level level, BlockPos pos)
     {
@@ -38,29 +38,30 @@ public class NormalLampBlockEntity extends BlockEntity {
 
         if (blockEntity.cooldown == 15) {
 
-            if (blockEntity._tier.power != 0) {
+            if (!blockEntity._tier.always_active) {
                 if (pLevel.getDirectSignalTo(pPos) > 0) // Redstone
-                    cleanLight(pLevel, pPos, pState, blockEntity._tier.power);
+                    cleanLight(pLevel, pPos, pState, blockEntity._tier.power, false);
                 else {if (pState.getValue(POWERED)) // Set block state to off if no redstone
                     pLevel.setBlockAndUpdate(pPos, pState.setValue(POWERED,false));
                 }
             }
 
             if (blockEntity._tier == LightestLampBlock.Tier.ALPHA) tickAlphaLamp(pLevel, pPos, pState, blockEntity.lightBlockType);
-            else if (blockEntity._tier == LightestLampBlock.Tier.BETA) {tickBetaLamp(pLevel, pPos, pState, blockEntity.lightBlockType); tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, 1);}
-            else if (blockEntity._tier == LightestLampBlock.Tier.GAMMA) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, 2);
-            else if (blockEntity._tier == LightestLampBlock.Tier.DELTA) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, 4);
-            else if (blockEntity._tier == LightestLampBlock.Tier.EPSILON) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, 5);
-            else if (blockEntity._tier == LightestLampBlock.Tier.ZETA) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, 9);
-            else if (blockEntity._tier == LightestLampBlock.Tier.ETA) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, 11);
+            else if (blockEntity._tier == LightestLampBlock.Tier.BETA) {tickBetaLamp(pLevel, pPos, pState, blockEntity.lightBlockType); tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._tier.power);}
+            else if (blockEntity._tier == LightestLampBlock.Tier.GAMMA) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._tier.power);
+            else if (blockEntity._tier == LightestLampBlock.Tier.DELTA) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._tier.power);
+            else if (blockEntity._tier == LightestLampBlock.Tier.EPSILON) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._tier.power);
+            else if (blockEntity._tier == LightestLampBlock.Tier.ZETA) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._tier.power);
+            else if (blockEntity._tier == LightestLampBlock.Tier.ETA) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._tier.power); // TODO: refactor
             blockEntity.cooldown = 0;
         }
     }
 
-    private static void cleanLight(Level level, BlockPos pos, BlockState state, int power) {
+    public static void cleanLight(Level level, BlockPos pos, BlockState state, int power, boolean remove) {
             if (!state.getValue(POWERED))
             {
-                level.setBlockAndUpdate(pos, state.setValue(POWERED, true));
+                if (!remove)
+                    level.setBlockAndUpdate(pos, state.setValue(POWERED, true));
 
                 BlockPos.betweenClosed(
                                 pos.above(power).north(power).west(power),
