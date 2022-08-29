@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
@@ -41,6 +42,8 @@ import tk.dczippl.lightestlamp.init.*;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
 import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
 import tk.dczippl.lightestlamp.tile.*;
+import tk.dczippl.lightestlamp.tile.cleaners.ChunkCleanerBlockEntity;
+import tk.dczippl.lightestlamp.tile.cleaners.OmegaChunkCleanerTileEntity;
 import tk.dczippl.lightestlamp.util.WorldGenerator;
 import tk.dczippl.lightestlamp.util.network.Networking;
 
@@ -56,13 +59,10 @@ public class Main
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
 
-    public static final ItemGroup main_group = new ItemGroup("lamps") {
-
+    public static final CreativeModeTab main_tab = new CreativeModeTab("lamps") {
         @Override
-        public ItemStack createIcon()
-        {
-            ItemStack stack = new ItemStack(ModBlocks.OMEGA_LAMP.get());
-            return stack;
+        public ItemStack makeIcon() {
+            return new ItemStack(ModBlocks.OMEGA_LAMP.get());
         }
     };
     
@@ -99,7 +99,6 @@ public class Main
         netherOres.add(register("mozaite_ore", Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.NETHERRACK, ModBlocks.MONAZITE_ORE.get().getDefaultState(),WorldGenerator.MONAZITE_BLOCK_VEINSIZE))
                 .range(84).square().func_242731_b(20)));
 
-        LOGGER.debug(ModBlocks.ANTI_LAMP.get().toString());
         // some preinit code
         Networking.registerMessages();
     }
@@ -253,15 +252,15 @@ public class Main
         @SubscribeEvent
         public static void registerTE(RegistryEvent.Register<TileEntityType<?>> evt)
         {
-            evt.getRegistry().register(TileEntityType.Builder.create(LightAirTileEntity::new,ModBlocks.LIGHT_AIR.get(),ModBlocks.CHUNK_CLEANER.get()).build(null).setRegistryName("light_air_te"));
+            evt.getRegistry().register(TileEntityType.Builder.create(ChunkCleanerBlockEntity::new,ModBlocks.LIGHT_AIR.get(),ModBlocks.CHUNK_CLEANER.get()).build(null).setRegistryName("light_air_te"));
             evt.getRegistry().register(TileEntityType.Builder.create(AntiLampTileEntity::new,ModBlocks.ANTI_LAMP.get()).build(null).setRegistryName("antilamp_te"));
 
             TileEntityType<ClearLampTileEntity> clear_te = TileEntityType.Builder.create(ClearLampTileEntity::new,ModBlocks.CLEAR_LAMP.get()).build(null);
             clear_te.setRegistryName(MOD_ID, "clear_te");
-            ModTileEntities.CLEAR_TE = clear_te;
-            evt.getRegistry().register(ModTileEntities.CLEAR_TE);
+            ModBlockEntities.CLEAR_TE = clear_te;
+            evt.getRegistry().register(ModBlockEntities.CLEAR_TE);
 
-            TileEntityType<AlfaLampTileEntity> type0 = TileEntityType.Builder.create(AlfaLampTileEntity::new,ModBlocks.ALPHA_LAMP.get()).build(null);
+            TileEntityType<AlfaLampBlockEntity> type0 = TileEntityType.Builder.create(AlfaLampBlockEntity::new,ModBlocks.ALPHA_LAMP.get()).build(null);
             type0.setRegistryName(MOD_ID, "alfa_te");
 
             TileEntityType<BetaLampTileEntity> type1 = TileEntityType.Builder.create(BetaLampTileEntity::new,ModBlocks.BETA_LAMP.get()).build(null);
@@ -291,7 +290,7 @@ public class Main
             TileEntityType<ClearSeaLanternTileEntity> type9 = TileEntityType.Builder.create(ClearSeaLanternTileEntity::new,ModBlocks.CLEAR_SEA_LANTERN.get()).build(null);
             type9.setRegistryName(MOD_ID, "clear_sea_lantern_te");
 
-            TileEntityType<AlchemicalLampTileEntity> type10 = TileEntityType.Builder.create(AlchemicalLampTileEntity::new,ModBlocks.ALCHEMICAL_LAMP.get()).build(null);
+            TileEntityType<AlchemicalLampBlockEntity> type10 = TileEntityType.Builder.create(AlchemicalLampBlockEntity::new,ModBlocks.ALCHEMICAL_LAMP.get()).build(null);
             type10.setRegistryName(MOD_ID, "alchemical_lamp_te");
 
             TileEntityType<GasCentrifugeTile> centrifuge_te = TileEntityType.Builder.create(GasCentrifugeTile::new,ModBlocks.GAS_EXTRACTOR.get()).build(null);
@@ -299,48 +298,48 @@ public class Main
 
             TileEntityType<EtaLampTileEntity> eta_te = TileEntityType.Builder.create(EtaLampTileEntity::new,ModBlocks.ETA_LAMP.get()).build(null);
             eta_te.setRegistryName(MOD_ID, "eta_te");
-            ModTileEntities.ETA_TE = eta_te;
-            evt.getRegistry().register(ModTileEntities.ETA_TE);
+            ModBlockEntities.ETA_TE = eta_te;
+            evt.getRegistry().register(ModBlockEntities.ETA_TE);
 
             TileEntityType<DeepOceanLanternTileEntity> deep_ocean_lantern_te = TileEntityType.Builder.create(DeepOceanLanternTileEntity::new,ModBlocks.DEEP_OCEAN_LANTERN.get()).build(null);
             deep_ocean_lantern_te.setRegistryName(MOD_ID, "deep_ocean_lantern_te");
-            ModTileEntities.DEEPOCEANLANTERN_TE = deep_ocean_lantern_te;
-            evt.getRegistry().register(ModTileEntities.DEEPOCEANLANTERN_TE);
+            ModBlockEntities.DEEPOCEANLANTERN_TE = deep_ocean_lantern_te;
+            evt.getRegistry().register(ModBlockEntities.DEEPOCEANLANTERN_TE);
 
-            TileEntityType<AbyssalLanternTileEntity> abyssal_lantern_te = TileEntityType.Builder.create(AbyssalLanternTileEntity::new,ModBlocks.ABYSSAL_LANTERN.get()).build(null);
+            TileEntityType<AbyssalLanternBlockEntity> abyssal_lantern_te = TileEntityType.Builder.create(AbyssalLanternBlockEntity::new,ModBlocks.ABYSSAL_LANTERN.get()).build(null);
             abyssal_lantern_te.setRegistryName(MOD_ID, "abyssal_lantern_te");
-            ModTileEntities.ABYSSALLANTERN_TE = abyssal_lantern_te;
-            evt.getRegistry().register(ModTileEntities.ABYSSALLANTERN_TE);
+            ModBlockEntities.ABYSSALLANTERN_TE = abyssal_lantern_te;
+            evt.getRegistry().register(ModBlockEntities.ABYSSALLANTERN_TE);
 
             TileEntityType<OmegaChunkCleanerTileEntity> occ_te = TileEntityType.Builder.create(OmegaChunkCleanerTileEntity::new,ModBlocks.OCC.get()).build(null);
             occ_te.setRegistryName(MOD_ID, "occ_te");
-            ModTileEntities.OCC_TE = occ_te;
-            evt.getRegistry().register(ModTileEntities.OCC_TE);
+            ModBlockEntities.OCC_TE = occ_te;
+            evt.getRegistry().register(ModBlockEntities.OCC_TE);
 
-            ModTileEntities.ALFA_TE = type0;
-            ModTileEntities.BETA_TE = type1;
-            ModTileEntities.GAMMA_TE = type2;
-            ModTileEntities.DELTA_TE = type3;
-            ModTileEntities.EPSILON_TE = type4;
-            ModTileEntities.ZETA_TE = type5;
-            ModTileEntities.OMEGA_TE = type6;
-            ModTileEntities.DEEPSEALANTERN_TE = type7;
-            ModTileEntities.OCEANLANTERN_TE = type8;
-            ModTileEntities.CLEARSEALANTERN_TE = type9;
-            ModTileEntities.ALCHEMICALLAMP_TE = type10;
-            ModTileEntities.CENTRIFUGE_TE = centrifuge_te;
-            evt.getRegistry().register(ModTileEntities.ALFA_TE);
-            evt.getRegistry().register(ModTileEntities.BETA_TE);
-            evt.getRegistry().register(ModTileEntities.GAMMA_TE);
-            evt.getRegistry().register(ModTileEntities.DELTA_TE);
-            evt.getRegistry().register(ModTileEntities.EPSILON_TE);
-            evt.getRegistry().register(ModTileEntities.ZETA_TE);
-            evt.getRegistry().register(ModTileEntities.OMEGA_TE);
-            evt.getRegistry().register(ModTileEntities.DEEPSEALANTERN_TE);
-            evt.getRegistry().register(ModTileEntities.OCEANLANTERN_TE);
-            evt.getRegistry().register(ModTileEntities.CLEARSEALANTERN_TE);
-            evt.getRegistry().register(ModTileEntities.ALCHEMICALLAMP_TE);
-            evt.getRegistry().register(ModTileEntities.CENTRIFUGE_TE);
+            ModBlockEntities.ALFA_TE = type0;
+            ModBlockEntities.BETA_TE = type1;
+            ModBlockEntities.GAMMA_TE = type2;
+            ModBlockEntities.DELTA_TE = type3;
+            ModBlockEntities.EPSILON_TE = type4;
+            ModBlockEntities.ZETA_TE = type5;
+            ModBlockEntities.OMEGA_TE = type6;
+            ModBlockEntities.DEEPSEALANTERN_TE = type7;
+            ModBlockEntities.OCEANLANTERN_TE = type8;
+            ModBlockEntities.CLEARSEALANTERN_TE = type9;
+            ModBlockEntities.ALCHEMICALLAMP_TE = type10;
+            ModBlockEntities.CENTRIFUGE_TE = centrifuge_te;
+            evt.getRegistry().register(ModBlockEntities.ALFA_TE);
+            evt.getRegistry().register(ModBlockEntities.BETA_TE);
+            evt.getRegistry().register(ModBlockEntities.GAMMA_TE);
+            evt.getRegistry().register(ModBlockEntities.DELTA_TE);
+            evt.getRegistry().register(ModBlockEntities.EPSILON_TE);
+            evt.getRegistry().register(ModBlockEntities.ZETA_TE);
+            evt.getRegistry().register(ModBlockEntities.OMEGA_TE);
+            evt.getRegistry().register(ModBlockEntities.DEEPSEALANTERN_TE);
+            evt.getRegistry().register(ModBlockEntities.OCEANLANTERN_TE);
+            evt.getRegistry().register(ModBlockEntities.CLEARSEALANTERN_TE);
+            evt.getRegistry().register(ModBlockEntities.ALCHEMICALLAMP_TE);
+            evt.getRegistry().register(ModBlockEntities.CENTRIFUGE_TE);
         }
 
         @SuppressWarnings("ConstantConditions")

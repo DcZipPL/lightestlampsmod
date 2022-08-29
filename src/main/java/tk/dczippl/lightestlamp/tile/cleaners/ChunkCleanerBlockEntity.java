@@ -1,24 +1,24 @@
-package tk.dczippl.lightestlamp.tile;
+package tk.dczippl.lightestlamp.tile.cleaners;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import tk.dczippl.lightestlamp.init.ModBlocks;
-import tk.dczippl.lightestlamp.init.ModTileEntities;
+import tk.dczippl.lightestlamp.init.ModBlockEntities;
 
-public class LightAirTileEntity extends BlockEntity implements ITickableTileEntity
+public class ChunkCleanerBlockEntity extends BlockEntity implements ITickableTileEntity
 {
     private int cooldown = 0;
 
-    public LightAirTileEntity(TileEntityType<?> tileEntityTypeIn)
+    public ChunkCleanerBlockEntity(TileEntityType<?> tileEntityTypeIn)
     {
         super(tileEntityTypeIn);
     }
 
-    public LightAirTileEntity()
+    public ChunkCleanerBlockEntity()
     {
-        super(ModTileEntities.AIR_TE);
+        super(ModBlockEntities.AIR_TE);
     }
 
     @Override

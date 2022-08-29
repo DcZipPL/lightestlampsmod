@@ -1,56 +1,59 @@
 package tk.dczippl.lightestlamp.blocks;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
-public class ClearLampBlock extends Block
+import static net.minecraft.world.level.block.state.properties.BlockStateProperties.POWERED;
+
+public class ClearLampBlock extends BaseEntityBlock
 {
     public ClearLampBlock(Properties properties)
     {
         super(properties);
     }
 
+    @org.jetbrains.annotations.Nullable
     @Override
-    public boolean hasBlockEntity(BlockState state)
-    {
-        return true;
-    }
-
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader world)
-    {
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new ClearLampBlockEntity();
     }
 
     @Override
-    public void addInformation(ItemStack p_190948_1_, @Nullable IBlockReader p_190948_2_, List<ITextComponent> text, ITooltipFlag p_190948_4_)
-    {
-        text.add(new TranslationTextComponent("tooltip.lightestlamp.inverted").setStyle(Style.EMPTY.setColor(Color.fromTextFormatting(TextFormatting.GRAY))));
+    public void appendHoverText(ItemStack pStack, @org.jetbrains.annotations.Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+        pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.inverted").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
-    {
-        super.fillStateContainer(builder);
-        builder.add(POWERED);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
+        super.createBlockStateDefinition(pBuilder);
+        pBuilder.add(POWERED);
+    }
+
+    @org.jetbrains.annotations.Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockPlaceContext pContext) {
+        return this.defaultBlockState().setValue(POWERED,false);
     }
 
     @Override
-    @Nullable
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(POWERED,false);
-    }
-
-    @Override
-    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos)
-    {
-        return state.get(POWERED) ? 0 : 15;
+    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
+        return state.getValue(POWERED) ? 0 : 15;
     }
 }

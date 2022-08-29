@@ -20,11 +20,10 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.registries.tags.ITag;
 import tk.dczippl.lightestlamp.Config;
-import tk.dczippl.lightestlamp.Main;
 import tk.dczippl.lightestlamp.init.ModContainers;
 import tk.dczippl.lightestlamp.init.ModEffect;
 import tk.dczippl.lightestlamp.init.ModFluids;
-import tk.dczippl.lightestlamp.init.ModTileEntities;
+import tk.dczippl.lightestlamp.init.ModBlockEntities;
 import tk.dczippl.lightestlamp.items.FilterItem;
 import tk.dczippl.lightestlamp.util.FluidHandlerWrapper;
 import tk.dczippl.lightestlamp.util.IFluidHandlerWrapper;
@@ -43,7 +42,7 @@ public class GasCentrifugeTile extends LockableBlockEntity implements ISidedInve
     }
     public GasCentrifugeTile()
     {
-        super(ModTileEntities.CENTRIFUGE_TE);
+        super(ModBlockEntities.CENTRIFUGE_TE);
     }
 
     protected ITextComponent getDefaultName()

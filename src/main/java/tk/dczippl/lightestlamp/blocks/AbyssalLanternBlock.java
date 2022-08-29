@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import tk.dczippl.lightestlamp.init.ModBlocks;
-import tk.dczippl.lightestlamp.tile.AbyssalLanternBlockEntity;
 
 import javax.annotation.Nullable;
 

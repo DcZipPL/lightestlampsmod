@@ -1,11 +1,11 @@
-package tk.dczippl.lightestlamp.tile;
+package tk.dczippl.lightestlamp.tile.cleaners;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import tk.dczippl.lightestlamp.init.ModBlocks;
-import tk.dczippl.lightestlamp.init.ModTileEntities;
+import tk.dczippl.lightestlamp.init.ModBlockEntities;
 
 public class OmegaChunkCleanerTileEntity extends BlockEntity implements ITickableTileEntity
 {
@@ -18,7 +18,7 @@ public class OmegaChunkCleanerTileEntity extends BlockEntity implements ITickabl
 
     public OmegaChunkCleanerTileEntity()
     {
-        super(ModTileEntities.OCC_TE);
+        super(ModBlockEntities.OCC_TE);
     }
 
     @Override
