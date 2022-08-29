@@ -6,18 +6,18 @@
 # The name of the mod loader type to load - for regular FML @Mod mods it should be javafml
 modLoader="javafml" #mandatory
 # A version range to match for said mod loader - for regular FML @Mod it will be the forge version
-loaderVersion="[34,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
+loaderVersion="[36,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 # The license for you mod. This is mandatory metadata and allows for easier comprehension of your redistributive properties.
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
-license="MIT license"
+license="MIT"
 # A URL to refer people to when problems occur with this mod
-issueTrackerURL="https://bitbucket.org/dczip/lightestlampsmod/issues" #optional
+issueTrackerURL="https://github.com/DcZipPL/lightestlampsmod/issues" #optional
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 # The modid of the mod
 modId="lightestlamp" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="4.0.7" #mandatory
+version="4.5.0" #mandatory
  # A display name for the mod
 displayName="Lightest Lamps" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
@@ -39,7 +39,7 @@ description='''Mod adds new types of lamps from 16 to 30 blocks light range and 
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[34,)" #mandatory
+    versionRange="[36,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -47,6 +47,6 @@ description='''Mod adds new types of lamps from 16 to 30 blocks light range and 
 [[dependencies.lightestlamp]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.4,)"
+    versionRange="[1.18.2,)"
     ordering="NONE"
     side="BOTH"

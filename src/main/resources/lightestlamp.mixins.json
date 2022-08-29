@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "tk.dczippl.lightestlamp.mixin",
+    "package": "dev.prefex.lightestlamp.mixin",
     "compatibilityLevel": "JAVA_8",
     "refmap": "lightestlamp.refmap.json",
     "mixins": [
