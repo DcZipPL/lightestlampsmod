@@ -1,9 +1,10 @@
 package tk.dczippl.lightestlamp.util.network;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
-import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
+import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -12,7 +13,7 @@ public class PacketButtonModeControl
     private final BlockPos pos;
     private final int type;
 
-    public PacketButtonModeControl(PacketBuffer buf)
+    public PacketButtonModeControl(FriendlyByteBuf buf)
     {
         pos = buf.readBlockPos();
         type = buf.readInt();
@@ -24,7 +25,7 @@ public class PacketButtonModeControl
         this.type = type;
     }
 
-    public void toBytes(PacketBuffer buf)
+    public void toBytes(FriendlyByteBuf buf)
     {
         buf.writeBlockPos(pos);
         buf.writeInt(type);
@@ -34,15 +35,15 @@ public class PacketButtonModeControl
     {
         ctx.get().enqueueWork(() ->
         {
-            BlockEntity te = ctx.get().getSender().getLevel().getBlockEntity(pos);
-            if (te instanceof GasCentrifugeTile)
+            BlockEntity be = ctx.get().getSender().getLevel().getBlockEntity(pos);
+            if (be instanceof GasCentrifugeBlockEntity)
             {
-                GasCentrifugeTile gte = ((GasCentrifugeTile) te);
-                gte.startTicksBeforeDumping();
-                if (gte.getLiquidMode()>=2)
-                    gte.setLiquidMode(0);
+                GasCentrifugeBlockEntity gbe = ((GasCentrifugeBlockEntity) be);
+                gbe.startTicksBeforeDumping();
+                if (gbe.getLiquidMode()>=2)
+                    gbe.setLiquidMode(0);
                 else
-                    gte.setLiquidMode(gte.getLiquidMode()+1);
+                    gbe.setLiquidMode(gbe.getLiquidMode()+1);
             }
         });
         ctx.get().setPacketHandled(true);

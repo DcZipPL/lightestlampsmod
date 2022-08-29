@@ -2,6 +2,7 @@ package tk.dczippl.lightestlamp.init;
 
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RedstoneLampBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -22,11 +23,9 @@ public class ModBlocks
     }
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MOD_ID);
-
-    //public static final RegistryObject<Block> DARK_AIR = BLOCKS.register("dark_air", () -> new DarkAirBlock());
     public static final RegistryObject<Block> LIGHT_AIR = BLOCKS.register("light_air", () -> new LightAirBlock());
     public static final RegistryObject<Block> WATERLOGGABLE_LIGHT_AIR = BLOCKS.register("waterloggable_light_air", () -> new WaterLoggableLightAirBlock());
-    public static final RegistryObject<Block> CLEAR_LAMP = BLOCKS.register("clear_lamp", () -> new ClearLampBlock(Block.Properties.copy(Blocks.REDSTONE_LAMP).sound(SoundType.GLASS)
+    public static final RegistryObject<Block> CLEAR_LAMP = BLOCKS.register("clear_lamp", () -> new RedstoneLampBlock(Block.Properties.copy(Blocks.REDSTONE_LAMP).sound(SoundType.GLASS)
             .strength(0.3f,1)));
     public static final RegistryObject<Block> ALPHA_LAMP = BLOCKS.register("alpha_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.ALPHA));
     public static final RegistryObject<Block> BETA_LAMP = BLOCKS.register("beta_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.BETA));
@@ -63,7 +62,7 @@ public class ModBlocks
             .strength(0.85f,1),15));
     public static final RegistryObject<Block> VANTA_BLACK = BLOCKS.register("vanta_black", () -> new Block(Block.Properties.of(Material.WOOL).sound(SoundType.WOOL)
             .strength(0.1f,1)));
-    public static final RegistryObject<Block> MONAZITE_ORE = BLOCKS.register("monazite_ore", () -> new SolidOreBlock(Block.Properties.of(Material.STONE).sound(SoundType.STONE)
+    public static final RegistryObject<Block> MONAZITE_ORE = BLOCKS.register("monazite_ore", () -> new Block(Block.Properties.of(Material.STONE).sound(SoundType.STONE)
             .strength(6.4f,1),2));
 
     //Glowstones
@@ -79,7 +78,7 @@ public class ModBlocks
             .strength(0.4f,1),15));
     public static final RegistryObject<Block> GLOWING_GLASS_BLOCK = BLOCKS.register("glowing_glass_block", () -> new GlowingGlassBlock());
     public static final RegistryObject<Block> GAS_EXTRACTOR = BLOCKS.register("gas_centrifuge", () -> new GasCentrifugeBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL)
-    .hardnessAndResistance(3,1)));
+    .strength(3,1)));
 
     public static final RegistryObject<Block> OCC = BLOCKS.register("occ", () -> new OmegaChunkCleanerBlock(Block.Properties.copy(Blocks.STRUCTURE_BLOCK)));
 }

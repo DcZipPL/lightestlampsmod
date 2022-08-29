@@ -1,9 +1,10 @@
 package tk.dczippl.lightestlamp.util.network;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.network.NetworkEvent;
-import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeTile;
+import tk.dczippl.lightestlamp.machine.gascentrifuge.GasCentrifugeBlockEntity;
 
 import java.util.function.Supplier;
 
@@ -12,7 +13,7 @@ public class PacketButtonRedstone
     private final BlockPos pos;
     private final int type;
 
-    public PacketButtonRedstone(PacketBuffer buf)
+    public PacketButtonRedstone(FriendlyByteBuf buf)
     {
         pos = buf.readBlockPos();
         type = buf.readInt();
@@ -24,7 +25,7 @@ public class PacketButtonRedstone
         this.type = type;
     }
 
-    public void toBytes(PacketBuffer buf)
+    public void toBytes(FriendlyByteBuf buf)
     {
         buf.writeBlockPos(pos);
         buf.writeInt(type);
@@ -34,14 +35,14 @@ public class PacketButtonRedstone
     {
         ctx.get().enqueueWork(() ->
         {
-            BlockEntity te = ctx.get().getSender().getLevel().getBlockEntity(pos);
-            if (te instanceof GasCentrifugeTile)
+            BlockEntity be = ctx.get().getSender().getLevel().getBlockEntity(pos);
+            if (be instanceof GasCentrifugeBlockEntity)
             {
-                GasCentrifugeTile gte = ((GasCentrifugeTile) te);
-                if (gte.getRedstoneMode()>=2)
-                    gte.setRedstoneMode(0);
+                GasCentrifugeBlockEntity gbe = ((GasCentrifugeBlockEntity) be);
+                if (gbe.getRedstoneMode()>=2)
+                    gbe.setRedstoneMode(0);
                 else
-                    gte.setRedstoneMode(gte.getRedstoneMode()+1);
+                    gbe.setRedstoneMode(gbe.getRedstoneMode()+1);
             }
         });
         ctx.get().setPacketHandled(true);

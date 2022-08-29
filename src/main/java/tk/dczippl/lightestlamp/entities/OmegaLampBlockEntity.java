@@ -1,4 +1,4 @@
-package tk.dczippl.lightestlamp.tile;
+package tk.dczippl.lightestlamp.entities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,15 +13,15 @@ import tk.dczippl.lightestlamp.init.ModBlockEntities;
 
 import java.util.Random;
 
-public class OmegaLampTileEntity extends BlockEntity implements BlockEntityTicker<OmegaLampTileEntity>
+public class OmegaLampBlockEntity extends BlockEntity implements BlockEntityTicker<OmegaLampBlockEntity>
 {
 	private int cooldown = 0;
 
-	public OmegaLampTileEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
+	public OmegaLampBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
 		super(pType, pWorldPosition, pBlockState);
 	}
 
-	public OmegaLampTileEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.OMEGA_BE, pWorldPosition, pBlockState);}
+	public OmegaLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.OMEGA_BE, pWorldPosition, pBlockState);}
 
 	private boolean isAir(BlockPos pPos)
 	{
@@ -29,7 +29,7 @@ public class OmegaLampTileEntity extends BlockEntity implements BlockEntityTicke
 	}
 
 	@Override
-	public void tick(Level level, BlockPos pPos, BlockState pState, OmegaLampTileEntity pBlockEntity) {
+	public void tick(Level level, BlockPos pPos, BlockState pState, OmegaLampBlockEntity pBlockEntity) {
 		if (level.isClientSide) return;
 
 		cooldown++;

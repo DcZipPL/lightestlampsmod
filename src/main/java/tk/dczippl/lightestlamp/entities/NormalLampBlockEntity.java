@@ -1,7 +1,6 @@
-package tk.dczippl.lightestlamp.tile;
+package tk.dczippl.lightestlamp.entities;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;

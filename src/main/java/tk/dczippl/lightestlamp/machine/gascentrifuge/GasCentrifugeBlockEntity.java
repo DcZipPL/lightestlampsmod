@@ -21,26 +21,23 @@ import net.minecraftforge.fluids.capability.templates.FluidTank;
 import net.minecraftforge.registries.tags.ITag;
 import tk.dczippl.lightestlamp.Config;
 import tk.dczippl.lightestlamp.init.ModContainers;
-import tk.dczippl.lightestlamp.init.ModEffect;
-import tk.dczippl.lightestlamp.init.ModFluids;
 import tk.dczippl.lightestlamp.init.ModBlockEntities;
 import tk.dczippl.lightestlamp.items.FilterItem;
 import tk.dczippl.lightestlamp.util.FluidHandlerWrapper;
 import tk.dczippl.lightestlamp.util.IFluidHandlerWrapper;
-import tk.dczippl.lightestlamp.util.TheoreticalFluid;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Random;
 
-public class GasCentrifugeTile extends LockableBlockEntity implements ISidedInventory, ITickableBlockEntity, IFluidHandlerWrapper
+public class GasCentrifugeBlockEntity extends LockableBlockEntity implements ISidedInventory, ITickableBlockEntity, IFluidHandlerWrapper
 {
-    public GasCentrifugeTile(BlockEntityType type)
+    public GasCentrifugeBlockEntity(BlockEntityType type)
     {
         super(type);
     }
-    public GasCentrifugeTile()
+    public GasCentrifugeBlockEntity()
     {
         super(ModBlockEntities.CENTRIFUGE_TE);
     }
@@ -75,19 +72,19 @@ public class GasCentrifugeTile extends LockableBlockEntity implements ISidedInve
         public int get(int index) {
             switch(index) {
                 case 0:
-                    return GasCentrifugeTile.this.burnTime;
+                    return GasCentrifugeBlockEntity.this.burnTime;
                 case 1:
-                    return GasCentrifugeTile.this.redstoneMode;
+                    return GasCentrifugeBlockEntity.this.redstoneMode;
                 case 2:
-                    return GasCentrifugeTile.this.cookTime;
+                    return GasCentrifugeBlockEntity.this.cookTime;
                 case 3:
-                    return GasCentrifugeTile.this.cookTimeTotal;
+                    return GasCentrifugeBlockEntity.this.cookTimeTotal;
                 case 4:
-                    return GasCentrifugeTile.this.liquidMode;
+                    return GasCentrifugeBlockEntity.this.liquidMode;
                 case 5:
-                    return GasCentrifugeTile.this.tank.getFluidAmount();
+                    return GasCentrifugeBlockEntity.this.tank.getFluidAmount();
                 case 6:
-                    return GasCentrifugeTile.this.ticksBeforeDumping;
+                    return GasCentrifugeBlockEntity.this.ticksBeforeDumping;
                 default:
                     return 0;
             }
@@ -97,24 +94,24 @@ public class GasCentrifugeTile extends LockableBlockEntity implements ISidedInve
         public void set(int index, int value) {
             switch(index) {
                 case 0:
-                    GasCentrifugeTile.this.burnTime = value;
+                    GasCentrifugeBlockEntity.this.burnTime = value;
                     break;
                 case 1:
-                    GasCentrifugeTile.this.redstoneMode = value;
+                    GasCentrifugeBlockEntity.this.redstoneMode = value;
                     break;
                 case 2:
-                    GasCentrifugeTile.this.cookTime = value;
+                    GasCentrifugeBlockEntity.this.cookTime = value;
                     break;
                 case 3:
-                    GasCentrifugeTile.this.cookTimeTotal = value;
+                    GasCentrifugeBlockEntity.this.cookTimeTotal = value;
                     break;
                 case 4:
-                    GasCentrifugeTile.this.liquidMode = value;
+                    GasCentrifugeBlockEntity.this.liquidMode = value;
                     break;
                 case 5:
                     break;
                 case 6:
-                    GasCentrifugeTile.this.ticksBeforeDumping = value;
+                    GasCentrifugeBlockEntity.this.ticksBeforeDumping = value;
                     break;
             }
 

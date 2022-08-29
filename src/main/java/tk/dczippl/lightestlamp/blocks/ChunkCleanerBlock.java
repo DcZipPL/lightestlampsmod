@@ -2,57 +2,43 @@ package tk.dczippl.lightestlamp.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import tk.dczippl.lightestlamp.entities.cleaners.ChunkCleanerBlockEntity;
+import tk.dczippl.lightestlamp.entities.cleaners.OmegaChunkCleanerBlockEntity;
 
 import javax.annotation.Nullable;
 
-public class ChunkCleanerBlock extends Block
+public class ChunkCleanerBlock extends BaseEntityBlock
 {
     public ChunkCleanerBlock(Properties properties)
     {
-        super(properties.hardnessAndResistance(-1,-1).notSolid());
+        super(properties.strength(-1,-1).noCollission().noCollission());
     }
 
     @Override
-    public boolean canEntityDestroy(BlockState state, IBlockReader world, BlockPos pos, Entity entity)
-    {
+    public boolean canEntityDestroy(BlockState state, BlockGetter level, BlockPos pos, Entity entity) {
         return false;
     }
 
-    @Nullable
+    @org.jetbrains.annotations.Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockState state, IBlockReader world)
-    {
-        return new LightAirBlockEntity();
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new ChunkCleanerBlockEntity(pPos, pState);
     }
 
-    @Override
-    public boolean hasBlockEntity(BlockState state)
-    {
-        return true;
+    public RenderShape getRenderShape(BlockState pState) {
+        return RenderShape.INVISIBLE;
     }
 
-    @Override
-    public boolean isAir(BlockState state, IBlockReader world, BlockPos pos) {
-        return true;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(BlockState p_149645_1_)
-    {
-        return BlockRenderType.INVISIBLE;
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState p_220071_1_, IBlockReader p_220071_2_, BlockPos p_220071_3_, ISelectionContext p_220071_4_)
-    {
-        return Block.makeCuboidShape(0,0,0,0,0,0);
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return Block.makeCuboidShape(0,0,0,0,0,0);
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
+        return Shapes.empty();
     }
 }

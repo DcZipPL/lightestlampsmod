@@ -5,12 +5,15 @@ import net.minecraft.inventory.IInventory;
 //import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 @SuppressWarnings({"NullableProblems", "WeakerAccess"})
 public abstract class OutputSlot extends Slot
 {
     /** The player that is using the GUI where this slot resides. */
-    protected final PlayerEntity thePlayer;
+    protected final Player thePlayer;
     private int numOutput;
 
     /**
@@ -27,7 +30,7 @@ public abstract class OutputSlot extends Slot
      * @param parYDisplayPosition
      *            the par Y display position
      */
-    public OutputSlot(PlayerEntity parPlayer, IInventory parIInventory, int parSlotIndex, int parXDisplayPosition, int parYDisplayPosition)
+    public OutputSlot(Player parPlayer, Container parIInventory, int parSlotIndex, int parXDisplayPosition, int parYDisplayPosition)
     {
         super(parIInventory, parSlotIndex, parXDisplayPosition, parYDisplayPosition);
         this.thePlayer = parPlayer;

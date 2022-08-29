@@ -10,7 +10,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.network.NetworkHooks;
-import tk.dczippl.lightestlamp.init.ModFluids;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
 
@@ -23,7 +22,7 @@ public class GasCentrifugeBlock extends ContainerBlock
 
     @Override
     public BlockEntity createNewBlockEntity(IBlockReader worldIn) {
-        return new GasCentrifugeTile();
+        return new GasCentrifugeBlockEntity();
     }
 
     @Override
@@ -43,14 +42,14 @@ public class GasCentrifugeBlock extends ContainerBlock
      */
     protected void interactWith(World worldIn, BlockPos pos, PlayerEntity player) {
         BlockEntity tileentity = worldIn.getBlockEntity(pos);
-        if (tileentity instanceof GasCentrifugeTile) {
+        if (tileentity instanceof GasCentrifugeBlockEntity) {
             if (player.getHeldItemMainhand().getItem() == Items.BUCKET)
             {
                 ItemStack bucket = player.getHeldItemMainhand();
                 if (player.getHeldItemMainhand().getCount() == 1)
-                    if (((GasCentrifugeTile) tileentity).getTank().getFluidAmount() >= 1000)
+                    if (((GasCentrifugeBlockEntity) tileentity).getTank().getFluidAmount() >= 1000)
                     {
-                        ((GasCentrifugeTile) tileentity).getTank().drain(1000, IFluidHandler.FluidAction.EXECUTE);
+                        ((GasCentrifugeBlockEntity) tileentity).getTank().drain(1000, IFluidHandler.FluidAction.EXECUTE);
                         player.inventory.deleteStack(bucket);
                         player.inventory.addItemStackToInventory(new ItemStack(ModFluids.BROMINE_FLUID_BUCKET.get()));
                     }
@@ -74,8 +73,8 @@ public class GasCentrifugeBlock extends ContainerBlock
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
         if (stack.hasDisplayName()) {
             BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof GasCentrifugeTile) {
-                ((GasCentrifugeTile)tileentity).setCustomName(stack.getDisplayName());
+            if (tileentity instanceof GasCentrifugeBlockEntity) {
+                ((GasCentrifugeBlockEntity)tileentity).setCustomName(stack.getDisplayName());
             }
         }
 
@@ -84,8 +83,8 @@ public class GasCentrifugeBlock extends ContainerBlock
     public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (state.getBlock() != newState.getBlock()) {
             BlockEntity tileentity = worldIn.getBlockEntity(pos);
-            if (tileentity instanceof GasCentrifugeTile) {
-                InventoryHelper.dropInventoryItems(worldIn, pos, (GasCentrifugeTile)tileentity);
+            if (tileentity instanceof GasCentrifugeBlockEntity) {
+                InventoryHelper.dropInventoryItems(worldIn, pos, (GasCentrifugeBlockEntity)tileentity);
             }
             super.onReplaced(state, worldIn, pos, newState, isMoving);
         }
