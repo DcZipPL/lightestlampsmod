@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "lightestlamp:block/abyssal_lantern"
-  }
+  "parent": "lightestlamp:block/abyssal_lantern"
 }

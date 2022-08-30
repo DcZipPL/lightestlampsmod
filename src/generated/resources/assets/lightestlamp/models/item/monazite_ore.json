@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "lightestlamp:block/monazite_ore"
-  }
+  "parent": "lightestlamp:block/monazite_ore"
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "side": "lightestlamp:block/neon_tube_block_side",
+    "end": "lightestlamp:block/neon_tube_block_end"
+  }
+}

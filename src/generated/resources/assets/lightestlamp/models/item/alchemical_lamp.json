@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "lightestlamp:block/alchemical_lamp"
-  }
+  "parent": "lightestlamp:block/alchemical_lamp"
 }

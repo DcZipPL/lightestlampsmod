@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "lightestlamp:block/argon_block"
-  }
+  "parent": "lightestlamp:block/argon_block"
 }

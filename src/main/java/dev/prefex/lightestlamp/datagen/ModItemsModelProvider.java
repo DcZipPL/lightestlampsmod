@@ -21,29 +21,12 @@ public class ModItemsModelProvider extends ItemModelProvider {
 					.texture("layer0",new ResourceLocation(Reference.MOD_ID,"item/"+item.getRegistryName().getPath()));
 		});
 		ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
-			if (block == ModBlocks.CURTAIN_BLOCK.get()){
-				// TODO: Implement
-			}
-			else if (block == ModBlocks.GAS_EXTRACTOR.get()){
-				cubeBottomTop(block.getRegistryName().getPath(),
-						new ResourceLocation(Reference.MOD_ID,"block/machine/"+block.getRegistryName().getPath()+"_side"),
-						new ResourceLocation(Reference.MOD_ID,"block/machine/"+block.getRegistryName().getPath()+"_bottom"),
-						new ResourceLocation(Reference.MOD_ID,"block/machine/"+block.getRegistryName().getPath()));
-			}
-			else if (block == ModBlocks.NEON_TUBE_BLOCK.get()
-					|| block == ModBlocks.ARGON_TUBE_BLOCK.get()
-					|| block == ModBlocks.KRYPTON_TUBE_BLOCK.get()
-					|| block == ModBlocks.XENON_TUBE_BLOCK.get()
-					|| block == ModBlocks.RADON_TUBE_BLOCK.get()){
-				cubeColumn(block.getRegistryName().getPath(),
-						new ResourceLocation(Reference.MOD_ID,"block/"+block.getRegistryName().getPath()+"_side"),
-						new ResourceLocation(Reference.MOD_ID,"block/"+block.getRegistryName().getPath()+"_top"));
-			}
-			else if (block != ModBlocks.OCC.get()
+			if (block != ModBlocks.OCC.get()
 					&& block != ModBlocks.LIGHT_AIR.get()
 					&& block != ModBlocks.WATERLOGGABLE_LIGHT_AIR.get()
-					&& block != ModBlocks.JUNGLE_LANTERN.get()){
-				cubeAll(block.getRegistryName().getPath(),new ResourceLocation(Reference.MOD_ID,"block/"+block.getRegistryName().getPath()));
+					&& block != ModBlocks.JUNGLE_LANTERN.get()
+					&& block != ModBlocks.CURTAIN_BLOCK.get()) {
+				withExistingParent(block.getRegistryName().getPath(), Reference.MOD_ID+":block/"+block.getRegistryName().getPath());
 			}
 		});
 	}

@@ -1,7 +1,3 @@
 {
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "lightestlamp:block/argon_tube_block_side",
-    "end": "lightestlamp:block/argon_tube_block_top"
-  }
+  "parent": "lightestlamp:block/argon_tube_block"
 }

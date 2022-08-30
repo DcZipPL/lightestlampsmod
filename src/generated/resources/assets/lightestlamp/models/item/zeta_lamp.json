@@ -1,6 +1,3 @@
 {
-  "parent": "minecraft:block/cube_all",
-  "textures": {
-    "all": "lightestlamp:block/zeta_lamp"
-  }
+  "parent": "lightestlamp:block/zeta_lamp"
 }
