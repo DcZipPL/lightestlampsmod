@@ -1,6 +1,7 @@
 package dev.prefex.lightestlamp.blocks;
 
 import dev.prefex.lightestlamp.init.ModBlockEntities;
+import dev.prefex.lightestlamp.init.ModBlocks;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -27,6 +28,8 @@ import org.jetbrains.annotations.Nullable;
 import dev.prefex.lightestlamp.entities.NormalLampBlockEntity;
 
 import java.util.List;
+
+import static dev.prefex.lightestlamp.entities.NormalLampBlockEntity.*;
 
 public class LightestLampBlock extends BaseEntityBlock {
     private final Type _type;
@@ -57,6 +60,15 @@ public class LightestLampBlock extends BaseEntityBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new NormalLampBlockEntity(pPos,pState);
+    }
+
+    @Override
+    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
+        super.onPlace(pState, pLevel, pPos, pOldState, pIsMoving);
+        Block lightBlockType = getType() == LightestLampBlock.Type.NORMAL ? ModBlocks.LIGHT_AIR.get() : ModBlocks.WATERLOGGABLE_LIGHT_AIR.get();
+        if (_tier == LightestLampBlock.Tier.ALPHA) tickAlphaLamp(pLevel, pPos, pState, _type, lightBlockType);
+        else if (_tier == LightestLampBlock.Tier.BETA) {tickBetaLamp(pLevel, pPos, pState, _type, lightBlockType); tickLamp(pLevel, pPos, pState, lightBlockType, _type, _tier.power);}
+        else if (_tier.ordinal() > 1) tickLamp(pLevel, pPos, pState, lightBlockType, _type, _tier.power);
     }
 
     @Override

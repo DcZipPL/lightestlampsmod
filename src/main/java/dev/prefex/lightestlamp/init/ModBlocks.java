@@ -63,6 +63,8 @@ public class ModBlocks
             .strength(0.85f,1),15));
     public static final RegistryObject<Block> VANTA_BLACK = BLOCKS.register("vanta_black", () -> new Block(Block.Properties.of(Material.WOOL).sound(SoundType.WOOL)
             .strength(0.1f,1)));
+    public static final RegistryObject<Block> CURTAIN_BLOCK = BLOCKS.register("curtain_block", () -> new Block(Block.Properties.of(Material.WOOL).sound(SoundType.WOOL)
+            .strength(0.1f,1)));
     public static final RegistryObject<Block> MONAZITE_ORE = BLOCKS.register("monazite_ore", () -> new Block(Block.Properties.of(Material.STONE).sound(SoundType.STONE)
             .strength(6.4f,1)));
 
