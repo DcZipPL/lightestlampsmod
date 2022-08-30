@@ -1,6 +1,0 @@
-{
-  "parent": "lightestlamp:block/argon_rod_block",
-  "textures": {
-    "layer0": "lightestlamp:block/argon_rod_block"
-  }
-}

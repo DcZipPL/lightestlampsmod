@@ -1,6 +1,0 @@
-{
-  "parent": "lightestlamp:block/zeta_lamp",
-  "textures": {
-    "layer0": "lightestlamp:block/zeta_lamp"
-  }
-}

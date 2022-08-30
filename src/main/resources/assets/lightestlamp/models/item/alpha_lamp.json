@@ -1,6 +1,0 @@
-{
-  "parent": "lightestlamp:block/alpha_lamp",
-  "textures": {
-    "layer0": "lightestlamp:block/alpha_lamp"
-  }
-}

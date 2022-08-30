@@ -1,6 +1,0 @@
-{
-  "parent": "lightestlamp:block/omega_lamp",
-  "textures": {
-    "layer0": "lightestlamp:block/omega_lamp"
-  }
-}

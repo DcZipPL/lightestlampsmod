@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DD",
+    "DD"
+  ],
+  "key": {
+    "D": {
+      "item": "lightestlamp:krypton_dust"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:krypton_block"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lightestlamp:argon_dust"
+    }
+  ],
+  "result": {
+    "item": "lightestlamp:argon_pile",
+    "count": 4
+  }
+}

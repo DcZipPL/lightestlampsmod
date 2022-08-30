@@ -1,6 +1,0 @@
-{
-  "parent": "lightestlamp:block/gas_centrifuge",
-  "textures": {
-    "layer0": "lightestlamp:block/gas_centrifuge"
-  }
-}

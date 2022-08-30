@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C C",
+    " A ",
+    "C C"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:coal"
+    },
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:carbon_nanotube",
+    "count": 64
+  }
+}

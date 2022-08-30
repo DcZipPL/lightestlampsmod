@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DD",
+    "DD"
+  ],
+  "key": {
+    "D": {
+      "item": "lightestlamp:neon_dust"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:neon_block"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "lightestlamp:lanthanum_nugget"
+    },
+    {
+      "item": "lightestlamp:lanthanum_nugget"
+    },
+    {
+      "item": "lightestlamp:lanthanum_nugget"
+    },
+    {
+      "item": "lightestlamp:lanthanum_nugget"
+    },
+    {
+      "item": "lightestlamp:lanthanum_nugget"
+    },
+    {
+      "item": "lightestlamp:lanthanum_nugget"
+    },
+    {
+      "item": "lightestlamp:lanthanum_nugget"
+    },
+    {
+      "item": "lightestlamp:lanthanum_nugget"
+    },
+    {
+      "item": "lightestlamp:lanthanum_nugget"
+    }
+  ],
+  "result": {
+    "item": "lightestlamp:lanthanum_ingot"
+  }
+}

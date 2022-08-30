@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TBT",
+    "BLB",
+    "TBT"
+  ],
+  "key": {
+    "L": {
+      "item": "lightestlamp:alpha_lamp"
+    },
+    "B": {
+      "item": "lightestlamp:neon_tube_block"
+    },
+    "T": {
+      "item": "lightestlamp:neon_tube"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:beta_lamp"
+  }
+}

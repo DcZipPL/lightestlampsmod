@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "TLT",
+    " T "
+  ],
+  "key": {
+    "L": {
+      "item": "lightestlamp:beta_lamp"
+    },
+    "T": {
+      "item": "lightestlamp:argon_tube"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:gamma_lamp"
+  }
+}

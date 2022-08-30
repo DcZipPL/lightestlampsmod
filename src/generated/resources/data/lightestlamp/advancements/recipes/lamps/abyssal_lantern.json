@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lightestlamp:abyssal_lantern"
+    ]
+  },
+  "criteria": {
+    "has_deep_ocean_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lightestlamp:deep_ocean_lantern"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lightestlamp:abyssal_lantern"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_deep_ocean_lantern",
+      "has_the_recipe"
+    ]
+  ]
+}

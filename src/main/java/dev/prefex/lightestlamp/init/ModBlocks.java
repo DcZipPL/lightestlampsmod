@@ -43,7 +43,7 @@ public class ModBlocks
     public static final RegistryObject<Block> ABYSSAL_LANTERN = BLOCKS.register("abyssal_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.ETA));
     public static final RegistryObject<Block> ALCHEMICAL_LAMP = BLOCKS.register("alchemical_lamp", () -> new AlchemicalLampBlock());
     //public static final RegistryObject<Block> SPOTLIGHT = BLOCKS.register("spotlight", () -> new AlchemicalLampBlock());
-    public static final RegistryObject<Block> CHUNK_CLEANER = BLOCKS.register("debug_chunk_cleaner", () -> new ChunkCleanerBlock(Block.Properties.of(Material.WOOL)));
+    //public static final RegistryObject<Block> CHUNK_CLEANER = BLOCKS.register("debug_chunk_cleaner", () -> new ChunkCleanerBlock(Block.Properties.of(Material.WOOL)));
 
     //Other lamps
     public static final RegistryObject<Block> JUNGLE_LANTERN = BLOCKS.register("jungle_lantern", () -> new JungleLanternBlock(Block.Properties.of(Material.LEAVES).sound(SoundType.GRASS)
@@ -51,15 +51,15 @@ public class ModBlocks
 
     //Other Blocks
 
-    public static final RegistryObject<Block> NEON_ROD_BLOCK = BLOCKS.register("neon_rod_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
+    public static final RegistryObject<Block> NEON_TUBE_BLOCK = BLOCKS.register("neon_tube_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
             .strength(0.85f,1),10));
-    public static final RegistryObject<Block> ARGON_ROD_BLOCK = BLOCKS.register("argon_rod_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
+    public static final RegistryObject<Block> ARGON_TUBE_BLOCK = BLOCKS.register("argon_tube_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
             .strength(0.85f,1),10));
-    public static final RegistryObject<Block> KRYPTON_ROD_BLOCK = BLOCKS.register("krypton_rod_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
+    public static final RegistryObject<Block> KRYPTON_TUBE_BLOCK = BLOCKS.register("krypton_tube_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
             .strength(0.85f,1),14));
-    public static final RegistryObject<Block> XENON_ROD_BLOCK = BLOCKS.register("xenon_rod_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
+    public static final RegistryObject<Block> XENON_TUBE_BLOCK = BLOCKS.register("xenon_tube_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
             .strength(0.85f,1),14));
-    public static final RegistryObject<Block> RADON_ROD_BLOCK = BLOCKS.register("radon_rod_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
+    public static final RegistryObject<Block> RADON_TUBE_BLOCK = BLOCKS.register("radon_tube_block", () -> new GlowingRotatedPillarBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
             .strength(0.85f,1),15));
     public static final RegistryObject<Block> VANTA_BLACK = BLOCKS.register("vanta_black", () -> new Block(Block.Properties.of(Material.WOOL).sound(SoundType.WOOL)
             .strength(0.1f,1)));

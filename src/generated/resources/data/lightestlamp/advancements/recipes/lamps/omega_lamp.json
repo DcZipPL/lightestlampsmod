@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lightestlamp:omega_lamp"
+    ]
+  },
+  "criteria": {
+    "has_eta_lamp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lightestlamp:eta_lamp"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lightestlamp:omega_lamp"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_eta_lamp",
+      "has_the_recipe"
+    ]
+  ]
+}

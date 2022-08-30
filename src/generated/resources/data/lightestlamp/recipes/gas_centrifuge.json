@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ITI",
+    "IPI",
+    "IPI"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:piston"
+    },
+    "T": {
+      "item": "lightestlamp:glass_tube"
+    },
+    "I": {
+      "item": "lightestlamp:lanthanum_ingot"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:gas_centrifuge"
+  }
+}

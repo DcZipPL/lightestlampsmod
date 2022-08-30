@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "TLT",
+    " T "
+  ],
+  "key": {
+    "L": {
+      "item": "lightestlamp:delta_lamp"
+    },
+    "T": {
+      "item": "lightestlamp:krypton_tube"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:epsilon_lamp"
+  }
+}

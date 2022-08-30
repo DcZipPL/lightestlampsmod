@@ -1,5 +1,6 @@
 package dev.prefex.lightestlamp.init;
 
+import com.google.gson.JsonArray;
 import dev.prefex.lightestlamp.Main;
 import dev.prefex.lightestlamp.Reference;
 import dev.prefex.lightestlamp.items.FilterItem;
@@ -20,7 +21,7 @@ public class ModItems
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MOD_ID);
     
     public static final RegistryObject<Item> CHORUS_FIBER = ITEMS.register("chorus_fiber",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
-    public static final RegistryObject<Item> KRYPTON_PILE = ITEMS.register("krypton_small_dust",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
+    public static final RegistryObject<Item> GLOW_LICHEN_FIBER = ITEMS.register("glow_lichen_fiber",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> RADON_DUST = ITEMS.register("radon_dust",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> XENON_DUST = ITEMS.register("xenon_dust",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> KRYPTON_DUST = ITEMS.register("krypton_dust",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
@@ -28,9 +29,10 @@ public class ModItems
     public static final RegistryObject<Item> NEON_DUST = ITEMS.register("neon_dust",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> RADON_PILE = ITEMS.register("radon_pile",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> XENON_PILE = ITEMS.register("xenon_pile",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
+    public static final RegistryObject<Item> KRYPTON_PILE = ITEMS.register("krypton_pile",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> ARGON_PILE = ITEMS.register("argon_pile",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> NEON_PILE = ITEMS.register("neon_pile",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
-    public static final RegistryObject<Item> EMPTY_TUBE = ITEMS.register("empty_tube",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
+    public static final RegistryObject<Item> GLASS_TUBE = ITEMS.register("glass_tube",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> RADON_TUBE = ITEMS.register("radon_tube",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> XENON_TUBE = ITEMS.register("xenon_tube",() -> new Item(new Item.Properties().stacksTo(16).tab(Main.main_tab)));
     public static final RegistryObject<Item> KRYPTON_TUBE = ITEMS.register("krypton_tube",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
@@ -52,5 +54,4 @@ public class ModItems
     public static final RegistryObject<Item> LANTHANUM_PILE = ITEMS.register("lanthanum_pile",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> LANTHANUM_INGOT = ITEMS.register("lanthanum_ingot",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> LANTHANUM_NUGGET = ITEMS.register("lanthanum_nugget",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
-    public static final RegistryObject<Item> GLOWING_DUST_AGGLOMERATIO = ITEMS.register("glowing_dust_agglomeratio",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
 }

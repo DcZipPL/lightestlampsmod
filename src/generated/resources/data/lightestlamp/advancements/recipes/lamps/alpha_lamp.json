@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lightestlamp:alpha_lamp"
+    ]
+  },
+  "criteria": {
+    "has_clear_lamp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lightestlamp:clear_lamp"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lightestlamp:alpha_lamp"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_clear_lamp",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lightestlamp:gamma_lamp"
+    ]
+  },
+  "criteria": {
+    "has_beta_lamp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lightestlamp:beta_lamp"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lightestlamp:gamma_lamp"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_beta_lamp",
+      "has_the_recipe"
+    ]
+  ]
+}

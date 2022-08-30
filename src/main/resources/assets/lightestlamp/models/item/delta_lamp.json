@@ -1,6 +1,0 @@
-{
-  "parent": "lightestlamp:block/delta_lamp",
-  "textures": {
-    "layer0": "lightestlamp:block/delta_lamp"
-  }
-}

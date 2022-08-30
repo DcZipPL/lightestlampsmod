@@ -1,6 +1,0 @@
-{
-  "parent": "lightestlamp:block/krypton_block",
-  "textures": {
-    "layer0": "lightestlamp:block/krypton_block"
-  }
-}

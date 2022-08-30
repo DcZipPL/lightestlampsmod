@@ -15,9 +15,8 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
-import dev.prefex.lightestlamp.entities.cleaners.ChunkCleanerBlockEntity;
 
-public class ChunkCleanerBlock extends BaseEntityBlock
+public abstract class ChunkCleanerBlock extends BaseEntityBlock
 {
     public ChunkCleanerBlock(Properties properties)
     {
@@ -29,11 +28,11 @@ public class ChunkCleanerBlock extends BaseEntityBlock
         return false;
     }
 
-    @org.jetbrains.annotations.Nullable
+    /*@org.jetbrains.annotations.Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
         return new ChunkCleanerBlockEntity(pPos, pState);
-    }
+    }*/
 
     public RenderShape getRenderShape(BlockState pState) {
         return RenderShape.INVISIBLE;
@@ -43,9 +42,9 @@ public class ChunkCleanerBlock extends BaseEntityBlock
         return Shapes.empty();
     }
 
-    @Nullable
+    /*@Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
         return pBlockEntityType == ModBlockEntities.CLEANER_BE.get() ? ChunkCleanerBlockEntity::tick : null;
-    }
+    }*/
 }

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lightestlamp:clear_lamp"
+    ]
+  },
+  "criteria": {
+    "has_redstone_lamp_for_clear_lamp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:redstone_lamp"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lightestlamp:clear_lamp"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_redstone_lamp_for_clear_lamp",
+      "has_the_recipe"
+    ]
+  ]
+}

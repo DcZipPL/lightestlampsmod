@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "B#B",
+    " B "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "B": {
+      "item": "lightestlamp:lanthanum_ingot"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:basic_centrifuge_filter"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "side": "lightestlamp:block/machine/gas_centrifuge_side",
+    "bottom": "lightestlamp:block/machine/gas_centrifuge_bottom",
+    "top": "lightestlamp:block/machine/gas_centrifuge"
+  }
+}

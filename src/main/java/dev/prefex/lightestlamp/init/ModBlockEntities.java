@@ -5,12 +5,8 @@ import dev.prefex.lightestlamp.entities.AlchemicalLampBlockEntity;
 import dev.prefex.lightestlamp.entities.NormalLampBlockEntity;
 import dev.prefex.lightestlamp.entities.OmegaLampBlockEntity;
 import dev.prefex.lightestlamp.entities.cleaners.OmegaChunkCleanerBlockEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeBlockEntity;
-import dev.prefex.lightestlamp.entities.cleaners.ChunkCleanerBlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,9 +19,6 @@ public class ModBlockEntities
     }
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Reference.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<ChunkCleanerBlockEntity>> CLEANER_BE = BLOCK_ENTITIES.register(
-            "cleaner_be", () -> BlockEntityType.Builder.of(ChunkCleanerBlockEntity::new, ModBlocks.CHUNK_CLEANER.get()).build(null)
-    );
     public static final RegistryObject<BlockEntityType<OmegaChunkCleanerBlockEntity>> OCC_BE = BLOCK_ENTITIES.register(
             "occ_be", () -> BlockEntityType.Builder.of(OmegaChunkCleanerBlockEntity::new, ModBlocks.OCC.get()).build(null)
     );

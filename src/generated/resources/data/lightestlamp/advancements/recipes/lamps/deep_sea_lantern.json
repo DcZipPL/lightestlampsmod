@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lightestlamp:deep_sea_lantern"
+    ]
+  },
+  "criteria": {
+    "has_clear_lantern": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lightestlamp:clear_sea_lantern"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lightestlamp:deep_sea_lantern"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_clear_lantern",
+      "has_the_recipe"
+    ]
+  ]
+}
