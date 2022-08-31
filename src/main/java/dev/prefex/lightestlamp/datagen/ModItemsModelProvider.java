@@ -21,11 +21,14 @@ public class ModItemsModelProvider extends ItemModelProvider {
 					.texture("layer0",new ResourceLocation(Reference.MOD_ID,"item/"+item.getRegistryName().getPath()));
 		});
 		ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
-			if (block != ModBlocks.OCC.get()
+			if (block == ModBlocks.CURTAIN_BLOCK.get()){
+				withExistingParent(block.getRegistryName().getPath(),new ResourceLocation("item/generated"))
+						.texture("layer0",new ResourceLocation(Reference.MOD_ID,"block/"+block.getRegistryName().getPath()));
+			}
+			else if (block != ModBlocks.OCC.get()
 					&& block != ModBlocks.LIGHT_AIR.get()
 					&& block != ModBlocks.WATERLOGGABLE_LIGHT_AIR.get()
-					&& block != ModBlocks.JUNGLE_LANTERN.get()
-					&& block != ModBlocks.CURTAIN_BLOCK.get()) {
+					&& block != ModBlocks.JUNGLE_LANTERN.get()) {
 				withExistingParent(block.getRegistryName().getPath(), Reference.MOD_ID+":block/"+block.getRegistryName().getPath());
 			}
 		});

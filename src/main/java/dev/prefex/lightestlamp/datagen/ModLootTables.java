@@ -52,9 +52,10 @@ public class ModLootTables extends BlockLoot {
 				block, ModItems.RADON_DUST.get(), UniformGenerator.between(1,4)
 		));
 		this.add(ModBlocks.GLOWING_GLASS_BLOCK.get(), block ->createSingleItemTableWithSilkTouch(
-				block, Items.GLOWSTONE, UniformGenerator.between(1,4)
+				block, Items.GLOWSTONE_DUST, UniformGenerator.between(1,4)
 		));
 		this.dropSelf(ModBlocks.GAS_EXTRACTOR.get());
+		this.dropSelf(ModBlocks.CURTAIN_BLOCK.get());
 	}
 
 	@Override

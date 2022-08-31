@@ -26,7 +26,7 @@ public class ModBlocks
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MOD_ID);
     public static final RegistryObject<Block> LIGHT_AIR = BLOCKS.register("light_air", () -> new LightAirBlock());
     public static final RegistryObject<Block> WATERLOGGABLE_LIGHT_AIR = BLOCKS.register("waterloggable_light_air", () -> new WaterLoggableLightAirBlock());
-    public static final RegistryObject<Block> CLEAR_LAMP = BLOCKS.register("clear_lamp", () -> new RedstoneLampBlock(Block.Properties.copy(Blocks.REDSTONE_LAMP).sound(SoundType.GLASS)
+    public static final RegistryObject<Block> CLEAR_LAMP = BLOCKS.register("clear_lamp", () -> new ClearLampBlock(Block.Properties.copy(Blocks.REDSTONE_LAMP).sound(SoundType.GLASS)
             .strength(0.3f,1)));
     public static final RegistryObject<Block> ALPHA_LAMP = BLOCKS.register("alpha_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.ALPHA));
     public static final RegistryObject<Block> BETA_LAMP = BLOCKS.register("beta_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.BETA));
@@ -63,9 +63,8 @@ public class ModBlocks
             .strength(0.85f,1),15));
     public static final RegistryObject<Block> VANTA_BLACK = BLOCKS.register("vanta_black", () -> new Block(Block.Properties.of(Material.WOOL).sound(SoundType.WOOL)
             .strength(0.1f,1)));
-    public static final RegistryObject<Block> CURTAIN_BLOCK = BLOCKS.register("curtain_block", () -> new Block(Block.Properties.of(Material.WOOL).sound(SoundType.WOOL)
-            .strength(0.1f,1)));
-    public static final RegistryObject<Block> MONAZITE_ORE = BLOCKS.register("monazite_ore", () -> new Block(Block.Properties.of(Material.STONE).sound(SoundType.STONE)
+    public static final RegistryObject<Block> CURTAIN_BLOCK = BLOCKS.register("curtain_block", CurtainBlock::new);
+    public static final RegistryObject<Block> MONAZITE_ORE = BLOCKS.register("lanthanum_ore", () -> new Block(Block.Properties.of(Material.STONE).sound(SoundType.STONE)
             .strength(6.4f,1)));
 
     //Glowstones

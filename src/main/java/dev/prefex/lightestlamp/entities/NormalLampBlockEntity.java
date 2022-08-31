@@ -21,8 +21,8 @@ public class NormalLampBlockEntity extends BlockEntity {
     private final LightestLampBlock.Tier _tier;
     private final LightestLampBlock.Type _type;
     private final Block lightBlockType;
-    private final Random rng = new Random();
     private final int rand;
+    private int flag = 0;
     private int cooldown = 0;
 
     public NormalLampBlockEntity(BlockEntityType<?> pType, BlockPos pWorldPosition, BlockState pBlockState) {
@@ -30,6 +30,7 @@ public class NormalLampBlockEntity extends BlockEntity {
         _tier = ((LightestLampBlock) pBlockState.getBlock()).getTier();
         _type = ((LightestLampBlock) pBlockState.getBlock()).getType();
         lightBlockType = ((LightestLampBlock) pBlockState.getBlock()).getType() == LightestLampBlock.Type.NORMAL ? ModBlocks.LIGHT_AIR.get() : ModBlocks.WATERLOGGABLE_LIGHT_AIR.get();
+        Random rng = new Random();
         rand = rng.nextInt(300,900);
     }
     public NormalLampBlockEntity(BlockPos pWorldPosition, BlockState pBlockState) {this(ModBlockEntities.NORMAL_LAMP_BE.get(),pWorldPosition,pBlockState);}
@@ -46,19 +47,28 @@ public class NormalLampBlockEntity extends BlockEntity {
         if (pLevel.isClientSide) return;
         blockEntity.cooldown++;
 
-        if (blockEntity.cooldown == blockEntity.rand) {
-
-            if (!blockEntity._tier.always_active) {
-                if (pLevel.getDirectSignalTo(pPos) > 0) // Redstone
+        if (!blockEntity._tier.always_active) {
+            if (pLevel.getDirectSignalTo(pPos) > 0) {// Redstone
+                if (blockEntity.flag == 0){
                     cleanLight(pLevel, pPos, pState, blockEntity._tier.power, false);
-                else {if (pState.getValue(POWERED)) // Set block state to off if no redstone
-                    pLevel.setBlockAndUpdate(pPos, pState.setValue(POWERED,false));
+                    blockEntity.flag = 1;
+                }
+            } else {
+                if (pState.getValue(POWERED)) { // Set block state to off if no redstone
+                    pLevel.setBlockAndUpdate(pPos, pState.setValue(POWERED, false));
+                    blockEntity.flag = 0;
                 }
             }
+        }
 
-            if (blockEntity._tier == LightestLampBlock.Tier.ALPHA) tickAlphaLamp(pLevel, pPos, pState, blockEntity._type, blockEntity.lightBlockType);
-            else if (blockEntity._tier == LightestLampBlock.Tier.BETA) {tickBetaLamp(pLevel, pPos, pState, blockEntity._type, blockEntity.lightBlockType); tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._type, blockEntity._tier.power);}
-            else if (blockEntity._tier.ordinal() > 1) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._type, blockEntity._tier.power); // TODO: Implement underwater lamps
+        if (blockEntity.cooldown == blockEntity.rand) {
+            if (blockEntity.flag > 1){
+                cleanLight(pLevel, pPos, pState, blockEntity._tier.power, false);
+            } else {
+                if (blockEntity._tier == LightestLampBlock.Tier.ALPHA) tickAlphaLamp(pLevel, pPos, pState, blockEntity._type, blockEntity.lightBlockType);
+                else if (blockEntity._tier == LightestLampBlock.Tier.BETA) {tickBetaLamp(pLevel, pPos, pState, blockEntity._type, blockEntity.lightBlockType); tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._type, blockEntity._tier.power);}
+                else if (blockEntity._tier.ordinal() > 1) tickLamp(pLevel, pPos, pState, blockEntity.lightBlockType, blockEntity._type, blockEntity._tier.power); // TODO: Implement underwater lamps
+            }
             blockEntity.cooldown = 0;
         }
     }

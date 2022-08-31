@@ -43,7 +43,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "minecraft:glowstone"
+              "name": "minecraft:glowstone_dust"
             }
           ]
         }

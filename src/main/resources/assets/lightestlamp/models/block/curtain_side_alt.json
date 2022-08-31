@@ -1,0 +1,18 @@
+{
+	"credit": "Made with Blockbench",
+	"ambientocclusion": false,
+	"textures": {
+		"particle": "lightestlamp:block/curtain_block",
+		"bars": "lightestlamp:block/curtain_block"
+	},
+	"elements": [
+		{
+			"from": [8, 0, 8],
+			"to": [8, 16, 16],
+			"faces": {
+				"east": {"uv": [0, 0, 8, 16], "texture": "#bars"},
+				"west": {"uv": [8, 0, 0, 16], "texture": "#bars"}
+			}
+		}
+	]
+}

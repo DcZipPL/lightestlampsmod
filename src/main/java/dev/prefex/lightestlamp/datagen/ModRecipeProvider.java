@@ -256,6 +256,24 @@ public class ModRecipeProvider extends RecipeProvider {
 						.build()))
 				.save(pFinishedRecipeConsumer);
 
+		ShapedRecipeBuilder.shaped(ModBlocks.CURTAIN_BLOCK.get(),16)
+				.define('N', ModItems.CARBON_NANOTUBE.get())
+				.define('W', ItemTags.WOOL)
+				.pattern("NN")
+				.pattern("NW")
+				.pattern("NW")
+				.unlockedBy("has_carbon_nanotube", inventoryTrigger(ItemPredicate.Builder.item()
+						.of(ModItems.CARBON_NANOTUBE.get())
+						.build()))
+				.save(pFinishedRecipeConsumer);
+
+		ShapelessRecipeBuilder.shapeless(ModItems.GLOW_LICHEN_FIBER.get())
+				.requires(Items.GLOW_LICHEN)
+				.unlockedBy("has_"+Items.GLOW_LICHEN.getRegistryName().getPath(), inventoryTrigger(ItemPredicate.Builder.item()
+						.of(Items.GLOW_LICHEN)
+						.build()))
+				.save(pFinishedRecipeConsumer);
+
 		ShapelessRecipeBuilder.shapeless(ModItems.LANTHANUM_INGOT.get())
 				.requires(ModItems.LANTHANUM_NUGGET.get(),9)
 				.unlockedBy("has_"+ModItems.LANTHANUM_INGOT.getId().getPath(), inventoryTrigger(ItemPredicate.Builder.item()

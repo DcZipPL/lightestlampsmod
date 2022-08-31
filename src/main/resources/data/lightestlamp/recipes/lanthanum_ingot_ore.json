@@ -2,7 +2,7 @@
     "type": "minecraft:smelting",
     "ingredient":
     {
-        "item": "lightestlamp:monazite_ore"
+        "item": "lightestlamp:lanthanum_ore"
     },
     "result":
     {

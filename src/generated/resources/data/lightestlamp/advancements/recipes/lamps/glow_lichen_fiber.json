@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "lightestlamp:glow_lichen_fiber"
+    ]
+  },
+  "criteria": {
+    "has_glow_lichen": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:glow_lichen"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "lightestlamp:glow_lichen_fiber"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_glow_lichen",
+      "has_the_recipe"
+    ]
+  ]
+}

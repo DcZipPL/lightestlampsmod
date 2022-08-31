@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NN",
+    "NW",
+    "NW"
+  ],
+  "key": {
+    "N": {
+      "item": "lightestlamp:carbon_nanotube"
+    },
+    "W": {
+      "tag": "minecraft:wool"
+    }
+  },
+  "result": {
+    "item": "lightestlamp:curtain_block",
+    "count": 16
+  }
+}
