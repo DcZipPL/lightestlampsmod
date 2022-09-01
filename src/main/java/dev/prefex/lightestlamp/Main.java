@@ -2,8 +2,10 @@ package dev.prefex.lightestlamp;
 
 import dev.prefex.lightestlamp.init.ModBlockEntities;
 import dev.prefex.lightestlamp.init.ModBlocks;
-import dev.prefex.lightestlamp.init.ModContainers;
+import dev.prefex.lightestlamp.init.ModMenus;
 import dev.prefex.lightestlamp.init.ModItems;
+import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.Entity;
@@ -31,9 +33,9 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import dev.prefex.lightestlamp.util.network.Networking;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -43,8 +45,7 @@ import static dev.prefex.lightestlamp.Reference.MOD_ID;
 @Mod(MOD_ID)
 public class Main
 {
-    // Directly reference a log4j logger.
-    public static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static final CreativeModeTab main_tab = new CreativeModeTab("lamps") {
         @Override
@@ -59,10 +60,11 @@ public class Main
 
         ModBlocks.init(modEventBus);
         ModBlockEntities.init(modEventBus);
+        ModMenus.init(modEventBus);
         ModItems.init(modEventBus);
 
         // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this:: setup);
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
@@ -85,7 +87,7 @@ public class Main
     private void doClientStuff(final FMLClientSetupEvent event)
     {
         // do something that can only be done on the client
-        //ScreenManager.registerFactory(ModContainers.GAS_CENTRIFUGE, GasCentrifugeScreen::new); // TODO: Register screen
+        MenuScreens.register(ModMenus.GAS_CENTRIFUGE.get(), GasCentrifugeScreen::new);
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.JUNGLE_LANTERN.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK.get(), RenderType.cutout());
     }
@@ -99,7 +101,7 @@ public class Main
         public static void onContainerRegistry(final RegistryEvent.Register<MenuType<?>> containerTypeRegistryEvent)
         {
             // register a new container here
-            containerTypeRegistryEvent.getRegistry().register(ModContainers.GAS_CENTRIFUGE);
+            containerTypeRegistryEvent.getRegistry().register(ModMenus.GAS_CENTRIFUGE.get());
         }
 
         @SuppressWarnings("ConstantConditions")

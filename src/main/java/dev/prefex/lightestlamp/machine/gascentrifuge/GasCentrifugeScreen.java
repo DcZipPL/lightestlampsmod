@@ -9,11 +9,14 @@ import dev.prefex.lightestlamp.util.network.PacketButtonRedstone;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.BaseComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 
@@ -22,10 +25,11 @@ import java.util.Collections;
 public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMenu>
 {
     public static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID,"textures/gui/container/gas_centrifuge.png");
-    private boolean field_214090_m;
-    private GasCentrifugeMenu sc;
+    private final GasCentrifugeMenu sc;
 
-    public GasCentrifugeScreen(GasCentrifugeMenu screenContainer, Inventory inv, BaseComponent titleIn)
+    public static final Logger LOGGER = LoggerFactory.getLogger(GasCentrifugeScreen.class);
+
+    public GasCentrifugeScreen(GasCentrifugeMenu screenContainer, Inventory inv, Component titleIn)
     {
         super(screenContainer, inv, titleIn);
         sc = screenContainer;
@@ -33,39 +37,25 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
 
     @Override
     public void render(PoseStack pPoseStack, int x, int y, float pPartialTick) {
+        renderBackground(pPoseStack);
         super.render(pPoseStack, x, y, pPartialTick);
         renderTooltip(pPoseStack,x,y);
-        //super.drawGuiContainerForegroundLayer(matrixStack, x, y);
         int tmp = 75;
-        this.font.draw(pPoseStack, this.title, (float)(this.getXSize() / 2 - tmp / 2), 6.0F, 4210752);
-        this.font.draw(pPoseStack, this.playerInventoryTitle, 8.0F, (float)(this.getYSize() - 96 + 2), 4210752);
+        //this.font.draw(pPoseStack, this.title, (float)(this.getXSize() / 2 - tmp / 2), 6.0F, 4210752);
+        //this.font.draw(pPoseStack, this.playerInventoryTitle, 8.0F, (float)(this.getYSize() - 96 + 2), 4210752);
 
-        String redstone_tooltip = "Mode: Ignore Redstone";
-        switch (sc.field_217064_e.get(1))
-        {
-            case 0:
-                redstone_tooltip = "Mode: Ignore Redstone";
-                break;
-            case 1:
-                redstone_tooltip = "Mode: Redstone off";
-                break;
-            case 2:
-                redstone_tooltip = "Mode: Redstone on";
-                break;
-        }
-        String fluid_tooltip = "Mode: Neutralize Waste";
-        switch (sc.field_217064_e.get(4))
-        {
-            case 0:
-                fluid_tooltip = "Mode: Neutralize Waste";
-                break;
-            case 1:
-                fluid_tooltip = "Mode: Store";
-                break;
-            case 2:
-                fluid_tooltip = "Mode: Dump (Starts dumping after 3 sec)";
-                break;
-        }
+        String redstone_tooltip = switch (sc.data.get(1)) {
+            case 0 -> "Mode: Ignore Redstone";
+            case 1 -> "Mode: Redstone off";
+            case 2 -> "Mode: Redstone on";
+            default -> "Mode: NULL";
+        };
+        String fluid_tooltip = switch (sc.data.get(4)) {
+            case 0 -> "Mode: Neutralize Waste";
+            case 1 -> "Mode: Store";
+            case 2 -> "Mode: Dump (Starts dumping after 3 sec)";
+            default -> "Mode: NULL";
+        };
 
         int marginHorizontal = (width - getXSize()) / 2;
         int marginVertical = (height - getYSize()) / 2;
@@ -111,12 +101,12 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
 
         int marginHorizontal = (width - getXSize()) / 2;
         int marginVertical = (height - getYSize()) / 2;
-        switch (sc.field_217064_e.get(1)) {
+        switch (sc.data.get(1)) {
             case 0 -> this.blit(pPoseStack, marginHorizontal + 9, marginVertical + 9, 176, 128, 12, 12);
             case 1 -> this.blit(pPoseStack, marginHorizontal + 9, marginVertical + 9, 176, 141, 12, 12);
             case 2 -> this.blit(pPoseStack, marginHorizontal + 9, marginVertical + 9, 176, 154, 12, 12);
         }
-        switch (sc.field_217064_e.get(4)) {
+        switch (sc.data.get(4)) {
             case 0 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 128, 12, 12);
             case 1 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 141, 12, 12);
             case 2 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 154, 12, 12);
@@ -137,12 +127,13 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
             if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20)
             {
                 //Main.LOGGER.info("redstone button clicked!");
-                if (sc.field_217064_e.get(1) == 2)
+                if (sc.data.get(1) == 2)
                 {
-                    sc.field_217064_e.set(1, 0);
+                    sc.data.set(1, 0);
                 } else {
-                    sc.field_217064_e.set(1, sc.field_217064_e.get(1)+1);
+                    sc.data.set(1, sc.data.get(1)+1);
                 }
+                LOGGER.warn("Pos: "+sc.getBlockPos());
                 Networking.INSTANCE.sendToServer(new PacketButtonRedstone(sc.getBlockPos(),0));
             }
         }
@@ -151,12 +142,13 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
             if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20)
             {
                 //Main.LOGGER.info("redstone button clicked!");
-                if (sc.field_217064_e.get(4) == 2)
+                if (sc.data.get(4) == 2)
                 {
-                    sc.field_217064_e.set(4, 0);
+                    sc.data.set(4, 0);
                 } else {
-                    sc.field_217064_e.set(4, sc.field_217064_e.get(4)+1);
+                    sc.data.set(4, sc.data.get(4)+1);
                 }
+                LOGGER.warn("Pos: "+sc.getBlockPos());
                 Networking.INSTANCE.sendToServer(new PacketButtonModeControl(sc.getBlockPos(),0));
             }
         }

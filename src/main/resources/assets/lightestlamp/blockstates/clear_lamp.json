@@ -1,9 +1,9 @@
 {
   "variants": {
-    "lit=false": {
+    "powered=false": {
       "model": "lightestlamp:block/clear_lamp"
     },
-    "lit=true": {
+    "powered=true": {
       "model": "lightestlamp:block/clear_lamp_off"
     }
   }

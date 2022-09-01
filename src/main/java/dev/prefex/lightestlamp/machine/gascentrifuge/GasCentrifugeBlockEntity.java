@@ -3,7 +3,7 @@ package dev.prefex.lightestlamp.machine.gascentrifuge;
 import com.google.common.collect.Maps;
 import dev.prefex.lightestlamp.Config;
 import dev.prefex.lightestlamp.init.ModBlockEntities;
-import dev.prefex.lightestlamp.init.ModContainers;
+import dev.prefex.lightestlamp.init.ModMenus;
 import dev.prefex.lightestlamp.items.FilterItem;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.*;
@@ -56,7 +56,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
 		FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer(8,8));
 		buffer.writeBlockPos(worldPosition);
-		return new GasCentrifugeMenu(ModContainers.GAS_CENTRIFUGE,pContainerId, pInventory, this, this.furnaceData, buffer);
+		return new GasCentrifugeMenu(ModMenus.GAS_CENTRIFUGE.get(),pContainerId, pInventory, this, this.furnaceData, buffer);
 	}
 
 	private static final int[] SLOTS_UP = new int[]{0,1};
@@ -145,7 +145,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 
 	public void startTicksBeforeDumping()
 	{
-		furnaceData.set(6,60);
+		//furnaceData.set(6,60);
 	}
 
 	public static Map<Item, Integer> getBurnTimes() {

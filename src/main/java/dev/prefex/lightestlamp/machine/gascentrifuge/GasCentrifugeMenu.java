@@ -1,7 +1,8 @@
 package dev.prefex.lightestlamp.machine.gascentrifuge;
 
 import dev.prefex.lightestlamp.Config;
-import dev.prefex.lightestlamp.init.ModContainers;
+import dev.prefex.lightestlamp.Main;
+import dev.prefex.lightestlamp.init.ModMenus;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -13,26 +14,33 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GasCentrifugeMenu extends AbstractContainerMenu
 {
     private final Container furnaceInventory;
     private final BlockPos pos;
-    public final ContainerData field_217064_e;
+    public final ContainerData data;
     protected final Level level;
 
-    protected GasCentrifugeMenu(MenuType<?> containerTypeIn, int id, Inventory playerInventoryIn, FriendlyByteBuf buf) {
-        this(containerTypeIn, id, playerInventoryIn, new SimpleContainer(6), new SimpleContainerData(7),buf);
-    }
+    public static final Logger LOGGER = LoggerFactory.getLogger(GasCentrifugeMenu.class);
 
-    protected GasCentrifugeMenu(MenuType<?> containerTypeIn, int id, Inventory playerInventoryIn, Container furnaceInventoryIn, ContainerData p_i50104_6_, FriendlyByteBuf buf) {
+    protected GasCentrifugeMenu(MenuType<?> containerTypeIn, int id, Inventory playerInventoryIn, Container furnaceInventoryIn, ContainerData data, @NotNull FriendlyByteBuf buf) {
         super(containerTypeIn, id);
         checkContainerSize(furnaceInventoryIn, 6);
-        checkContainerDataCount(p_i50104_6_, 7);
+        checkContainerDataCount(data, 7);
         this.furnaceInventory = furnaceInventoryIn;
-        this.field_217064_e = p_i50104_6_;
+        this.data = data;
         this.level = playerInventoryIn.player.level;
-        this.pos = buf.readBlockPos();
+        if (buf == null){
+            LOGGER.warn("Block position is null!");
+            this.pos = BlockPos.ZERO;
+        }else{
+            LOGGER.warn("Block position is something else!");
+            this.pos = buf.readBlockPos();
+        }
         this.addSlot(new Slot(furnaceInventoryIn, 0, 16, 35));
         this.addSlot(new Slot(furnaceInventoryIn, 1, 41, 35));
         this.addSlot(new FurnaceResultSlot(playerInventoryIn.player, furnaceInventoryIn, 2, 99, 19));
@@ -50,12 +58,12 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
             this.addSlot(new Slot(playerInventoryIn, k, 8 + k * 18, 142));
         }
 
-        this.addDataSlots(p_i50104_6_);
+        this.addDataSlots(data);
     }
 
-    public GasCentrifugeMenu(int i, Inventory playerInventory, FriendlyByteBuf packetBuffer)
+    public GasCentrifugeMenu(int i, Inventory playerInventory, @NotNull FriendlyByteBuf packetBuffer)
     {
-        this(ModContainers.GAS_CENTRIFUGE, i, playerInventory, new SimpleContainer(6), new SimpleContainerData(7),packetBuffer);
+        this(ModMenus.GAS_CENTRIFUGE.get(), i, playerInventory, new SimpleContainer(6), new SimpleContainerData(7),packetBuffer);
     }
 
     public BlockPos getBlockPos()
@@ -127,8 +135,8 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
 
     @OnlyIn(Dist.CLIENT)
     public int getCookProgressionScaled() {
-        int i = this.field_217064_e.get(2);
-        int j = this.field_217064_e.get(3);
+        int i = this.data.get(2);
+        int j = this.data.get(3);
         return j != 0 && i != 0 ? i * 24 / j : 0;
     }
 
@@ -136,17 +144,17 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
     public int getBurnLeftScaled()
     {
         int multiplier = Config.GLOWSTONE_FUEL_MULTIPLIER.get() >= 2 ? Config.GLOWSTONE_FUEL_MULTIPLIER.get() : 2;
-        return this.field_217064_e.get(0) * 13 / 180 / multiplier;
+        return this.data.get(0) * 13 / 180 / multiplier;
     }
 
     @OnlyIn(Dist.CLIENT)
     public int getLiquidScaled()
     {
-        return this.field_217064_e.get(5) / 50;
+        return this.data.get(5) / 50;
     }
 
     @OnlyIn(Dist.CLIENT)
     public boolean func_217061_l() {
-        return this.field_217064_e.get(0) > 0;
+        return this.data.get(0) > 0;
     }
 }
