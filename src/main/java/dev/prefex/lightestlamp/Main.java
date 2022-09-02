@@ -5,12 +5,14 @@ import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModMenus;
 import dev.prefex.lightestlamp.init.ModItems;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
+import dev.prefex.lightestlamp.util.OreFeature;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
@@ -18,10 +20,14 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -40,6 +46,8 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import static dev.prefex.lightestlamp.Reference.MOD_ID;
+import static dev.prefex.lightestlamp.util.OreFeature.NETHER_OREGEN;
+import static dev.prefex.lightestlamp.util.OreFeature.registerOreFeatures;
 
 @SuppressWarnings("NullableProblems")
 @Mod(MOD_ID)
@@ -64,9 +72,11 @@ public class Main
         ModItems.init(modEventBus);
 
         // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this:: setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+
+        MinecraftForge.EVENT_BUS.addListener(OreFeature::onBiomeLoadingEvent);
 
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
@@ -81,6 +91,7 @@ public class Main
     private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
+        event.enqueueWork(OreFeature::registerOreFeatures);
         Networking.registerMessages();
     }
 
@@ -123,6 +134,15 @@ public class Main
 
     public static void repelEntitiesInAABBFromPoint(Level world, AABB effectBounds, double x, double y, double z, boolean ignore)
     {
+        moveEntitiesInAABFromPoint(world, effectBounds, x, y, z, ignore, 1D);
+    }
+
+    public static void attractEntitiesInAABBFromPoint(Level world, AABB effectBounds, double x, double y, double z, boolean ignore)
+    {
+        moveEntitiesInAABFromPoint(world, effectBounds, x, y, z, ignore, -1D);
+    }
+
+    private static void moveEntitiesInAABFromPoint(Level world, AABB effectBounds, double x, double y, double z, boolean ignore, double direction){
         List<Entity> list = world.getEntitiesOfClass(Entity.class, effectBounds);
 
         for (Entity ent : list)
@@ -135,17 +155,17 @@ public class Main
                 }
                 else
                 {
-                    /*if (ent instanceof ArrowEntity && ((ArrowEntity) ent).inGound)
+                    if (ent instanceof Arrow && ((Arrow) ent).isOnGround())
                     {
                         continue;
-                    }*/
+                    }
                     Vec3 p = new Vec3(x, y, z);
-                    Vec3 t = ent.getPosition(0);
+                    Vec3 t = new Vec3(ent.getX(), ent.getY(), ent.getZ());
                     double distance = p.distanceTo(t) + 0.1D;
 
                     Vec3 r = new Vec3(t.x - p.x, t.y - p.y, t.z - p.z);
 
-                    ent.moveTo((r.x / 1.5D / distance+ent.getDeltaMovement().x),(r.y / 1.5D / distance+ent.getDeltaMovement().y),(r.z / 1.5D / distance+ent.getDeltaMovement().z));
+                    ent.setDeltaMovement(direction*(r.x / 1.5D / distance+ent.getDeltaMovement().x),direction*(r.y / 1.5D / distance+ent.getDeltaMovement().y),direction*(r.z / 1.5D / distance+ent.getDeltaMovement().z));
                 }
             }
         }

@@ -54,4 +54,5 @@ public class ModItems
     public static final RegistryObject<Item> LANTHANUM_PILE = ITEMS.register("lanthanum_pile",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> LANTHANUM_INGOT = ITEMS.register("lanthanum_ingot",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> LANTHANUM_NUGGET = ITEMS.register("lanthanum_nugget",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
+    public static final RegistryObject<Item> RAW_LANTHANUM = ITEMS.register("raw_lanthanum",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
 }

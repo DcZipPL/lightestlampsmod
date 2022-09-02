@@ -267,6 +267,8 @@ public class ModRecipeProvider extends RecipeProvider {
 						.build()))
 				.save(pFinishedRecipeConsumer);
 
+		oreBlasting(pFinishedRecipeConsumer,Collections.singletonList(ModItems.RAW_LANTHANUM.get()),ModItems.LANTHANUM_INGOT.get(),1.0F, 200, "lanthanum_ingot");
+
 		ShapelessRecipeBuilder.shapeless(ModItems.GLOW_LICHEN_FIBER.get())
 				.requires(Items.GLOW_LICHEN)
 				.unlockedBy("has_"+Items.GLOW_LICHEN.getRegistryName().getPath(), inventoryTrigger(ItemPredicate.Builder.item()

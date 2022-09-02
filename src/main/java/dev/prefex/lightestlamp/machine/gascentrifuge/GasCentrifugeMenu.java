@@ -34,13 +34,7 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
         this.furnaceInventory = furnaceInventoryIn;
         this.data = data;
         this.level = playerInventoryIn.player.level;
-        if (buf == null){
-            LOGGER.warn("Block position is null!");
-            this.pos = BlockPos.ZERO;
-        }else{
-            LOGGER.warn("Block position is something else!");
-            this.pos = buf.readBlockPos();
-        }
+        this.pos = buf.readBlockPos();
         this.addSlot(new Slot(furnaceInventoryIn, 0, 16, 35));
         this.addSlot(new Slot(furnaceInventoryIn, 1, 41, 35));
         this.addSlot(new FurnaceResultSlot(playerInventoryIn.player, furnaceInventoryIn, 2, 99, 19));

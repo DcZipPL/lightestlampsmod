@@ -65,7 +65,7 @@ public class ModBlocks
             .strength(0.1f,1)));
     public static final RegistryObject<Block> CURTAIN_BLOCK = BLOCKS.register("curtain_block", CurtainBlock::new);
     public static final RegistryObject<Block> MONAZITE_ORE = BLOCKS.register("lanthanum_ore", () -> new Block(Block.Properties.of(Material.STONE).sound(SoundType.STONE)
-            .strength(6.4f,1)));
+            .strength(6.4f,1).requiresCorrectToolForDrops()));
 
     //Glowstones
     public static final RegistryObject<Block> NEON_BLOCK = BLOCKS.register("neon_block", () -> new GlowingBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
@@ -80,7 +80,7 @@ public class ModBlocks
             .strength(0.4f,1),15));
     public static final RegistryObject<Block> GLOWING_GLASS_BLOCK = BLOCKS.register("glowing_glass_block", () -> new GlowingGlassBlock());
     public static final RegistryObject<Block> GAS_EXTRACTOR = BLOCKS.register("gas_centrifuge", () -> new GasCentrifugeBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL)
-    .strength(3,1)));
+    .strength(3,1).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> OCC = BLOCKS.register("occ", () -> new OmegaChunkCleanerBlock(Block.Properties.copy(Blocks.STRUCTURE_BLOCK)));
 }

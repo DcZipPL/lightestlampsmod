@@ -4,6 +4,7 @@ import dev.prefex.lightestlamp.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.FACING;
@@ -43,7 +45,7 @@ public class GasCentrifugeBlock extends BaseEntityBlock
         } else {
             BlockEntity blockentity = pLevel.getBlockEntity(pPos);
             if (blockentity instanceof GasCentrifugeBlockEntity) {
-                pPlayer.openMenu((MenuProvider)blockentity);
+                NetworkHooks.openGui((ServerPlayer) pPlayer,(MenuProvider)blockentity, pPos);
                 pPlayer.awardStat(Stats.INTERACT_WITH_FURNACE);
             }
             return InteractionResult.CONSUME;

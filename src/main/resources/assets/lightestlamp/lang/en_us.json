@@ -28,18 +28,19 @@
 	"block.lightestlamp.xenon_block":"Xenon Glowstone",
 	"block.lightestlamp.radon_block":"Radon Glowstone",
 
-	"block.lightestlamp.neon_rod_block":"Neon Rod Block",
-	"block.lightestlamp.argon_rod_block":"Argon Rod Block",
-	"block.lightestlamp.krypton_rod_block":"Krypton Rod Block",
-	"block.lightestlamp.xenon_rod_block":"Xenon Rod Block",
-	"block.lightestlamp.radon_rod_block":"Radon Rod Block",
+	"block.lightestlamp.neon_tube_block":"Neon Tube Block",
+	"block.lightestlamp.argon_tube_block":"Argon Tube Block",
+	"block.lightestlamp.krypton_tube_block":"Krypton Tube Block",
+	"block.lightestlamp.xenon_tube_block":"Xenon Tube Block",
+	"block.lightestlamp.radon_tube_block":"Radon Tube Block",
 
 	"block.lightestlamp.glowing_glass_block":"Glowing Glass",
 	"block.lightestlamp.debug_chunk_cleaner":"Chunk Cleaner (Debug)",
 	"block.lightestlamp.occ":"OCC Chunk Cleaner (Debug)",
-	"block.lightestlamp.monazite_ore":"Monazite Ore",
+	"block.lightestlamp.lanthanum_ore":"Lanthanum Ore",
 
-	"item.lightestlamp.glowing_dust_agglomeratio":"Glowing Dust Agglomeratio",
+	"item.lightestlamp.glow_lichen_fiber":"Glow Lichen Fiber",
+	"item.lightestlamp.raw_lanthanum":"Raw Lanthanum",
 
 	"item.lightestlamp.lanthanum_mesh":"Lanthanum Mesh",
 	"item.lightestlamp.netherite_mesh":"Netherite Mesh",
@@ -75,12 +76,12 @@
 	"item.lightestlamp.radon_pile":"Radon Pile",
 	"item.lightestlamp.lanthanum_pile":"Lanthanum Pile",
 
-	"item.lightestlamp.neon_rod":"Neon Rod",
-	"item.lightestlamp.krypton_rod":"Krypton Rod",
-	"item.lightestlamp.argon_rod":"Argon Rod",
-	"item.lightestlamp.xenon_rod":"Xenon Rod",
-	"item.lightestlamp.radon_rod":"Radon Rod",
-	"item.lightestlamp.empty_rod":"Glass Rod",
+	"item.lightestlamp.neon_tube":"Neon Tube",
+	"item.lightestlamp.krypton_tube":"Krypton Tube",
+	"item.lightestlamp.argon_tube":"Argon Tube",
+	"item.lightestlamp.xenon_tube":"Xenon Tube",
+	"item.lightestlamp.radon_tube":"Radon Tube",
+	"item.lightestlamp.glass_tube":"Glass Tube",
 
 	"item.lightestlamp.chorus_fiber":"Chorus Fiber",
 	"item.lightestlamp.bromine_crystal":"Bromine Crystal",
@@ -106,7 +107,6 @@
 	"tooltip.lightestlamp.inverted": "Redstone Inverted",
 	"tooltip.lightestlamp.penetration": "Light Penetration",
 	"tooltip.lightestlamp.speed_grow": "Grow Glow",
-	"tooltip.lightestlamp.rods_only": "Can only use Rods!",
 	"tooltip.lightestlamp.lamp.title": "How Use Lightest Lamps.",
 	"tooltip.lightestlamp.basic_filter": "Basic",
 	"tooltip.lightestlamp.neon_filter": "Neon",
@@ -126,24 +126,7 @@
 
 	"container.lightestlamp.gascentrifuge": "Gas Centrifuge",
 
-	"jei.lightestlamp.bromine2": "Created fluid: Boron 2 mb",
-	"jei.lightestlamp.bromine5": "Created fluid: Boron 5 mb",
-	"jei.lightestlamp.bromine10": "Created fluid: Boron 10 mb",
-	"jei.lightestlamp.bromine15": "Created fluid: Boron 15 mb",
-	"jei.lightestlamp.bromine50": "Created fluid: Boron 50 mb",
-	"jei.lightestlamp.bromine75": "Created fluid: Boron 75 mb",
-	"jei.lightestlamp.instructions.moonshard": "Moon Shards is dropping from any mob during full moon.",
-	"jei.lightestlamp.instructions.mesh": "Lanthanum Mesh + Netherite Ingot (Smithing Table)",
 	"jei.lightestlamp.gascentrifuge": "Gas Centrifuge",
-
-	"gas.lightestlamp.bromine_vapour": "Bromine Vapor",
-	"crop.lightestlamp.glowing_dust": "Glowing Dust",
-
-	"effect.lightestlamp.bromine_poison": "Bromine Poison",
-
-	"death.attack.bromine": "%s is Bromine Poisoned",
-
-	"fluid.lightestlamp.bromine_fluid": "Bromine",
 
 	"itemGroup.lamps": "Lamps"
 }

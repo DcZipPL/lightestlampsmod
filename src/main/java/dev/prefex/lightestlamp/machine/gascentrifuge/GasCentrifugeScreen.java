@@ -93,7 +93,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
             if (k >= 300)
                 k = 299;
             //Z Y T-Z T-Y W H
-            this.blit(pPoseStack,i + 151, j + 65 + 12 - k, 203, 118 - k, 9, k + 1);
+            this.blit(pPoseStack,i + 41 + 17 - k, j + 54, 194 - k, 100, k + 1,  5);
         }
         int m = ((GasCentrifugeMenu)this.menu).getLiquidScaled();
         //Z Y T-Z T-Y W H

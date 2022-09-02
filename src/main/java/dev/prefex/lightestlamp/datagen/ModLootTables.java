@@ -7,6 +7,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModLootTables extends BlockLoot {
@@ -35,7 +36,6 @@ public class ModLootTables extends BlockLoot {
 		this.dropSelf(ModBlocks.RADON_TUBE_BLOCK.get());
 		this.dropSelf(ModBlocks.VANTA_BLACK.get());
 		this.dropSelf(ModBlocks.CURTAIN_BLOCK.get());
-		this.dropSelf(ModBlocks.MONAZITE_ORE.get());
 		this.add(ModBlocks.NEON_BLOCK.get(), block ->createSingleItemTableWithSilkTouch(
 				block, ModItems.NEON_DUST.get(), UniformGenerator.between(1,4)
 		));
@@ -54,6 +54,7 @@ public class ModLootTables extends BlockLoot {
 		this.add(ModBlocks.GLOWING_GLASS_BLOCK.get(), block ->createSingleItemTableWithSilkTouch(
 				block, Items.GLOWSTONE_DUST, UniformGenerator.between(1,4)
 		));
+		this.add(ModBlocks.MONAZITE_ORE.get(), block -> createOreDrop(ModBlocks.MONAZITE_ORE.get(),ModItems.RAW_LANTHANUM.get()));
 		this.dropSelf(ModBlocks.GAS_EXTRACTOR.get());
 		this.dropSelf(ModBlocks.CURTAIN_BLOCK.get());
 	}

@@ -20,8 +20,5 @@ public class ModMenus
     }
     public static final DeferredRegister<MenuType<?>> MENUS = DeferredRegister.create(ForgeRegistries.CONTAINERS, Reference.MOD_ID);
 
-    public static RegistryObject<MenuType<GasCentrifugeMenu>> GAS_CENTRIFUGE = MENUS.register("gas_centrifuge_menu", () -> IForgeMenuType.create((windowId, inv, data) -> {
-        Main.LOGGER.warn("ModMenus: pos: ");
-        return new GasCentrifugeMenu(windowId,inv,data);
-    }));
+    public static RegistryObject<MenuType<GasCentrifugeMenu>> GAS_CENTRIFUGE = MENUS.register("gas_centrifuge_menu", () -> IForgeMenuType.create(GasCentrifugeMenu::new));
 }
