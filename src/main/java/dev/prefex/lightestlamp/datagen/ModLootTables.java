@@ -53,7 +53,7 @@ public class ModLootTables extends BlockLoot {
 				block, Items.GLOWSTONE_DUST, UniformGenerator.between(1,4)
 		));
 		this.add(ModBlocks.LANTHANUM_ORE.get(), block -> createOreDrop(ModBlocks.LANTHANUM_ORE.get(),ModItems.RAW_LANTHANUM.get()));
-		this.dropSelf(ModBlocks.GAS_EXTRACTOR.get());
+		this.dropSelf(ModBlocks.GLOWSTONE_CENTRIFUGE.get());
 		this.dropSelf(ModBlocks.CURTAIN_BLOCK.get());
 	}
 

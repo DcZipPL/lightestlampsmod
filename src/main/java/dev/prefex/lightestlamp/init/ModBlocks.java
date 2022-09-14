@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import dev.prefex.lightestlamp.Reference;
+import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeBlock;
 
 import static dev.prefex.lightestlamp.blocks.LightestLampBlock.Type.NORMAL;
@@ -21,7 +21,7 @@ public class ModBlocks
         ModBlocks.BLOCKS.register(modEventBus);
     }
 
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Reference.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Util.MOD_ID);
     public static final RegistryObject<Block> LIGHT_AIR = BLOCKS.register("light_air", () -> new LightAirBlock());
     public static final RegistryObject<Block> WATERLOGGABLE_LIGHT_AIR = BLOCKS.register("waterloggable_light_air", () -> new WaterLoggableLightAirBlock());
     public static final RegistryObject<Block> CLEAR_LAMP = BLOCKS.register("clear_lamp", () -> new ClearLampBlock(Block.Properties.copy(Blocks.REDSTONE_LAMP).sound(SoundType.GLASS)
@@ -77,7 +77,7 @@ public class ModBlocks
     public static final RegistryObject<Block> RADON_BLOCK = BLOCKS.register("radon_block", () -> new GlowingBlock(Block.Properties.of(Material.GLASS).sound(SoundType.GLASS)
             .strength(0.4f,1),15));
     public static final RegistryObject<Block> GLOWING_GLASS_BLOCK = BLOCKS.register("glowing_glass_block", () -> new GlowingGlassBlock());
-    public static final RegistryObject<Block> GAS_EXTRACTOR = BLOCKS.register("gas_centrifuge", () -> new GasCentrifugeBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL)
+    public static final RegistryObject<Block> GLOWSTONE_CENTRIFUGE = BLOCKS.register("gas_centrifuge", () -> new GasCentrifugeBlock(Block.Properties.of(Material.METAL).sound(SoundType.METAL)
     .strength(3,1).requiresCorrectToolForDrops()));
 
     public static final RegistryObject<Block> OCC = BLOCKS.register("occ", () -> new OmegaChunkCleanerBlock(Block.Properties.copy(Blocks.STRUCTURE_BLOCK)));

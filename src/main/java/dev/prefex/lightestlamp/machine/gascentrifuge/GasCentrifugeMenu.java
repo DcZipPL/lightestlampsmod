@@ -1,8 +1,7 @@
 package dev.prefex.lightestlamp.machine.gascentrifuge;
 
 import dev.prefex.lightestlamp.Config;
-import dev.prefex.lightestlamp.Main;
-import dev.prefex.lightestlamp.init.ModMenus;
+import dev.prefex.lightestlamp.init.ModMiscs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -57,7 +56,7 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
 
     public GasCentrifugeMenu(int i, Inventory playerInventory, @NotNull FriendlyByteBuf packetBuffer)
     {
-        this(ModMenus.GAS_CENTRIFUGE.get(), i, playerInventory, new SimpleContainer(6), new SimpleContainerData(7),packetBuffer);
+        this(ModMiscs.GAS_CENTRIFUGE.get(), i, playerInventory, new SimpleContainer(6), new SimpleContainerData(7),packetBuffer);
     }
 
     public BlockPos getBlockPos()

@@ -158,7 +158,13 @@ repositories {
     maven {url='https://dist.creeper.host/Sponge/maven'}
 }
 
+test {
+    useJUnitPlatform()
+}
+
 dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft', it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.

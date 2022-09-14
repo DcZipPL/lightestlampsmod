@@ -1,8 +1,7 @@
 package dev.prefex.lightestlamp.datagen;
 
-import dev.prefex.lightestlamp.Reference;
+import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.init.ModBlocks;
-import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeBlock;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RotatedPillarBlock;
@@ -12,7 +11,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlocksStateProvider extends BlockStateProvider {
 	public ModBlocksStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
-		super(gen, Reference.MOD_ID, exFileHelper);
+		super(gen, Util.MOD_ID, exFileHelper);
 	}
 
 	@Override
@@ -29,11 +28,11 @@ public class ModBlocksStateProvider extends BlockStateProvider {
 					|| block == ModBlocks.EPSILON_LAMP.get()){
 				// TODO: add lamp models here
 			}
-			else if (block == ModBlocks.GAS_EXTRACTOR.get()){
-				simpleBlock(ModBlocks.GAS_EXTRACTOR.get(), models().cubeBottomTop(block.getRegistryName().getPath(),
-						new ResourceLocation(Reference.MOD_ID,"block/machine/"+block.getRegistryName().getPath()+"_side"),
-						new ResourceLocation(Reference.MOD_ID,"block/machine/"+block.getRegistryName().getPath()+"_bottom"),
-						new ResourceLocation(Reference.MOD_ID,"block/machine/"+block.getRegistryName().getPath())));
+			else if (block == ModBlocks.GLOWSTONE_CENTRIFUGE.get()){
+				simpleBlock(ModBlocks.GLOWSTONE_CENTRIFUGE.get(), models().cubeBottomTop(block.getRegistryName().getPath(),
+						new ResourceLocation(Util.MOD_ID,"block/machine/"+block.getRegistryName().getPath()+"_side"),
+						new ResourceLocation(Util.MOD_ID,"block/machine/"+block.getRegistryName().getPath()+"_bottom"),
+						new ResourceLocation(Util.MOD_ID,"block/machine/"+block.getRegistryName().getPath())));
 			}
 			else if (block != ModBlocks.CURTAIN_BLOCK.get()
 					&& block != ModBlocks.OCC.get()

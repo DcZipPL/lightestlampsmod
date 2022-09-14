@@ -2,7 +2,7 @@ package dev.prefex.lightestlamp.machine.gascentrifuge;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.prefex.lightestlamp.Reference;
+import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.util.network.Networking;
 import dev.prefex.lightestlamp.util.network.PacketButtonModeControl;
 import dev.prefex.lightestlamp.util.network.PacketButtonRedstone;
@@ -21,13 +21,12 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("NullableProblems")
 @OnlyIn(Dist.CLIENT)
 public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMenu>
 {
-    public static final ResourceLocation texture = new ResourceLocation(Reference.MOD_ID,"textures/gui/container/gas_centrifuge.png");
+    public static final ResourceLocation texture = new ResourceLocation(Util.MOD_ID,"textures/gui/container/gas_centrifuge.png");
     private final GasCentrifugeMenu sc;
 
     public static final Logger LOGGER = LoggerFactory.getLogger(GasCentrifugeScreen.class);

@@ -1,6 +1,6 @@
 package dev.prefex.lightestlamp.util.network;
 
-import dev.prefex.lightestlamp.Reference;
+import dev.prefex.lightestlamp.Util;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -20,7 +20,7 @@ public class Networking
     public static void registerMessages()
     {
         INSTANCE = NetworkRegistry.newSimpleChannel(
-                new ResourceLocation(Reference.MOD_ID, "main"),
+                new ResourceLocation(Util.MOD_ID, "main"),
                 () -> PROTOCOL_VERSION,
                 PROTOCOL_VERSION::equals,
                 PROTOCOL_VERSION::equals

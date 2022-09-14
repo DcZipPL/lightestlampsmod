@@ -1,6 +1,6 @@
 package dev.prefex.lightestlamp.plugins;
 
-import dev.prefex.lightestlamp.Reference;
+import dev.prefex.lightestlamp.Util;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
@@ -42,6 +42,6 @@ public class JEIPlugin implements IModPlugin
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Reference.MOD_ID, GAS_CENTRIFUGE);
+        return new ResourceLocation(Util.MOD_ID, GAS_CENTRIFUGE);
     }
 }

@@ -2,7 +2,7 @@ package dev.prefex.lightestlamp;
 
 import dev.prefex.lightestlamp.init.ModBlockEntities;
 import dev.prefex.lightestlamp.init.ModBlocks;
-import dev.prefex.lightestlamp.init.ModMenus;
+import dev.prefex.lightestlamp.init.ModMiscs;
 import dev.prefex.lightestlamp.init.ModItems;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
 import dev.prefex.lightestlamp.util.OreFeature;
@@ -20,14 +20,10 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -45,9 +41,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static dev.prefex.lightestlamp.Reference.MOD_ID;
-import static dev.prefex.lightestlamp.util.OreFeature.NETHER_OREGEN;
-import static dev.prefex.lightestlamp.util.OreFeature.registerOreFeatures;
+import static dev.prefex.lightestlamp.Util.MOD_ID;
 
 @SuppressWarnings("NullableProblems")
 @Mod(MOD_ID)
@@ -68,7 +62,7 @@ public class Main
 
         ModBlocks.init(modEventBus);
         ModBlockEntities.init(modEventBus);
-        ModMenus.init(modEventBus);
+        ModMiscs.init(modEventBus);
         ModItems.init(modEventBus);
 
         // Register the setup method for modloading
@@ -98,7 +92,7 @@ public class Main
     private void doClientStuff(final FMLClientSetupEvent event)
     {
         // do something that can only be done on the client
-        MenuScreens.register(ModMenus.GAS_CENTRIFUGE.get(), GasCentrifugeScreen::new);
+        MenuScreens.register(ModMiscs.GAS_CENTRIFUGE.get(), GasCentrifugeScreen::new);
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.JUNGLE_LANTERN.get(), RenderType.cutout());
         ItemBlockRenderTypes.setRenderLayer(ModBlocks.GLOWING_GLASS_BLOCK.get(), RenderType.cutout());
     }
@@ -112,7 +106,7 @@ public class Main
         public static void onContainerRegistry(final RegistryEvent.Register<MenuType<?>> containerTypeRegistryEvent)
         {
             // register a new container here
-            containerTypeRegistryEvent.getRegistry().register(ModMenus.GAS_CENTRIFUGE.get());
+            containerTypeRegistryEvent.getRegistry().register(ModMiscs.GAS_CENTRIFUGE.get());
         }
 
         @SuppressWarnings("ConstantConditions")
@@ -129,45 +123,6 @@ public class Main
                 blockItem.setRegistryName(block.getRegistryName());
                 registry.register(blockItem);
             });
-        }
-    }
-
-    public static void repelEntitiesInAABBFromPoint(Level world, AABB effectBounds, double x, double y, double z, boolean ignore)
-    {
-        moveEntitiesInAABFromPoint(world, effectBounds, x, y, z, ignore, 1D);
-    }
-
-    public static void attractEntitiesInAABBFromPoint(Level world, AABB effectBounds, double x, double y, double z, boolean ignore)
-    {
-        moveEntitiesInAABFromPoint(world, effectBounds, x, y, z, ignore, -1D);
-    }
-
-    private static void moveEntitiesInAABFromPoint(Level world, AABB effectBounds, double x, double y, double z, boolean ignore, double direction){
-        List<Entity> list = world.getEntitiesOfClass(Entity.class, effectBounds);
-
-        for (Entity ent : list)
-        {
-            if ((ent instanceof LivingEntity) || (ent instanceof Projectile))
-            {
-                if (!ignore && !(ent instanceof Mob || ent instanceof Projectile))
-                {
-                    continue;
-                }
-                else
-                {
-                    if (ent instanceof Arrow && ((Arrow) ent).isOnGround())
-                    {
-                        continue;
-                    }
-                    Vec3 p = new Vec3(x, y, z);
-                    Vec3 t = new Vec3(ent.getX(), ent.getY(), ent.getZ());
-                    double distance = p.distanceTo(t) + 0.1D;
-
-                    Vec3 r = new Vec3(t.x - p.x, t.y - p.y, t.z - p.z);
-
-                    ent.setDeltaMovement(direction*(r.x / 1.5D / distance+ent.getDeltaMovement().x),direction*(r.y / 1.5D / distance+ent.getDeltaMovement().y),direction*(r.z / 1.5D / distance+ent.getDeltaMovement().z));
-                }
-            }
         }
     }
 }

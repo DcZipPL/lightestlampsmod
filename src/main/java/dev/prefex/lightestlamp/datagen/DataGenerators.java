@@ -1,17 +1,15 @@
 package dev.prefex.lightestlamp.datagen;
 
-import dev.prefex.lightestlamp.Main;
-import dev.prefex.lightestlamp.Reference;
+import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.datagen.tags.ModTagsProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
-@Mod.EventBusSubscriber(modid = Reference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = Util.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 	@SubscribeEvent
 	public static void gatherData(GatherDataEvent event){

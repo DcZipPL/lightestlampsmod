@@ -1,6 +1,6 @@
 package dev.prefex.lightestlamp.init;
 
-import dev.prefex.lightestlamp.Reference;
+import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.entities.AlchemicalLampBlockEntity;
 import dev.prefex.lightestlamp.entities.NormalLampBlockEntity;
 import dev.prefex.lightestlamp.entities.OmegaLampBlockEntity;
@@ -17,7 +17,7 @@ public class ModBlockEntities
     public static void init(IEventBus modEventBus){
         ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
     }
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Reference.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Util.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<OmegaChunkCleanerBlockEntity>> OCC_BE = BLOCK_ENTITIES.register(
             "occ_be", () -> BlockEntityType.Builder.of(OmegaChunkCleanerBlockEntity::new, ModBlocks.OCC.get()).build(null)
@@ -46,6 +46,6 @@ public class ModBlockEntities
             "alchemical_be", () -> BlockEntityType.Builder.of(AlchemicalLampBlockEntity::new, ModBlocks.ALCHEMICAL_LAMP.get()).build(null)
     );
     public static final RegistryObject<BlockEntityType<GasCentrifugeBlockEntity>> CENTRIFUGE_BE = BLOCK_ENTITIES.register(
-            "centrifuge_be", () -> BlockEntityType.Builder.of(GasCentrifugeBlockEntity::new, ModBlocks.GAS_EXTRACTOR.get()).build(null)
+            "centrifuge_be", () -> BlockEntityType.Builder.of(GasCentrifugeBlockEntity::new, ModBlocks.GLOWSTONE_CENTRIFUGE.get()).build(null)
     );
 }

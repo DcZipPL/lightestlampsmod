@@ -1,8 +1,7 @@
 package dev.prefex.lightestlamp.init;
 
-import com.google.gson.JsonArray;
 import dev.prefex.lightestlamp.Main;
-import dev.prefex.lightestlamp.Reference;
+import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.items.FilterItem;
 import dev.prefex.lightestlamp.items.StickAndBowlItem;
 import net.minecraft.world.item.Item;
@@ -10,7 +9,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import dev.prefex.lightestlamp.items.*;
 
 public class ModItems
 {
@@ -18,7 +16,7 @@ public class ModItems
         ModItems.ITEMS.register(modEventBus);
     }
 
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Util.MOD_ID);
     
     public static final RegistryObject<Item> CHORUS_FIBER = ITEMS.register("chorus_fiber",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));
     public static final RegistryObject<Item> GLOW_LICHEN_FIBER = ITEMS.register("glow_lichen_fiber",() -> new Item(new Item.Properties().stacksTo(64).tab(Main.main_tab)));

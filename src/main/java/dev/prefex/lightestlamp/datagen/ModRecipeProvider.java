@@ -1,23 +1,18 @@
 package dev.prefex.lightestlamp.datagen;
 
-import dev.prefex.lightestlamp.Main;
 import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModItems;
+import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeRecipe;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
@@ -176,7 +171,7 @@ public class ModRecipeProvider extends RecipeProvider {
 						.of(ModBlocks.BETA_LAMP.get())
 						.build()))
 				.save(pFinishedRecipeConsumer);
-		ShapedRecipeBuilder.shaped(ModBlocks.GAS_EXTRACTOR.get())
+		ShapedRecipeBuilder.shaped(ModBlocks.GLOWSTONE_CENTRIFUGE.get())
 				.define('P', Blocks.PISTON)
 				.define('T', ModItems.GLASS_TUBE.get())
 				.define('I', ModItems.LANTHANUM_INGOT.get())
