@@ -7,25 +7,25 @@ import net.minecraft.world.item.Items;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GasCentrifugeRecipe
+public class GasCentrifugeLegacyRecipe
 {
-    protected static List<GasCentrifugeRecipe> recipes = new ArrayList<GasCentrifugeRecipe>();
-    public static final GasCentrifugeRecipe basic = new GasCentrifugeRecipe(
+    protected static List<GasCentrifugeLegacyRecipe> recipes = new ArrayList<GasCentrifugeLegacyRecipe>();
+    public static final GasCentrifugeLegacyRecipe basic = new GasCentrifugeLegacyRecipe(
             new ItemStack(ModItems.BASIC_FILTER.get()), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.NEON_DUST.get()),new ItemStack(ModItems.ARGON_DUST.get()),new ItemStack(ModItems.KRYPTON_PILE.get()),ItemStack.EMPTY);
-    public static final GasCentrifugeRecipe neon = new GasCentrifugeRecipe(
+    public static final GasCentrifugeLegacyRecipe neon = new GasCentrifugeLegacyRecipe(
             new ItemStack(ModItems.NEON_FILTER.get()), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.NEON_DUST.get(),2),new ItemStack(ModItems.NEON_PILE.get()),new ItemStack(ModItems.ARGON_PILE.get()),ItemStack.EMPTY);
-    public static final GasCentrifugeRecipe argon = new GasCentrifugeRecipe(
+    public static final GasCentrifugeLegacyRecipe argon = new GasCentrifugeLegacyRecipe(
             new ItemStack(ModItems.ARGON_FILTER.get()), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.ARGON_DUST.get(),2),new ItemStack(ModItems.NEON_PILE.get(),2),new ItemStack(ModItems.XENON_PILE.get(),1),ItemStack.EMPTY);
-    public static final GasCentrifugeRecipe krypton = new GasCentrifugeRecipe(
+    public static final GasCentrifugeLegacyRecipe krypton = new GasCentrifugeLegacyRecipe(
             new ItemStack(ModItems.KRYPTON_FILTER.get()), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.ARGON_PILE.get(),3),new ItemStack(ModItems.KRYPTON_DUST.get()),new ItemStack(ModItems.KRYPTON_PILE.get(),2),new ItemStack(ModItems.XENON_PILE.get(),2));
-    public static final GasCentrifugeRecipe xenon = new GasCentrifugeRecipe(
+    public static final GasCentrifugeLegacyRecipe xenon = new GasCentrifugeLegacyRecipe(
             new ItemStack(ModItems.XENON_FILTER.get()), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.KRYPTON_PILE.get(),2),new ItemStack(ModItems.XENON_DUST.get()),new ItemStack(ModItems.XENON_PILE.get(),2),new ItemStack(ModItems.RADON_PILE.get(),1));
-    public static final GasCentrifugeRecipe radon = new GasCentrifugeRecipe(
+    public static final GasCentrifugeLegacyRecipe radon = new GasCentrifugeLegacyRecipe(
             new ItemStack(ModItems.RADON_FILTER.get()), new ItemStack(Items.GLOWSTONE),new ItemStack(ModItems.XENON_PILE.get(),2),new ItemStack(ModItems.RADON_PILE.get(),3),ItemStack.EMPTY,ItemStack.EMPTY);
-    public static final GasCentrifugeRecipe bromine = new GasCentrifugeRecipe(
+    public static final GasCentrifugeLegacyRecipe bromine = new GasCentrifugeLegacyRecipe(
             new ItemStack(ModItems.BROMINE_FILTER.get()), new ItemStack(Items.GLOWSTONE),ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY,ItemStack.EMPTY);
 
-    public GasCentrifugeRecipe(ItemStack top_input, ItemStack bottom_input, ItemStack right_up_output, ItemStack left_up_output, ItemStack right_bottom_output, ItemStack left_bottom_output)
+    public GasCentrifugeLegacyRecipe(ItemStack top_input, ItemStack bottom_input, ItemStack right_up_output, ItemStack left_up_output, ItemStack right_bottom_output, ItemStack left_bottom_output)
     {
         this.top_input = top_input;
         //this.bottom_input = bottom_input;
@@ -37,7 +37,7 @@ public class GasCentrifugeRecipe
 
     public static ItemStack[] getRecipeOutputs(ItemStack input)
     {
-        for (GasCentrifugeRecipe recipe : getRecipes())
+        for (GasCentrifugeLegacyRecipe recipe : getRecipes())
         {
             if (input.getItem() == recipe.top_input.getItem())
             {
@@ -49,7 +49,7 @@ public class GasCentrifugeRecipe
         return items;
     }
 
-    public static List<GasCentrifugeRecipe> getRecipes()
+    public static List<GasCentrifugeLegacyRecipe> getRecipes()
     {
         recipes.add(basic);
         recipes.add(neon);

@@ -1,8 +1,7 @@
 {
 	"block.lightestlamp.luminatium_block":"Luminatium Block",
-	"block.lightestlamp.gas_centrifuge":"Gas Centrifuge",
+	"block.lightestlamp.glowstone_centrifuge":"Glowstone Centrifuge",
 	"block.lightestlamp.vanta_black":"Vanta Black",
-	"block.lightestlamp.curtain_block":"Curtain Block",
 
 	"block.lightestlamp.jungle_lantern":"Lamp Fruit",
 	"block.lightestlamp.clear_lamp":"Clear Lamp",
@@ -39,9 +38,6 @@
 	"block.lightestlamp.occ":"OCC Chunk Cleaner (Debug)",
 	"block.lightestlamp.lanthanum_ore":"Lanthanum Ore",
 
-	"item.lightestlamp.glow_lichen_fiber":"Glow Lichen Fiber",
-	"item.lightestlamp.raw_lanthanum":"Raw Lanthanum",
-
 	"item.lightestlamp.lanthanum_mesh":"Lanthanum Mesh",
 	"item.lightestlamp.netherite_mesh":"Netherite Mesh",
 
@@ -57,11 +53,13 @@
 	"item.lightestlamp.written_book": "Lightest Lamps Guide",
 	"item.lightestlamp.carbon_nanotube": "Carbon Nano Tube",
 	"item.lightestlamp.alchemical_dust":"Alchemical Dust",
+	"item.lightestlamp.glow_lichen_fiber":"Glow Lichen Fiber",
 	"item.lightestlamp.stickandbowl":"Bowl and Stick",
 	"item.lightestlamp.moon_shard":"Moon Shard",
 	"item.lightestlamp.lanthanum_dust":"Lanthanum Dust",
 	"item.lightestlamp.lanthanum_ingot":"Lanthanum Ingot",
 	"item.lightestlamp.lanthanum_nugget":"Lanthanum Nugget",
+	"item.lightestlamp.raw_lanthanum":"Raw Lanthanum",
 
 	"item.lightestlamp.neon_dust":"Neon Dust",
 	"item.lightestlamp.krypton_dust":"Krypton Dust",
@@ -84,11 +82,8 @@
 	"item.lightestlamp.glass_tube":"Glass Tube",
 
 	"item.lightestlamp.chorus_fiber":"Chorus Fiber",
-	"item.lightestlamp.bromine_crystal":"Bromine Crystal",
 
-	"item.lightestlamp.bromine_fluid_bucket":"Bromine Bucket",
-
-	"tooltip.lightestlamp.underwater": "Works underwater.",
+	"tooltip.lightestlamp.underwater": "Works Underwater",
 	"tooltip.lightestlamp.type.alpha": "Type: α (16 Blocks Light)",
 	"tooltip.lightestlamp.type.beta": "Type: β (17 Blocks Light)",
 	"tooltip.lightestlamp.type.gamma": "Type: γ (18 Blocks Light)",
@@ -98,11 +93,13 @@
 	"tooltip.lightestlamp.type.eta": "Type: η (26 Blocks Light)",
 	"tooltip.lightestlamp.type.omega": "Type: Ω (30 Blocks Light)",
 	"tooltip.lightestlamp.type.energetic": "Type: Energetic (12-48 Blocks Light)",
-	"tooltip.lightestlamp.type.energetic.energy_required": "Redstone Required",
-	"tooltip.lightestlamp.type.energetic.min_range": "Min Energy: 16 FE per tick",
-	"tooltip.lightestlamp.type.energetic.max_range": "Max Energy: 8.000 FE per tick",
-	"tooltip.lightestlamp.type.antimatter": "Antimatter",
+	"tooltip.lightestlamp.type.ocean_between": "Type: ε-ζ (22 Blocks Light)",
 	"tooltip.lightestlamp.type.alchemical": "Interdiction",
+	"tooltip.lightestlamp.type.alchemical_full": "Interdiction: Pushes mobs away from lamp area",
+	"tooltip.lightestlamp.soul_lamp": "Soul Light",
+	"tooltip.lightestlamp.soul_lamp_full": "Soul Light: Scares nether creatures",
+	"tooltip.lightestlamp.analog": "Analog",
+	"tooltip.lightestlamp.analog_full": "Analog: Lamp has more states than two",
 	"tooltip.lightestlamp.always_active": "Always Active",
 	"tooltip.lightestlamp.inverted": "Redstone Inverted",
 	"tooltip.lightestlamp.penetration": "Light Penetration",
@@ -124,9 +121,15 @@
 	"tooltip.lightestlamp.book.title3": "Centrifuge Recipes",
 	"tooltip.lightestlamp.book.title4": "More: https://github.com/DcZipPL/lightestlampsmod/wiki",
 
-	"container.lightestlamp.gascentrifuge": "Gas Centrifuge",
+	"container.lightestlamp.glowstone_centrifuge": "Glowstone Centrifuge",
 
 	"jei.lightestlamp.gascentrifuge": "Gas Centrifuge",
 
-	"itemGroup.lamps": "Lamps"
+	"text.autoconfig.lightest-lamps.title": "Lightest Lamps (Configuration)",
+	"text.autoconfig.lightest-lamps.option.glowstone_multiplier": "Glowstonez (Fuel) multiplier",
+	"text.autoconfig.lightest-lamps.option.monazite_gen": "Allow generation of Lanthanum Ore",
+	"text.autoconfig.lightest-lamps.option.vanilla_mode": "Vanilla mode",
+	"text.autoconfig.lightest-lamps.option.power_as_default": "Power mode as default",
+
+	"itemGroup.lightestlamp.lamps": "Lamps"
 }

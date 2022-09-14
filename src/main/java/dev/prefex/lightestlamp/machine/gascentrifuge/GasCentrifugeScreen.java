@@ -6,11 +6,11 @@ import dev.prefex.lightestlamp.Reference;
 import dev.prefex.lightestlamp.util.network.Networking;
 import dev.prefex.lightestlamp.util.network.PacketButtonModeControl;
 import dev.prefex.lightestlamp.util.network.PacketButtonRedstone;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.BaseComponent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,7 +18,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("NullableProblems")
 @OnlyIn(Dist.CLIENT)
@@ -40,27 +43,23 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         renderBackground(pPoseStack);
         super.render(pPoseStack, x, y, pPartialTick);
         renderTooltip(pPoseStack,x,y);
-        int tmp = 75;
-        //this.font.draw(pPoseStack, this.title, (float)(this.getXSize() / 2 - tmp / 2), 6.0F, 4210752);
-        //this.font.draw(pPoseStack, this.playerInventoryTitle, 8.0F, (float)(this.getYSize() - 96 + 2), 4210752);
 
         String redstone_tooltip = switch (sc.data.get(1)) {
-            case 0 -> "Mode: Ignore Redstone";
-            case 1 -> "Mode: Redstone off";
-            case 2 -> "Mode: Redstone on";
-            default -> "Mode: NULL";
+            case 0 -> "tooltip.lightestlamp.machine.redstone_ignore";
+            case 1 -> "tooltip.lightestlamp.machine.redstone_off";
+            case 2 -> "tooltip.lightestlamp.machine.redstone_on";
+            default -> "tooltip.lightestlamp.machine.redstone_na";
         };
-        String fluid_tooltip = switch (sc.data.get(4)) {
-            case 0 -> "Mode: Neutralize Waste";
-            case 1 -> "Mode: Store";
-            case 2 -> "Mode: Dump (Starts dumping after 3 sec)";
-            default -> "Mode: NULL";
+        String power_tooltip = switch (sc.data.get(4)) {
+            case 0 -> "tooltip.lightestlamp.machine.passive_mode";
+            case 1 -> "tooltip.lightestlamp.machine.normal_mode";
+            case 2 -> "tooltip.lightestlamp.machine.overclock_mode";
+            default -> "tooltip.lightestlamp.machine.mode_na";
         };
 
         int marginHorizontal = (width - getXSize()) / 2;
         int marginVertical = (height - getYSize()) / 2;
 
-        //(marginHorizontal+9 <V>,marginHorizontal+20,marginVertical+9 <V>,marginVertical+20, 0 <V>)
         HoverChecker checker = new HoverChecker(marginHorizontal+9,marginHorizontal+20,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(x,y, true))
         {
@@ -69,9 +68,16 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         checker = new HoverChecker(marginHorizontal+25,marginHorizontal+36,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(x,y, true))
         {
-            renderComponentTooltip(pPoseStack, Collections.singletonList(new TextComponent(fluid_tooltip)),x-marginHorizontal+4,y-marginVertical+4,font);
+            renderComponentTooltip(pPoseStack, formatUTooltip(power_tooltip),x-marginHorizontal+4,y-marginVertical+4,font);
         }
-        //renderHoveredToolTip(mouseX-marginHorizontal+4,mouseY-marginVertical+4);
+    }
+
+    private List<MutableComponent> formatUTooltip(String utooltip) {
+        return Arrays.stream(I18n.get(utooltip).replace("Format error: ", "*").split("¬")).map(
+                s -> new TextComponent(s).setStyle(Style.EMPTY.withColor(
+                        s.contains("§7") ? ChatFormatting.GRAY : s.contains("§c") ? ChatFormatting.RED : s.contains("§a") ? ChatFormatting.GREEN : ChatFormatting.WHITE
+                ))
+        ).toList();
     }
 
     @Override
@@ -120,13 +126,12 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
     public boolean mouseClicked(double mouseX, double mouseY, int id) {
         int marginHorizontal = (width - getXSize()) / 2;
         int marginVertical = (height - getYSize()) / 2;
-        //Main.LOGGER.info("Clicked at: " + mouseX + ":" + mouseY + ":" + id + ", With margin: " + (mouseX - marginHorizontal) + ":" + (mouseY - marginVertical) + ":" + id);
 
+        // Clicked Redstone button
         if (mouseX - marginHorizontal >= 9 && mouseX - marginHorizontal <= 20)
         {
             if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20)
             {
-                //Main.LOGGER.info("redstone button clicked!");
                 if (sc.data.get(1) == 2)
                 {
                     sc.data.set(1, 0);
@@ -137,11 +142,11 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
                 Networking.INSTANCE.sendToServer(new PacketButtonRedstone(sc.getBlockPos(),0));
             }
         }
+        // Clicked Power button
         if (mouseX - marginHorizontal >= 25 && mouseX - marginHorizontal <= 36)
         {
             if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20)
             {
-                //Main.LOGGER.info("redstone button clicked!");
                 if (sc.data.get(4) == 2)
                 {
                     sc.data.set(4, 0);
@@ -169,8 +174,5 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         public boolean checkHover(double mouseX, double mouseY,boolean simulate){
             return mouseX >= buttonX0 && mouseY >= buttonY1 && mouseX <= buttonX1 && mouseY <= buttonY0;
         }
-        /*public boolean checkHoverLegacy(double mouseX, double mouseY, double buttonX0, double buttonX1,double buttonY0, double buttonY1){
-            return mouseX >= this.field_230690_l_ && mouseY >= this.field_230691_m_ && mouseX < this.field_230690_l_ + this.field_230688_j_ && mouseY < this.field_230691_m_ + this.field_230689_k_;
-        }*/
     }
 }

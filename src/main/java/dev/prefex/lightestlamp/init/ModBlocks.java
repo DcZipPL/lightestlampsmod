@@ -3,7 +3,6 @@ package dev.prefex.lightestlamp.init;
 import dev.prefex.lightestlamp.blocks.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.RedstoneLampBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -11,7 +10,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import dev.prefex.lightestlamp.Reference;
-import dev.prefex.lightestlamp.blocks.*;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeBlock;
 
 import static dev.prefex.lightestlamp.blocks.LightestLampBlock.Type.NORMAL;
@@ -64,7 +62,7 @@ public class ModBlocks
     public static final RegistryObject<Block> VANTA_BLACK = BLOCKS.register("vanta_black", () -> new Block(Block.Properties.of(Material.WOOL).sound(SoundType.WOOL)
             .strength(0.1f,1)));
     public static final RegistryObject<Block> CURTAIN_BLOCK = BLOCKS.register("curtain_block", CurtainBlock::new);
-    public static final RegistryObject<Block> MONAZITE_ORE = BLOCKS.register("lanthanum_ore", () -> new Block(Block.Properties.of(Material.STONE).sound(SoundType.STONE)
+    public static final RegistryObject<Block> LANTHANUM_ORE = BLOCKS.register("lanthanum_ore", () -> new Block(Block.Properties.of(Material.STONE).sound(SoundType.STONE)
             .strength(6.4f,1).requiresCorrectToolForDrops()));
 
     //Glowstones

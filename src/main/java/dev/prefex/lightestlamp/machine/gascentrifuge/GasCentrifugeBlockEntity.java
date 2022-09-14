@@ -47,7 +47,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 
 	@Override
 	protected Component getDefaultName() {
-		return new TranslatableComponent("container.lightestlamp.gascentrifuge");
+		return new TranslatableComponent("container.lightestlamp.glowstone_centrifuge");
 	}
 
 	public GasCentrifugeBlockEntity(BlockPos pos, BlockState state) {this(ModBlockEntities.CENTRIFUGE_BE.get(), pos, state);}
@@ -274,7 +274,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 
 	protected boolean canSmelt() {
 		if (!this.items.get(0).isEmpty()) {
-			ItemStack[] itemstacks = GasCentrifugeRecipe.getRecipeOutputs(items.get(0));
+			ItemStack[] itemstacks = GasCentrifugeLegacyRecipe.getRecipeOutputs(items.get(0));
 			if (itemstacks[0].isEmpty()&&itemstacks[1].isEmpty()&&itemstacks[2].isEmpty()&&itemstacks[3].isEmpty())
 			{
 				return false;
@@ -311,7 +311,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	{
 		if (this.canSmelt()) {
 			ItemStack itemstack = this.items.get(0);
-			ItemStack[] itemstacks = GasCentrifugeRecipe.getRecipeOutputs(items.get(0));
+			ItemStack[] itemstacks = GasCentrifugeLegacyRecipe.getRecipeOutputs(items.get(0));
 			ItemStack itemstack2 = this.items.get(2);
 			ItemStack itemstack3 = this.items.get(3);
 			ItemStack itemstack4 = this.items.get(4);

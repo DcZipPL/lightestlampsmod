@@ -4,6 +4,8 @@
     "minecraft:glowstone",
     "lightestlamp:neon_block",
     "lightestlamp:argon_block",
-    "lightestlamp:krypton_block"
+    "lightestlamp:krypton_block",
+    "lightestlamp:xenon_block",
+    "lightestlamp:radon_block"
   ]
 }

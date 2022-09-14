@@ -17,7 +17,7 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 public class OreFeature {
 	public static Holder<PlacedFeature> NETHER_OREGEN;
 	public static void registerOreFeatures() {
-		OreConfiguration overworldConfig = new OreConfiguration(OreFeatures.NETHER_ORE_REPLACEABLES, ModBlocks.MONAZITE_ORE.get().defaultBlockState(), 4);
+		OreConfiguration overworldConfig = new OreConfiguration(OreFeatures.NETHER_ORE_REPLACEABLES, ModBlocks.LANTHANUM_ORE.get().defaultBlockState(), 4);
 		NETHER_OREGEN = registerPlacedOreFeature("nether_lanthanum_ore", new ConfiguredFeature<>(Feature.ORE, overworldConfig),
 				CountPlacement.of(22),
 				InSquarePlacement.spread(),

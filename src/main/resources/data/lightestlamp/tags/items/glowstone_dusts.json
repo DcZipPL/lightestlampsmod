@@ -4,6 +4,8 @@
     "minecraft:glowstone_dust",
     "lightestlamp:neon_dust",
     "lightestlamp:argon_dust",
-    "lightestlamp:krypton_dust"
+    "lightestlamp:krypton_dust",
+    "lightestlamp:xenon_dust",
+    "lightestlamp:radon_dust"
   ]
 }
