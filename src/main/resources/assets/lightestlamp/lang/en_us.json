@@ -1,5 +1,4 @@
 {
-	"block.lightestlamp.luminatium_block":"Luminatium Block",
 	"block.lightestlamp.glowstone_centrifuge":"Glowstone Centrifuge",
 	"block.lightestlamp.vanta_black":"Vanta Black",
 
@@ -50,7 +49,6 @@
 	"item.lightestlamp.radon_centrifuge_filter":"Centrifuge Filter",
 
 	"item.lightestlamp.debug_stick":"Debug Stick (Debug)",
-	"item.lightestlamp.written_book": "Lightest Lamps Guide",
 	"item.lightestlamp.carbon_nanotube": "Carbon Nano Tube",
 	"item.lightestlamp.alchemical_dust":"Alchemical Dust",
 	"item.lightestlamp.glow_lichen_fiber":"Glow Lichen Fiber",
@@ -69,7 +67,7 @@
 
 	"item.lightestlamp.neon_pile":"Neon Pile",
 	"item.lightestlamp.argon_pile":"Argon Pile",
-	"item.lightestlamp.krypton_small_dust":"Krypton Pile",
+	"item.lightestlamp.krypton_pile":"Krypton Pile",
 	"item.lightestlamp.xenon_pile":"Xenon Pile",
 	"item.lightestlamp.radon_pile":"Radon Pile",
 	"item.lightestlamp.lanthanum_pile":"Lanthanum Pile",
@@ -92,7 +90,6 @@
 	"tooltip.lightestlamp.type.zeta": "Type: ζ (24 Blocks Light)",
 	"tooltip.lightestlamp.type.eta": "Type: η (26 Blocks Light)",
 	"tooltip.lightestlamp.type.omega": "Type: Ω (30 Blocks Light)",
-	"tooltip.lightestlamp.type.energetic": "Type: Energetic (12-48 Blocks Light)",
 	"tooltip.lightestlamp.type.ocean_between": "Type: ε-ζ (22 Blocks Light)",
 	"tooltip.lightestlamp.type.alchemical": "Interdiction",
 	"tooltip.lightestlamp.type.alchemical_full": "Interdiction: Pushes mobs away from lamp area",
@@ -112,24 +109,18 @@
 	"tooltip.lightestlamp.xenon_filter": "Xenon",
 	"tooltip.lightestlamp.radon_filter": "Radon",
 	"tooltip.lightestlamp.bromine_filter": "Bromine",
-	"tooltip.lightestlamp.chemlib.detected": "Please convert this to chemlib version in crafting grid.",
-	"tooltip.lightestlamp.lamp.wip": "[WIP]",
-	"tooltip.lightestlamp.book.link": "Lightest Lamps Wiki: https://github.com/DcZipPL/lightestlampsmod/wiki",
-	"tooltip.lightestlamp.book.title0": "Block Types",
-	"tooltip.lightestlamp.book.title1": "Moon shards",
-	"tooltip.lightestlamp.book.title2": "Centrifuge Modes",
-	"tooltip.lightestlamp.book.title3": "Centrifuge Recipes",
-	"tooltip.lightestlamp.book.title4": "More: https://github.com/DcZipPL/lightestlampsmod/wiki",
+	"tooltip.lightestlamp.hold0": "Hold ",
+	"tooltip.lightestlamp.hold1": "Shift",
+	"tooltip.lightestlamp.hold2": " for full description.",
+
+	"tooltip.lightestlamp.machine.redstone_ignore": "Mode: Ignore Redstone",
+	"tooltip.lightestlamp.machine.redstone_off": "Mode: Redstone off",
+	"tooltip.lightestlamp.machine.redstone_on": "Mode: Redstone on",
+	"tooltip.lightestlamp.machine.passive_mode": "Mode: Passive Mode¬§7Machine dosn't require any energy.¬§cEfficiency -80%¬§aPower Consumption: -100%",
+	"tooltip.lightestlamp.machine.normal_mode": "Mode: Normal¬§7Machine works normally.¬§7Machine require LV-MV power tier.",
+	"tooltip.lightestlamp.machine.overclock_mode": "Mode: Overclocked¬§7Machine is more efficient but requires more power.¬§7Machine require HV power tier.¬§aEfficiency +100%¬§cPower Consumption: +60%",
 
 	"container.lightestlamp.glowstone_centrifuge": "Glowstone Centrifuge",
-
-	"jei.lightestlamp.gascentrifuge": "Gas Centrifuge",
-
-	"text.autoconfig.lightest-lamps.title": "Lightest Lamps (Configuration)",
-	"text.autoconfig.lightest-lamps.option.glowstone_multiplier": "Glowstonez (Fuel) multiplier",
-	"text.autoconfig.lightest-lamps.option.monazite_gen": "Allow generation of Lanthanum Ore",
-	"text.autoconfig.lightest-lamps.option.vanilla_mode": "Vanilla mode",
-	"text.autoconfig.lightest-lamps.option.power_as_default": "Power mode as default",
 
 	"itemGroup.lightestlamp.lamps": "Lamps"
 }
