@@ -22,7 +22,7 @@ import java.util.List;
 @JeiPlugin
 public class JEIPlugin implements IModPlugin
 {
-    public static final String GAS_CENTRIFUGE = "gas_centrifuge";
+    public static final String GAS_CENTRIFUGE = "glowstone_centrifuge";
 
     public static final RecipeType<GasCentrifugeRecipe> JEI_RECIPE = RecipeType.create(
             ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.getId().getNamespace(),

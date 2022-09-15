@@ -1,0 +1,15 @@
+{
+	"type": "lightestlamp:glowstone_centrifuge",
+	"filter":
+	{
+		"item": "lightestlamp:alchemical_dust"
+	},
+	"input":
+	{
+		"item": "lightestlamp:alchemical_dust"
+	},
+	"output":
+	{
+		"item": "lightestlamp:alchemical_dust"
+	}
+}
