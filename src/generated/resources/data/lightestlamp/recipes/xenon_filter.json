@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:string"
+      "item": "lightestlamp:netherite_mesh"
     },
     "B": {
       "item": "lightestlamp:lanthanum_ingot"
     }
   },
   "result": {
-    "item": "lightestlamp:basic_centrifuge_filter"
+    "item": "lightestlamp:xenon_filter"
   }
 }

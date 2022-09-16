@@ -1,5 +1,6 @@
 package dev.prefex.lightestlamp.machine.gascentrifuge;
 
+import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import dev.prefex.lightestlamp.init.ModMiscs;
 import net.minecraft.MethodsReturnNonnullByDefault;
@@ -13,8 +14,12 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.IntFunction;
+
 @MethodsReturnNonnullByDefault
-public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, ItemStack output, ResourceLocation id) implements Recipe<Container> {
+public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, List<ItemStack> output, ResourceLocation id) implements Recipe<Container> {
 
     public boolean matches(Container pInv, Level pLevel) {
         return this.filter.test(pInv.getItem(0)) && this.input.test(pInv.getItem(1));
@@ -23,8 +28,14 @@ public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, ItemStack
     /**
      * Returns an Item that is the result of this recipe
      */
+    @Override
+    @Deprecated
     public ItemStack assemble(Container pInv) {
-        return this.output.copy();
+        return ItemStack.EMPTY;
+    }
+
+    public ItemStack[] assemble() {
+        return this.output.stream().map(ItemStack::copy).toArray(ItemStack[]::new);
     }
 
     /**
@@ -63,8 +74,18 @@ public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, ItemStack
         public GasCentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             Ingredient f = Ingredient.fromJson(GsonHelper.getAsJsonObject(pJson, "filter"));
             Ingredient i = Ingredient.fromJson(GsonHelper.getAsJsonObject(pJson, "input"));
-            ItemStack o = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "output"));
-            return new GasCentrifugeRecipe(f,i,o,pRecipeId);
+            ItemStack o0 = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "first"));
+            ItemStack o1 = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "second"));
+
+            ItemStack o2 = ItemStack.EMPTY;
+            try {
+                o2 = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "third"));
+            }catch(Exception ignored){}
+            ItemStack o3 = ItemStack.EMPTY;
+            try {
+                o3 = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "fourth"));
+            }catch(Exception ignored){}
+            return new GasCentrifugeRecipe(f,i, Lists.newArrayList(o0,o1,o2,o3),pRecipeId);
         }
 
         @Nullable
@@ -72,15 +93,21 @@ public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, ItemStack
         public GasCentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
             Ingredient f = Ingredient.fromNetwork(pBuffer);
             Ingredient i = Ingredient.fromNetwork(pBuffer);
-            ItemStack o = pBuffer.readItem();
-            return new GasCentrifugeRecipe(f,i,o,pRecipeId);
+            ItemStack o0 = pBuffer.readItem();
+            ItemStack o1 = pBuffer.readItem();
+            ItemStack o2 = pBuffer.readItem();
+            ItemStack o3 = pBuffer.readItem();
+            return new GasCentrifugeRecipe(f,i,Lists.newArrayList(o0,o1,o2,o3),pRecipeId);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf pBuffer, GasCentrifugeRecipe pRecipe) {
             pRecipe.filter.toNetwork(pBuffer);
             pRecipe.input.toNetwork(pBuffer);
-            pBuffer.writeItem(pRecipe.output);
+            pBuffer.writeItem(pRecipe.output.get(0));
+            pBuffer.writeItem(pRecipe.output.get(1));
+            pBuffer.writeItem(pRecipe.output.get(2));
+            pBuffer.writeItem(pRecipe.output.get(3));
         }
     }
 }

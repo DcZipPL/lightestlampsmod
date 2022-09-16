@@ -2,7 +2,7 @@
 	"type": "lightestlamp:glowstone_centrifuge",
 	"filter":
 	{
-		"item": "lightestlamp:basic_filter",
+		"item": "lightestlamp:neon_filter",
 		"data":32767
 	},
 	"input":
@@ -11,14 +11,16 @@
 	},
 	"first":
 	{
-		"item": "lightestlamp:neon_dust"
+		"item": "lightestlamp:neon_dust",
+		"count": 2
 	},
 	"second":
 	{
-		"item": "lightestlamp:argon_dust"
+		"item": "lightestlamp:neon_pile",
+		"count": 1
 	},
 	"third":
 	{
-		"item": "lightestlamp:krypton_pile"
+		"item": "lightestlamp:argon_pile"
 	}
 }

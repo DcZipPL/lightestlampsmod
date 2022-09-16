@@ -7,13 +7,13 @@
   ],
   "key": {
     "#": {
-      "item": "minecraft:phantom_membrane"
+      "item": "lightestlamp:chorus_fiber"
     },
     "B": {
       "item": "lightestlamp:lanthanum_ingot"
     }
   },
   "result": {
-    "item": "lightestlamp:neon_centrifuge_filter"
+    "item": "lightestlamp:radon_filter"
   }
 }

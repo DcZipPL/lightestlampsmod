@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "lightestlamp:item/neon_centrifuge_filter"
+    "layer0": "lightestlamp:item/neon_filter"
   }
 }

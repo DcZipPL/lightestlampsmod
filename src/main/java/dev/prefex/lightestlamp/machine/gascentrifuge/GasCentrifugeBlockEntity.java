@@ -24,6 +24,9 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.AbstractCookingRecipe;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -223,7 +226,8 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		if (!pLevel.isClientSide) {
 			ItemStack itemstack = blockEntity.items.get(1);
 			if (blockEntity.isBurning() || !itemstack.isEmpty() && !blockEntity.items.get(0).isEmpty()) {
-				if (!blockEntity.isBurning() && blockEntity.canSmelt()) {
+				GasCentrifugeRecipe recipe = pLevel.getRecipeManager().getRecipeFor((RecipeType<GasCentrifugeRecipe>)ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get(), blockEntity, pLevel).orElse(null);
+				if (!blockEntity.isBurning() && blockEntity.canSmelt(recipe)) {
 					blockEntity.burnTime = blockEntity.getBurnTime(itemstack);
 					//blockEntity.recipesUsed = blockEntity.burnTime;
 					if (blockEntity.isBurning()) {
@@ -241,12 +245,12 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					}
 				}
 
-				if (blockEntity.isBurning() && blockEntity.canSmelt()) {
+				if (blockEntity.isBurning() && blockEntity.canSmelt(recipe)) {
 					++blockEntity.cookTime;
 					if (blockEntity.cookTime == blockEntity.cookTimeTotal) {
 						blockEntity.cookTime = 0;
 						blockEntity.cookTimeTotal = blockEntity.getCookTimeTotal();;
-						blockEntity.placeItemsInRightSlot();
+						blockEntity.placeItemsInRightSlot(recipe);
 						flag1 = true;
 					}
 				} else {
@@ -258,7 +262,6 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 
 			if (flag != blockEntity.isBurning()) {
 				flag1 = true;
-				//blockEntity.world.setBlockState(blockEntity.pos, blockEntity.world.getBlockState(blockEntity.pos).with(AbstractFurnaceBlock.LIT, Boolean.valueOf(blockEntity.isBurning())), 3);
 			}
 		}
 
@@ -272,9 +275,10 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		return 100;
 	}
 
-	protected boolean canSmelt() {
+	protected boolean canSmelt(@Nullable Recipe<?> pRecipe) {
 		if (!this.items.get(0).isEmpty()) {
-			ItemStack[] itemstacks = GasCentrifugeLegacyRecipe.getRecipeOutputs(items.get(0));
+			if ((GasCentrifugeRecipe) pRecipe == null) return false;
+			ItemStack[] itemstacks = ((GasCentrifugeRecipe) pRecipe).assemble();
 			if (itemstacks[0].isEmpty()&&itemstacks[1].isEmpty()&&itemstacks[2].isEmpty()&&itemstacks[3].isEmpty())
 			{
 				return false;
@@ -307,11 +311,11 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		}
 	}
 
-	private void placeItemsInRightSlot(/*Here was recipe*/)
+	private void placeItemsInRightSlot(@Nullable GasCentrifugeRecipe pRecipe)
 	{
-		if (this.canSmelt()) {
+		if (this.canSmelt(pRecipe)) {
 			ItemStack itemstack = this.items.get(0);
-			ItemStack[] itemstacks = GasCentrifugeLegacyRecipe.getRecipeOutputs(items.get(0));
+			ItemStack[] itemstacks = pRecipe.assemble();
 			ItemStack itemstack2 = this.items.get(2);
 			ItemStack itemstack3 = this.items.get(3);
 			ItemStack itemstack4 = this.items.get(4);

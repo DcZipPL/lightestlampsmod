@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "lightestlamp:krypton_centrifuge_filter"
+      "lightestlamp:basic_filter"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "lightestlamp:krypton_centrifuge_filter"
+        "recipe": "lightestlamp:basic_filter"
       }
     }
   },

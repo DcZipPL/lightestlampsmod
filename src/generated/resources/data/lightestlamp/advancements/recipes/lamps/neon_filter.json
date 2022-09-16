@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "lightestlamp:basic_centrifuge_filter"
+      "lightestlamp:neon_filter"
     ]
   },
   "criteria": {
@@ -21,7 +21,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "lightestlamp:basic_centrifuge_filter"
+        "recipe": "lightestlamp:neon_filter"
       }
     }
   },

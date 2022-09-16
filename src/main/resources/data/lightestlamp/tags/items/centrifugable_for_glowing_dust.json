@@ -1,0 +1,10 @@
+{
+	"replace": false,
+	"values": [
+		"minecraft:glowstone_dust",
+		"minecraft:glowstone",
+		"lightestlamp:glow_lichen_fiber",
+		"minecraft:glow_lichen",
+		"minecraft:glow_berries"
+	]
+}
