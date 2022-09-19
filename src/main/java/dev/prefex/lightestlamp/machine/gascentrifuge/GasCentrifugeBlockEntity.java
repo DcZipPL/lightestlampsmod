@@ -2,7 +2,9 @@ package dev.prefex.lightestlamp.machine.gascentrifuge;
 
 import com.google.common.collect.Maps;
 import dev.prefex.lightestlamp.Config;
+import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.init.ModBlockEntities;
+import dev.prefex.lightestlamp.init.ModItems;
 import dev.prefex.lightestlamp.init.ModMiscs;
 import dev.prefex.lightestlamp.items.FilterItem;
 import io.netty.buffer.Unpooled;
@@ -24,6 +26,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -151,8 +154,9 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		//furnaceData.set(6,60);
 	}
 
+	public static Map<Item, Integer> addedCentrifugables = Maps.newLinkedHashMap();
 	public static Map<Item, Integer> getBurnTimes() {
-		Map<Item, Integer> map = Maps.newLinkedHashMap();
+		Map<Item, Integer> map = addedCentrifugables; //= Maps.newLinkedHashMap();
 
 		int multiplier = Config.GLOWSTONE_FUEL_MULTIPLIER.get() >= 2 ? Config.GLOWSTONE_FUEL_MULTIPLIER.get() : 2;
 		//Mekanism compatibility
@@ -169,9 +173,20 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
         if (glowstone_blocks!=null)
             add(map, glowstone_blocks,360*multiplier);*/ // TODO: Create tag for this stuff
 
+		ForgeRegistries.ITEMS.tags().getTag(Util.getCentrifugablesTag()).forEach(item -> {
+			if (item.getRegistryName() == Blocks.GLOWSTONE.getRegistryName())
+				add(map, Blocks.GLOWSTONE, 160*multiplier);
+			else if (item.getRegistryName() == Blocks.SHROOMLIGHT.getRegistryName())
+				add(map, Blocks.SHROOMLIGHT, 240*multiplier);
+			else if (item.getRegistryName() == ModItems.GLOW_LICHEN_FIBER.getId())
+				add(map, Blocks.SHROOMLIGHT, 10*multiplier); // TODO: Apply this to Fabric/Quilt version
+			else if (item.getRegistryName() == Blocks.GLOW_LICHEN.getRegistryName())
+				add(map, Blocks.SHROOMLIGHT, 5*multiplier);
+			else if (item.getRegistryName() == Items.GLOW_BERRIES.getRegistryName())
+				add(map, Blocks.SHROOMLIGHT, 60*multiplier);
+		});
+
 		add(map, Tags.Items.DUSTS_GLOWSTONE,40*multiplier);
-		add(map, Blocks.GLOWSTONE, 160*multiplier);
-		add(map, Blocks.SHROOMLIGHT, 240*multiplier);
 		return map;
 	}
 

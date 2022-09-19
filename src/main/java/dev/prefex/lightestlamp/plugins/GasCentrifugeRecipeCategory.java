@@ -34,12 +34,12 @@ public record GasCentrifugeRecipeCategory(IGuiHelper guiHelper) implements IReci
     @Override
     public void setRecipe(IRecipeLayoutBuilder builder, GasCentrifugeRecipe recipe, IFocusGroup focuses) {
         IRecipeCategory.super.setRecipe(builder, recipe, focuses);
-        builder.addSlot(RecipeIngredientRole.CATALYST, 16, 20).addIngredients(recipe.filter());
-        builder.addSlot(RecipeIngredientRole.INPUT, 40, 20).addIngredients(recipe.input());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 100, 40).addIngredient(VanillaTypes.ITEM,recipe.output().get(0));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 100, 60).addIngredient(VanillaTypes.ITEM,recipe.output().get(1));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 120, 40).addIngredient(VanillaTypes.ITEM,recipe.output().get(2));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 120, 60).addIngredient(VanillaTypes.ITEM,recipe.output().get(3));
+        builder.addSlot(RecipeIngredientRole.CATALYST, 8, 27).addIngredients(recipe.filter());
+        builder.addSlot(RecipeIngredientRole.INPUT, 33, 27).addIngredients(recipe.input());
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 91, 11).addIngredient(VanillaTypes.ITEM,recipe.output().get(0));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 119, 11).addIngredient(VanillaTypes.ITEM,recipe.output().get(1));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 91, 44).addIngredient(VanillaTypes.ITEM,recipe.output().get(2));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 119, 44).addIngredient(VanillaTypes.ITEM,recipe.output().get(3));
     }
 
     @Override

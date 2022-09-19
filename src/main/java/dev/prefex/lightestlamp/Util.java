@@ -1,19 +1,28 @@
 package dev.prefex.lightestlamp;
 
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
 
 public class Util
 {
     public static final String MOD_ID = "lightestlamp";
+
+    public static TagKey<Item> getCentrifugablesTag() {
+        var tagManager = ForgeRegistries.ITEMS.tags();
+        return tagManager.createTagKey(new ResourceLocation("lightestlamp:centrifugable_for_glowing_dust"));
+    }
 
     public static void repelEntitiesInAABBFromPoint(Level world, AABB effectBounds, double x, double y, double z, boolean ignore)
     {
