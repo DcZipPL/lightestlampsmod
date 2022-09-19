@@ -70,21 +70,22 @@ public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, List<Item
     }
 
     public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<GasCentrifugeRecipe> {
+        private ItemStack orEmpty(JsonObject pJson, String pMemberName){
+            ItemStack o = ItemStack.EMPTY;
+            try {
+                o = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, pMemberName));
+            }catch(Exception ignored){}
+            return o;
+        }
+
         @Override
         public GasCentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
             Ingredient f = Ingredient.fromJson(GsonHelper.getAsJsonObject(pJson, "filter"));
             Ingredient i = Ingredient.fromJson(GsonHelper.getAsJsonObject(pJson, "input"));
-            ItemStack o0 = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "first"));
-            ItemStack o1 = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "second"));
-
-            ItemStack o2 = ItemStack.EMPTY;
-            try {
-                o2 = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "third"));
-            }catch(Exception ignored){}
-            ItemStack o3 = ItemStack.EMPTY;
-            try {
-                o3 = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, "fourth"));
-            }catch(Exception ignored){}
+            ItemStack o0 = orEmpty(pJson,"first");
+            ItemStack o1 = orEmpty(pJson,"second");
+            ItemStack o2 = orEmpty(pJson,"third");
+            ItemStack o3 = orEmpty(pJson,"fourth");
             return new GasCentrifugeRecipe(f,i, Lists.newArrayList(o0,o1,o2,o3),pRecipeId);
         }
 

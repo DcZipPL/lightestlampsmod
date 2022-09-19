@@ -3,7 +3,7 @@
 	"_": "WARNING: 'input' field is hardcoded. You can add 'fuel' type by using lightestlamp:centrifugable_for_glowing_dust tag!",
 	"filter":
 	{
-		"item": "lightestlamp:basic_filter",
+		"item": "lightestlamp:argon_filter",
 		"data":32767
 	},
 	"input":
@@ -12,14 +12,16 @@
 	},
 	"first":
 	{
-		"item": "lightestlamp:neon_dust"
+		"item": "lightestlamp:argon_dust",
+		"count": 2
 	},
 	"second":
 	{
-		"item": "lightestlamp:argon_dust"
+		"item": "lightestlamp:neon_dust",
+		"count": 2
 	},
 	"third":
 	{
-		"item": "lightestlamp:krypton_pile"
+		"item": "lightestlamp:xenon_pile"
 	}
 }
