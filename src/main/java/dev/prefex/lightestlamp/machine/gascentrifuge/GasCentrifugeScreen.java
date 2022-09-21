@@ -104,9 +104,13 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
             //Z Y T-Z T-Y W H
             this.blit(pPoseStack,i + 41 + 17 - k, j + 54, 194 - k, 100, k + 1,  5);
         }
-        int m = ((GasCentrifugeMenu)this.menu).getLiquidScaled();
-        //Z Y T-Z T-Y W H
-        this.blit(pPoseStack,i + 160, j + 65 + 13 - m, 212, 120 - m, 9, m + 1);
+        if (sc.data.get(4)!=0){
+            int m = (int)((GasCentrifugeMenu)this.sc).getLiquidScaled();
+            //Z Y T-Z T-Y W H
+            this.blit(pPoseStack,i + 153, j + 19 + 50 - m + 1 - 3, 204, 99 - m - 1, 13, m + 1);
+        } else {
+            this.blit(pPoseStack,i + 153, j + 19 + 1 - 3, 218, 99 - 1 - 50, 14, 51);
+        }
 
         int marginHorizontal = (width - getXSize()) / 2;
         int marginVertical = (height - getYSize()) / 2;

@@ -70,6 +70,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		return new GasCentrifugeMenu(ModMiscs.GAS_CENTRIFUGE.get(),pContainerId, pInventory, this, this.furnaceData, buffer);
 	}
 
+	public static final int magic = 12;
 	private static final int[] SLOTS_UP = new int[]{0,1};
 	private static final int[] SLOTS_DOWN = new int[]{2, 3, 4, 5};
 	//private static final int[] SLOTS_HORIZONTAL = new int[]{1};
@@ -80,7 +81,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	private int cookTimeTotal;
 	private int redstoneMode;
 	private int liquidMode;
-	public LazyOptional<CustomEnergyStorage> energyStorage = LazyOptional.of(()->new CustomEnergyStorage(1600, 128));
+	public LazyOptional<CustomEnergyStorage> energyStorage = LazyOptional.of(()->new CustomEnergyStorage(1600 * magic, 164));
 	public final ContainerData furnaceData = new ContainerData() {
 		@Override
 		public int get(int index) {
@@ -269,9 +270,10 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 
 		if (!pLevel.isClientSide) {
 			ItemStack itemstack = blockEntity.items.get(1);
-			if (blockEntity.isBurning() || !itemstack.isEmpty() && !blockEntity.items.get(0).isEmpty()) {
+			if (blockEntity.isBurning()
+					|| !itemstack.isEmpty() && !blockEntity.items.get(0).isEmpty()) {
 				GasCentrifugeRecipe recipe = pLevel.getRecipeManager().getRecipeFor((RecipeType<GasCentrifugeRecipe>)ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get(), blockEntity, pLevel).orElse(null);
-				if (!blockEntity.isBurning() && blockEntity.canSmelt(recipe)) {
+				if (!blockEntity.isBurning() && blockEntity.canSmelt(recipe) && (blockEntity.energyStorage.orElse(new CustomEnergyStorage(1600,0)).getEnergyStored() > 0)||blockEntity.furnaceData.get(4)==0) {
 					blockEntity.burnTime = blockEntity.getBurnTime(itemstack);
 					//blockEntity.recipesUsed = blockEntity.burnTime;
 					if (blockEntity.isBurning()) {
