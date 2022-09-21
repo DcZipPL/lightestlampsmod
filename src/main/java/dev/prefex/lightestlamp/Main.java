@@ -49,7 +49,7 @@ public class Main
 {
     public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
-    public static final CreativeModeTab main_tab = new CreativeModeTab("lamps") {
+    public static final CreativeModeTab main_tab = new CreativeModeTab("llamps") {
         @Override
         public ItemStack makeIcon() {
             return new ItemStack(ModBlocks.OMEGA_LAMP.get());

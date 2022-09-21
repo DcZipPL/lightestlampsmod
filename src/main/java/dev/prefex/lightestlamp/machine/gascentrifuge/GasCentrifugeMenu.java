@@ -143,7 +143,7 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
     @OnlyIn(Dist.CLIENT)
     public int getLiquidScaled()
     {
-        return this.data.get(5) / 50;
+        return this.data.get(5) / 1600;
     }
 
     @OnlyIn(Dist.CLIENT)

@@ -7,6 +7,7 @@ import dev.prefex.lightestlamp.init.ModBlockEntities;
 import dev.prefex.lightestlamp.init.ModItems;
 import dev.prefex.lightestlamp.init.ModMiscs;
 import dev.prefex.lightestlamp.items.FilterItem;
+import dev.prefex.lightestlamp.util.CustomEnergyStorage;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
@@ -38,6 +39,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -75,6 +80,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	private int cookTimeTotal;
 	private int redstoneMode;
 	private int liquidMode;
+	public LazyOptional<CustomEnergyStorage> energyStorage = LazyOptional.of(()->new CustomEnergyStorage(1600, 128));
 	public final ContainerData furnaceData = new ContainerData() {
 		@Override
 		public int get(int index) {
@@ -89,6 +95,8 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					return GasCentrifugeBlockEntity.this.cookTimeTotal;
 				case 4:
 					return GasCentrifugeBlockEntity.this.liquidMode;
+				case 5:
+					return GasCentrifugeBlockEntity.this.energyStorage.orElse(new CustomEnergyStorage(1600,0)).getEnergyStored();
 				case 6:
 					return GasCentrifugeBlockEntity.this.ticksBeforeDumping;
 				default:
@@ -115,6 +123,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					GasCentrifugeBlockEntity.this.liquidMode = value;
 					break;
 				case 5:
+					GasCentrifugeBlockEntity.this.energyStorage.orElse(new CustomEnergyStorage(1600,0)).setEnergy(value);
 					break;
 				case 6:
 					GasCentrifugeBlockEntity.this.ticksBeforeDumping = value;
@@ -174,16 +183,16 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
             add(map, glowstone_blocks,360*multiplier);*/ // TODO: Create tag for this stuff
 
 		ForgeRegistries.ITEMS.tags().getTag(Util.getCentrifugablesTag()).forEach(item -> {
-			if (item.getRegistryName() == Blocks.GLOWSTONE.getRegistryName())
+			if (item == Blocks.GLOWSTONE.asItem())
 				add(map, Blocks.GLOWSTONE, 160*multiplier);
-			else if (item.getRegistryName() == Blocks.SHROOMLIGHT.getRegistryName())
+			else if (item == Blocks.SHROOMLIGHT.asItem())
 				add(map, Blocks.SHROOMLIGHT, 240*multiplier);
-			else if (item.getRegistryName() == ModItems.GLOW_LICHEN_FIBER.getId())
-				add(map, Blocks.SHROOMLIGHT, 10*multiplier); // TODO: Apply this to Fabric/Quilt version
-			else if (item.getRegistryName() == Blocks.GLOW_LICHEN.getRegistryName())
-				add(map, Blocks.SHROOMLIGHT, 5*multiplier);
-			else if (item.getRegistryName() == Items.GLOW_BERRIES.getRegistryName())
-				add(map, Blocks.SHROOMLIGHT, 60*multiplier);
+			else if (item == ModItems.GLOW_LICHEN_FIBER.get())
+				add(map, ModItems.GLOW_LICHEN_FIBER.get(), 10*multiplier); // TODO: Apply this to Fabric/Quilt version
+			else if (item == Blocks.GLOW_LICHEN.asItem())
+				add(map, Blocks.GLOW_LICHEN, 5*multiplier);
+			else if (item == Items.GLOW_BERRIES)
+				add(map, Items.GLOW_BERRIES, 60*multiplier);
 		});
 
 		add(map, Tags.Items.DUSTS_GLOWSTONE,40*multiplier);
@@ -206,8 +215,40 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	}
 
 	@Override
+	protected void saveAdditional(CompoundTag pTag) {
+		super.saveAdditional(pTag);
+		saveInternal(pTag);
+	}
+
+	private void saveInternal(CompoundTag pTag){
+		pTag.putInt("BurnTime", this.burnTime);
+		pTag.putInt("CookTime", this.cookTime);
+		pTag.putInt("CookTimeTotal", this.cookTimeTotal);
+		pTag.putInt("RedstoneMode", this.redstoneMode);
+		pTag.putInt("LiquidMode", this.liquidMode);
+		ContainerHelper.saveAllItems(pTag, this.items);
+	}
+
+	@Override
+	public CompoundTag serializeNBT() {
+		CompoundTag nbt = super.serializeNBT();
+		saveInternal(nbt);
+		return nbt;
+	}
+
+	@Override
+	public void load(CompoundTag pTag) {
+		super.load(pTag);
+		loadInternal(pTag);
+	}
+
+	@Override
 	public void deserializeNBT(CompoundTag nbt) {
 		super.deserializeNBT(nbt);
+		loadInternal(nbt);
+	}
+
+	private void loadInternal(CompoundTag nbt) {
 		this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
 		ContainerHelper.loadAllItems(nbt, this.items);
 		this.burnTime = nbt.getInt("BurnTime");
@@ -216,18 +257,6 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		//this.recipesUsed = this.getBurnTime(this.items.get(1));
 		this.redstoneMode = nbt.getInt("RedstoneMode");
 		this.liquidMode = nbt.getInt("LiquidMode");
-	}
-
-	@Override
-	public CompoundTag serializeNBT() {
-		CompoundTag nbt = super.serializeNBT();
-		nbt.putInt("BurnTime", this.burnTime);
-		nbt.putInt("CookTime", this.cookTime);
-		nbt.putInt("CookTimeTotal", this.cookTimeTotal);
-		nbt.putInt("RedstoneMode", this.redstoneMode);
-		nbt.putInt("LiquidMode", this.liquidMode);
-		ContainerHelper.saveAllItems(nbt, this.items);
-		return nbt;
 	}
 
 	public static <T extends BlockEntity> void tick(Level pLevel, BlockPos pPos, BlockState pState, T pBlockEntity) {
@@ -506,6 +535,9 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 				return handlers[1].cast();
 			else
 				return handlers[2].cast();
+		}
+		if (!this.remove && facing != null && capability == CapabilityEnergy.ENERGY) {
+			return energyStorage.cast();
 		}
 		return super.getCapability(capability, facing);
 	}

@@ -62,7 +62,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         HoverChecker checker = new HoverChecker(marginHorizontal+9,marginHorizontal+20,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(x,y, true))
         {
-            renderComponentTooltip(pPoseStack, Collections.singletonList(new TextComponent(redstone_tooltip)),x-marginHorizontal+4,y-marginVertical+4,font);
+            renderComponentTooltip(pPoseStack, Collections.singletonList(new TranslatableComponent(redstone_tooltip)),x-marginHorizontal+4,y-marginVertical+4,font);
         }
         checker = new HoverChecker(marginHorizontal+25,marginHorizontal+36,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(x,y, true))
@@ -74,7 +74,11 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
     private List<MutableComponent> formatUTooltip(String utooltip) {
         return Arrays.stream(I18n.get(utooltip).replace("Format error: ", "*").split("¬")).map(
                 s -> new TextComponent(s).setStyle(Style.EMPTY.withColor(
-                        s.contains("§7") ? ChatFormatting.GRAY : s.contains("§c") ? ChatFormatting.RED : s.contains("§a") ? ChatFormatting.GREEN : ChatFormatting.WHITE
+                        s.contains("§r") ? ChatFormatting.WHITE
+                                : s.contains("§7") ? ChatFormatting.GRAY
+                                : s.contains("§c") ? ChatFormatting.RED
+                                : s.contains("§a") ? ChatFormatting.GREEN
+                                : ChatFormatting.WHITE
                 ))
         ).toList();
     }

@@ -2,6 +2,7 @@
 	"block.lightestlamp.gas_centrifuge":"Glowstone Centrifuge",
 	"block.lightestlamp.glowstone_centrifuge":"Glowstone Centrifuge",
 	"block.lightestlamp.vanta_black":"Vanta Black",
+	"block.lightestlamp.curtain_block":"Curtain",
 
 	"block.lightestlamp.jungle_lantern":"Lamp Fruit",
 	"block.lightestlamp.clear_lamp":"Clear Lamp",
@@ -41,13 +42,13 @@
 	"item.lightestlamp.lanthanum_mesh":"Lanthanum Mesh",
 	"item.lightestlamp.netherite_mesh":"Netherite Mesh",
 
-	"item.lightestlamp.basic_centrifuge_filter":"Centrifuge Filter",
-	"item.lightestlamp.neon_centrifuge_filter":"Centrifuge Filter",
-	"item.lightestlamp.argon_centrifuge_filter":"Centrifuge Filter",
-	"item.lightestlamp.krypton_centrifuge_filter":"Centrifuge Filter",
-	"item.lightestlamp.bromine_centrifuge_filter":"Centrifuge Filter",
-	"item.lightestlamp.xenon_centrifuge_filter":"Centrifuge Filter",
-	"item.lightestlamp.radon_centrifuge_filter":"Centrifuge Filter",
+	"item.lightestlamp.basic_filter":"Centrifuge Filter",
+	"item.lightestlamp.neon_filter":"Centrifuge Filter",
+	"item.lightestlamp.argon_filter":"Centrifuge Filter",
+	"item.lightestlamp.krypton_filter":"Centrifuge Filter",
+	"item.lightestlamp.bromine_filter":"Centrifuge Filter",
+	"item.lightestlamp.xenon_filter":"Centrifuge Filter",
+	"item.lightestlamp.radon_filter":"Centrifuge Filter",
 
 	"item.lightestlamp.debug_stick":"Debug Stick (Debug)",
 	"item.lightestlamp.carbon_nanotube": "Carbon Nano Tube",
@@ -109,7 +110,7 @@
 	"tooltip.lightestlamp.krypton_filter": "Krypton",
 	"tooltip.lightestlamp.xenon_filter": "Xenon",
 	"tooltip.lightestlamp.radon_filter": "Radon",
-	"tooltip.lightestlamp.bromine_filter": "Bromine",
+	"tooltip.lightestlamp.bromine_filter": "Fluid",
 	"tooltip.lightestlamp.hold0": "Hold ",
 	"tooltip.lightestlamp.hold1": "Shift",
 	"tooltip.lightestlamp.hold2": " for full description.",
@@ -117,11 +118,11 @@
 	"tooltip.lightestlamp.machine.redstone_ignore": "Mode: Ignore Redstone",
 	"tooltip.lightestlamp.machine.redstone_off": "Mode: Redstone off",
 	"tooltip.lightestlamp.machine.redstone_on": "Mode: Redstone on",
-	"tooltip.lightestlamp.machine.passive_mode": "Mode: Passive Mode¬§7Machine dosn't require any energy.¬§cEfficiency -80%¬§aPower Consumption: -100%",
-	"tooltip.lightestlamp.machine.normal_mode": "Mode: Normal¬§7Machine works normally.¬§7Machine require LV-MV power tier.",
-	"tooltip.lightestlamp.machine.overclock_mode": "Mode: Overclocked¬§7Machine is more efficient but requires more power.¬§7Machine require HV power tier.¬§aEfficiency +100%¬§cPower Consumption: +60%",
+	"tooltip.lightestlamp.machine.passive_mode": "§cPassive Mode forced!¬Mode: Passive Mode¬§7Machine dosn't require any energy.¬§cEfficiency -80%¬§aPower Consumption: -100%",
+	"tooltip.lightestlamp.machine.normal_mode": "§cPassive Mode forced!¬§rMode: Normal¬§7Machine works normally.¬§7Machine require LV-MV power tier.",
+	"tooltip.lightestlamp.machine.overclock_mode": "§cPassive Mode forced!¬Mode: Overclocked¬§7Machine is more efficient but requires more power.¬§7Machine require HV power tier.¬§aEfficiency +100%¬§cPower Consumption: +60%",
 
 	"container.lightestlamp.glowstone_centrifuge": "Glowstone Centrifuge",
 
-	"itemGroup.lightestlamp.lamps": "Lamps"
+	"itemGroup.llamps": "Lamps"
 }
