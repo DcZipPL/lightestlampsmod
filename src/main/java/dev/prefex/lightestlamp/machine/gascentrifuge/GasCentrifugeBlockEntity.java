@@ -97,7 +97,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 				case 4:
 					return GasCentrifugeBlockEntity.this.liquidMode;
 				case 5:
-					return GasCentrifugeBlockEntity.this.energyStorage.orElse(new CustomEnergyStorage(1600,0)).getEnergyStored();
+					return GasCentrifugeBlockEntity.this.getEnergyStorage().getEnergyStored();
 				case 6:
 					return GasCentrifugeBlockEntity.this.ticksBeforeDumping;
 				default:
@@ -124,7 +124,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					GasCentrifugeBlockEntity.this.liquidMode = value;
 					break;
 				case 5:
-					GasCentrifugeBlockEntity.this.energyStorage.orElse(new CustomEnergyStorage(1600,0)).setEnergy(value);
+					GasCentrifugeBlockEntity.this.getEnergyStorage().setEnergy(value);
 					break;
 				case 6:
 					GasCentrifugeBlockEntity.this.ticksBeforeDumping = value;
@@ -159,9 +159,8 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		return furnaceData.get(4);
 	}
 
-	public void startTicksBeforeDumping()
-	{
-		//furnaceData.set(6,60);
+	public CustomEnergyStorage getEnergyStorage(){
+		return this.energyStorage.orElse(new CustomEnergyStorage(1600,0));
 	}
 
 	public static Map<Item, Integer> addedCentrifugables = Maps.newLinkedHashMap();
@@ -227,6 +226,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		pTag.putInt("CookTimeTotal", this.cookTimeTotal);
 		pTag.putInt("RedstoneMode", this.redstoneMode);
 		pTag.putInt("LiquidMode", this.liquidMode);
+		pTag.putInt("Power",this.getEnergyStorage().getEnergyStored());
 		ContainerHelper.saveAllItems(pTag, this.items);
 	}
 
@@ -255,7 +255,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		this.burnTime = nbt.getInt("BurnTime");
 		this.cookTime = nbt.getInt("CookTime");
 		this.cookTimeTotal = nbt.getInt("CookTimeTotal");
-		//this.recipesUsed = this.getBurnTime(this.items.get(1));
+		this.getEnergyStorage().setEnergy(nbt.getInt("Power"));
 		this.redstoneMode = nbt.getInt("RedstoneMode");
 		this.liquidMode = nbt.getInt("LiquidMode");
 	}
@@ -264,18 +264,22 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		GasCentrifugeBlockEntity blockEntity = (GasCentrifugeBlockEntity) pBlockEntity;
 		boolean flag = blockEntity.isBurning();
 		boolean flag1 = false;
-		if (blockEntity.isBurning()) {
+		GasCentrifugeRecipe recipe = pLevel.getRecipeManager().getRecipeFor((RecipeType<GasCentrifugeRecipe>)ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get(), blockEntity, pLevel).orElse(null);
+
+		if (blockEntity.isBurning() && blockEntity.canSmelt(recipe)) {
 			--blockEntity.burnTime;
+			if (blockEntity.getEnergyStorage().getEnergyStored() > 0&&blockEntity.furnaceData.get(4)!=0){
+				blockEntity.getEnergyStorage().extractEnergy((int) (80 * (blockEntity.furnaceData.get(4)==2 ? 1.6f : 1f)),false);
+			}
 		}
 
 		if (!pLevel.isClientSide) {
 			ItemStack itemstack = blockEntity.items.get(1);
 			if (blockEntity.isBurning()
 					|| !itemstack.isEmpty() && !blockEntity.items.get(0).isEmpty()) {
-				GasCentrifugeRecipe recipe = pLevel.getRecipeManager().getRecipeFor((RecipeType<GasCentrifugeRecipe>)ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get(), blockEntity, pLevel).orElse(null);
-				if (!blockEntity.isBurning() && blockEntity.canSmelt(recipe) && (blockEntity.energyStorage.orElse(new CustomEnergyStorage(1600,0)).getEnergyStored() > 0)||blockEntity.furnaceData.get(4)==0) {
+				if (!blockEntity.isBurning() && blockEntity.canSmelt(recipe)
+						&& (blockEntity.getEnergyStorage().getEnergyStored() > 0||blockEntity.furnaceData.get(4)==0)) {
 					blockEntity.burnTime = blockEntity.getBurnTime(itemstack);
-					//blockEntity.recipesUsed = blockEntity.burnTime;
 					if (blockEntity.isBurning()) {
 						flag1 = true;
 						if (itemstack.hasContainerItem())
@@ -295,7 +299,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					++blockEntity.cookTime;
 					if (blockEntity.cookTime == blockEntity.cookTimeTotal) {
 						blockEntity.cookTime = 0;
-						blockEntity.cookTimeTotal = blockEntity.getCookTimeTotal();;
+						blockEntity.cookTimeTotal = blockEntity.getCookTimeTotal();
 						blockEntity.placeItemsInRightSlot(recipe);
 						flag1 = true;
 					}
@@ -303,7 +307,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					blockEntity.cookTime = 0;
 				}
 			} else if (!blockEntity.isBurning() && blockEntity.cookTime > 0) {
-				blockEntity.cookTime = Mth.clamp(blockEntity.cookTime - 2, 0, blockEntity.cookTimeTotal);
+				//blockEntity.cookTime = Mth.clamp(blockEntity.cookTime - 2, 0, blockEntity.cookTimeTotal);
 			}
 
 			if (flag != blockEntity.isBurning()) {

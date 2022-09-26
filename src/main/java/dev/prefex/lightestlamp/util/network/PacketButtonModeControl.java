@@ -39,7 +39,6 @@ public class PacketButtonModeControl
             if (be instanceof GasCentrifugeBlockEntity)
             {
                 GasCentrifugeBlockEntity gbe = ((GasCentrifugeBlockEntity) be);
-                gbe.startTicksBeforeDumping();
                 if (gbe.getLiquidMode()>=2)
                     gbe.setLiquidMode(0);
                 else

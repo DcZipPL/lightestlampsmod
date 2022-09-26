@@ -1,5 +1,6 @@
 package dev.prefex.lightestlamp.machine.gascentrifuge;
 
+import com.google.common.primitives.UnsignedInteger;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.prefex.lightestlamp.Util;
@@ -11,6 +12,8 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,6 +21,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -62,13 +66,36 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         HoverChecker checker = new HoverChecker(marginHorizontal+9,marginHorizontal+20,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(x,y, true))
         {
-            renderComponentTooltip(pPoseStack, Collections.singletonList(new TranslatableComponent(redstone_tooltip)),x-marginHorizontal+4,y-marginVertical+4,font);
+            renderComponentTooltip(pPoseStack, Collections.singletonList(new TranslatableComponent(redstone_tooltip)),x+4,y+4,font);
         }
         checker = new HoverChecker(marginHorizontal+25,marginHorizontal+36,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(x,y, true))
         {
-            renderComponentTooltip(pPoseStack, formatUTooltip(power_tooltip),x-marginHorizontal+4,y-marginVertical+4,font);
+            renderComponentTooltip(pPoseStack, formatUTooltip(power_tooltip),x+4,y+4,font);
         }
+        // Energy bar
+        checker = new HoverChecker(marginHorizontal+153,marginHorizontal+166,marginVertical+70,marginVertical+19,0);
+        if (checker.checkHover(x,y, true))
+        {
+            float power_percent = convertToWatts()/convertMaxToWatts();
+            renderComponentTooltip(pPoseStack, List.of(
+                    new TranslatableComponent("tooltip.lightestlamp.machine.energy_stored"),
+                    new TextComponent(getMenu().data.get(5)+"/"+(1600*GasCentrifugeBlockEntity.magic)+" FE"),
+                    new TextComponent(convertToWatts()+"/"+convertMaxToWatts()+" W"),
+                    new TextComponent(Math.round(power_percent*10000)/100+"%")
+                            .withStyle(power_percent < 0.2f ? ChatFormatting.RED
+                                    : power_percent < 0.5f ? ChatFormatting.YELLOW
+                                    : power_percent > 0.999f ? ChatFormatting.BLUE
+                                    : ChatFormatting.GREEN)
+            ),x+4,y+4,font);
+        }
+    }
+
+    private float convertToWatts() {
+        return Math.round((getMenu().data.get(5) / 400f)*100f)/100f;
+    }
+    private float convertMaxToWatts() {
+        return Math.round(((1600*GasCentrifugeBlockEntity.magic) / 400f)*100f)/100f;
     }
 
     private List<MutableComponent> formatUTooltip(String utooltip) {
