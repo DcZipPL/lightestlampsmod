@@ -70,6 +70,8 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		return new GasCentrifugeMenu(ModMiscs.GAS_CENTRIFUGE.get(),pContainerId, pInventory, this, this.furnaceData, buffer);
 	}
 
+	public static final int MAX_IN = 164;
+	public static final int OC_MAX_IN = 286;
 	public static final int magic = 12;
 	private static final int[] SLOTS_UP = new int[]{0,1};
 	private static final int[] SLOTS_DOWN = new int[]{2, 3, 4, 5};
@@ -81,7 +83,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	private int cookTimeTotal;
 	private int redstoneMode;
 	private int liquidMode;
-	public LazyOptional<CustomEnergyStorage> energyStorage = LazyOptional.of(()->new CustomEnergyStorage(1600 * magic, 164));
+	public LazyOptional<CustomEnergyStorage> energyStorage = LazyOptional.of(()->new CustomEnergyStorage(1600 * magic, MAX_IN));
 	public final ContainerData furnaceData = new ContainerData() {
 		@Override
 		public int get(int index) {
@@ -307,7 +309,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					blockEntity.cookTime = 0;
 				}
 			} else if (!blockEntity.isBurning() && blockEntity.cookTime > 0) {
-				//blockEntity.cookTime = Mth.clamp(blockEntity.cookTime - 2, 0, blockEntity.cookTimeTotal);
+				blockEntity.cookTime = Mth.clamp(blockEntity.cookTime - 2, 0, blockEntity.cookTimeTotal);
 			}
 
 			if (flag != blockEntity.isBurning()) {

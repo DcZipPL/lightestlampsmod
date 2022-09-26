@@ -83,12 +83,38 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
                     new TextComponent(getMenu().data.get(5)+"/"+(1600*GasCentrifugeBlockEntity.magic)+" FE"),
                     new TextComponent(convertToWatts()+"/"+convertMaxToWatts()+" W"),
                     new TextComponent(Math.round(power_percent*10000)/100+"%")
-                            .withStyle(power_percent < 0.2f ? ChatFormatting.RED
-                                    : power_percent < 0.5f ? ChatFormatting.YELLOW
-                                    : power_percent > 0.999f ? ChatFormatting.BLUE
-                                    : ChatFormatting.GREEN)
+                            .withStyle(Style.EMPTY.withColor(power_percent < 0.5f ?
+                                    blend(new Color(0xff0000),new Color(0xffff00),power_percent*2f).getRGB()
+                                    : blend(new Color(0xffff00),new Color(0x00ff00),power_percent*2f-1f).getRGB()
+                            ))
             ),x+4,y+4,font);
         }
+    }
+
+    private Color blend( Color c1, Color c2, float ratio) {
+        if ( ratio > 1f ) ratio = 1f;
+        else if ( ratio < 0f ) ratio = 0f;
+        float iRatio = 1.0f - ratio;
+
+        int i1 = c1.getRGB();
+        int i2 = c2.getRGB();
+
+        int a1 = (i1 >> 24 & 0xff);
+        int r1 = ((i1 & 0xff0000) >> 16);
+        int g1 = ((i1 & 0xff00) >> 8);
+        int b1 = (i1 & 0xff);
+
+        int a2 = (i2 >> 24 & 0xff);
+        int r2 = ((i2 & 0xff0000) >> 16);
+        int g2 = ((i2 & 0xff00) >> 8);
+        int b2 = (i2 & 0xff);
+
+        int a = (int)((a1 * iRatio) + (a2 * ratio));
+        int r = (int)((r1 * iRatio) + (r2 * ratio));
+        int g = (int)((g1 * iRatio) + (g2 * ratio));
+        int b = (int)((b1 * iRatio) + (b2 * ratio));
+
+        return new Color( a << 24 | r << 16 | g << 8 | b );
     }
 
     private float convertToWatts() {
@@ -135,6 +161,8 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
             int m = (int)((GasCentrifugeMenu)this.sc).getLiquidScaled();
             //Z Y T-Z T-Y W H
             this.blit(pPoseStack,i + 153, j + 19 + 50 - m + 1 - 3, 204, 99 - m - 1, 13, m + 1);
+            if (sc.data.get(4)==2)
+                this.blit(pPoseStack,i + 153, j + 63, 176, 94, 13, 5);
         } else {
             this.blit(pPoseStack,i + 153, j + 19 + 1 - 3, 218, 99 - 1 - 50, 14, 51);
         }

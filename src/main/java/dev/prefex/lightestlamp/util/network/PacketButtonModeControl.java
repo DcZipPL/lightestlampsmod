@@ -43,6 +43,11 @@ public class PacketButtonModeControl
                     gbe.setLiquidMode(0);
                 else
                     gbe.setLiquidMode(gbe.getLiquidMode()+1);
+                if (gbe.getLiquidMode() == 2){ // TODO: Save this change in GasCentrifugeBlockEntity
+                    gbe.getEnergyStorage().changeTransferRate(GasCentrifugeBlockEntity.OC_MAX_IN);
+                }else{
+                    gbe.getEnergyStorage().changeTransferRate(GasCentrifugeBlockEntity.MAX_IN);
+                }
             }
         });
         ctx.get().setPacketHandled(true);

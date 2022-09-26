@@ -119,8 +119,11 @@
 	"tooltip.lightestlamp.machine.redstone_off": "Mode: Redstone off",
 	"tooltip.lightestlamp.machine.redstone_on": "Mode: Redstone on",
 	"tooltip.lightestlamp.machine.passive_mode": "Mode: Passive Mode¬§7Machine dosn't require any energy.¬§cEfficiency -80%¬§aPower Consumption: -100%",
-	"tooltip.lightestlamp.machine.normal_mode": "Mode: Normal¬§7Machine works normally.¬§7Machine require LV-MV power tier.",
-	"tooltip.lightestlamp.machine.overclock_mode": "Mode: Overclocked¬§7Machine is more efficient but requires more power.¬§7Machine require HV power tier.¬§aEfficiency +100%¬§cPower Consumption: +60%",
+	"tooltip.lightestlamp.machine.normal_mode": "Mode: Normal¬§7Machine works normally.",
+	"tooltip.lightestlamp.machine.overclock_mode": "Mode: Overclocked¬§7Machine is more efficient but requires more power.¬Energy Input +80%¬§aEfficiency +100%¬§cPower Consumption: +60%",
+
+	"tooltip.lightestlamp.machine.normal_mode_w": "Mode: Normal¬§7Machine works normally.¬§7Machine require LV-MV power tier.",
+	"tooltip.lightestlamp.machine.overclock_mode_w": "Mode: Overclocked¬§7Machine is more efficient but requires more power.¬§7Machine require HV power tier.¬§aEfficiency +100%¬§aEnergy Input +80%¬§cPower Consumption: +60%",
 
 	"container.lightestlamp.glowstone_centrifuge": "Glowstone Centrifuge",
 

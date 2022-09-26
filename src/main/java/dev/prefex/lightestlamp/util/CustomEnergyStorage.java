@@ -11,6 +11,10 @@ public class CustomEnergyStorage extends EnergyStorage implements INBTSerializab
         super(capacity, maxTransfer);
     }
 
+    public void changeTransferRate(int tr){
+        maxReceive = tr;
+    }
+
     public void setEnergy(int energy) {
         this.energy = energy;
     }
