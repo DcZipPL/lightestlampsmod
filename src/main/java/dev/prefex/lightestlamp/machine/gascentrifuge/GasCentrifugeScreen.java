@@ -3,6 +3,7 @@ package dev.prefex.lightestlamp.machine.gascentrifuge;
 import com.google.common.primitives.UnsignedInteger;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import dev.prefex.lightestlamp.Config;
 import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.util.network.Networking;
 import dev.prefex.lightestlamp.util.network.PacketButtonModeControl;
@@ -68,10 +69,11 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         {
             renderComponentTooltip(pPoseStack, Collections.singletonList(new TranslatableComponent(redstone_tooltip)),x+4,y+4,font);
         }
-        checker = new HoverChecker(marginHorizontal+25,marginHorizontal+36,marginVertical+20,marginVertical+9,0);
-        if (checker.checkHover(x,y, true))
-        {
-            renderComponentTooltip(pPoseStack, formatUTooltip(power_tooltip),x+4,y+4,font);
+        if(Config.ENERGY_MODE.get() != Config.EnergyModes.passive_only) {
+            checker = new HoverChecker(marginHorizontal + 25, marginHorizontal + 36, marginVertical + 20, marginVertical + 9, 0);
+            if (checker.checkHover(x, y, true)) {
+                renderComponentTooltip(pPoseStack, formatUTooltip(power_tooltip), x + 4, y + 4, font);
+            }
         }
         // Energy bar
         checker = new HoverChecker(marginHorizontal+153,marginHorizontal+166,marginVertical+70,marginVertical+19,0);
@@ -174,10 +176,12 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
             case 1 -> this.blit(pPoseStack, marginHorizontal + 9, marginVertical + 9, 176, 141, 12, 12);
             case 2 -> this.blit(pPoseStack, marginHorizontal + 9, marginVertical + 9, 176, 154, 12, 12);
         }
-        switch (sc.data.get(4)) {
-            case 0 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 128, 12, 12);
-            case 1 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 141, 12, 12);
-            case 2 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 154, 12, 12);
+        if(Config.ENERGY_MODE.get() != Config.EnergyModes.passive_only) {
+            switch (sc.data.get(4)) {
+                case 0 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 128, 12, 12);
+                case 1 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 141, 12, 12);
+                case 2 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 154, 12, 12);
+            }
         }
 
         int l = ((GasCentrifugeMenu)this.menu).getCookProgressionScaled();
@@ -200,23 +204,25 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
                 } else {
                     sc.data.set(1, sc.data.get(1)+1);
                 }
-                LOGGER.warn("Pos: "+sc.getBlockPos());
                 Networking.INSTANCE.sendToServer(new PacketButtonRedstone(sc.getBlockPos(),0));
             }
         }
         // Clicked Power button
-        if (mouseX - marginHorizontal >= 25 && mouseX - marginHorizontal <= 36)
-        {
-            if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20)
-            {
-                if (sc.data.get(4) == 2)
-                {
-                    sc.data.set(4, 0);
-                } else {
-                    sc.data.set(4, sc.data.get(4)+1);
+        if(Config.ENERGY_MODE.get() != Config.EnergyModes.passive_only) {
+            if (mouseX - marginHorizontal >= 25 && mouseX - marginHorizontal <= 36) {
+                if (mouseY - marginVertical >= 9 && mouseY - marginVertical <= 20) {
+                    if (sc.data.get(4) >= ((Config.ENERGY_MODE.get() == Config.EnergyModes.no_overclocking_with_passive
+                            || Config.ENERGY_MODE.get() == Config.EnergyModes.no_overclocking)
+                            ? (Config.ENERGY_MODE.get() == Config.EnergyModes.passive_only) ? 0 : 1 : 2)) {
+                        sc.data.set(4, (Config.ENERGY_MODE.get() == Config.EnergyModes.energy_only
+                                        || Config.ENERGY_MODE.get() == Config.EnergyModes.no_overclocking)
+                                ? 1 : 0
+                        );
+                    } else {
+                        sc.data.set(4, sc.data.get(4) + 1);
+                    }
+                    Networking.INSTANCE.sendToServer(new PacketButtonModeControl(sc.getBlockPos(), 0));
                 }
-                LOGGER.warn("Pos: "+sc.getBlockPos());
-                Networking.INSTANCE.sendToServer(new PacketButtonModeControl(sc.getBlockPos(),0));
             }
         }
 

@@ -324,7 +324,9 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 
 	private int getCookTimeTotal()
 	{
-		return 100;
+		return (int)(80 *
+			((liquidMode == 0 && (Config.ENERGY_MODE.get() != Config.EnergyModes.passive_only))
+			? 1.8f : 1f));
 	}
 
 	protected boolean canSmelt(@Nullable Recipe<?> pRecipe) {
