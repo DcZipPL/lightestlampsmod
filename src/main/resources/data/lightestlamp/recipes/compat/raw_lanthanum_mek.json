@@ -1,0 +1,13 @@
+{
+  "type": "thermal:pulverizer",
+  "ingredient": {
+    "tag": "forge:raw_materials/lanthanum"
+  },
+  "result": [
+    {
+      "item": "lightestlamp:lanthanum_dust",
+      "count": 2
+    }
+  ],
+  "energy_mod": 0.5
+}

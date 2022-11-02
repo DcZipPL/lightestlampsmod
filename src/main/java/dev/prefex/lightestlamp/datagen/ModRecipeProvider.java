@@ -1,12 +1,15 @@
 package dev.prefex.lightestlamp.datagen;
 
+import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModItems;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeRecipe;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -25,6 +28,9 @@ public class ModRecipeProvider extends RecipeProvider {
 
 	@Override
 	protected void buildCraftingRecipes(Consumer<FinishedRecipe> pFinishedRecipeConsumer) {
+		TagKey<Item> lanthanum_ingot = ItemTags.create(new ResourceLocation("forge","ingots/lanthanum"));
+		TagKey<Item> lanthanum_nugget = ItemTags.create(new ResourceLocation("forge","nuggets/lanthanum"));
+
 		ShapedRecipeBuilder.shaped(ModBlocks.ABYSSAL_LANTERN.get())
 				.define('L', ModBlocks.DEEP_OCEAN_LANTERN.get())
 				.define('H', Items.HEART_OF_THE_SEA)
@@ -174,12 +180,12 @@ public class ModRecipeProvider extends RecipeProvider {
 		ShapedRecipeBuilder.shaped(ModBlocks.GLOWSTONE_CENTRIFUGE.get())
 				.define('P', Blocks.PISTON)
 				.define('T', ModItems.GLASS_TUBE.get())
-				.define('I', ModItems.LANTHANUM_INGOT.get())
+				.define('I', lanthanum_ingot)
 				.pattern("ITI")
 				.pattern("IPI")
 				.pattern("IPI")
 				.unlockedBy("has_lanthanum_ingot", inventoryTrigger(ItemPredicate.Builder.item()
-						.of(ModItems.LANTHANUM_INGOT.get())
+						.of(lanthanum_ingot)
 						.build()))
 				.save(pFinishedRecipeConsumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.GLOWING_GLASS_BLOCK.get())
@@ -200,13 +206,13 @@ public class ModRecipeProvider extends RecipeProvider {
 						.build()))
 				.save(pFinishedRecipeConsumer, ModItems.NETHERITE_MESH.getId().toString());
 		ShapedRecipeBuilder.shaped(ModItems.LANTHANUM_MESH.get())
-				.define('N', ModItems.LANTHANUM_NUGGET.get())
-				.define('I', ModItems.LANTHANUM_INGOT.get())
+				.define('N', lanthanum_nugget)
+				.define('I', lanthanum_ingot)
 				.pattern("N N")
 				.pattern(" I ")
 				.pattern("N N")
 				.unlockedBy("has_lanthanum_ingot", inventoryTrigger(ItemPredicate.Builder.item()
-						.of(ModItems.LANTHANUM_INGOT.get())
+						.of(lanthanum_ingot)
 						.build()))
 				.save(pFinishedRecipeConsumer);
 		ShapedRecipeBuilder.shaped(ModBlocks.OCEAN_LANTERN.get())
@@ -274,11 +280,11 @@ public class ModRecipeProvider extends RecipeProvider {
 		ShapelessRecipeBuilder.shapeless(ModItems.LANTHANUM_INGOT.get())
 				.requires(ModItems.LANTHANUM_NUGGET.get(),9)
 				.unlockedBy("has_"+ModItems.LANTHANUM_INGOT.getId().getPath(), inventoryTrigger(ItemPredicate.Builder.item()
-						.of(ModItems.LANTHANUM_INGOT.get())
+						.of(lanthanum_ingot)
 						.build()))
 				.save(pFinishedRecipeConsumer);
 		ShapelessRecipeBuilder.shapeless(ModItems.LANTHANUM_NUGGET.get(),9)
-				.requires(ModItems.LANTHANUM_INGOT.get())
+				.requires(lanthanum_ingot)
 				.unlockedBy("has_"+ModItems.LANTHANUM_NUGGET.getId().getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 						.of(ModItems.LANTHANUM_NUGGET.get())
 						.build()))
@@ -354,12 +360,12 @@ public class ModRecipeProvider extends RecipeProvider {
 		_filtersMap.forEach((i,o)->{
 			ShapedRecipeBuilder.shaped(o)
 					.define('#', i)
-					.define('B', ModItems.LANTHANUM_INGOT.get())
+					.define('B', lanthanum_ingot)
 					.pattern(" B ")
 					.pattern("B#B")
 					.pattern(" B ")
-					.unlockedBy("has_"+Objects.requireNonNull(ModItems.LANTHANUM_INGOT.get().getRegistryName()).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
-							.of(ModItems.LANTHANUM_INGOT.get())
+					.unlockedBy("has_"+Objects.requireNonNull(lanthanum_ingot.registry().getRegistryName()).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
+							.of(lanthanum_ingot)
 							.build()))
 					.save(pFinishedRecipeConsumer);
 		});
@@ -377,7 +383,7 @@ public class ModRecipeProvider extends RecipeProvider {
 			ShapelessRecipeBuilder.shapeless(o)
 					.requires(i,4)
 					.unlockedBy("has_"+Objects.requireNonNull(i.getRegistryName()).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
-							.of(ModItems.LANTHANUM_INGOT.get())
+							.of(lanthanum_ingot)
 							.build()))
 					.save(pFinishedRecipeConsumer);
 		});
@@ -388,7 +394,7 @@ public class ModRecipeProvider extends RecipeProvider {
 			ShapelessRecipeBuilder.shapeless(o,4)
 					.requires(i)
 					.unlockedBy("has_"+Objects.requireNonNull(i.getRegistryName()).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
-							.of(ModItems.LANTHANUM_INGOT.get())
+							.of(lanthanum_ingot)
 							.build()))
 					.save(pFinishedRecipeConsumer);
 		});
