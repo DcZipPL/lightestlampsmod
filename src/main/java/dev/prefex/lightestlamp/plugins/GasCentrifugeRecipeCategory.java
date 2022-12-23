@@ -36,15 +36,15 @@ public record GasCentrifugeRecipeCategory(IGuiHelper guiHelper) implements IReci
         IRecipeCategory.super.setRecipe(builder, recipe, focuses);
         builder.addSlot(RecipeIngredientRole.CATALYST, 8, 27).addIngredients(recipe.filter());
         builder.addSlot(RecipeIngredientRole.INPUT, 33, 27).addIngredients(recipe.input());
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 91, 11).addIngredient(VanillaTypes.ITEM,recipe.output().get(0));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 119, 11).addIngredient(VanillaTypes.ITEM,recipe.output().get(1));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 91, 44).addIngredient(VanillaTypes.ITEM,recipe.output().get(2));
-        builder.addSlot(RecipeIngredientRole.OUTPUT, 119, 44).addIngredient(VanillaTypes.ITEM,recipe.output().get(3));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 91, 11).addIngredient(VanillaTypes.ITEM_STACK,recipe.output().get(0));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 119, 11).addIngredient(VanillaTypes.ITEM_STACK,recipe.output().get(1));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 91, 44).addIngredient(VanillaTypes.ITEM_STACK,recipe.output().get(2));
+        builder.addSlot(RecipeIngredientRole.OUTPUT, 119, 44).addIngredient(VanillaTypes.ITEM_STACK,recipe.output().get(3));
     }
 
     @Override
     public IDrawable getIcon() {
-        return guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(ModBlocks.GLOWSTONE_CENTRIFUGE.get()));
+        return guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.GLOWSTONE_CENTRIFUGE.get()));
     }
 
     // TODO: Remove this when you can skip this

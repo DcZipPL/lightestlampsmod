@@ -60,6 +60,17 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
             case 2 -> "tooltip.lightestlamp.machine.overclock_mode";
             default -> "tooltip.lightestlamp.machine.mode_na";
         };
+        String status_tooltip = switch (sc.data.get(4)) {
+            case 0 -> "tooltip.lightestlamp.machine.valid";
+            case 1 -> "tooltip.lightestlamp.machine.info_passive_mode";
+            case 2 -> "tooltip.lightestlamp.machine.info_no_energy";
+            case 3 -> "tooltip.lightestlamp.machine.info_redstone_disabled";
+            case 4 -> "tooltip.lightestlamp.machine.info_no_input";
+            case 5 -> "tooltip.lightestlamp.machine.info_invalid_input";
+            case 6 -> "tooltip.lightestlamp.machine.err_output_full";
+            case 7 -> "tooltip.lightestlamp.machine.err_extra_centrifugable_required";
+            default -> "tooltip.lightestlamp.machine.err_na";
+        };
 
         int marginHorizontal = (width - getXSize()) / 2;
         int marginVertical = (height - getYSize()) / 2;
@@ -74,6 +85,12 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
             if (checker.checkHover(x, y, true)) {
                 renderComponentTooltip(pPoseStack, formatUTooltip(power_tooltip), x + 4, y + 4, font);
             }
+        }
+        // Valid/Info/Error
+        checker = new HoverChecker(marginHorizontal+41,marginHorizontal+54,marginVertical+20,marginVertical+9,0);
+        if (checker.checkHover(x,y, true))
+        {
+            renderComponentTooltip(pPoseStack, formatUTooltip(status_tooltip),x+4,y+4,font);
         }
         // Energy bar
         checker = new HoverChecker(marginHorizontal+153,marginHorizontal+166,marginVertical+70,marginVertical+19,0);
@@ -182,6 +199,11 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
                 case 1 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 141, 12, 12);
                 case 2 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 154, 12, 12);
             }
+        }
+        switch (sc.data.get(1)) {
+            case 0 -> this.blit(pPoseStack, marginHorizontal + 41, marginVertical + 9, 176, 167, 12, 12);
+            case 1 -> this.blit(pPoseStack, marginHorizontal + 41, marginVertical + 9, 176, 180, 12, 12);
+            case 2 -> this.blit(pPoseStack, marginHorizontal + 41, marginVertical + 9, 176, 193, 12, 12);
         }
 
         int l = ((GasCentrifugeMenu)this.menu).getCookProgressionScaled();

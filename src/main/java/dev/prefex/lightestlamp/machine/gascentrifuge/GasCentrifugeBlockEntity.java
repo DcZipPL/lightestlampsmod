@@ -268,6 +268,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		boolean flag1 = false;
 		GasCentrifugeRecipe recipe = pLevel.getRecipeManager().getRecipeFor((RecipeType<GasCentrifugeRecipe>)ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get(), blockEntity, pLevel).orElse(null);
 
+		// Decrease burn time
 		if (blockEntity.isBurning() && blockEntity.canSmelt(recipe)) {
 			--blockEntity.burnTime;
 			if (blockEntity.getEnergyStorage().getEnergyStored() > 0&&blockEntity.furnaceData.get(4)!=0){
@@ -282,13 +283,13 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 				if (!blockEntity.isBurning() && blockEntity.canSmelt(recipe)
 						&& (blockEntity.getEnergyStorage().getEnergyStored() > 0||blockEntity.furnaceData.get(4)==0)) {
 					blockEntity.burnTime = blockEntity.getBurnTime(itemstack);
+					// Use items
 					if (blockEntity.isBurning()) {
 						flag1 = true;
 						if (itemstack.hasContainerItem())
 							blockEntity.items.set(1, itemstack.getContainerItem());
 						else
 						if (!itemstack.isEmpty()) {
-							Item item = itemstack.getItem();
 							itemstack.shrink(1);
 							if (itemstack.isEmpty()) {
 								blockEntity.items.set(1, itemstack.getContainerItem());
@@ -297,8 +298,10 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					}
 				}
 
+				// Increase burn time
 				if (blockEntity.isBurning() && blockEntity.canSmelt(recipe)) {
 					++blockEntity.cookTime;
+					// If done produce items
 					if (blockEntity.cookTime == blockEntity.cookTimeTotal) {
 						blockEntity.cookTime = 0;
 						blockEntity.cookTimeTotal = blockEntity.getCookTimeTotal();

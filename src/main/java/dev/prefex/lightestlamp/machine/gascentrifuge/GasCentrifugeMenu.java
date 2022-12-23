@@ -78,7 +78,7 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
      * inventory and the other inventory(s).
      */
     @Override
-    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {
+    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {// FIXME: STILL BROKEN
         ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.slots.get(pIndex);
         if (slot != null && slot.hasItem()) {

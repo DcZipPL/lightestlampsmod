@@ -125,6 +125,16 @@
 	"tooltip.lightestlamp.machine.normal_mode_w": "Mode: Normal¬§7Machine works normally.¬§7Machine require LV-MV power tier.",
 	"tooltip.lightestlamp.machine.overclock_mode_w": "Mode: Overclocked¬§7Machine is more efficient but requires more power.¬§7Machine require HV power tier.¬§aEfficiency +100%¬§aEnergy Input +80%¬§cPower Consumption: +60%",
 
+	"tooltip.lightestlamp.machine.valid": "Machine is working as intended.",
+	"tooltip.lightestlamp.machine.info_passive_mode": "Passive mode is active, output yield is decreased.",
+	"tooltip.lightestlamp.machine.info_no_energy": "Machine does not have energy to run.",
+	"tooltip.lightestlamp.machine.info_redstone_disabled": "Disabled by redstone",
+	"tooltip.lightestlamp.machine.info_no_input": "No input to process.",
+	"tooltip.lightestlamp.machine.info_invalid_input": "Invalid input.",
+	"tooltip.lightestlamp.machine.err_output_full": "§cThe output slots are full can't continue!",
+	"tooltip.lightestlamp.machine.err_extra_centrifugable_required": "§cNo pressure to centrifuge remaining dust.¬§rAdd more input material to proceed.¬§rIf you want to cleanup remaining dust use for ex. Glow Lichen.",
+	"tooltip.lightestlamp.machine.err_na": "§cError: N/A",
+
 	"container.lightestlamp.glowstone_centrifuge": "Glowstone Centrifuge",
 
 	"itemGroup.llamps": "Lamps",
