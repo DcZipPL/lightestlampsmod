@@ -42,7 +42,7 @@ public class JEIPlugin implements IModPlugin
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration reg) {
-        reg.addRecipeCatalyst(VanillaTypes.ITEM, new ItemStack(ModBlocks.GLOWSTONE_CENTRIFUGE.get()), JEI_RECIPE);
+        reg.addRecipeCatalyst(VanillaTypes.ITEM_STACK, new ItemStack(ModBlocks.GLOWSTONE_CENTRIFUGE.get()), JEI_RECIPE);
     }
 
     @Override

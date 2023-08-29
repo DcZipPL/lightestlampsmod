@@ -32,7 +32,7 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
         checkContainerDataCount(data, 7);
         this.furnaceInventory = furnaceInventoryIn;
         this.data = data;
-        this.level = playerInventoryIn.player.level;
+        this.level = playerInventoryIn.player.getCommandSenderWorld();
         this.pos = buf.readBlockPos();
         this.addSlot(new Slot(furnaceInventoryIn, 0, 16, 35));
         this.addSlot(new Slot(furnaceInventoryIn, 1, 41, 35));

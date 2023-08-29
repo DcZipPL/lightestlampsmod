@@ -3,11 +3,11 @@ package dev.prefex.lightestlamp.datagen;
 import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.datagen.tags.ModTagsProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @Mod.EventBusSubscriber(modid = Util.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
@@ -16,10 +16,10 @@ public class DataGenerators {
 		DataGenerator generator = event.getGenerator();
 		ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-		generator.addProvider(new ModRecipeProvider(generator));
-		generator.addProvider(new ModLootTableProvider(generator));
-		generator.addProvider(new ModBlocksStateProvider(generator,existingFileHelper));
-		generator.addProvider(new ModItemsModelProvider(generator,existingFileHelper));
+		generator.addProvider(true, new ModRecipeProvider(generator));
+		generator.addProvider(true, new ModLootTableProvider(generator));
+		generator.addProvider(true, new ModBlocksStateProvider(generator,existingFileHelper));
+		generator.addProvider(true, new ModItemsModelProvider(generator,existingFileHelper));
 
 		BlockTagsProvider btp = new ModTagsProvider.ModBlockTagsProvider(generator,existingFileHelper);
 		generator.addProvider(btp);

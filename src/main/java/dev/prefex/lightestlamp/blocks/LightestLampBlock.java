@@ -6,7 +6,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -89,13 +88,13 @@ public class LightestLampBlock extends BaseEntityBlock {
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.type."+_tier.name().toLowerCase()).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+        pTooltip.add(Component.translatable("tooltip.lightestlamp.type."+_tier.name().toLowerCase()).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         if (_tier.ordinal() > 4)
-            pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.always_active").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable("tooltip.lightestlamp.always_active").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         else
-            pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.inverted").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable("tooltip.lightestlamp.inverted").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         if (_tier.ordinal() > 1)
-            pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.penetration").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+            pTooltip.add(Component.translatable("tooltip.lightestlamp.penetration").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
 
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }

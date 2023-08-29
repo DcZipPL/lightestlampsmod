@@ -47,7 +47,7 @@ public class Util
                 }
                 else
                 {
-                    if (ent instanceof Arrow && ((Arrow) ent).isOnGround())
+                    if (ent instanceof Arrow && ((Arrow) ent).onGround())
                     {
                         continue;
                     }

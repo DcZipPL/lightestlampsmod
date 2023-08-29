@@ -7,7 +7,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
@@ -46,9 +45,9 @@ public class OmegaLampBlock extends BaseEntityBlock
 
     @Override
     public void appendHoverText(ItemStack pStack, @org.jetbrains.annotations.Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.type.omega").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
-        pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.penetration").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
-        pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.always_active").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+        pTooltip.add(Component.translatable("tooltip.lightestlamp.type.omega").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+        pTooltip.add(Component.translatable("tooltip.lightestlamp.penetration").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+        pTooltip.add(Component.translatable("tooltip.lightestlamp.always_active").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
     }
 

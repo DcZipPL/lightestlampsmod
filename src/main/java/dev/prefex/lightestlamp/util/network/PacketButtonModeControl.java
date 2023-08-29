@@ -36,7 +36,7 @@ public class PacketButtonModeControl
     {
         ctx.get().enqueueWork(() ->
         {
-            BlockEntity be = ctx.get().getSender().getLevel().getBlockEntity(pos);
+            BlockEntity be = ctx.get().getSender().getCommandSenderWorld().getBlockEntity(pos);
             if (be instanceof GasCentrifugeBlockEntity)
             {
                 GasCentrifugeBlockEntity gbe = ((GasCentrifugeBlockEntity) be);

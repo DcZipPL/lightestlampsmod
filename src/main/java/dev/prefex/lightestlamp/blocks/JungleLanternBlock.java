@@ -5,8 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -14,7 +14,6 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CropBlock;
-import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -62,7 +61,7 @@ public class JungleLanternBlock extends Block implements SimpleWaterloggedBlock
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.speed_grow").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+        pTooltip.add(Component.translatable("tooltip.lightestlamp.speed_grow").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
     }
 
     @Override
@@ -96,12 +95,12 @@ public class JungleLanternBlock extends Block implements SimpleWaterloggedBlock
     }
 
     @Override
-    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, Random pRandom) {
+    public void randomTick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
         super.randomTick(pState, pLevel, pPos, pRandom);
         BlockPos rp = pPos.offset(pRandom.nextInt(6)-3,pRandom.nextInt(6)-6,pRandom.nextInt(6)-3);
         BlockState cbs = pLevel.getBlockState(rp);
         if (cbs.getBlock() instanceof CropBlock){
-            int i = cbs.getValue(((CropBlock) cbs.getBlock()).getAgeProperty());
+            int i = ((CropBlock) cbs.getBlock()).getAge(cbs);
             if (i < ((CropBlock) cbs.getBlock()).getMaxAge()) {
                 if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, true)) {
                     pLevel.setBlock(pPos, ((CropBlock) cbs.getBlock()).getStateForAge(i + 1), 2);

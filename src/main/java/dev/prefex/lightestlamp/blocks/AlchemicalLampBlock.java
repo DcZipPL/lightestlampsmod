@@ -44,8 +44,8 @@ public class AlchemicalLampBlock extends BaseEntityBlock
     @Override
     public void appendHoverText(ItemStack pStack, @org.jetbrains.annotations.Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
         super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
-        pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.type.alchemical").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
-        pTooltip.add(new TranslatableComponent("tooltip.lightestlamp.inverted").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+        pTooltip.add(Component.translatable("tooltip.lightestlamp.type.alchemical").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+        pTooltip.add(Component.translatable("tooltip.lightestlamp.inverted").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
     }
 
     /**

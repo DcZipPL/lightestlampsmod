@@ -12,7 +12,6 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 public class OreFeature {
 	public static Holder<PlacedFeature> NETHER_OREGEN;

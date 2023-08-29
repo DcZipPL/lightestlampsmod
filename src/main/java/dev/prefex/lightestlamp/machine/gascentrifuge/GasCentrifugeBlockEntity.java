@@ -58,7 +58,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 
 	@Override
 	protected Component getDefaultName() {
-		return new TranslatableComponent("container.lightestlamp.glowstone_centrifuge");
+		return Component.translatable("container.lightestlamp.glowstone_centrifuge");
 	}
 
 	public GasCentrifugeBlockEntity(BlockPos pos, BlockState state) {this(ModBlockEntities.CENTRIFUGE_BE.get(), pos, state);}

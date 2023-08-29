@@ -7,11 +7,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlocksStateProvider extends BlockStateProvider {
 	public ModBlocksStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
-		super(gen, Util.MOD_ID, exFileHelper);
+		super(gen.getPackOutput(), Util.MOD_ID, exFileHelper);
 	}
 
 	@Override
@@ -29,10 +30,10 @@ public class ModBlocksStateProvider extends BlockStateProvider {
 				// TODO: add lamp models here
 			}
 			else if (block == ModBlocks.GLOWSTONE_CENTRIFUGE.get()){
-				simpleBlock(ModBlocks.GLOWSTONE_CENTRIFUGE.get(), models().cubeBottomTop(block.getRegistryName().getPath(),
-						new ResourceLocation(Util.MOD_ID,"block/machine/"+block.getRegistryName().getPath()+"_side"),
-						new ResourceLocation(Util.MOD_ID,"block/machine/"+block.getRegistryName().getPath()+"_bottom"),
-						new ResourceLocation(Util.MOD_ID,"block/machine/"+block.getRegistryName().getPath())));
+				simpleBlock(ModBlocks.GLOWSTONE_CENTRIFUGE.get(), models().cubeBottomTop(ForgeRegistries.BLOCKS.getKey(block).getPath(),
+						new ResourceLocation(Util.MOD_ID,"block/machine/"+ ForgeRegistries.BLOCKS.getKey(block).getPath()+"_side"),
+						new ResourceLocation(Util.MOD_ID,"block/machine/"+ForgeRegistries.BLOCKS.getKey(block).getPath()+"_bottom"),
+						new ResourceLocation(Util.MOD_ID,"block/machine/"+ForgeRegistries.BLOCKS.getKey(block).getPath())));
 			}
 			else if (block != ModBlocks.CURTAIN_BLOCK.get()
 					&& block != ModBlocks.OCC.get()

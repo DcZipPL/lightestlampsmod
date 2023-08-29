@@ -24,7 +24,7 @@ public class FilterItem extends Item
 
     @Override
     public void appendHoverText(ItemStack pStack, @org.jetbrains.annotations.Nullable Level pLevel, List<Component> pTooltipComponents, TooltipFlag pIsAdvanced) {
-        pTooltipComponents.add(new TranslatableComponent(tooltip).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
+        pTooltipComponents.add(Component.translatable(tooltip).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced);
     }
 

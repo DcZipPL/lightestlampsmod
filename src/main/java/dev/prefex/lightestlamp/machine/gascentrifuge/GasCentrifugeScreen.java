@@ -78,7 +78,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         HoverChecker checker = new HoverChecker(marginHorizontal+9,marginHorizontal+20,marginVertical+20,marginVertical+9,0);
         if (checker.checkHover(x,y, true))
         {
-            renderComponentTooltip(pPoseStack, Collections.singletonList(new TranslatableComponent(redstone_tooltip)),x+4,y+4,font);
+            renderComponentTooltip(pPoseStack, Collections.singletonList(Component.translatable(redstone_tooltip)),x+4,y+4,font);
         }
         if(Config.ENERGY_MODE.get() != Config.EnergyModes.passive_only) {
             checker = new HoverChecker(marginHorizontal + 25, marginHorizontal + 36, marginVertical + 20, marginVertical + 9, 0);
@@ -98,7 +98,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         {
             float power_percent = convertToWatts()/convertMaxToWatts();
             renderComponentTooltip(pPoseStack, List.of(
-                    new TranslatableComponent("tooltip.lightestlamp.machine.energy_stored"),
+                    Component.translatable("tooltip.lightestlamp.machine.energy_stored"),
                     new TextComponent(getMenu().data.get(5)+"/"+(1600*GasCentrifugeBlockEntity.magic)+" FE"),
                     new TextComponent(convertToWatts()+"/"+convertMaxToWatts()+" W"),
                     new TextComponent(Math.round(power_percent*10000)/100+"%")

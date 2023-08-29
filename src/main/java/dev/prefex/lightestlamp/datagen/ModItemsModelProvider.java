@@ -7,29 +7,30 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModItemsModelProvider extends ItemModelProvider {
 	public ModItemsModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator, Util.MOD_ID, existingFileHelper);
+		super(generator.getPackOutput(), Util.MOD_ID, existingFileHelper);
 	}
 
 	@Override
 	protected void registerModels() {
 		ModItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item -> {
-			withExistingParent(item.getRegistryName().getPath(),new ResourceLocation("item/generated"))
-					.texture("layer0",new ResourceLocation(Util.MOD_ID,"item/"+item.getRegistryName().getPath()));
+			withExistingParent(ForgeRegistries.ITEMS.getKey(item).getPath(),new ResourceLocation("item/generated"))
+					.texture("layer0",new ResourceLocation(Util.MOD_ID,"item/"+ForgeRegistries.ITEMS.getKey(item).getPath()));
 		});
 		ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
 			if (block == ModBlocks.CURTAIN_BLOCK.get()){
-				withExistingParent(block.getRegistryName().getPath(),new ResourceLocation("item/generated"))
-						.texture("layer0",new ResourceLocation(Util.MOD_ID,"block/"+block.getRegistryName().getPath()));
+				withExistingParent(ForgeRegistries.BLOCKS.getKey(block).getPath(),new ResourceLocation("item/generated"))
+						.texture("layer0",new ResourceLocation(Util.MOD_ID,"block/"+ForgeRegistries.BLOCKS.getKey(block).getPath()));
 			}
 			else if (block != ModBlocks.OCC.get()
 					&& block != ModBlocks.LIGHT_AIR.get()
 					&& block != ModBlocks.WATERLOGGABLE_LIGHT_AIR.get()
 					&& block != ModBlocks.JUNGLE_LANTERN.get()) {
-				withExistingParent(block.getRegistryName().getPath(), Util.MOD_ID+":block/"+block.getRegistryName().getPath());
+				withExistingParent(ForgeRegistries.BLOCKS.getKey(block).getPath(), Util.MOD_ID+":block/"+ForgeRegistries.BLOCKS.getKey(block).getPath());
 			}
 		});
 	}
