@@ -80,10 +80,6 @@ public class Main
                         helper.register(block.getId(), blockItem);
                     })
             );
-
-            /*event.register(ForgeRegistries.Keys.MENU_TYPES,
-                    helper -> helper.register(new ResourceLocation(MOD_ID, "gas_centrifuge_menu"), ModMiscs.GAS_CENTRIFUGE.get())
-            );*/ // TODO: Remove if not used
         }
     }
 }

@@ -9,6 +9,7 @@ import dev.prefex.lightestlamp.init.ModMiscs;
 import dev.prefex.lightestlamp.items.FilterItem;
 import dev.prefex.lightestlamp.util.CustomEnergyStorage;
 import io.netty.buffer.Unpooled;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -37,14 +38,18 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
 import java.util.Random;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, StackedContentsCompatible
 {
 
@@ -143,19 +148,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		Map<Item, Integer> map = addedCentrifugables; //= Maps.newLinkedHashMap();
 
 		int multiplier = Config.GLOWSTONE_FUEL_MULTIPLIER.get() >= 2 ? Config.GLOWSTONE_FUEL_MULTIPLIER.get() : 2;
-		//Mekanism compatibility
-        /*ITag<Item> refined_glowstones = ItemTags.getCollection().get(new ResourceLocation("forge:ingots/refined_glowstone"));
-        if (refined_glowstones!=null)
-            add(map, refined_glowstones,60*multiplier);
-        ITag<Item> refined_glowstones_block = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/refined_glowstone"));
-        if (refined_glowstones_block!=null)
-            add(map, refined_glowstones_block,520*multiplier);
-        ITag<Item> refined_glowstones_nugget = ItemTags.getCollection().get(new ResourceLocation("forge:nuggets/refined_glowstone"));
-        if (refined_glowstones_nugget!=null)
-            add(map, refined_glowstones_nugget,5*multiplier);
-        ITag<Item> glowstone_blocks = ItemTags.getCollection().get(new ResourceLocation("forge:storage_blocks/glowstone"));
-        if (glowstone_blocks!=null)
-            add(map, glowstone_blocks,360*multiplier);*/ // TODO: Create tag for this stuff
+		// TODO: Add mod compat
 
 		ForgeRegistries.ITEMS.tags().getTag(Util.getCentrifugablesTag()).forEach(item -> {
 			if (item == Blocks.GLOWSTONE.asItem())
@@ -308,7 +301,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 
 	protected boolean canSmelt(@Nullable Recipe<?> pRecipe) {
 		if (!this.items.get(0).isEmpty()) {
-			if ((GasCentrifugeRecipe) pRecipe == null) return false;
+			if (pRecipe == null) return false;
 			ItemStack[] itemstacks = ((GasCentrifugeRecipe) pRecipe).assemble();
 			if (itemstacks[0].isEmpty()&&itemstacks[1].isEmpty()&&itemstacks[2].isEmpty()&&itemstacks[3].isEmpty())
 			{
@@ -416,7 +409,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	}
 
 	@Override
-	public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @org.jetbrains.annotations.Nullable Direction pDirection) {
+	public boolean canPlaceItemThroughFace(int pIndex, ItemStack pItemStack, @Nullable Direction pDirection) {
 		return this.isItemValidForSlot(pIndex, pItemStack);
 	}
 
@@ -512,9 +505,9 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
 			net.minecraftforge.items.wrapper.SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
 
-	/*@Override
-	public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable Direction facing) {
-		if (!this.remove && facing != null && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+	@Override
+	public <T> net.minecraftforge.common.util.@NotNull LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable Direction facing) {
+		if (!this.remove && facing != null && capability == ForgeCapabilities.ITEM_HANDLER) {
 			if (facing == Direction.UP)
 				return handlers[0].cast();
 			else if (facing == Direction.DOWN)
@@ -522,11 +515,11 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 			else
 				return handlers[2].cast();
 		}
-		if (!this.remove && facing != null && capability == CapabilityEnergy.ENERGY) {
+		if (!this.remove && facing != null && capability == ForgeCapabilities.ENERGY) {
 			return energyStorage.cast();
 		}
 		return super.getCapability(capability, facing);
-	}*/ // TODO: Re-Implement capabilities
+	}
 
 	@Override
 	public void clearContent() {

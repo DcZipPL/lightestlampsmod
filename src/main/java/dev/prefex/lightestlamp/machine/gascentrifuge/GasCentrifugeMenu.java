@@ -78,52 +78,52 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
      * inventory and the other inventory(s).
      */
     @Override
-    public ItemStack quickMoveStack(Player pPlayer, int pIndex) {// FIXME: STILL BROKEN
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.slots.get(pIndex);
-        if (slot != null && slot.hasItem()) {
-            ItemStack itemstack1 = slot.getItem();
-            itemstack = itemstack1.copy();
-            if (pIndex == 2) {
-                if (!this.moveItemStackTo(itemstack1, 3, 39, true)) {
+    public @NotNull ItemStack quickMoveStack(Player player, int slotIndex) {
+        ItemStack copiedStack = ItemStack.EMPTY;
+        Slot sourceSlot = this.slots.get(slotIndex);
+        if (sourceSlot != null && sourceSlot.hasItem()) {
+            ItemStack sourceStack = sourceSlot.getItem();
+            copiedStack = sourceStack.copy();
+            if (slotIndex >= 2 && slotIndex < 6) {
+                if (!this.moveItemStackTo(sourceStack, 6, 42, true)) {
                     return ItemStack.EMPTY;
                 }
 
-                slot.onQuickCraft(itemstack1, itemstack);
-            } else if (pIndex != 1 && pIndex != 0) {
-                if (true) { // TODO: MAKE TAG LIST
-                    if (!this.moveItemStackTo(itemstack1, 0, 1, false)) {
+                sourceSlot.onQuickCraft(sourceStack, copiedStack);
+            } else if (slotIndex != 1 && slotIndex != 0) {
+                if (this.isFilter(sourceStack)) {
+                    if (!this.moveItemStackTo(sourceStack, 0, 2, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (true) { // TODO: MAKE TAG LIST
-                    if (!this.moveItemStackTo(itemstack1, 1, 2, false)) {
+                } else if (slotIndex >= 6 && slotIndex < 33) {
+                    if (!this.moveItemStackTo(sourceStack, 33, 42, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (pIndex >= 3 && pIndex < 30) {
-                    if (!this.moveItemStackTo(itemstack1, 30, 39, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (pIndex >= 30 && pIndex < 39 && !this.moveItemStackTo(itemstack1, 3, 30, false)) {
+                } else if (slotIndex >= 33 && slotIndex < 42 && !this.moveItemStackTo(sourceStack, 3, 30, false)) {
                     return ItemStack.EMPTY;
                 }
-            } else if (!this.moveItemStackTo(itemstack1, 3, 39, false)) {
+            } else if (!this.moveItemStackTo(sourceStack, 6, 42, false)) {
                 return ItemStack.EMPTY;
             }
 
-            if (itemstack1.isEmpty()) {
-                slot.set(ItemStack.EMPTY);
+            if (sourceStack.isEmpty()) {
+                sourceSlot.set(ItemStack.EMPTY);
             } else {
-                slot.setChanged();
+                sourceSlot.setChanged();
             }
 
-            if (itemstack1.getCount() == itemstack.getCount()) {
+            if (sourceStack.getCount() == copiedStack.getCount()) {
                 return ItemStack.EMPTY;
             }
 
-            slot.onTake(pPlayer, itemstack1);
+            sourceSlot.onTake(player, sourceStack);
         }
 
-        return itemstack;
+        return copiedStack;
+    }
+
+    protected boolean isFilter(ItemStack itemStack) {
+        return true;
     }
 
     @OnlyIn(Dist.CLIENT)
