@@ -1,0 +1,33 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        " A ",
+        "ACA",
+        " S "
+    ],
+   
+    "key":
+    {
+        "S":
+        {
+            "item": "lightestlamp:stickandbowl",
+            "data":32767
+        },
+        "C":
+        {
+            "item": "minecraft:coal_block"
+        },
+        "A":
+        {
+            "item": "minecraft:amethyst_shard"
+        }
+    },
+   
+    "result":
+    {
+        "item": "lightestlamp:carbon_nanotube",
+        "count": 64
+    }
+}

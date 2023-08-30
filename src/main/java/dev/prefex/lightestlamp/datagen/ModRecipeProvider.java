@@ -78,16 +78,7 @@ public class ModRecipeProvider extends RecipeProvider {
 						.of(ModBlocks.CLEAR_LAMP.get())
 						.build()))
 				.save(pWriter);
-		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.CARBON_NANOTUBE.get(),64)
-				.define('C', Items.COAL)
-				.define('A', Items.AMETHYST_SHARD)
-				.pattern("C C")
-				.pattern(" A ")
-				.pattern("C C")
-				.unlockedBy("has_amethyst_for_carbon_nanotubes", inventoryTrigger(ItemPredicate.Builder.item()
-						.of(Items.AMETHYST_SHARD)
-						.build()))
-				.save(pWriter);
+		// Skipped: ModItems.CARBON_NANOTUBE.get()
 		// Skipped: ModItems.CHORUS_FIBER.get()
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.CLEAR_LAMP.get())
 				.define('L', Items.REDSTONE_LAMP)
@@ -203,6 +194,7 @@ public class ModRecipeProvider extends RecipeProvider {
 						.build()))
 				.save(pWriter);
 		// Skipped: ModBlocks.JUNGLE_LANTERN.get()
+		// Skipped: ModItems.STICKANDBOWL.get()
 		// Skipped: ModItems.STICKANDBOWL.get()
 		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
 				Ingredient.of(ModItems.LANTHANUM_MESH.get()),

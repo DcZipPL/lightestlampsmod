@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-30T18:51:09.0896634	Recipes
+// 1.20.1	2023-08-30T19:13:41.5023474	Recipes
 1221219937a4fec42936ac5aeada79a34af96b5e data/lightestlamp/advancements/recipes/building_blocks/gas_centrifuge.json
 4e303df21f28cd20de5605f304aff43fd6369af6 data/lightestlamp/advancements/recipes/building_blocks/glowing_glass_block.json
 be0461806c9c8bd022124300905ba6eae22e776e data/lightestlamp/advancements/recipes/misc/abyssal_lantern.json
@@ -12,7 +12,6 @@ b415f1fda041b63051948aa4bdfe0904d6e42869 data/lightestlamp/advancements/recipes/
 9c6b085cb3432e2dcf37381fa572a5a037b1a65b data/lightestlamp/advancements/recipes/misc/argon_tube_block.json
 9cfb5df41fe0ff9cce3c2a5e371c1b8fa8995e73 data/lightestlamp/advancements/recipes/misc/basic_filter.json
 c3d4ece50648abe960583d0657bb9689857289ca data/lightestlamp/advancements/recipes/misc/beta_lamp.json
-186b98cbab6ac772a8ba80be7c8d889a5e97c871 data/lightestlamp/advancements/recipes/misc/carbon_nanotube.json
 5dd195ef23ee8171f2fcd4ad968b9a42248bc06d data/lightestlamp/advancements/recipes/misc/clear_lamp.json
 a8543ecf55f2cad48717433366a4918c32ba90a3 data/lightestlamp/advancements/recipes/misc/clear_sea_lantern.json
 4b3a963544c519a178cc7712d7b826a79bd98ffe data/lightestlamp/advancements/recipes/misc/curtain_block.json
@@ -69,7 +68,6 @@ c27bb0be4cf1f94145b20aeb503257b244d721b1 data/lightestlamp/recipes/argon_tube.js
 a7850b67e71b5912a97f222d549e2756c74bf7ac data/lightestlamp/recipes/argon_tube_block.json
 f1fbad9fb76e319c31a4c2f8b458dc9ac72aae3c data/lightestlamp/recipes/basic_filter.json
 db52faace34e6b0aa3aa19d327f4c1e231900b61 data/lightestlamp/recipes/beta_lamp.json
-2ca3e3ddec388cfbe255af830b89280b657ab425 data/lightestlamp/recipes/carbon_nanotube.json
 a183edf5974069e72c3f8afc6e8d7d11e7cef47c data/lightestlamp/recipes/clear_lamp.json
 2370e4f4f3dfd8755ca22298d33d1182f7c2f5c6 data/lightestlamp/recipes/clear_sea_lantern.json
 c716910811625799a12a60e867b87501af56cac5 data/lightestlamp/recipes/curtain_block.json
