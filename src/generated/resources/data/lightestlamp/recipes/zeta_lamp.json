@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "TBT",
-    "BLB",
-    "TBT"
-  ],
+  "category": "misc",
   "key": {
-    "L": {
-      "item": "lightestlamp:epsilon_lamp"
-    },
     "B": {
       "item": "lightestlamp:krypton_block"
+    },
+    "L": {
+      "item": "lightestlamp:epsilon_lamp"
     },
     "T": {
       "item": "lightestlamp:krypton_tube"
     }
   },
+  "pattern": [
+    "TBT",
+    "BLB",
+    "TBT"
+  ],
   "result": {
     "item": "lightestlamp:zeta_lamp"
-  }
+  },
+  "show_notification": true
 }

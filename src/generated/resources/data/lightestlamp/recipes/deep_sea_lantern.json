@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "TTT",
-    "TLT",
-    "THT"
-  ],
+  "category": "misc",
   "key": {
+    "H": {
+      "item": "minecraft:heart_of_the_sea"
+    },
     "L": {
       "item": "lightestlamp:clear_sea_lantern"
     },
     "T": {
       "item": "lightestlamp:argon_tube"
-    },
-    "H": {
-      "item": "minecraft:heart_of_the_sea"
     }
   },
+  "pattern": [
+    "TTT",
+    "TLT",
+    "THT"
+  ],
   "result": {
     "item": "lightestlamp:deep_sea_lantern"
-  }
+  },
+  "show_notification": true
 }

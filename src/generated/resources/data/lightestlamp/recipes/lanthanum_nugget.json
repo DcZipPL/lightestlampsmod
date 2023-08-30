@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
-      "item": "lightestlamp:lanthanum_ingot"
+      "tag": "forge:ingots/lanthanum"
     }
   ],
   "result": {
-    "item": "lightestlamp:lanthanum_nugget",
-    "count": 9
+    "count": 9,
+    "item": "lightestlamp:lanthanum_nugget"
   }
 }

@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "DDD",
-    "DLD",
-    "DDD"
-  ],
+  "category": "misc",
   "key": {
     "D": {
       "item": "lightestlamp:alchemical_dust"
@@ -13,7 +9,13 @@
       "item": "lightestlamp:clear_lamp"
     }
   },
+  "pattern": [
+    "DDD",
+    "DLD",
+    "DDD"
+  ],
   "result": {
     "item": "lightestlamp:alchemical_lamp"
-  }
+  },
+  "show_notification": true
 }

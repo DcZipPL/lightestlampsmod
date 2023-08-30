@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "TBT",
-    "BLB",
-    "TBT"
-  ],
+  "category": "misc",
   "key": {
-    "L": {
-      "item": "lightestlamp:deep_sea_lantern"
-    },
     "B": {
       "item": "lightestlamp:krypton_tube_block"
+    },
+    "L": {
+      "item": "lightestlamp:deep_sea_lantern"
     },
     "T": {
       "item": "lightestlamp:krypton_tube"
     }
   },
+  "pattern": [
+    "TBT",
+    "BLB",
+    "TBT"
+  ],
   "result": {
     "item": "lightestlamp:ocean_lantern"
-  }
+  },
+  "show_notification": true
 }

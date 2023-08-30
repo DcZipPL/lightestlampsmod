@@ -1,19 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/lanthanum"
+    },
+    "N": {
+      "tag": "forge:nuggets/lanthanum"
+    }
+  },
   "pattern": [
     "N N",
     " I ",
     "N N"
   ],
-  "key": {
-    "N": {
-      "item": "lightestlamp:lanthanum_nugget"
-    },
-    "I": {
-      "item": "lightestlamp:lanthanum_ingot"
-    }
-  },
   "result": {
     "item": "lightestlamp:lanthanum_mesh"
-  }
+  },
+  "show_notification": true
 }

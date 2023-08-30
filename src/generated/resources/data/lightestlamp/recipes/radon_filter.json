@@ -1,19 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " B ",
-    "B#B",
-    " B "
-  ],
+  "category": "misc",
   "key": {
     "#": {
       "item": "lightestlamp:chorus_fiber"
     },
     "B": {
-      "item": "lightestlamp:lanthanum_ingot"
+      "tag": "forge:ingots/lanthanum"
     }
   },
+  "pattern": [
+    " B ",
+    "B#B",
+    " B "
+  ],
   "result": {
     "item": "lightestlamp:radon_filter"
-  }
+  },
+  "show_notification": true
 }

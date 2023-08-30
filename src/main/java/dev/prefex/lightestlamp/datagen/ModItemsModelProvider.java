@@ -24,14 +24,11 @@ public class ModItemsModelProvider extends ItemModelProvider {
 					.texture("layer0",new ResourceLocation(Util.MOD_ID,"item/"+ForgeRegistries.ITEMS.getKey(item).getPath()));
 		});
 		ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
-			if (block == ModBlocks.CURTAIN_BLOCK.get()){
-				withExistingParent(ForgeRegistries.BLOCKS.getKey(block).getPath(),new ResourceLocation("item/generated"))
-						.texture("layer0",new ResourceLocation(Util.MOD_ID,"block/"+ForgeRegistries.BLOCKS.getKey(block).getPath()));
-			}
-			else if (block != ModBlocks.OCC.get()
+			if (block != ModBlocks.OCC.get()
 					&& block != ModBlocks.LIGHT_AIR.get()
 					&& block != ModBlocks.WATERLOGGABLE_LIGHT_AIR.get()
-					&& block != ModBlocks.JUNGLE_LANTERN.get()) {
+					&& block != ModBlocks.JUNGLE_LANTERN.get()
+					&& block != ModBlocks.CURTAIN_BLOCK.get()) {
 				withExistingParent(ForgeRegistries.BLOCKS.getKey(block).getPath(), Util.MOD_ID+":block/"+ForgeRegistries.BLOCKS.getKey(block).getPath());
 			}
 		});

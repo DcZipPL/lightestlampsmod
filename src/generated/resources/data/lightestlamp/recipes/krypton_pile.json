@@ -1,12 +1,13 @@
 {
   "type": "minecraft:crafting_shapeless",
+  "category": "misc",
   "ingredients": [
     {
       "item": "lightestlamp:krypton_dust"
     }
   ],
   "result": {
-    "item": "lightestlamp:krypton_pile",
-    "count": 4
+    "count": 4,
+    "item": "lightestlamp:krypton_pile"
   }
 }

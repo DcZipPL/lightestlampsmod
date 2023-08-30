@@ -1,12 +1,15 @@
 {
-  "type": "minecraft:smithing",
-  "base": {
-    "item": "lightestlamp:lanthanum_mesh"
-  },
+  "type": "minecraft:smithing_transform",
   "addition": {
     "item": "minecraft:netherite_ingot"
   },
+  "base": {
+    "item": "lightestlamp:lanthanum_mesh"
+  },
   "result": {
     "item": "lightestlamp:netherite_mesh"
+  },
+  "template": {
+    "item": "minecraft:netherite_upgrade_smithing_template"
   }
 }

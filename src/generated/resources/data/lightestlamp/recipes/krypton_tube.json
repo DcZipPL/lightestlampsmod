@@ -1,19 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": {
+      "item": "lightestlamp:glass_tube"
+    },
+    "T": {
+      "item": "lightestlamp:krypton_dust"
+    }
+  },
   "pattern": [
     " T ",
     "TRT",
     " T "
   ],
-  "key": {
-    "T": {
-      "item": "lightestlamp:krypton_dust"
-    },
-    "R": {
-      "item": "lightestlamp:glass_tube"
-    }
-  },
   "result": {
     "item": "lightestlamp:krypton_tube"
-  }
+  },
+  "show_notification": true
 }

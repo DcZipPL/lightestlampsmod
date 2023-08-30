@@ -1,15 +1,17 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "TT",
-    "TT"
-  ],
+  "category": "misc",
   "key": {
     "T": {
       "item": "lightestlamp:krypton_tube"
     }
   },
+  "pattern": [
+    "TT",
+    "TT"
+  ],
   "result": {
     "item": "lightestlamp:krypton_tube_block"
-  }
+  },
+  "show_notification": true
 }

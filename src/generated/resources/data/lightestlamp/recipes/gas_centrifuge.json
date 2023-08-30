@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ITI",
-    "IPI",
-    "IPI"
-  ],
+  "category": "building",
   "key": {
+    "I": {
+      "tag": "forge:ingots/lanthanum"
+    },
     "P": {
       "item": "minecraft:piston"
     },
     "T": {
       "item": "lightestlamp:glass_tube"
-    },
-    "I": {
-      "item": "lightestlamp:lanthanum_ingot"
     }
   },
+  "pattern": [
+    "ITI",
+    "IPI",
+    "IPI"
+  ],
   "result": {
     "item": "lightestlamp:gas_centrifuge"
-  }
+  },
+  "show_notification": true
 }

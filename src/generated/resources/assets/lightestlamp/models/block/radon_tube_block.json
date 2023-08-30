@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "side": "lightestlamp:block/radon_tube_block_side",
-    "end": "lightestlamp:block/radon_tube_block_end"
-  }
-}

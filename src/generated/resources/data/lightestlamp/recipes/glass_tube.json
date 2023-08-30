@@ -1,17 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " GG",
-    "GGG",
-    "GG "
-  ],
+  "category": "misc",
   "key": {
     "G": {
       "item": "minecraft:glass"
     }
   },
+  "pattern": [
+    " GG",
+    "GGG",
+    "GG "
+  ],
   "result": {
-    "item": "lightestlamp:glass_tube",
-    "count": 16
-  }
+    "count": 16,
+    "item": "lightestlamp:glass_tube"
+  },
+  "show_notification": true
 }

@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "TBT",
-    "BLB",
-    "TBT"
-  ],
+  "category": "misc",
   "key": {
-    "L": {
-      "item": "lightestlamp:gamma_lamp"
-    },
     "B": {
       "item": "lightestlamp:argon_tube_block"
+    },
+    "L": {
+      "item": "lightestlamp:gamma_lamp"
     },
     "T": {
       "item": "lightestlamp:argon_tube"
     }
   },
+  "pattern": [
+    "TBT",
+    "BLB",
+    "TBT"
+  ],
   "result": {
     "item": "lightestlamp:delta_lamp"
-  }
+  },
+  "show_notification": true
 }

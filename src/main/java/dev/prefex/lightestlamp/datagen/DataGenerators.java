@@ -42,13 +42,13 @@ public class DataGenerators {
 		ExistingFileHelper efh = event.getExistingFileHelper();
 
 		gen.addProvider(
+				event.includeClient(),
+				(DataProvider.Factory<ModBlocksStateProvider>) output -> new ModBlocksStateProvider(output, Util.MOD_ID, efh)
+		);
+		gen.addProvider(
 				// Tell generator to run only when client assets are generating
 				event.includeClient(),
 				(DataProvider.Factory<ModItemsModelProvider>) output -> new ModItemsModelProvider(output, Util.MOD_ID, efh)
-		);
-		gen.addProvider(
-				event.includeClient(),
-				(DataProvider.Factory<ModBlocksStateProvider>) output -> new ModBlocksStateProvider(output, Util.MOD_ID, efh)
 		);
 
 		event.getGenerator().addProvider(

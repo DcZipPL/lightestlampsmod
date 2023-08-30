@@ -1,22 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " G ",
-    "GLG",
-    " R "
-  ],
+  "category": "misc",
   "key": {
-    "L": {
-      "item": "minecraft:redstone_lamp"
-    },
     "G": {
       "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "minecraft:redstone_lamp"
     },
     "R": {
       "item": "minecraft:redstone_torch"
     }
   },
+  "pattern": [
+    " G ",
+    "GLG",
+    " R "
+  ],
   "result": {
     "item": "lightestlamp:clear_lamp"
-  }
+  },
+  "show_notification": true
 }

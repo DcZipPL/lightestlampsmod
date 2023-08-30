@@ -1,20 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "C": {
+      "item": "minecraft:coal"
+    }
+  },
   "pattern": [
     "C C",
     " A ",
     "C C"
   ],
-  "key": {
-    "C": {
-      "item": "minecraft:coal"
-    },
-    "A": {
-      "item": "minecraft:amethyst_shard"
-    }
-  },
   "result": {
-    "item": "lightestlamp:carbon_nanotube",
-    "count": 64
-  }
+    "count": 64,
+    "item": "lightestlamp:carbon_nanotube"
+  },
+  "show_notification": true
 }

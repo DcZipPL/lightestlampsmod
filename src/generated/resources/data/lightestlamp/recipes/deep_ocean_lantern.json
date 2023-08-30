@@ -1,10 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " T ",
-    "TLT",
-    " T "
-  ],
+  "category": "misc",
   "key": {
     "L": {
       "item": "lightestlamp:ocean_lantern"
@@ -13,7 +9,13 @@
       "item": "lightestlamp:xenon_tube"
     }
   },
+  "pattern": [
+    " T ",
+    "TLT",
+    " T "
+  ],
   "result": {
     "item": "lightestlamp:deep_ocean_lantern"
-  }
+  },
+  "show_notification": true
 }
