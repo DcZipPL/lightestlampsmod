@@ -1,6 +1,5 @@
 package dev.prefex.lightestlamp.init;
 
-import dev.prefex.lightestlamp.Main;
 import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.items.FilterItem;
 import dev.prefex.lightestlamp.items.StickAndBowlItem;

@@ -21,8 +21,8 @@ public class ModBlocks
     }
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Util.MOD_ID);
-    public static final RegistryObject<Block> LIGHT_AIR = BLOCKS.register("light_air", () -> new LightAirBlock());
-    public static final RegistryObject<Block> WATERLOGGABLE_LIGHT_AIR = BLOCKS.register("waterloggable_light_air", () -> new WaterLoggableLightAirBlock());
+    public static final RegistryObject<Block> LIGHT_AIR = BLOCKS.register("light_air", LightAirBlock::new);
+    public static final RegistryObject<Block> WATERLOGGABLE_LIGHT_AIR = BLOCKS.register("waterloggable_light_air", WaterLoggableLightAirBlock::new);
     public static final RegistryObject<Block> CLEAR_LAMP = BLOCKS.register("clear_lamp", () -> new ClearLampBlock(Block.Properties.copy(Blocks.REDSTONE_LAMP).sound(SoundType.GLASS)
             .strength(0.3f,1)));
     public static final RegistryObject<Block> ALPHA_LAMP = BLOCKS.register("alpha_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.ALPHA));
@@ -32,14 +32,14 @@ public class ModBlocks
     public static final RegistryObject<Block> EPSILON_LAMP = BLOCKS.register("epsilon_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.EPSILON));
     public static final RegistryObject<Block> ZETA_LAMP = BLOCKS.register("zeta_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.ZETA));
     public static final RegistryObject<Block> ETA_LAMP = BLOCKS.register("eta_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.ETA));
-    public static final RegistryObject<Block> OMEGA_LAMP = BLOCKS.register("omega_lamp", () -> new OmegaLampBlock());
+    public static final RegistryObject<Block> OMEGA_LAMP = BLOCKS.register("omega_lamp", OmegaLampBlock::new);
     public static final RegistryObject<Block> CLEAR_SEA_LANTERN = BLOCKS.register("clear_sea_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.ALPHA));
     public static final RegistryObject<Block> DEEP_SEA_LANTERN = BLOCKS.register("deep_sea_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.GAMMA));
     public static final RegistryObject<Block> OCEAN_LANTERN = BLOCKS.register("ocean_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.GAMMA));
     public static final RegistryObject<Block> DEEP_OCEAN_LANTERN = BLOCKS.register("deep_ocean_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.EPSILON));
     public static final RegistryObject<Block> ABYSSAL_LANTERN = BLOCKS.register("abyssal_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.ETA));
-    public static final RegistryObject<Block> ALCHEMICAL_LAMP = BLOCKS.register("alchemical_lamp", () -> new AlchemicalLampBlock());
-    //public static final RegistryObject<Block> SPOTLIGHT = BLOCKS.register("spotlight", () -> new AlchemicalLampBlock());
+    public static final RegistryObject<Block> ALCHEMICAL_LAMP = BLOCKS.register("alchemical_lamp", AlchemicalLampBlock::new);
+    //public static final RegistryObject<Block> SPOTLIGHT = BLOCKS.register("spotlight", () -> new SpotlightBlock());
     //public static final RegistryObject<Block> CHUNK_CLEANER = BLOCKS.register("debug_chunk_cleaner", () -> new ChunkCleanerBlock(Block.Properties.of(Material.WOOL)));
 
     //Other lamps
@@ -75,7 +75,7 @@ public class ModBlocks
             .strength(0.4f,1),15));
     public static final RegistryObject<Block> RADON_BLOCK = BLOCKS.register("radon_block", () -> new GlowingBlock(Block.Properties.copy(Blocks.GLOWSTONE).sound(SoundType.GLASS)
             .strength(0.4f,1),15));
-    public static final RegistryObject<Block> GLOWING_GLASS_BLOCK = BLOCKS.register("glowing_glass_block", () -> new GlowingGlassBlock());
+    public static final RegistryObject<Block> GLOWING_GLASS_BLOCK = BLOCKS.register("glowing_glass_block", GlowingGlassBlock::new);
     public static final RegistryObject<Block> GLOWSTONE_CENTRIFUGE = BLOCKS.register("gas_centrifuge", () -> new GasCentrifugeBlock(Block.Properties.copy(Blocks.IRON_BLOCK).sound(SoundType.METAL)
     .strength(3,1).requiresCorrectToolForDrops()));
 

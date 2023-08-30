@@ -17,7 +17,7 @@ public class ModBlockEntities
     public static void init(IEventBus modEventBus){
         ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
     }
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, Util.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Util.MOD_ID);
 
     public static final RegistryObject<BlockEntityType<OmegaChunkCleanerBlockEntity>> OCC_BE = BLOCK_ENTITIES.register(
             "occ_be", () -> BlockEntityType.Builder.of(OmegaChunkCleanerBlockEntity::new, ModBlocks.OCC.get()).build(null)

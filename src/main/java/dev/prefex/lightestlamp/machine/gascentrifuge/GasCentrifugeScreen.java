@@ -1,20 +1,18 @@
 package dev.prefex.lightestlamp.machine.gascentrifuge;
 
-import com.google.common.primitives.UnsignedInteger;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 import dev.prefex.lightestlamp.Config;
 import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.util.network.Networking;
 import dev.prefex.lightestlamp.util.network.PacketButtonModeControl;
 import dev.prefex.lightestlamp.util.network.PacketButtonRedstone;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,8 +32,6 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
     public static final ResourceLocation texture = new ResourceLocation(Util.MOD_ID,"textures/gui/container/gas_centrifuge.png");
     private final GasCentrifugeMenu sc;
 
-    public static final Logger LOGGER = LoggerFactory.getLogger(GasCentrifugeScreen.class);
-
     public GasCentrifugeScreen(GasCentrifugeMenu screenContainer, Inventory inv, Component titleIn)
     {
         super(screenContainer, inv, titleIn);
@@ -43,10 +39,10 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
     }
 
     @Override
-    public void render(PoseStack pPoseStack, int x, int y, float pPartialTick) {
-        renderBackground(pPoseStack);
-        super.render(pPoseStack, x, y, pPartialTick);
-        renderTooltip(pPoseStack,x,y);
+    public void render(GuiGraphics graphics, int x, int y, float pPartialTick) {
+        renderBackground(graphics);
+        super.render(graphics, x, y, pPartialTick);
+        renderTooltip(graphics,x,y);
 
         String redstone_tooltip = switch (sc.data.get(1)) {
             case 0 -> "tooltip.lightestlamp.machine.redstone_ignore";
@@ -75,38 +71,38 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         int marginHorizontal = (width - getXSize()) / 2;
         int marginVertical = (height - getYSize()) / 2;
 
-        HoverChecker checker = new HoverChecker(marginHorizontal+9,marginHorizontal+20,marginVertical+20,marginVertical+9,0);
-        if (checker.checkHover(x,y, true))
+        HoverChecker checker = new HoverChecker(marginHorizontal+9,marginHorizontal+20,marginVertical+20,marginVertical+9);
+        if (checker.checkHover(x,y))
         {
-            renderComponentTooltip(pPoseStack, Collections.singletonList(Component.translatable(redstone_tooltip)),x+4,y+4,font);
+            graphics.renderComponentTooltip(font, Collections.singletonList(Component.translatable(redstone_tooltip)),x+4,y+4);
         }
         if(Config.ENERGY_MODE.get() != Config.EnergyModes.passive_only) {
-            checker = new HoverChecker(marginHorizontal + 25, marginHorizontal + 36, marginVertical + 20, marginVertical + 9, 0);
-            if (checker.checkHover(x, y, true)) {
-                renderComponentTooltip(pPoseStack, formatUTooltip(power_tooltip), x + 4, y + 4, font);
+            checker = new HoverChecker(marginHorizontal + 25, marginHorizontal + 36, marginVertical + 20, marginVertical + 9);
+            if (checker.checkHover(x, y)) {
+                graphics.renderComponentTooltip(font, formatUTooltip(power_tooltip), x + 4, y + 4);
             }
         }
         // Valid/Info/Error
-        checker = new HoverChecker(marginHorizontal+41,marginHorizontal+54,marginVertical+20,marginVertical+9,0);
-        if (checker.checkHover(x,y, true))
+        checker = new HoverChecker(marginHorizontal+41,marginHorizontal+54,marginVertical+20,marginVertical+9);
+        if (checker.checkHover(x,y))
         {
-            renderComponentTooltip(pPoseStack, formatUTooltip(status_tooltip),x+4,y+4,font);
+            graphics.renderComponentTooltip(font, formatUTooltip(status_tooltip),x+4,y+4);
         }
         // Energy bar
-        checker = new HoverChecker(marginHorizontal+153,marginHorizontal+166,marginVertical+70,marginVertical+19,0);
-        if (checker.checkHover(x,y, true))
+        checker = new HoverChecker(marginHorizontal+153,marginHorizontal+166,marginVertical+70,marginVertical+19);
+        if (checker.checkHover(x,y))
         {
             float power_percent = convertToWatts()/convertMaxToWatts();
-            renderComponentTooltip(pPoseStack, List.of(
+            graphics.renderComponentTooltip(font, List.of(
                     Component.translatable("tooltip.lightestlamp.machine.energy_stored"),
-                    new TextComponent(getMenu().data.get(5)+"/"+(1600*GasCentrifugeBlockEntity.magic)+" FE"),
-                    new TextComponent(convertToWatts()+"/"+convertMaxToWatts()+" W"),
-                    new TextComponent(Math.round(power_percent*10000)/100+"%")
+                    Component.literal(getMenu().data.get(5)+"/"+(1600*GasCentrifugeBlockEntity.magic)+" FE"),
+                    Component.literal(convertToWatts()+"/"+convertMaxToWatts()+" W"),
+                    Component.literal(Math.round(power_percent*10000)/100+"%")
                             .withStyle(Style.EMPTY.withColor(power_percent < 0.5f ?
                                     blend(new Color(0xff0000),new Color(0xffff00),power_percent*2f).getRGB()
                                     : blend(new Color(0xffff00),new Color(0x00ff00),power_percent*2f-1f).getRGB()
                             ))
-            ),x+4,y+4,font);
+            ),x+4,y+4);
         }
     }
 
@@ -143,9 +139,9 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         return Math.round(((1600*GasCentrifugeBlockEntity.magic) / 400f)*100f)/100f;
     }
 
-    private List<MutableComponent> formatUTooltip(String utooltip) {
+    private List<Component> formatUTooltip(String utooltip) {
         return Arrays.stream(I18n.get(utooltip).replace("Format error: ", "*").split("¬")).map(
-                s -> new TextComponent(s).setStyle(Style.EMPTY.withColor(
+                s -> (Component) Component.literal(s).setStyle(Style.EMPTY.withColor(
                         s.contains("§r") ? ChatFormatting.WHITE
                                 : s.contains("§7") ? ChatFormatting.GRAY
                                 : s.contains("§c") ? ChatFormatting.RED
@@ -156,7 +152,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
     }
 
     @Override
-    protected void renderBg(PoseStack pPoseStack, float pPartialTick, int pMouseX, int pMouseY) {
+    protected void renderBg(GuiGraphics graphics, float pPartialTick, int pMouseX, int pMouseY) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShaderTexture(0, texture);
@@ -164,50 +160,48 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
         int x = (this.width - this.getXSize()) / 2;
         int y = (this.height - this.getYSize()) / 2;
 
-        blit(pPoseStack, x, y, 0, 0, this.getXSize(), this.getYSize(), 256,256);
+        graphics.blit(texture, x, y, 0, 0, this.getXSize(), this.getYSize(), 256,256);
 
         int i = this.leftPos;
         int j = this.topPos;
 
-        if (((GasCentrifugeMenu)this.menu).func_217061_l()) {
-            int k = ((GasCentrifugeMenu)this.menu).getBurnLeftScaled()*2;
+        if (this.menu.func_217061_l()) {
+            int k = this.menu.getBurnLeftScaled()*2; // GasCentrifugeMenu
             if (k >= 300)
                 k = 299;
-            //Z Y T-Z T-Y W H
-            this.blit(pPoseStack,i + 41 + 17 - k, j + 54, 194 - k, 100, k + 1,  5);
+            textureBlit(graphics, i + 41 + 17 - k, j + 54, 194 - k, 100, k + 1,  5);
         }
         if (sc.data.get(4)!=0){
-            int m = (int)((GasCentrifugeMenu)this.sc).getLiquidScaled();
-            //Z Y T-Z T-Y W H
-            this.blit(pPoseStack,i + 153, j + 19 + 50 - m + 1 - 3, 204, 99 - m - 1, 13, m + 1);
+            int m = (int) this.sc.getLiquidScaled(); // GasCentrifugeMenu
+            textureBlit(graphics, i + 153, j + 19 + 50 - m + 1 - 3, 204, 99 - m - 1, 13, m + 1);
             if (sc.data.get(4)==2)
-                this.blit(pPoseStack,i + 153, j + 63, 176, 94, 13, 5);
+                textureBlit(graphics, i + 153, j + 63, 176, 94, 13, 5);
         } else {
-            this.blit(pPoseStack,i + 153, j + 19 + 1 - 3, 218, 99 - 1 - 50, 14, 51);
+            textureBlit(graphics, i + 153, j + 19 + 1 - 3, 218, 99 - 1 - 50, 14, 51);
         }
 
         int marginHorizontal = (width - getXSize()) / 2;
         int marginVertical = (height - getYSize()) / 2;
         switch (sc.data.get(1)) {
-            case 0 -> this.blit(pPoseStack, marginHorizontal + 9, marginVertical + 9, 176, 128, 12, 12);
-            case 1 -> this.blit(pPoseStack, marginHorizontal + 9, marginVertical + 9, 176, 141, 12, 12);
-            case 2 -> this.blit(pPoseStack, marginHorizontal + 9, marginVertical + 9, 176, 154, 12, 12);
+            case 0 -> textureBlit(graphics, marginHorizontal + 9, marginVertical + 9, 176, 128, 12, 12);
+            case 1 -> textureBlit(graphics, marginHorizontal + 9, marginVertical + 9, 176, 141, 12, 12);
+            case 2 -> textureBlit(graphics, marginHorizontal + 9, marginVertical + 9, 176, 154, 12, 12);
         }
         if(Config.ENERGY_MODE.get() != Config.EnergyModes.passive_only) {
             switch (sc.data.get(4)) {
-                case 0 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 128, 12, 12);
-                case 1 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 141, 12, 12);
-                case 2 -> this.blit(pPoseStack, marginHorizontal + 25, marginVertical + 9, 192, 154, 12, 12);
+                case 0 -> textureBlit(graphics, marginHorizontal + 25, marginVertical + 9, 192, 128, 12, 12);
+                case 1 -> textureBlit(graphics, marginHorizontal + 25, marginVertical + 9, 192, 141, 12, 12);
+                case 2 -> textureBlit(graphics, marginHorizontal + 25, marginVertical + 9, 192, 154, 12, 12);
             }
         }
         switch (sc.data.get(1)) {
-            case 0 -> this.blit(pPoseStack, marginHorizontal + 41, marginVertical + 9, 176, 167, 12, 12);
-            case 1 -> this.blit(pPoseStack, marginHorizontal + 41, marginVertical + 9, 176, 180, 12, 12);
-            case 2 -> this.blit(pPoseStack, marginHorizontal + 41, marginVertical + 9, 176, 193, 12, 12);
+            case 0 -> textureBlit(graphics, marginHorizontal + 41, marginVertical + 9, 176, 167, 12, 12);
+            case 1 -> textureBlit(graphics, marginHorizontal + 41, marginVertical + 9, 176, 180, 12, 12);
+            case 2 -> textureBlit(graphics, marginHorizontal + 41, marginVertical + 9, 176, 193, 12, 12);
         }
 
-        int l = ((GasCentrifugeMenu)this.menu).getCookProgressionScaled();
-        this.blit(pPoseStack,i + 63, j + 34, 176, 14, l + 1, 16);
+        int l = this.menu.getCookProgressionScaled(); // GasCentrifugeMenu
+        textureBlit(graphics, i + 63, j + 34, 176, 14, l + 1, 16);
     }
 
     @Override
@@ -250,18 +244,22 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
 
         return super.mouseClicked(mouseX, mouseY, id); //Forge, Call parent to release buttons
     }
+    
+    private void textureBlit(GuiGraphics graphics, int x, int y, int offsetX, int offsetY, int width, int height) {
+        graphics.blit(texture, x, y, offsetX, offsetY, width, height);
+    }
 
     public class HoverChecker{
         double buttonX0,buttonX1,buttonY0,buttonY1;
 
-        public HoverChecker(double buttonX0, double buttonX1,double buttonY0, double buttonY1,int id){
+        public HoverChecker(double buttonX0, double buttonX1,double buttonY0, double buttonY1){
             this.buttonX0 = buttonX0;
             this.buttonX1 = buttonX1;
             this.buttonY0 = buttonY0;
             this.buttonY1 = buttonY1;
         }
 
-        public boolean checkHover(double mouseX, double mouseY,boolean simulate){
+        public boolean checkHover(double mouseX, double mouseY){
             return mouseX >= buttonX0 && mouseY >= buttonY1 && mouseX <= buttonX1 && mouseY <= buttonY0;
         }
     }

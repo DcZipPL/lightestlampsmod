@@ -27,7 +27,6 @@ import dev.prefex.lightestlamp.util.network.Networking;
 
 import static dev.prefex.lightestlamp.Util.MOD_ID;
 
-@SuppressWarnings("NullableProblems")
 @Mod(MOD_ID)
 public class Main
 {
