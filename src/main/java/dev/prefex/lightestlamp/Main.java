@@ -9,21 +9,9 @@ import dev.prefex.lightestlamp.util.OreFeature;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -33,13 +21,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import dev.prefex.lightestlamp.util.network.Networking;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 import static dev.prefex.lightestlamp.Util.MOD_ID;
 
@@ -47,15 +31,6 @@ import static dev.prefex.lightestlamp.Util.MOD_ID;
 @Mod(MOD_ID)
 public class Main
 {
-    public static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
-
-    public static final CreativeModeTab main_tab = new CreativeModeTab("llamps") {
-        @Override
-        public ItemStack makeIcon() {
-            return new ItemStack(ModBlocks.OMEGA_LAMP.get());
-        }
-    };
-    
     public Main()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -103,26 +78,17 @@ public class Main
     public static class RegistryEvents
     {
         @SubscribeEvent
-        public static void onContainerRegistry(final RegistryEvent.Register<MenuType<?>> containerTypeRegistryEvent)
-        {
-            // register a new container here
-            containerTypeRegistryEvent.getRegistry().register(ModMiscs.GAS_CENTRIFUGE.get());
-        }
+        public static void register(RegisterEvent event) {
+            event.register(ForgeRegistries.Keys.ITEMS,
+                    helper -> ModBlocks.BLOCKS.getEntries().forEach(block -> {
+                        BlockItem blockItem = new BlockItem(block.get(), new Item.Properties());
+                        helper.register(block.getId(), blockItem);
+                    })
+            );
 
-        @SuppressWarnings("ConstantConditions")
-        @SubscribeEvent
-        public static void onItemRegistry(final RegistryEvent.Register<Item> itemRegistryEvent)
-        {
-            // Register Block items
-            IForgeRegistry<Item> registry = itemRegistryEvent.getRegistry();
-            ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
-                Item.Properties properties = new Item.Properties();
-                if (block!=ModBlocks.LIGHT_AIR.get()&&block!=ModBlocks.WATERLOGGABLE_LIGHT_AIR.get())
-                    properties = properties.tab(main_tab);
-                BlockItem blockItem = new BlockItem(block, properties);
-                blockItem.setRegistryName(block.getRegistryName());
-                registry.register(blockItem);
-            });
+            /*event.register(ForgeRegistries.Keys.MENU_TYPES,
+                    helper -> helper.register(new ResourceLocation(MOD_ID, "gas_centrifuge_menu"), ModMiscs.GAS_CENTRIFUGE.get())
+            );*/ // TODO: Remove if not used
         }
     }
 }
