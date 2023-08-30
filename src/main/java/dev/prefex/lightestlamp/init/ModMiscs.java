@@ -52,8 +52,17 @@ public class ModMiscs
             .title(Component.translatable("item_group." + MOD_ID + ".llamps"))
             .icon(() -> new ItemStack(ModBlocks.OMEGA_LAMP.get(), 16))
             .displayItems((params, output) -> {
-                output.acceptAll(ModItems.ITEMS.getEntries().stream().map((entry) -> new ItemStack(entry.get())).collect(Collectors.toList()));
-                output.acceptAll(ModBlocks.BLOCKS.getEntries().stream().map((entry) -> new ItemStack(entry.get())).collect(Collectors.toList()));
+                output.acceptAll(ModBlocks.BLOCKS.getEntries()
+                        .stream()
+                        .filter((pred) -> pred.get() != ModBlocks.LIGHT_AIR.get() && pred.get() != ModBlocks.WATERLOGGABLE_LIGHT_AIR.get())
+                        .map((entry) -> new ItemStack(entry.get()))
+                        .collect(Collectors.toList())
+                );
+                output.acceptAll(ModItems.ITEMS.getEntries()
+                        .stream()
+                        .map((entry) -> new ItemStack(entry.get()))
+                        .collect(Collectors.toList())
+                );
             })
             .build()
     );
