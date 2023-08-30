@@ -286,13 +286,13 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					// Use items
 					if (blockEntity.isBurning()) {
 						flag1 = true;
-						if (itemstack.hasContainerItem())
-							blockEntity.items.set(1, itemstack.getContainerItem());
+						if (itemstack.hasCraftingRemainingItem())
+							blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
 						else
 						if (!itemstack.isEmpty()) {
 							itemstack.shrink(1);
 							if (itemstack.isEmpty()) {
-								blockEntity.items.set(1, itemstack.getContainerItem());
+								blockEntity.items.set(1, itemstack.getCraftingRemainingItem());
 							}
 						}
 					}
@@ -352,7 +352,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					ItemStack itemstack1 = itemstacks1[i];
 					if (itemstack1.isEmpty()) {
 						output0[i] =  true;
-					} else if (!itemstack1.sameItem(itemstack)) {
+					} else if (!itemstack1.equals(itemstack, false)) { // TODO: Check if this works
 						output0[i] =  false;
 					} else if (itemstack1.getCount() + itemstack.getCount() <= getMaxStackSize() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) {
 						// Forge fix: make furnace respect stack sizes in furnace recipes

@@ -3,6 +3,7 @@ package dev.prefex.lightestlamp.datagen;
 import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.init.ModBlocks;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
@@ -11,8 +12,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModBlocksStateProvider extends BlockStateProvider {
-	public ModBlocksStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
-		super(gen.getPackOutput(), Util.MOD_ID, exFileHelper);
+
+	public ModBlocksStateProvider(PackOutput output, String modid, ExistingFileHelper exFileHelper) {
+		super(output, modid, exFileHelper);
 	}
 
 	@Override

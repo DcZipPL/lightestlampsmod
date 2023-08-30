@@ -17,8 +17,7 @@ public class StickAndBowlItem extends Item
     }
 
     @Override
-    public ItemStack getContainerItem(ItemStack itemStack)
-    {
+    public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
         ItemStack stack = itemStack.copy();
         if (stack.getDamageValue() != stack.getMaxDamage())
             stack.setDamageValue(stack.getDamageValue()+1);
@@ -27,8 +26,7 @@ public class StickAndBowlItem extends Item
     }
 
     @Override
-    public boolean hasContainerItem(ItemStack stack)
-    {
+    public boolean hasCraftingRemainingItem(ItemStack stack) {
         return true;
     }
 

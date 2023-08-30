@@ -45,7 +45,7 @@ public class GasCentrifugeBlock extends BaseEntityBlock
         } else {
             BlockEntity blockentity = pLevel.getBlockEntity(pPos);
             if (blockentity instanceof GasCentrifugeBlockEntity) {
-                NetworkHooks.openGui((ServerPlayer) pPlayer,(MenuProvider)blockentity, pPos);
+                NetworkHooks.openScreen((ServerPlayer) pPlayer,(MenuProvider)blockentity, pPos);
                 pPlayer.awardStat(Stats.INTERACT_WITH_FURNACE);
             }
             return InteractionResult.CONSUME;

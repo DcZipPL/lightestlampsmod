@@ -11,12 +11,9 @@ import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.IntFunction;
 
 @MethodsReturnNonnullByDefault
 public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, List<ItemStack> output, ResourceLocation id) implements Recipe<Container> {

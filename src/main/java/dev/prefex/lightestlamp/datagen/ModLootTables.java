@@ -2,15 +2,23 @@ package dev.prefex.lightestlamp.datagen;
 
 import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModItems;
-import net.minecraft.data.loot.BlockLoot;
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.registries.RegistryObject;
+import org.jetbrains.annotations.NotNull;
 
-public class ModLootTables extends BlockLoot {
+import java.util.Collections;
+
+public class ModLootTables extends BlockLootSubProvider {
+	protected ModLootTables() {
+		super(Collections.emptySet(), FeatureFlags.REGISTRY.allFlags());
+	}
+
 	@Override
-	protected void addTables() {
+	protected void generate() {
 		this.dropSelf(ModBlocks.CLEAR_LAMP.get());
 		this.dropSelf(ModBlocks.ALPHA_LAMP.get());
 		this.dropSelf(ModBlocks.BETA_LAMP.get());
@@ -58,7 +66,7 @@ public class ModLootTables extends BlockLoot {
 	}
 
 	@Override
-	protected Iterable<Block> getKnownBlocks() {
+	protected @NotNull Iterable<Block> getKnownBlocks() {
 		// Exclusion list
 		return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).filter(block ->
 				block != ModBlocks.LIGHT_AIR.get()

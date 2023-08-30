@@ -4,6 +4,7 @@ import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModItems;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
@@ -11,8 +12,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ModItemsModelProvider extends ItemModelProvider {
-	public ModItemsModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-		super(generator.getPackOutput(), Util.MOD_ID, existingFileHelper);
+
+	public ModItemsModelProvider(PackOutput output, String modid, ExistingFileHelper existingFileHelper) {
+		super(output, modid, existingFileHelper);
 	}
 
 	@Override

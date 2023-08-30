@@ -7,6 +7,7 @@ import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeRecipe;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
@@ -24,8 +25,9 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 public class ModRecipeProvider extends RecipeProvider {
-	public ModRecipeProvider(DataGenerator pGenerator) {
-		super(pGenerator);
+
+	public ModRecipeProvider(PackOutput pOutput) {
+		super(pOutput);
 	}
 
 	@Override
