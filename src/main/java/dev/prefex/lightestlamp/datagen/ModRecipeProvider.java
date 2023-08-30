@@ -204,11 +204,16 @@ public class ModRecipeProvider extends RecipeProvider {
 				.save(pWriter);
 		// Skipped: ModBlocks.JUNGLE_LANTERN.get()
 		// Skipped: ModItems.STICKANDBOWL.get()
-		UpgradeRecipeBuilder.smithing(Ingredient.of(ModItems.LANTHANUM_MESH.get()), Ingredient.of(Items.NETHERITE_INGOT), ModItems.NETHERITE_MESH.get())
+		SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
+				Ingredient.of(ModItems.LANTHANUM_MESH.get()),
+				Ingredient.of(Items.NETHERITE_INGOT),
+				RecipeCategory.MISC,
+				ModItems.NETHERITE_MESH.get())
 				.unlocks(ModItems.NETHERITE_MESH.getId().toString(),inventoryTrigger(ItemPredicate.Builder.item()
 						.of(Items.NETHERITE_INGOT)
 						.build()))
 				.save(pWriter, ModItems.NETHERITE_MESH.getId().toString());
+
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LANTHANUM_MESH.get())
 				.define('N', lanthanum_nugget)
 				.define('I', lanthanum_ingot)
@@ -272,22 +277,22 @@ public class ModRecipeProvider extends RecipeProvider {
 						.build()))
 				.save(pWriter);
 
-		oreBlasting(pWriter,Collections.singletonList(ModItems.RAW_LANTHANUM.get()),ModItems.LANTHANUM_INGOT.get(),1.0F, 200, "lanthanum_ingot");
+		oreBlasting(pWriter,Collections.singletonList(ModItems.RAW_LANTHANUM.get()), RecipeCategory.MISC,ModItems.LANTHANUM_INGOT.get(),1.0F, 200, "lanthanum_ingot");
 
-		ShapelessRecipeBuilder.shapeless(ModItems.GLOW_LICHEN_FIBER.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.GLOW_LICHEN_FIBER.get())
 				.requires(Items.GLOW_LICHEN)
-				.unlockedBy("has_"+Items.GLOW_LICHEN.getRegistryName().getPath(), inventoryTrigger(ItemPredicate.Builder.item()
+				.unlockedBy("has_"+ForgeRegistries.ITEMS.getKey(Items.GLOW_LICHEN).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 						.of(Items.GLOW_LICHEN)
 						.build()))
 				.save(pWriter);
 
-		ShapelessRecipeBuilder.shapeless(ModItems.LANTHANUM_INGOT.get())
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.LANTHANUM_INGOT.get())
 				.requires(ModItems.LANTHANUM_NUGGET.get(),9)
 				.unlockedBy("has_"+ModItems.LANTHANUM_INGOT.getId().getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 						.of(lanthanum_ingot)
 						.build()))
 				.save(pWriter);
-		ShapelessRecipeBuilder.shapeless(ModItems.LANTHANUM_NUGGET.get(),9)
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.LANTHANUM_NUGGET.get(),9)
 				.requires(lanthanum_ingot)
 				.unlockedBy("has_"+ModItems.LANTHANUM_NUGGET.getId().getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 						.of(ModItems.LANTHANUM_NUGGET.get())
@@ -384,7 +389,7 @@ public class ModRecipeProvider extends RecipeProvider {
 		_pileToDustMap.put(ModItems.RADON_PILE.get(),ModItems.RADON_DUST.get());
 		_pileToDustMap.put(ModItems.LANTHANUM_PILE.get(),ModItems.LANTHANUM_DUST.get());
 		_pileToDustMap.forEach((i,o)->{
-			ShapelessRecipeBuilder.shapeless(o)
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, o)
 					.requires(i,4)
 					.unlockedBy("has_"+Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 							.of(lanthanum_ingot)
@@ -395,7 +400,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
 		// Group: Dust to Pile
 		_pileToDustMap.forEach((o,i)->{
-			ShapelessRecipeBuilder.shapeless(o,4)
+			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, o,4)
 					.requires(i)
 					.unlockedBy("has_"+Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 							.of(lanthanum_ingot)

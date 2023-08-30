@@ -14,7 +14,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
@@ -28,7 +27,6 @@ import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.AbstractCookingRecipe;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
@@ -39,11 +37,9 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.Map;
@@ -87,52 +83,29 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	public final ContainerData furnaceData = new ContainerData() {
 		@Override
 		public int get(int index) {
-			switch(index) {
-				case 0:
-					return GasCentrifugeBlockEntity.this.burnTime;
-				case 1:
-					return GasCentrifugeBlockEntity.this.redstoneMode;
-				case 2:
-					return GasCentrifugeBlockEntity.this.cookTime;
-				case 3:
-					return GasCentrifugeBlockEntity.this.cookTimeTotal;
-				case 4:
-					return GasCentrifugeBlockEntity.this.liquidMode;
-				case 5:
-					return GasCentrifugeBlockEntity.this.getEnergyStorage().getEnergyStored();
-				case 6:
-					return GasCentrifugeBlockEntity.this.ticksBeforeDumping;
-				default:
-					return 0;
-			}
+			return switch (index) {
+				case 0 -> GasCentrifugeBlockEntity.this.burnTime;
+				case 1 -> GasCentrifugeBlockEntity.this.redstoneMode;
+				case 2 -> GasCentrifugeBlockEntity.this.cookTime;
+				case 3 -> GasCentrifugeBlockEntity.this.cookTimeTotal;
+				case 4 -> GasCentrifugeBlockEntity.this.liquidMode;
+				case 5 -> GasCentrifugeBlockEntity.this.getEnergyStorage().getEnergyStored();
+				case 6 -> GasCentrifugeBlockEntity.this.ticksBeforeDumping;
+				default -> 0;
+			};
 		}
 
 		@Override
 		public void set(int index, int value) {
-			switch(index) {
-				case 0:
-					GasCentrifugeBlockEntity.this.burnTime = value;
-					break;
-				case 1:
-					GasCentrifugeBlockEntity.this.redstoneMode = value;
-					break;
-				case 2:
-					GasCentrifugeBlockEntity.this.cookTime = value;
-					break;
-				case 3:
-					GasCentrifugeBlockEntity.this.cookTimeTotal = value;
-					break;
-				case 4:
-					GasCentrifugeBlockEntity.this.liquidMode = value;
-					break;
-				case 5:
-					GasCentrifugeBlockEntity.this.getEnergyStorage().setEnergy(value);
-					break;
-				case 6:
-					GasCentrifugeBlockEntity.this.ticksBeforeDumping = value;
-					break;
+			switch (index) {
+				case 0 -> GasCentrifugeBlockEntity.this.burnTime = value;
+				case 1 -> GasCentrifugeBlockEntity.this.redstoneMode = value;
+				case 2 -> GasCentrifugeBlockEntity.this.cookTime = value;
+				case 3 -> GasCentrifugeBlockEntity.this.cookTimeTotal = value;
+				case 4 -> GasCentrifugeBlockEntity.this.liquidMode = value;
+				case 5 -> GasCentrifugeBlockEntity.this.getEnergyStorage().setEnergy(value);
+				case 6 -> GasCentrifugeBlockEntity.this.ticksBeforeDumping = value;
 			}
-
 		}
 
 		@Override
@@ -217,7 +190,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	}
 
 	@Override
-	protected void saveAdditional(CompoundTag pTag) {
+	protected void saveAdditional(@NotNull CompoundTag pTag) {
 		super.saveAdditional(pTag);
 		saveInternal(pTag);
 	}
@@ -240,7 +213,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	}
 
 	@Override
-	public void load(CompoundTag pTag) {
+	public void load(@NotNull CompoundTag pTag) {
 		super.load(pTag);
 		loadInternal(pTag);
 	}
@@ -352,7 +325,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 					ItemStack itemstack1 = itemstacks1[i];
 					if (itemstack1.isEmpty()) {
 						output0[i] =  true;
-					} else if (!itemstack1.equals(itemstack, false)) { // TODO: Check if this works
+					} else if (!ItemStack.isSameItem(itemstack1, itemstack)) {
 						output0[i] =  false;
 					} else if (itemstack1.getCount() + itemstack.getCount() <= getMaxStackSize() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) {
 						// Forge fix: make furnace respect stack sizes in furnace recipes
@@ -414,7 +387,6 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 									:
 									(new Random().nextInt(unbreaking_lvl+1)==1?1:0)
 					));
-			//unbreaking_lvl==0 ? 1 : (new Random().nextInt(unbreaking_lvl+1)==1?1:0)
 
 			if (itemstack.getDamageValue() >= itemstack.getMaxDamage())
 				this.items.set(0, ItemStack.EMPTY);
@@ -475,21 +447,21 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	/**
 	 * Returns the stack in the given slot.
 	 */
-	public ItemStack getItem(int pIndex) {
+	public @NotNull ItemStack getItem(int pIndex) {
 		return this.items.get(pIndex);
 	}
 
 	/**
 	 * Removes up to a specified number of items from an inventory slot and returns them in a new stack.
 	 */
-	public ItemStack removeItem(int pIndex, int pCount) {
+	public @NotNull ItemStack removeItem(int pIndex, int pCount) {
 		return ContainerHelper.removeItem(this.items, pIndex, pCount);
 	}
 
 	/**
 	 * Removes a stack from the given slot and returns it.
 	 */
-	public ItemStack removeItemNoUpdate(int pIndex) {
+	public @NotNull ItemStack removeItemNoUpdate(int pIndex) {
 		return ContainerHelper.takeItem(this.items, pIndex);
 	}
 
@@ -498,7 +470,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	 */
 	public void setItem(int pIndex, ItemStack pStack) {
 		ItemStack itemstack = this.items.get(pIndex);
-		boolean flag = !pStack.isEmpty() && pStack.sameItem(itemstack) && ItemStack.tagMatches(pStack, itemstack);
+		boolean flag = !pStack.isEmpty() && ItemStack.isSameItemSameTags(itemstack, pStack);
 		this.items.set(pIndex, pStack);
 		if (pStack.getCount() > this.getMaxStackSize()) {
 			pStack.setCount(this.getMaxStackSize());
@@ -515,7 +487,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	/**
 	 * Don't rename this method to canInteractWith due to conflicts with Container
 	 */
-	public boolean stillValid(Player pPlayer) {
+	public boolean stillValid(@NotNull Player pPlayer) {
 		if (this.level.getBlockEntity(this.worldPosition) != this) {
 			return false;
 		} else {
@@ -540,7 +512,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
 			net.minecraftforge.items.wrapper.SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
 
-	@Override
+	/*@Override
 	public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable Direction facing) {
 		if (!this.remove && facing != null && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
 			if (facing == Direction.UP)
@@ -554,7 +526,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 			return energyStorage.cast();
 		}
 		return super.getCapability(capability, facing);
-	}
+	}*/ // TODO: Re-Implement capabilities
 
 	@Override
 	public void clearContent() {

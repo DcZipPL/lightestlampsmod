@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import dev.prefex.lightestlamp.init.ModMiscs;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
@@ -23,11 +24,11 @@ public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, List<Item
     }
 
     /**
-     * Returns an Item that is the result of this recipe
+     * Returns nothing. See assemble() with array.
      */
     @Override
     @Deprecated
-    public ItemStack assemble(Container pInv) {
+    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
         return ItemStack.EMPTY;
     }
 
@@ -42,13 +43,9 @@ public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, List<Item
         return true;
     }
 
-    /**
-     * Get the result of this recipe, usually for display purposes (e.g. recipe book). If your recipe has more than one
-     * possible result (e.g. it's dynamic and depends on its inputs), then return an empty stack.
-     */
     @Override
-    public ItemStack getResultItem() {
-        return ItemStack.EMPTY;
+    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+        return null;
     }
 
     @Override
@@ -66,7 +63,7 @@ public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, List<Item
         return ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get();
     }
 
-    public static class Serializer extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<GasCentrifugeRecipe> {
+    public static class Serializer implements RecipeSerializer<GasCentrifugeRecipe> {
         private ItemStack orEmpty(JsonObject pJson, String pMemberName){
             ItemStack o = ItemStack.EMPTY;
             try {

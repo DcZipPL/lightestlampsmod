@@ -5,7 +5,6 @@ import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModMiscs;
 import dev.prefex.lightestlamp.init.ModItems;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeScreen;
-import dev.prefex.lightestlamp.util.OreFeature;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -44,8 +43,6 @@ public class Main
         // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-        MinecraftForge.EVENT_BUS.addListener(OreFeature::onBiomeLoadingEvent);
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.COMMON_CONFIG);
 
@@ -59,7 +56,6 @@ public class Main
     private void setup(final FMLCommonSetupEvent event)
     {
         // some preinit code
-        event.enqueueWork(OreFeature::registerOreFeatures);
         Networking.registerMessages();
     }
 
