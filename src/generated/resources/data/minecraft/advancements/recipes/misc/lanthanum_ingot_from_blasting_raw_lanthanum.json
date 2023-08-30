@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_raw_lanthanum": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lightestlamp:raw_lanthanum"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:lanthanum_ingot_from_blasting_raw_lanthanum"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_raw_lanthanum",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:lanthanum_ingot_from_blasting_raw_lanthanum"
+    ]
+  },
+  "sends_telemetry_event": false
+}

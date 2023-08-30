@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "lightestlamp:block/argon_tube_block_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "lightestlamp:block/argon_tube_block"
+    },
+    "axis=z": {
+      "model": "lightestlamp:block/argon_tube_block_horizontal",
+      "x": 90
+    }
+  }
+}

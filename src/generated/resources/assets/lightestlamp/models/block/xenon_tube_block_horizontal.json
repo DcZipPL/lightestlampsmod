@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "lightestlamp:block/xenon_tube_block_end",
+    "side": "lightestlamp:block/xenon_tube_block_side"
+  }
+}

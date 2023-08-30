@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "lightestlamp:netherite_mesh"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "lightestlamp:netherite_mesh": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:netherite_ingot"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "lightestlamp:netherite_mesh",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "lightestlamp:netherite_mesh"
+    ]
+  },
+  "sends_telemetry_event": false
+}

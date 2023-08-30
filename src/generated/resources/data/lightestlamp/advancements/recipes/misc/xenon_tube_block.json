@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "lightestlamp:xenon_tube_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_xenon_tube": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "lightestlamp:xenon_tube"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_xenon_tube",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "lightestlamp:xenon_tube_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}
