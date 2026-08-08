@@ -56,7 +56,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
             case 2 -> "tooltip.lightestlamp.machine.overclock_mode";
             default -> "tooltip.lightestlamp.machine.mode_na";
         };
-        String status_tooltip = switch (sc.data.get(4)) {
+        String status_tooltip = switch (sc.data.get(6)) {
             case 0 -> "tooltip.lightestlamp.machine.valid";
             case 1 -> "tooltip.lightestlamp.machine.info_passive_mode";
             case 2 -> "tooltip.lightestlamp.machine.info_no_energy";
@@ -140,15 +140,17 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
     }
 
     private List<Component> formatUTooltip(String utooltip) {
-        return Arrays.stream(I18n.get(utooltip).replace("Format error: ", "*").split("¬")).map(
-                s -> (Component) Component.literal(s).setStyle(Style.EMPTY.withColor(
-                        s.contains("§r") ? ChatFormatting.WHITE
-                                : s.contains("§7") ? ChatFormatting.GRAY
-                                : s.contains("§c") ? ChatFormatting.RED
-                                : s.contains("§a") ? ChatFormatting.GREEN
-                                : ChatFormatting.WHITE
-                ))
-        ).toList();
+        return Arrays.stream(I18n.get(utooltip).replace("Format error: ", "*").split("¬"))
+                .map(line -> {
+                    ChatFormatting color = line.contains("§7") ? ChatFormatting.GRAY
+                            : line.contains("§c") ? ChatFormatting.RED
+                            : line.contains("§a") ? ChatFormatting.GREEN
+                            : ChatFormatting.WHITE;
+                    String text = line.replace("§r", "").replace("§7", "")
+                            .replace("§c", "").replace("§a", "");
+                    return (Component) Component.literal(text).withStyle(color);
+                })
+                .toList();
     }
 
     @Override
@@ -182,6 +184,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
 
         int marginHorizontal = (width - getXSize()) / 2;
         int marginVertical = (height - getYSize()) / 2;
+        // Left button: clickable redstone mode.
         switch (sc.data.get(1)) {
             case 0 -> textureBlit(graphics, marginHorizontal + 9, marginVertical + 9, 176, 128, 12, 12);
             case 1 -> textureBlit(graphics, marginHorizontal + 9, marginVertical + 9, 176, 141, 12, 12);
@@ -194,7 +197,9 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
                 case 2 -> textureBlit(graphics, marginHorizontal + 25, marginVertical + 9, 192, 154, 12, 12);
             }
         }
-        switch (sc.data.get(1)) {
+        // Right indicator: read-only machine status (valid/info/error).
+        int statusIcon = sc.data.get(6) == 0 ? 0 : sc.data.get(6) >= 5 ? 2 : 1;
+        switch (statusIcon) {
             case 0 -> textureBlit(graphics, marginHorizontal + 41, marginVertical + 9, 176, 167, 12, 12);
             case 1 -> textureBlit(graphics, marginHorizontal + 41, marginVertical + 9, 176, 180, 12, 12);
             case 2 -> textureBlit(graphics, marginHorizontal + 41, marginVertical + 9, 176, 193, 12, 12);

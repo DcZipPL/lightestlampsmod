@@ -26,9 +26,8 @@ import net.minecraft.world.inventory.StackedContentsCompatible;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.RecipeManager;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -101,7 +100,9 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	private static final int[] SLOTS_DOWN = new int[]{2, 3, 4, 5};
 	//private static final int[] SLOTS_HORIZONTAL = new int[]{1};
 	protected NonNullList<ItemStack> items = NonNullList.withSize(6, ItemStack.EMPTY);
-	private int ticksBeforeDumping;
+	private final RecipeManager.CachedCheck<GasCentrifugeRecipe.Input, GasCentrifugeRecipe> recipeCheck =
+			RecipeManager.createCheck(ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get());
+	private int machineStatus;
 	private int burnTime;
 	private int cookTime;
 	private int cookTimeTotal;
@@ -121,7 +122,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 				case 3 -> GasCentrifugeBlockEntity.this.cookTimeTotal;
 				case 4 -> GasCentrifugeBlockEntity.this.liquidMode;
 				case 5 -> GasCentrifugeBlockEntity.this.getEnergyStorage().getEnergyStored();
-				case 6 -> GasCentrifugeBlockEntity.this.ticksBeforeDumping;
+				case 6 -> GasCentrifugeBlockEntity.this.machineStatus;
 				default -> 0;
 			};
 		}
@@ -135,7 +136,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 				case 3 -> GasCentrifugeBlockEntity.this.cookTimeTotal = value;
 				case 4 -> GasCentrifugeBlockEntity.this.liquidMode = value;
 				case 5 -> GasCentrifugeBlockEntity.this.getEnergyStorage().setEnergy(value);
-				case 6 -> GasCentrifugeBlockEntity.this.ticksBeforeDumping = value;
+				case 6 -> GasCentrifugeBlockEntity.this.machineStatus = value;
 			}
 		}
 
@@ -179,9 +180,13 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		return sideHandler;
 	}
 
-	public static Map<Item, Integer> addedCentrifugables = Maps.newLinkedHashMap();
+	private static volatile Map<Item, Integer> cachedBurnTimes;
 	public static Map<Item, Integer> getBurnTimes() {
-		Map<Item, Integer> map = addedCentrifugables; //= Maps.newLinkedHashMap();
+		Map<Item, Integer> cached = cachedBurnTimes;
+		if (cached != null) {
+			return cached;
+		}
+		Map<Item, Integer> map = Maps.newLinkedHashMap();
 
 		int multiplier = Config.GLOWSTONE_FUEL_MULTIPLIER.get() >= 2 ? Config.GLOWSTONE_FUEL_MULTIPLIER.get() : 2;
 		// TODO: Add mod compat
@@ -201,7 +206,12 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		});
 
 		add(map, Tags.Items.DUSTS_GLOWSTONE,40*multiplier);
-		return map;
+		cachedBurnTimes = Map.copyOf(map);
+		return cachedBurnTimes;
+	}
+
+	public static void invalidateBurnTimes() {
+		cachedBurnTimes = null;
 	}
 
 	private static void add(Map<Item, Integer> pMap, TagKey<Item> pItemTag, int pBurnTime) {
@@ -259,28 +269,37 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	}
 
 	public static <T extends BlockEntity> void tick(Level pLevel, BlockPos pPos, BlockState pState, T pBlockEntity) {
-		GasCentrifugeBlockEntity blockEntity = (GasCentrifugeBlockEntity) pBlockEntity;
+		if (pLevel.isClientSide || !(pBlockEntity instanceof GasCentrifugeBlockEntity blockEntity)) {
+			return;
+		}
 		boolean flag = blockEntity.isBurning();
 		boolean flag1 = false;
-		GasCentrifugeRecipe.Input recipeInput = new GasCentrifugeRecipe.Input(blockEntity.items.get(0), blockEntity.items.get(1));
-		GasCentrifugeRecipe recipe = pLevel.getRecipeManager()
-				.getRecipeFor(ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get(), recipeInput, pLevel)
+		ItemStack filter = blockEntity.items.get(0);
+		ItemStack fuel = blockEntity.items.get(1);
+		GasCentrifugeRecipe recipe = filter.isEmpty() || fuel.isEmpty() ? null : blockEntity.recipeCheck
+				.getRecipeFor(new GasCentrifugeRecipe.Input(filter, fuel), pLevel)
 				.map(RecipeHolder::value)
 				.orElse(null);
+		ItemStack[] outputs = recipe == null ? null : recipe.assemble();
+		blockEntity.machineStatus = blockEntity.determineStatus(recipe, outputs);
+		boolean canSmelt = blockEntity.machineStatus == 0 || blockEntity.machineStatus == 1;
+		if (!blockEntity.isBurning() && fuel.isEmpty() && blockEntity.cookTime == 0) {
+			return;
+		}
 
 		// Decrease burn time
-		if (blockEntity.isBurning() && blockEntity.canSmelt(recipe)) {
+		if (blockEntity.isBurning() && canSmelt) {
 			--blockEntity.burnTime;
 			if (blockEntity.getEnergyStorage().getEnergyStored() > 0&&blockEntity.furnaceData.get(4)!=0){
 				blockEntity.getEnergyStorage().extractEnergy((int) (80 * (blockEntity.furnaceData.get(4)==2 ? 1.6f : 1f)),false);
 			}
 		}
 
-		if (!pLevel.isClientSide) {
-			ItemStack itemstack = blockEntity.items.get(1);
+		{
+			ItemStack itemstack = fuel;
 			if (blockEntity.isBurning()
 					|| !itemstack.isEmpty() && !blockEntity.items.get(0).isEmpty()) {
-				if (!blockEntity.isBurning() && blockEntity.canSmelt(recipe)
+				if (!blockEntity.isBurning() && canSmelt
 						&& (blockEntity.getEnergyStorage().getEnergyStored() > 0||blockEntity.furnaceData.get(4)==0)) {
 					blockEntity.burnTime = blockEntity.getBurnTime(itemstack);
 					// Use items
@@ -299,13 +318,13 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 				}
 
 				// Increase burn time
-				if (blockEntity.isBurning() && blockEntity.canSmelt(recipe)) {
+				if (blockEntity.isBurning() && canSmelt) {
 					++blockEntity.cookTime;
 					// If done produce items
 					if (blockEntity.cookTime == blockEntity.cookTimeTotal) {
 						blockEntity.cookTime = 0;
 						blockEntity.cookTimeTotal = blockEntity.getCookTimeTotal();
-						blockEntity.placeItemsInRightSlot(recipe);
+						blockEntity.placeItemsInRightSlot(outputs);
 						flag1 = true;
 					}
 				} else {
@@ -333,49 +352,54 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 			? 1.8f : 1.0f) : 0.5f)));
 	}
 
-	protected boolean canSmelt(@Nullable Recipe<?> pRecipe) {
-		if (!this.items.get(0).isEmpty()) {
-			if (pRecipe == null) return false;
-			ItemStack[] itemstacks = ((GasCentrifugeRecipe) pRecipe).assemble();
-			if (itemstacks[0].isEmpty()&&itemstacks[1].isEmpty()&&itemstacks[2].isEmpty()&&itemstacks[3].isEmpty())
-			{
-				return false;
-			} else if (redstoneMode==1&&level.getDirectSignalTo(worldPosition)>0||redstoneMode==2&&level.getDirectSignalTo(worldPosition)<1) // Redstone
-			{
-				return false;
-			} else {
-				ItemStack[] itemstacks1 = new ItemStack[] {this.items.get(2),this.items.get(3),this.items.get(4),this.items.get(5)};
-				boolean[] output0 = new boolean[] {true,true,true,true};
-				for (int i = 0; i < itemstacks.length; i++)
-				{
-					ItemStack itemstack = itemstacks[i];
-					ItemStack itemstack1 = itemstacks1[i];
-					if (itemstack.isEmpty()) {
-						output0[i] = true;
-					} else if (itemstack1.isEmpty()) {
-						output0[i] =  true;
-					} else if (!ItemStack.isSameItemSameComponents(itemstack1, itemstack)) {
-						output0[i] =  false;
-					} else if (itemstack1.getCount() + itemstack.getCount() <= getMaxStackSize() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) {
-						// Forge fix: make furnace respect stack sizes in furnace recipes
-						output0[i] =  true;
-					} else {
-						output0[i] =  itemstack1.getCount() + itemstack.getCount() <= itemstack.getMaxStackSize();
-						// Forge fix: make furnace respect stack sizes in furnace recipes
-					}
-				}
-				return output0[0]&&output0[1]&&output0[2]&&output0[3];
-			}
-		} else {
-			return false;
+	private int determineStatus(@Nullable GasCentrifugeRecipe recipe, @Nullable ItemStack[] outputs) {
+		if ((redstoneMode == 1 && level.getDirectSignalTo(worldPosition) > 0)
+				|| (redstoneMode == 2 && level.getDirectSignalTo(worldPosition) < 1)) {
+			return 3;
 		}
+		if (items.get(0).isEmpty() || items.get(1).isEmpty()) {
+			return 4;
+		}
+		if (recipe == null || outputs == null || allOutputsEmpty(outputs)) {
+			return 5;
+		}
+		if (!outputsFit(outputs)) {
+			return 6;
+		}
+		if (liquidMode != 0 && energyStorage.getEnergyStored() <= 0) {
+			return 2;
+		}
+		return liquidMode == 0 ? 1 : 0;
 	}
 
-	private void placeItemsInRightSlot(@Nullable GasCentrifugeRecipe pRecipe)
+	private static boolean allOutputsEmpty(ItemStack[] outputs) {
+		for (ItemStack output : outputs) {
+			if (!output.isEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean outputsFit(ItemStack[] outputs) {
+		for (int i = 0; i < outputs.length; i++) {
+			ItemStack output = outputs[i];
+			ItemStack current = items.get(i + 2);
+			if (output.isEmpty() || current.isEmpty()) {
+				continue;
+			}
+			if (!ItemStack.isSameItemSameComponents(current, output)
+					|| current.getCount() + output.getCount() > Math.min(getMaxStackSize(), current.getMaxStackSize())) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private void placeItemsInRightSlot(@Nullable ItemStack[] itemstacks)
 	{
-		if (this.canSmelt(pRecipe)) {
+		if (itemstacks != null) {
 			ItemStack itemstack = this.items.get(0);
-			ItemStack[] itemstacks = pRecipe.assemble();
 			ItemStack itemstack2 = this.items.get(2);
 			ItemStack itemstack3 = this.items.get(3);
 			ItemStack itemstack4 = this.items.get(4);

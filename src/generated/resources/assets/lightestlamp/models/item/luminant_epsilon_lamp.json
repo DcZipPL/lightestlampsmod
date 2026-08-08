@@ -1,0 +1,7 @@
+{
+  "parent": "lightestlamp:item/luminant_lamp_template",
+  "textures": {
+    "base": "lightestlamp:block/epsilon_lamp",
+    "overlay": "lightestlamp:item/luminant_overlay"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "neoforge:conditions": [{ "type": "neoforge:mod_loaded", "modid": "mekanism" }],
+  "type": "mekanism:washing",
+  "chemical_input": { "amount": 1, "chemical": "lightestlamp:dirty_lanthanum" },
+  "fluid_input": { "amount": 5, "tag": "minecraft:water" },
+  "output": { "amount": 1, "id": "lightestlamp:clean_lanthanum" }
+}

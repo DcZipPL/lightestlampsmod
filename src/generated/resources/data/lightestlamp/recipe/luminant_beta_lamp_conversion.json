@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lightestlamp:beta_lamp"
+    },
+    {
+      "item": "lightestlamp:luminant_dust"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:luminant_beta_lamp"
+  }
+}

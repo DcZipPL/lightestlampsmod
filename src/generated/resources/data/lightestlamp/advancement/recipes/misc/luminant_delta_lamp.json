@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_luminant_gamma_lamp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "lightestlamp:luminant_gamma_lamp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "lightestlamp:luminant_delta_lamp"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_luminant_gamma_lamp"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "lightestlamp:luminant_delta_lamp"
+    ]
+  }
+}

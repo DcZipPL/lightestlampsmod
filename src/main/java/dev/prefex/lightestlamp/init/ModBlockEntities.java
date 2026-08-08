@@ -31,16 +31,28 @@ public class ModBlockEntities
                     ModBlocks.EPSILON_LAMP.get(),
                     ModBlocks.ZETA_LAMP.get(),
                     ModBlocks.ETA_LAMP.get(),
-                    ModBlocks.OMEGA_LAMP.get(),
                     ModBlocks.CLEAR_SEA_LANTERN.get(),
                     ModBlocks.DEEP_SEA_LANTERN.get(),
                     ModBlocks.OCEAN_LANTERN.get(),
                     ModBlocks.DEEP_OCEAN_LANTERN.get(),
-                    ModBlocks.ABYSSAL_LANTERN.get()
+                    ModBlocks.ABYSSAL_LANTERN.get(),
+                    ModBlocks.LUMINANT_ALPHA_LAMP.get(),
+                    ModBlocks.LUMINANT_BETA_LAMP.get(),
+                    ModBlocks.LUMINANT_GAMMA_LAMP.get(),
+                    ModBlocks.LUMINANT_DELTA_LAMP.get(),
+                    ModBlocks.LUMINANT_EPSILON_LAMP.get(),
+                    ModBlocks.LUMINANT_ZETA_LAMP.get(),
+                    ModBlocks.LUMINANT_ETA_LAMP.get(),
+                    ModBlocks.LUMINANT_CLEAR_SEA_LANTERN.get(),
+                    ModBlocks.LUMINANT_DEEP_SEA_LANTERN.get(),
+                    ModBlocks.LUMINANT_OCEAN_LANTERN.get(),
+                    ModBlocks.LUMINANT_DEEP_OCEAN_LANTERN.get(),
+                    ModBlocks.LUMINANT_ABYSSAL_LANTERN.get()
             ).build(null)
     );
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OmegaLampBlockEntity>> OMEGA_BE = BLOCK_ENTITIES.register(
-            "omega_be", () -> BlockEntityType.Builder.of(OmegaLampBlockEntity::new, ModBlocks.OMEGA_LAMP.get()).build(null)
+            "omega_be", () -> BlockEntityType.Builder.of(OmegaLampBlockEntity::new,
+                    ModBlocks.OMEGA_LAMP.get(), ModBlocks.LUMINANT_OMEGA_LAMP.get()).build(null)
     );
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemicalLampBlockEntity>> ALCHEMICALLAMP_BE = BLOCK_ENTITIES.register(
             "alchemical_be", () -> BlockEntityType.Builder.of(AlchemicalLampBlockEntity::new, ModBlocks.ALCHEMICAL_LAMP.get()).build(null)

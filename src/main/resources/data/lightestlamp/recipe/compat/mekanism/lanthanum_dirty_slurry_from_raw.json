@@ -1,0 +1,8 @@
+{
+  "neoforge:conditions": [{ "type": "neoforge:mod_loaded", "modid": "mekanism" }],
+  "type": "mekanism:dissolution",
+  "chemical_input": { "amount": 1, "chemical": "mekanism:sulfuric_acid" },
+  "item_input": { "count": 3, "tag": "c:raw_materials/lanthanum" },
+  "output": { "amount": 2000, "id": "lightestlamp:dirty_lanthanum" },
+  "per_tick_usage": true
+}

@@ -10,10 +10,7 @@ import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.minecraft.core.registries.Registries;
-
-import java.util.List;
 
 public class Util
 {
@@ -34,31 +31,26 @@ public class Util
     }
 
     private static void moveEntitiesInAABFromPoint(Level world, AABB effectBounds, double x, double y, double z, boolean ignore, double direction){
-        List<Entity> list = world.getEntitiesOfClass(Entity.class, effectBounds);
-
-        for (Entity ent : list)
-        {
-            if ((ent instanceof LivingEntity) || (ent instanceof Projectile))
-            {
-                if (!ignore && !(ent instanceof Mob || ent instanceof Projectile))
-                {
-                    continue;
-                }
-                else
-                {
-                    if (ent instanceof Arrow && ((Arrow) ent).onGround())
-                    {
-                        continue;
-                    }
-                    Vec3 p = new Vec3(x, y, z);
-                    Vec3 t = new Vec3(ent.getX(), ent.getY(), ent.getZ());
-                    double distance = p.distanceTo(t) + 0.1D;
-
-                    Vec3 r = new Vec3(t.x - p.x, t.y - p.y, t.z - p.z);
-
-                    ent.setDeltaMovement(direction*(r.x / 1.5D / distance+ent.getDeltaMovement().x),direction*(r.y / 1.5D / distance+ent.getDeltaMovement().y),direction*(r.z / 1.5D / distance+ent.getDeltaMovement().z));
-                }
-            }
+        if (ignore) {
+            world.getEntitiesOfClass(LivingEntity.class, effectBounds).forEach(entity -> moveEntity(entity, x, y, z, direction));
+        } else {
+            world.getEntitiesOfClass(Mob.class, effectBounds).forEach(entity -> moveEntity(entity, x, y, z, direction));
         }
+        world.getEntitiesOfClass(Projectile.class, effectBounds).forEach(entity -> moveEntity(entity, x, y, z, direction));
+    }
+
+    private static void moveEntity(Entity entity, double x, double y, double z, double direction) {
+        if (entity instanceof Arrow arrow && arrow.onGround()) {
+            return;
+        }
+        double dx = entity.getX() - x;
+        double dy = entity.getY() - y;
+        double dz = entity.getZ() - z;
+        double distance = Math.sqrt(dx * dx + dy * dy + dz * dz) + 0.1D;
+        var velocity = entity.getDeltaMovement();
+        entity.setDeltaMovement(
+                direction * (dx / 1.5D / distance + velocity.x),
+                direction * (dy / 1.5D / distance + velocity.y),
+                direction * (dz / 1.5D / distance + velocity.z));
     }
 }

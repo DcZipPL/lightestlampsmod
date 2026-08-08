@@ -3,12 +3,9 @@ package dev.prefex.lightestlamp.datagen;
 import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModItems;
-import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeRecipe;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +20,6 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
-import java.util.function.Consumer;
 import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider {
@@ -402,5 +398,66 @@ public class ModRecipeProvider extends RecipeProvider {
 					.save(pWriter);
 		});
 		// End Group
+
+		addLuminantRecipes(pWriter);
+	}
+
+	private static void addLuminantRecipes(RecipeOutput output) {
+		conversion(output, ModBlocks.ALPHA_LAMP.get(), ModBlocks.LUMINANT_ALPHA_LAMP.get());
+		conversion(output, ModBlocks.BETA_LAMP.get(), ModBlocks.LUMINANT_BETA_LAMP.get());
+		conversion(output, ModBlocks.GAMMA_LAMP.get(), ModBlocks.LUMINANT_GAMMA_LAMP.get());
+		conversion(output, ModBlocks.DELTA_LAMP.get(), ModBlocks.LUMINANT_DELTA_LAMP.get());
+		conversion(output, ModBlocks.EPSILON_LAMP.get(), ModBlocks.LUMINANT_EPSILON_LAMP.get());
+		conversion(output, ModBlocks.ZETA_LAMP.get(), ModBlocks.LUMINANT_ZETA_LAMP.get());
+		conversion(output, ModBlocks.ETA_LAMP.get(), ModBlocks.LUMINANT_ETA_LAMP.get());
+		conversion(output, ModBlocks.OMEGA_LAMP.get(), ModBlocks.LUMINANT_OMEGA_LAMP.get());
+		conversion(output, ModBlocks.CLEAR_SEA_LANTERN.get(), ModBlocks.LUMINANT_CLEAR_SEA_LANTERN.get());
+		conversion(output, ModBlocks.DEEP_SEA_LANTERN.get(), ModBlocks.LUMINANT_DEEP_SEA_LANTERN.get());
+		conversion(output, ModBlocks.OCEAN_LANTERN.get(), ModBlocks.LUMINANT_OCEAN_LANTERN.get());
+		conversion(output, ModBlocks.DEEP_OCEAN_LANTERN.get(), ModBlocks.LUMINANT_DEEP_OCEAN_LANTERN.get());
+		conversion(output, ModBlocks.ABYSSAL_LANTERN.get(), ModBlocks.LUMINANT_ABYSSAL_LANTERN.get());
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_BETA_LAMP.get())
+				.define('L', ModBlocks.LUMINANT_ALPHA_LAMP.get()).define('B', ModBlocks.NEON_TUBE_BLOCK.get()).define('T', ModItems.NEON_TUBE.get())
+				.pattern("TBT").pattern("BLB").pattern("TBT").unlockedBy("has_luminant_alpha_lamp", has(ModBlocks.LUMINANT_ALPHA_LAMP.get())).save(output);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_GAMMA_LAMP.get())
+				.define('L', ModBlocks.LUMINANT_BETA_LAMP.get()).define('T', ModItems.ARGON_TUBE.get())
+				.pattern(" T ").pattern("TLT").pattern(" T ").unlockedBy("has_luminant_beta_lamp", has(ModBlocks.LUMINANT_BETA_LAMP.get())).save(output);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_DELTA_LAMP.get())
+				.define('L', ModBlocks.LUMINANT_GAMMA_LAMP.get()).define('B', ModBlocks.ARGON_TUBE_BLOCK.get()).define('T', ModItems.ARGON_TUBE.get())
+				.pattern("TBT").pattern("BLB").pattern("TBT").unlockedBy("has_luminant_gamma_lamp", has(ModBlocks.LUMINANT_GAMMA_LAMP.get())).save(output);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_EPSILON_LAMP.get())
+				.define('L', ModBlocks.LUMINANT_DELTA_LAMP.get()).define('T', ModItems.KRYPTON_TUBE.get())
+				.pattern(" T ").pattern("TLT").pattern(" T ").unlockedBy("has_luminant_delta_lamp", has(ModBlocks.LUMINANT_DELTA_LAMP.get())).save(output);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_ZETA_LAMP.get())
+				.define('L', ModBlocks.LUMINANT_EPSILON_LAMP.get()).define('B', ModBlocks.KRYPTON_BLOCK.get()).define('T', ModItems.KRYPTON_TUBE.get())
+				.pattern("TBT").pattern("BLB").pattern("TBT").unlockedBy("has_luminant_epsilon_lamp", has(ModBlocks.LUMINANT_EPSILON_LAMP.get())).save(output);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_ETA_LAMP.get())
+				.define('L', ModBlocks.LUMINANT_ZETA_LAMP.get()).define('T', ModItems.RADON_TUBE.get())
+				.pattern(" T ").pattern("TLT").pattern(" T ").unlockedBy("has_luminant_zeta_lamp", has(ModBlocks.LUMINANT_ZETA_LAMP.get())).save(output);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_OMEGA_LAMP.get())
+				.define('L', ModBlocks.LUMINANT_ETA_LAMP.get()).define('B', ModBlocks.RADON_TUBE_BLOCK.get()).define('S', Items.NETHER_STAR)
+				.pattern("BLB").pattern("LSL").pattern("BLB").unlockedBy("has_luminant_eta_lamp", has(ModBlocks.LUMINANT_ETA_LAMP.get())).save(output);
+
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_DEEP_SEA_LANTERN.get())
+				.define('L', ModBlocks.LUMINANT_CLEAR_SEA_LANTERN.get()).define('T', ModItems.ARGON_TUBE.get()).define('H', Items.HEART_OF_THE_SEA)
+				.pattern("TTT").pattern("TLT").pattern("THT").unlockedBy("has_luminant_clear_sea_lantern", has(ModBlocks.LUMINANT_CLEAR_SEA_LANTERN.get())).save(output);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_OCEAN_LANTERN.get())
+				.define('L', ModBlocks.LUMINANT_DEEP_SEA_LANTERN.get()).define('B', ModBlocks.KRYPTON_TUBE_BLOCK.get()).define('T', ModItems.KRYPTON_TUBE.get())
+				.pattern("TBT").pattern("BLB").pattern("TBT").unlockedBy("has_luminant_deep_sea_lantern", has(ModBlocks.LUMINANT_DEEP_SEA_LANTERN.get())).save(output);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_DEEP_OCEAN_LANTERN.get())
+				.define('L', ModBlocks.LUMINANT_OCEAN_LANTERN.get()).define('T', ModItems.XENON_TUBE.get())
+				.pattern(" T ").pattern("TLT").pattern(" T ").unlockedBy("has_luminant_ocean_lantern", has(ModBlocks.LUMINANT_OCEAN_LANTERN.get())).save(output);
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.LUMINANT_ABYSSAL_LANTERN.get())
+				.define('L', ModBlocks.LUMINANT_DEEP_OCEAN_LANTERN.get()).define('H', Items.HEART_OF_THE_SEA).define('R', ModBlocks.XENON_TUBE_BLOCK.get())
+				.pattern("RHR").pattern("HLH").pattern("RHR").unlockedBy("has_luminant_deep_ocean_lantern", has(ModBlocks.LUMINANT_DEEP_OCEAN_LANTERN.get())).save(output);
+	}
+
+	private static void conversion(RecipeOutput output, Block base, Block luminant) {
+		String path = Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(luminant)).getPath();
+		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, luminant)
+				.requires(base).requires(ModItems.LUMINANT_DUST.get())
+				.unlockedBy("has_" + Objects.requireNonNull(BuiltInRegistries.BLOCK.getKey(base)).getPath(), has(base))
+				.save(output, ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, path + "_conversion"));
 	}
 }

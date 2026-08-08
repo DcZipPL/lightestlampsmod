@@ -9,6 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -64,6 +65,9 @@ public class ModMiscs
                         .map((entry) -> new ItemStack(entry.get()))
                         .collect(Collectors.toList())
                 );
+                if (ModList.get().isLoaded("mekanism")) {
+                    dev.prefex.lightestlamp.compat.mekanism.MekanismCompat.addCreativeItems(output);
+                }
             })
             .build()
     );

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "lightestlamp:luminant_zeta_lamp"
+    },
+    "T": {
+      "item": "lightestlamp:radon_tube"
+    }
+  },
+  "pattern": [
+    " T ",
+    "TLT",
+    " T "
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:luminant_eta_lamp"
+  }
+}

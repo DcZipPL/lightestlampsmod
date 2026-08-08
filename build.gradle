@@ -40,6 +40,13 @@ repositories {
             includeGroup 'com.github.rtyley'
         }
     }
+    maven {
+        name = 'ModMaven'
+        url = 'https://modmaven.dev/'
+        content {
+            includeGroup 'mekanism'
+        }
+    }
 }
 
 neoForge {
@@ -87,6 +94,7 @@ configurations {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.11.4')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
@@ -94,6 +102,9 @@ dependencies {
 
     compileOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
     localRuntime "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+
+    compileOnly "mekanism:Mekanism:${mekanism_version}:api"
+    localRuntime "mekanism:Mekanism:${mekanism_version}"
 }
 
 def generateModMetadata = tasks.register('generateModMetadata', ProcessResources) {
@@ -138,6 +149,10 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+tasks.named('jar', Jar) {
+    from('THIRD_PARTY_NOTICES.md')
 }
 
 idea {

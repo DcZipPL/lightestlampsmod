@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_luminant_alpha_lamp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "lightestlamp:luminant_alpha_lamp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "lightestlamp:luminant_beta_lamp"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_luminant_alpha_lamp"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "lightestlamp:luminant_beta_lamp"
+    ]
+  }
+}

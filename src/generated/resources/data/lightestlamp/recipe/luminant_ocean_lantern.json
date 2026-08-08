@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "lightestlamp:krypton_tube_block"
+    },
+    "L": {
+      "item": "lightestlamp:luminant_deep_sea_lantern"
+    },
+    "T": {
+      "item": "lightestlamp:krypton_tube"
+    }
+  },
+  "pattern": [
+    "TBT",
+    "BLB",
+    "TBT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:luminant_ocean_lantern"
+  }
+}

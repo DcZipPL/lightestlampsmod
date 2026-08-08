@@ -10,6 +10,8 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeBlock;
 
+import java.util.List;
+
 import static dev.prefex.lightestlamp.blocks.LightestLampBlock.Type.NORMAL;
 import static dev.prefex.lightestlamp.blocks.LightestLampBlock.Type.UNDERWATER;
 
@@ -31,15 +33,34 @@ public class ModBlocks
     public static final DeferredBlock<Block> EPSILON_LAMP = BLOCKS.register("epsilon_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.EPSILON));
     public static final DeferredBlock<Block> ZETA_LAMP = BLOCKS.register("zeta_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.ZETA));
     public static final DeferredBlock<Block> ETA_LAMP = BLOCKS.register("eta_lamp", () -> new LightestLampBlock(NORMAL, LightestLampBlock.Tier.ETA));
-    public static final DeferredBlock<Block> OMEGA_LAMP = BLOCKS.register("omega_lamp", OmegaLampBlock::new);
+    public static final DeferredBlock<Block> OMEGA_LAMP = BLOCKS.register("omega_lamp", () -> new OmegaLampBlock(false));
     public static final DeferredBlock<Block> CLEAR_SEA_LANTERN = BLOCKS.register("clear_sea_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.ALPHA));
-    public static final DeferredBlock<Block> DEEP_SEA_LANTERN = BLOCKS.register("deep_sea_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.GAMMA));
+    public static final DeferredBlock<Block> DEEP_SEA_LANTERN = BLOCKS.register("deep_sea_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.BETA));
     public static final DeferredBlock<Block> OCEAN_LANTERN = BLOCKS.register("ocean_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.GAMMA));
-    public static final DeferredBlock<Block> DEEP_OCEAN_LANTERN = BLOCKS.register("deep_ocean_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.EPSILON));
-    public static final DeferredBlock<Block> ABYSSAL_LANTERN = BLOCKS.register("abyssal_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.ETA));
+    public static final DeferredBlock<Block> DEEP_OCEAN_LANTERN = BLOCKS.register("deep_ocean_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.DELTA));
+    public static final DeferredBlock<Block> ABYSSAL_LANTERN = BLOCKS.register("abyssal_lantern", () -> new LightestLampBlock(UNDERWATER, LightestLampBlock.Tier.EPSILON));
+
+    public static final DeferredBlock<Block> LUMINANT_ALPHA_LAMP = luminant("luminant_alpha_lamp", NORMAL, LightestLampBlock.Tier.ALPHA);
+    public static final DeferredBlock<Block> LUMINANT_BETA_LAMP = luminant("luminant_beta_lamp", NORMAL, LightestLampBlock.Tier.BETA);
+    public static final DeferredBlock<Block> LUMINANT_GAMMA_LAMP = luminant("luminant_gamma_lamp", NORMAL, LightestLampBlock.Tier.GAMMA);
+    public static final DeferredBlock<Block> LUMINANT_DELTA_LAMP = luminant("luminant_delta_lamp", NORMAL, LightestLampBlock.Tier.DELTA);
+    public static final DeferredBlock<Block> LUMINANT_EPSILON_LAMP = luminant("luminant_epsilon_lamp", NORMAL, LightestLampBlock.Tier.EPSILON);
+    public static final DeferredBlock<Block> LUMINANT_ZETA_LAMP = luminant("luminant_zeta_lamp", NORMAL, LightestLampBlock.Tier.ZETA);
+    public static final DeferredBlock<Block> LUMINANT_ETA_LAMP = luminant("luminant_eta_lamp", NORMAL, LightestLampBlock.Tier.ETA);
+    public static final DeferredBlock<Block> LUMINANT_OMEGA_LAMP = BLOCKS.register("luminant_omega_lamp", () -> new OmegaLampBlock(true));
+    public static final DeferredBlock<Block> LUMINANT_CLEAR_SEA_LANTERN = luminant("luminant_clear_sea_lantern", UNDERWATER, LightestLampBlock.Tier.ALPHA);
+    public static final DeferredBlock<Block> LUMINANT_DEEP_SEA_LANTERN = luminant("luminant_deep_sea_lantern", UNDERWATER, LightestLampBlock.Tier.BETA);
+    public static final DeferredBlock<Block> LUMINANT_OCEAN_LANTERN = luminant("luminant_ocean_lantern", UNDERWATER, LightestLampBlock.Tier.GAMMA);
+    public static final DeferredBlock<Block> LUMINANT_DEEP_OCEAN_LANTERN = luminant("luminant_deep_ocean_lantern", UNDERWATER, LightestLampBlock.Tier.DELTA);
+    public static final DeferredBlock<Block> LUMINANT_ABYSSAL_LANTERN = luminant("luminant_abyssal_lantern", UNDERWATER, LightestLampBlock.Tier.EPSILON);
+    public static final List<DeferredBlock<Block>> LUMINANT_BLOCKS = List.of(
+            LUMINANT_ALPHA_LAMP, LUMINANT_BETA_LAMP, LUMINANT_GAMMA_LAMP, LUMINANT_DELTA_LAMP,
+            LUMINANT_EPSILON_LAMP, LUMINANT_ZETA_LAMP, LUMINANT_ETA_LAMP, LUMINANT_OMEGA_LAMP,
+            LUMINANT_CLEAR_SEA_LANTERN, LUMINANT_DEEP_SEA_LANTERN, LUMINANT_OCEAN_LANTERN,
+            LUMINANT_DEEP_OCEAN_LANTERN, LUMINANT_ABYSSAL_LANTERN
+    );
     public static final DeferredBlock<Block> ALCHEMICAL_LAMP = BLOCKS.register("alchemical_lamp", AlchemicalLampBlock::new);
     //public static final DeferredBlock<Block> SPOTLIGHT = BLOCKS.register("spotlight", () -> new SpotlightBlock());
-    //public static final DeferredBlock<Block> CHUNK_CLEANER = BLOCKS.register("debug_chunk_cleaner", () -> new ChunkCleanerBlock(Block.Properties.of(Material.WOOL)));
 
     //Other lamps
     public static final DeferredBlock<Block> JUNGLE_LANTERN = BLOCKS.register("jungle_lantern", () -> new JungleLanternBlock(Block.Properties.ofFullCopy(Blocks.OAK_LEAVES).sound(SoundType.GRASS)
@@ -79,4 +100,8 @@ public class ModBlocks
     .strength(3,1).requiresCorrectToolForDrops()));
 
     public static final DeferredBlock<Block> OCC = BLOCKS.register("occ", () -> new OmegaChunkCleanerBlock(Block.Properties.ofFullCopy(Blocks.STRUCTURE_BLOCK)));
+
+    private static DeferredBlock<Block> luminant(String name, LightestLampBlock.Type type, LightestLampBlock.Tier tier) {
+        return BLOCKS.register(name, () -> new LightestLampBlock(type, tier, true));
+    }
 }

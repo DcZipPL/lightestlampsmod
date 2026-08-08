@@ -13,6 +13,9 @@ public class Config {
 
     public static ModConfigSpec.IntValue GLOWSTONE_FUEL_MULTIPLIER;
     public static ModConfigSpec.EnumValue<EnergyModes> ENERGY_MODE;
+    public static ModConfigSpec.IntValue LIGHT_TRAVERSAL_BUDGET;
+    public static ModConfigSpec.IntValue LIGHT_MUTATION_BUDGET;
+    public static ModConfigSpec.IntValue LIGHT_TOPOLOGY_DEBOUNCE;
 
     static {
         setupFirstBlockConfig();
@@ -35,6 +38,14 @@ public class Config {
                 )
                 .defineEnum("energy_mode",EnergyModes.both);
 
+        COMMON_BUILDER.pop();
+        COMMON_BUILDER.comment("Extended lamp lighting scheduler").push("lighting");
+        LIGHT_TRAVERSAL_BUDGET = COMMON_BUILDER.comment("Maximum source-planning positions visited across all dimensions per server tick.")
+                .defineInRange("max_traversed_positions_per_tick", 4096, 256, 65536);
+        LIGHT_MUTATION_BUDGET = COMMON_BUILDER.comment("Maximum hidden light-source block changes across all dimensions per server tick.")
+                .defineInRange("max_source_updates_per_tick", 128, 16, 4096);
+        LIGHT_TOPOLOGY_DEBOUNCE = COMMON_BUILDER.comment("Ticks used to combine repeated wall, fluid, piston, and door updates.")
+                .defineInRange("topology_debounce_ticks", 5, 1, 100);
         COMMON_BUILDER.pop();
     }
 

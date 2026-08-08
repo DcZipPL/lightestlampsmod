@@ -35,7 +35,14 @@ public class ModItemsModelProvider extends ItemModelProvider {
 					&& block != ModBlocks.JUNGLE_LANTERN.get()
 					&& block != ModBlocks.CURTAIN_BLOCK.get()) {
 				String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
-				withExistingParent(path, Util.MOD_ID + ":block/" + path);
+				if (path.startsWith("luminant_")) {
+					String basePath = path.substring("luminant_".length());
+					withExistingParent(path, ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "item/luminant_lamp_template"))
+							.texture("base", ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "block/" + basePath))
+							.texture("overlay", ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "item/luminant_overlay"));
+				} else {
+					withExistingParent(path, Util.MOD_ID + ":block/" + path);
+				}
 			}
 		});
 	}

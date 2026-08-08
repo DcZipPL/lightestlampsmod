@@ -1,0 +1,7 @@
+{
+  "parent": "lightestlamp:item/luminant_lamp_template",
+  "textures": {
+    "base": "lightestlamp:block/clear_sea_lantern",
+    "overlay": "lightestlamp:item/luminant_overlay"
+  }
+}

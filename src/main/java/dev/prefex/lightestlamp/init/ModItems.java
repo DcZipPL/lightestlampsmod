@@ -54,4 +54,5 @@ public class ModItems
     public static final DeferredItem<Item> LANTHANUM_INGOT = ITEMS.register("lanthanum_ingot",() -> new Item(new Item.Properties().stacksTo(64)));
     public static final DeferredItem<Item> LANTHANUM_NUGGET = ITEMS.register("lanthanum_nugget",() -> new Item(new Item.Properties().stacksTo(64)));
     public static final DeferredItem<Item> RAW_LANTHANUM = ITEMS.register("raw_lanthanum",() -> new Item(new Item.Properties().stacksTo(64)));
+    public static final DeferredItem<Item> LUMINANT_DUST = ITEMS.register("luminant_dust",() -> new Item(new Item.Properties().stacksTo(64)));
 }

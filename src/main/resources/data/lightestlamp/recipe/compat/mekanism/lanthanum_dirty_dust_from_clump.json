@@ -1,0 +1,6 @@
+{
+  "neoforge:conditions": [{ "type": "neoforge:mod_loaded", "modid": "mekanism" }],
+  "type": "mekanism:crushing",
+  "input": { "count": 1, "tag": "c:clumps/lanthanum" },
+  "output": { "count": 1, "id": "lightestlamp:dirty_dust_lanthanum" }
+}

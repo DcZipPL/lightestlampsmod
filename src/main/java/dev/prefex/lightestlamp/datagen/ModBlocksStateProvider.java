@@ -7,6 +7,8 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RotatedPillarBlock;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -20,7 +22,19 @@ public class ModBlocksStateProvider extends BlockStateProvider {
 	@Override
 	protected void registerStatesAndModels() {
 		ModBlocks.BLOCKS.getEntries().stream().map(DeferredHolder::get).forEach(block -> {
-			if (block instanceof RotatedPillarBlock){
+			String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
+			if (block instanceof dev.prefex.lightestlamp.blocks.LightestLampBlock lamp && lamp.isLuminant()) {
+				String basePath = path.substring("luminant_".length());
+				if (!lamp.profile().alwaysActive()) {
+					getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+							.modelFile(models().getExistingFile(ResourceLocation.fromNamespaceAndPath(Util.MOD_ID,
+									"block/" + basePath + (state.getValue(BlockStateProperties.POWERED) ? "_off" : ""))))
+							.build());
+				} else {
+					simpleBlock(block, models().getExistingFile(ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "block/" + basePath)));
+				}
+			}
+			else if (block instanceof RotatedPillarBlock){
 				axisBlock((RotatedPillarBlock) block);
 			}
 			else if (block == ModBlocks.CLEAR_LAMP.get()
@@ -32,7 +46,6 @@ public class ModBlocksStateProvider extends BlockStateProvider {
 				// TODO: add lamp models here
 			}
 			else if (block == ModBlocks.GLOWSTONE_CENTRIFUGE.get()){
-				String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
 				simpleBlock(ModBlocks.GLOWSTONE_CENTRIFUGE.get(), models().cubeBottomTop(path,
 						ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "block/machine/" + path + "_side"),
 						ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "block/machine/" + path + "_bottom"),

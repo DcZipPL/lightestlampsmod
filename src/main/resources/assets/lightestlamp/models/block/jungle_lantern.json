@@ -3,8 +3,8 @@
 	"parent": "block/block",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "lightestlamp:part/chain",
-		"particle": "lightestlamp:part/chain"
+		"0": "lightestlamp:block/jungle_lantern",
+		"particle": "lightestlamp:block/jungle_lantern"
 	},
 	"elements": [
 		{

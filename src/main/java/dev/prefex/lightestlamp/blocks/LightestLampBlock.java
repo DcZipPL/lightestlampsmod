@@ -1,20 +1,20 @@
 package dev.prefex.lightestlamp.blocks;
 
 import com.mojang.serialization.MapCodec;
-import dev.prefex.lightestlamp.init.ModBlockEntities;
-import dev.prefex.lightestlamp.init.ModBlocks;
+import dev.prefex.lightestlamp.entities.NormalLampBlockEntity;
+import dev.prefex.lightestlamp.lighting.LampLightManager;
+import dev.prefex.lightestlamp.lighting.LampProfile;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.Style;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -26,29 +26,51 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import org.jetbrains.annotations.Nullable;
-import dev.prefex.lightestlamp.entities.NormalLampBlockEntity;
 
 import java.util.List;
 
-import static dev.prefex.lightestlamp.entities.NormalLampBlockEntity.*;
-
 public class LightestLampBlock extends BaseEntityBlock {
-    private final Type _type;
-    private final Tier _tier;
+    private final Type type;
+    private final Tier tier;
+    private final boolean luminant;
+    private final LampProfile profile;
+
+    public LightestLampBlock(Type type, Tier tier) {
+        this(type, tier, false);
+    }
+
+    public LightestLampBlock(Type type, Tier tier, boolean luminant) {
+        super(Properties.ofFullCopy(Blocks.GLOWSTONE));
+        registerDefaultState(stateDefinition.any().setValue(BlockStateProperties.POWERED, false));
+        this.type = type;
+        this.tier = tier;
+        this.luminant = luminant;
+        this.profile = new LampProfile(
+                tier.extension,
+                type == Type.UNDERWATER ? LampProfile.Medium.UNDERWATER : LampProfile.Medium.AIR,
+                luminant,
+                type == Type.UNDERWATER || tier.alwaysActive
+        );
+    }
 
     public Type getType() {
-        return _type;
+        return type;
     }
 
     public Tier getTier() {
-        return _tier;
+        return tier;
     }
 
-    public LightestLampBlock(Type type, Tier tier){
-        super(Properties.ofFullCopy(Blocks.GLOWSTONE));
-        this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.POWERED, Boolean.FALSE));
-        _type = type;
-        _tier = tier;
+    public boolean isLuminant() {
+        return luminant;
+    }
+
+    public LampProfile profile() {
+        return profile;
+    }
+
+    public boolean isActive(BlockState state) {
+        return profile.alwaysActive() || !state.getValue(BlockStateProperties.POWERED);
     }
 
     @Override
@@ -57,35 +79,65 @@ public class LightestLampBlock extends BaseEntityBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
-        super.createBlockStateDefinition(pBuilder);
-        pBuilder.add(BlockStateProperties.POWERED);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(BlockStateProperties.POWERED);
     }
 
     @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
-        return new NormalLampBlockEntity(pPos,pState);
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return new NormalLampBlockEntity(pos, state);
     }
 
     @Override
     public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.getValue(BlockStateProperties.POWERED) ? 0 : 15;
+        return isActive(state) ? 15 : 0;
     }
 
     @Override
-    public void onPlace(BlockState pState, Level pLevel, BlockPos pPos, BlockState pOldState, boolean pIsMoving) {
-        super.onPlace(pState, pLevel, pPos, pOldState, pIsMoving);
-        Block lightBlockType = getType() == LightestLampBlock.Type.NORMAL ? ModBlocks.LIGHT_AIR.get() : ModBlocks.WATERLOGGABLE_LIGHT_AIR.get();
-        if (_tier == LightestLampBlock.Tier.ALPHA) tickAlphaLamp(pLevel, pPos, pState, _type, lightBlockType);
-        else if (_tier == LightestLampBlock.Tier.BETA) {tickBetaLamp(pLevel, pPos, pState, _type, lightBlockType); tickLamp(pLevel, pPos, pState, lightBlockType, _type, _tier.power);}
-        else if (_tier.ordinal() > 1) tickLamp(pLevel, pPos, pState, lightBlockType, _type, _tier.power);
+    protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
+        super.onPlace(state, level, pos, oldState, movedByPiston);
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        if (oldState.getBlock() != this) {
+            updateRedstoneState(serverLevel, pos, state);
+            LampLightManager.register(serverLevel, pos, serverLevel.getBlockState(pos));
+        } else {
+            LampLightManager.schedule(serverLevel, pos, 0);
+        }
     }
 
     @Override
-    public void destroy(LevelAccessor pLevel, BlockPos pPos, BlockState pState) {
-        super.destroy(pLevel, pPos, pState);
-        NormalLampBlockEntity.cleanLight((Level) pLevel,pPos,pState, _tier.power, true);
+    protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (state.getBlock() != newState.getBlock() && level instanceof ServerLevel serverLevel) {
+            LampLightManager.unregister(serverLevel, pos);
+        }
+        super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    @Override
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+        if (level instanceof ServerLevel serverLevel) {
+            updateRedstoneState(serverLevel, pos, state);
+        }
+    }
+
+    private void updateRedstoneState(ServerLevel level, BlockPos pos, BlockState state) {
+        if (profile.alwaysActive()) {
+            if (state.getValue(BlockStateProperties.POWERED)) {
+                level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, false), Block.UPDATE_CLIENTS);
+            }
+            LampLightManager.schedule(level, pos, 0);
+            return;
+        }
+        boolean powered = level.hasNeighborSignal(pos);
+        if (state.getValue(BlockStateProperties.POWERED) != powered) {
+            level.setBlock(pos, state.setValue(BlockStateProperties.POWERED, powered), Block.UPDATE_CLIENTS);
+        }
+        LampLightManager.schedule(level, pos, 0);
     }
 
     @Override
@@ -94,54 +146,55 @@ public class LightestLampBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
-        pTooltip.add(Component.translatable("tooltip.lightestlamp.type."+_tier.name().toLowerCase()).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
-        if (_tier.ordinal() > 4)
-            pTooltip.add(Component.translatable("tooltip.lightestlamp.always_active").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
-        else
-            pTooltip.add(Component.translatable("tooltip.lightestlamp.inverted").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
-        if (_tier.ordinal() > 1)
-            pTooltip.add(Component.translatable("tooltip.lightestlamp.penetration").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
-
-        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.translatable("tooltip.lightestlamp.type." + tier.name().toLowerCase()).withStyle(ChatFormatting.GRAY));
+        if (type == Type.UNDERWATER) {
+            tooltip.add(Component.translatable("tooltip.lightestlamp.underwater").withStyle(ChatFormatting.GRAY));
+        }
+        tooltip.add(Component.translatable(profile.alwaysActive()
+                ? "tooltip.lightestlamp.always_active"
+                : "tooltip.lightestlamp.inverted").withStyle(ChatFormatting.GRAY));
+        if (luminant) {
+            tooltip.add(Component.translatable("tooltip.lightestlamp.penetration").withStyle(ChatFormatting.AQUA));
+        }
+        super.appendHoverText(stack, context, tooltip, flag);
     }
 
-    /**
-     * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
-     * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
-     * Implementing/overriding is fine.
-     */
-    public RenderShape getRenderShape(BlockState pState) {
+    @Override
+    public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
 
     @Nullable
     @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
-        return pBlockEntityType == ModBlockEntities.NORMAL_LAMP_BE.get() ? NormalLampBlockEntity::tick : null;
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+        return null;
     }
 
-    public enum Tier{
+    public enum Tier {
         ALPHA(1),
         BETA(2),
-        GAMMA(2),
+        GAMMA(3),
         DELTA(4),
         EPSILON(5),
         ZETA(9, true),
-        ETA(11, true);
+        ETA(11, true),
+        OMEGA(15, true);
 
-        public final int power;
-        public final boolean always_active;
-        Tier(int power) {
-            this(power, false);
+        public final int extension;
+        public final boolean alwaysActive;
+
+        Tier(int extension) {
+            this(extension, false);
         }
-        Tier(int power, boolean always_active) {
-            this.power = power;
-            this.always_active = always_active;
+
+        Tier(int extension, boolean alwaysActive) {
+            this.extension = extension;
+            this.alwaysActive = alwaysActive;
         }
     }
 
-    public enum Type{
+    public enum Type {
         NORMAL,
         UNDERWATER
     }

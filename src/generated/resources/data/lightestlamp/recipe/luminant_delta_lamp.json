@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "lightestlamp:argon_tube_block"
+    },
+    "L": {
+      "item": "lightestlamp:luminant_gamma_lamp"
+    },
+    "T": {
+      "item": "lightestlamp:argon_tube"
+    }
+  },
+  "pattern": [
+    "TBT",
+    "BLB",
+    "TBT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:luminant_delta_lamp"
+  }
+}

@@ -34,6 +34,7 @@ public class ModLootTables extends BlockLootSubProvider {
 		this.dropSelf(ModBlocks.OCEAN_LANTERN.get());
 		this.dropSelf(ModBlocks.DEEP_OCEAN_LANTERN.get());
 		this.dropSelf(ModBlocks.ABYSSAL_LANTERN.get());
+		ModBlocks.LUMINANT_BLOCKS.forEach(block -> this.dropSelf(block.get()));
 		this.dropSelf(ModBlocks.ALCHEMICAL_LAMP.get());
 		this.dropSelf(ModBlocks.JUNGLE_LANTERN.get());
 		this.dropSelf(ModBlocks.NEON_TUBE_BLOCK.get());
