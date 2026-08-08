@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "lightestlamp:argon_tube"
+    }
+  },
+  "pattern": [
+    "TT",
+    "TT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:argon_tube_block"
+  }
+}

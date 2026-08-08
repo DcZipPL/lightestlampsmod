@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "R": {
+      "item": "lightestlamp:glass_tube"
+    },
+    "T": {
+      "item": "lightestlamp:neon_dust"
+    }
+  },
+  "pattern": [
+    " T ",
+    "TRT",
+    " T "
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:neon_tube"
+  }
+}

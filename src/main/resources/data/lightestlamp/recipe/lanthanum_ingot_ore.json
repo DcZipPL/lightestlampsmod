@@ -1,0 +1,12 @@
+{
+    "type": "minecraft:smelting",
+    "ingredient":
+    {
+        "item": "lightestlamp:lanthanum_ore"
+    },
+    "result":
+    {
+        "id": "lightestlamp:lanthanum_ingot",
+        "count": 1
+    }
+}

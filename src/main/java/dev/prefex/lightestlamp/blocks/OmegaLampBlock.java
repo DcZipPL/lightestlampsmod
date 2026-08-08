@@ -1,5 +1,6 @@
 package dev.prefex.lightestlamp.blocks;
 
+import com.mojang.serialization.MapCodec;
 import dev.prefex.lightestlamp.entities.OmegaLampBlockEntity;
 import dev.prefex.lightestlamp.init.ModBlockEntities;
 import dev.prefex.lightestlamp.init.ModBlocks;
@@ -8,6 +9,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -28,7 +30,12 @@ public class OmegaLampBlock extends BaseEntityBlock
 {
     public OmegaLampBlock()
     {
-        super(Block.Properties.copy(Blocks.GLOWSTONE));
+        super(Block.Properties.ofFullCopy(Blocks.GLOWSTONE));
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return MapCodec.unit(this);
     }
 
     @Override
@@ -44,11 +51,11 @@ public class OmegaLampBlock extends BaseEntityBlock
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @org.jetbrains.annotations.Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
         pTooltip.add(Component.translatable("tooltip.lightestlamp.type.omega").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         pTooltip.add(Component.translatable("tooltip.lightestlamp.penetration").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         pTooltip.add(Component.translatable("tooltip.lightestlamp.always_active").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
     }
 
     @org.jetbrains.annotations.Nullable

@@ -1,0 +1,7 @@
+{
+  "neoforge:conditions": [{ "type": "neoforge:mod_loaded", "modid": "create" }],
+  "type": "create:crushing",
+  "ingredients": [{ "tag": "c:raw_materials/lanthanum" }],
+  "processing_time": 400,
+  "results": [{ "count": 2, "id": "lightestlamp:lanthanum_dust" }]
+}

@@ -8,6 +8,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -58,8 +59,8 @@ public class JungleLanternBlock extends Block implements SimpleWaterloggedBlock
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
+        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
         pTooltip.add(Component.translatable("tooltip.lightestlamp.speed_grow").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
     }
 
@@ -101,9 +102,9 @@ public class JungleLanternBlock extends Block implements SimpleWaterloggedBlock
         if (cbs.getBlock() instanceof CropBlock){
             int i = ((CropBlock) cbs.getBlock()).getAge(cbs);
             if (i < ((CropBlock) cbs.getBlock()).getMaxAge()) {
-                if (net.minecraftforge.common.ForgeHooks.onCropsGrowPre(pLevel, pPos, pState, true)) {
+                if (net.neoforged.neoforge.common.CommonHooks.canCropGrow(pLevel, pPos, pState, true)) {
                     pLevel.setBlock(pPos, ((CropBlock) cbs.getBlock()).getStateForAge(i + 1), 2);
-                    net.minecraftforge.common.ForgeHooks.onCropsGrowPost(pLevel, pPos, pState);
+                    net.neoforged.neoforge.common.CommonHooks.fireCropGrowPost(pLevel, pPos, pState);
                 }
             }
         }

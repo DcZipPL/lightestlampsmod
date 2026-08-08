@@ -1,5 +1,6 @@
 package dev.prefex.lightestlamp.machine.gascentrifuge;
 
+import com.mojang.serialization.MapCodec;
 import dev.prefex.lightestlamp.init.ModBlockEntities;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -7,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -14,6 +16,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -21,7 +24,6 @@ import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -34,9 +36,16 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 @ParametersAreNonnullByDefault
 public class GasCentrifugeBlock extends BaseEntityBlock
 {
+    public static final MapCodec<GasCentrifugeBlock> CODEC = simpleCodec(GasCentrifugeBlock::new);
+
     public GasCentrifugeBlock(Block.Properties builder) {
         super(builder);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, Boolean.FALSE));
+    }
+
+    @Override
+    protected MapCodec<? extends GasCentrifugeBlock> codec() {
+        return CODEC;
     }
 
     @Nullable
@@ -45,13 +54,13 @@ public class GasCentrifugeBlock extends BaseEntityBlock
         return new GasCentrifugeBlockEntity(pPos, pState);
     }
 
-    public InteractionResult use(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+    protected InteractionResult useWithoutItem(BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, BlockHitResult pHit) {
         if (pLevel.isClientSide) {
             return InteractionResult.SUCCESS;
         } else {
             BlockEntity blockentity = pLevel.getBlockEntity(pPos);
             if (blockentity instanceof GasCentrifugeBlockEntity) {
-                NetworkHooks.openScreen((ServerPlayer) pPlayer,(MenuProvider)blockentity, pPos);
+                pPlayer.openMenu((MenuProvider) blockentity, pPos);
                 pPlayer.awardStat(Stats.INTERACT_WITH_FURNACE);
             }
             return InteractionResult.CONSUME;
@@ -61,19 +70,17 @@ public class GasCentrifugeBlock extends BaseEntityBlock
         return this.defaultBlockState().setValue(FACING, pContext.getHorizontalDirection().getOpposite());
     }
 
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
+        Component customName = stack.get(DataComponents.CUSTOM_NAME);
+        if (customName != null && level.getBlockEntity(pos) instanceof GasCentrifugeBlockEntity blockEntity) {
+            blockEntity.setCustomName(customName);
+        }
+    }
+
     /**
      * Called by BlockItem after this block has been placed.
      */
-    public void setPlacedBy(Level pLevel, BlockPos pPos, BlockState pState, LivingEntity pPlacer, ItemStack pStack) {
-        if (pStack.hasCustomHoverName()) {
-            BlockEntity blockentity = pLevel.getBlockEntity(pPos);
-            if (blockentity instanceof GasCentrifugeBlockEntity) {
-                ((GasCentrifugeBlockEntity)blockentity).setCustomName(pStack.getHoverName());
-            }
-        }
-
-    }
-
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (!pState.is(pNewState.getBlock())) {
             BlockEntity blockentity = pLevel.getBlockEntity(pPos);

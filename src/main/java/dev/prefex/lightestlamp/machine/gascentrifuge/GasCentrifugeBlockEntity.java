@@ -8,12 +8,10 @@ import dev.prefex.lightestlamp.init.ModItems;
 import dev.prefex.lightestlamp.init.ModMiscs;
 import dev.prefex.lightestlamp.items.FilterItem;
 import dev.prefex.lightestlamp.util.CustomEnergyStorage;
-import io.netty.buffer.Unpooled;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
@@ -29,6 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
@@ -37,16 +36,15 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.Tags;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Map;
-import java.util.Random;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -63,12 +61,37 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	}
 
 	public GasCentrifugeBlockEntity(BlockPos pos, BlockState state) {this(ModBlockEntities.CENTRIFUGE_BE.get(), pos, state);}
+	@Nullable
+	private Component customName;
+
+	public void setCustomName(Component customName) {
+		this.customName = customName;
+	}
+
+	@Override
+	public Component getName() {
+		return customName != null ? customName : getDefaultName();
+	}
+
+	@Override
+	@Nullable
+	public Component getCustomName() {
+		return customName;
+	}
+
+	@Override
+	protected NonNullList<ItemStack> getItems() {
+		return items;
+	}
+
+	@Override
+	protected void setItems(NonNullList<ItemStack> items) {
+		this.items = items;
+	}
 
 	@Override
 	protected AbstractContainerMenu createMenu(int pContainerId, Inventory pInventory) {
-		FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer(8,8));
-		buffer.writeBlockPos(worldPosition);
-		return new GasCentrifugeMenu(ModMiscs.GAS_CENTRIFUGE.get(),pContainerId, pInventory, this, this.furnaceData, buffer);
+		return new GasCentrifugeMenu(ModMiscs.GAS_CENTRIFUGE.get(), pContainerId, pInventory, this, this.furnaceData, worldPosition);
 	}
 
 	public static final int MAX_IN = 164;
@@ -84,7 +107,10 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	private int cookTimeTotal;
 	private int redstoneMode;
 	private int liquidMode;
-	public LazyOptional<CustomEnergyStorage> energyStorage = LazyOptional.of(()->new CustomEnergyStorage(1600 * magic, MAX_IN));
+	private final CustomEnergyStorage energyStorage = new CustomEnergyStorage(1600 * magic, MAX_IN);
+	private final SidedInvWrapper inputHandler = new SidedInvWrapper(this, Direction.UP);
+	private final SidedInvWrapper outputHandler = new SidedInvWrapper(this, Direction.DOWN);
+	private final SidedInvWrapper sideHandler = new SidedInvWrapper(this, Direction.NORTH);
 	public final ContainerData furnaceData = new ContainerData() {
 		@Override
 		public int get(int index) {
@@ -140,7 +166,17 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	}
 
 	public CustomEnergyStorage getEnergyStorage(){
-		return this.energyStorage.orElse(new CustomEnergyStorage(1600,0));
+		return this.energyStorage;
+	}
+
+	public IItemHandler getItemHandler(@Nullable Direction side) {
+		if (side == Direction.UP) {
+			return inputHandler;
+		}
+		if (side == Direction.DOWN) {
+			return outputHandler;
+		}
+		return sideHandler;
 	}
 
 	public static Map<Item, Integer> addedCentrifugables = Maps.newLinkedHashMap();
@@ -150,7 +186,8 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		int multiplier = Config.GLOWSTONE_FUEL_MULTIPLIER.get() >= 2 ? Config.GLOWSTONE_FUEL_MULTIPLIER.get() : 2;
 		// TODO: Add mod compat
 
-		ForgeRegistries.ITEMS.tags().getTag(Util.getCentrifugablesTag()).forEach(item -> {
+		BuiltInRegistries.ITEM.getTagOrEmpty(Util.getCentrifugablesTag()).forEach(holder -> {
+			Item item = holder.value();
 			if (item == Blocks.GLOWSTONE.asItem())
 				add(map, Blocks.GLOWSTONE, 160*multiplier);
 			else if (item == Blocks.SHROOMLIGHT.asItem())
@@ -168,8 +205,8 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	}
 
 	private static void add(Map<Item, Integer> pMap, TagKey<Item> pItemTag, int pBurnTime) {
-		for(Item item : ForgeRegistries.ITEMS.tags().getTag(pItemTag)) {
-			pMap.put(item, pBurnTime);
+		for (var holder : BuiltInRegistries.ITEM.getTagOrEmpty(pItemTag)) {
+			pMap.put(holder.value(), pBurnTime);
 		}
 
 	}
@@ -183,43 +220,36 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	}
 
 	@Override
-	protected void saveAdditional(@NotNull CompoundTag pTag) {
-		super.saveAdditional(pTag);
-		saveInternal(pTag);
+	protected void saveAdditional(@NotNull CompoundTag pTag, HolderLookup.Provider registries) {
+		super.saveAdditional(pTag, registries);
+		saveInternal(pTag, registries);
 	}
 
-	private void saveInternal(CompoundTag pTag){
+	private void saveInternal(CompoundTag pTag, HolderLookup.Provider registries){
+		if (customName != null) {
+			pTag.putString("CustomName", Component.Serializer.toJson(customName, registries));
+		}
 		pTag.putInt("BurnTime", this.burnTime);
 		pTag.putInt("CookTime", this.cookTime);
 		pTag.putInt("CookTimeTotal", this.cookTimeTotal);
 		pTag.putInt("RedstoneMode", this.redstoneMode);
 		pTag.putInt("LiquidMode", this.liquidMode);
 		pTag.putInt("Power",this.getEnergyStorage().getEnergyStored());
-		ContainerHelper.saveAllItems(pTag, this.items);
+		ContainerHelper.saveAllItems(pTag, this.items, registries);
 	}
 
 	@Override
-	public CompoundTag serializeNBT() {
-		CompoundTag nbt = super.serializeNBT();
-		saveInternal(nbt);
-		return nbt;
+	protected void loadAdditional(@NotNull CompoundTag pTag, HolderLookup.Provider registries) {
+		super.loadAdditional(pTag, registries);
+		loadInternal(pTag, registries);
 	}
 
-	@Override
-	public void load(@NotNull CompoundTag pTag) {
-		super.load(pTag);
-		loadInternal(pTag);
-	}
-
-	@Override
-	public void deserializeNBT(CompoundTag nbt) {
-		super.deserializeNBT(nbt);
-		loadInternal(nbt);
-	}
-
-	private void loadInternal(CompoundTag nbt) {
+	private void loadInternal(CompoundTag nbt, HolderLookup.Provider registries) {
+		customName = nbt.contains("CustomName", Tag.TAG_STRING)
+				? BlockEntity.parseCustomNameSafe(nbt.getString("CustomName"), registries)
+				: null;
 		this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-		ContainerHelper.loadAllItems(nbt, this.items);
+		ContainerHelper.loadAllItems(nbt, this.items, registries);
 		this.burnTime = nbt.getInt("BurnTime");
 		this.cookTime = nbt.getInt("CookTime");
 		this.cookTimeTotal = nbt.getInt("CookTimeTotal");
@@ -232,7 +262,11 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		GasCentrifugeBlockEntity blockEntity = (GasCentrifugeBlockEntity) pBlockEntity;
 		boolean flag = blockEntity.isBurning();
 		boolean flag1 = false;
-		GasCentrifugeRecipe recipe = pLevel.getRecipeManager().getRecipeFor((RecipeType<GasCentrifugeRecipe>)ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get(), blockEntity, pLevel).orElse(null);
+		GasCentrifugeRecipe.Input recipeInput = new GasCentrifugeRecipe.Input(blockEntity.items.get(0), blockEntity.items.get(1));
+		GasCentrifugeRecipe recipe = pLevel.getRecipeManager()
+				.getRecipeFor(ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get(), recipeInput, pLevel)
+				.map(RecipeHolder::value)
+				.orElse(null);
 
 		// Decrease burn time
 		if (blockEntity.isBurning() && blockEntity.canSmelt(recipe)) {
@@ -312,13 +346,15 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 			} else {
 				ItemStack[] itemstacks1 = new ItemStack[] {this.items.get(2),this.items.get(3),this.items.get(4),this.items.get(5)};
 				boolean[] output0 = new boolean[] {true,true,true,true};
-				for (int i = 0; i < itemstacks.length-1; i++)
+				for (int i = 0; i < itemstacks.length; i++)
 				{
 					ItemStack itemstack = itemstacks[i];
 					ItemStack itemstack1 = itemstacks1[i];
-					if (itemstack1.isEmpty()) {
+					if (itemstack.isEmpty()) {
+						output0[i] = true;
+					} else if (itemstack1.isEmpty()) {
 						output0[i] =  true;
-					} else if (!ItemStack.isSameItem(itemstack1, itemstack)) {
+					} else if (!ItemStack.isSameItemSameComponents(itemstack1, itemstack)) {
 						output0[i] =  false;
 					} else if (itemstack1.getCount() + itemstack.getCount() <= getMaxStackSize() && itemstack1.getCount() + itemstack.getCount() <= itemstack1.getMaxStackSize()) {
 						// Forge fix: make furnace respect stack sizes in furnace recipes
@@ -365,28 +401,17 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 				itemstack5.grow(itemstacks[3].getCount());
 			}
 
-			int unbreaking_lvl = 0;
-			for (Tag enchantment : itemstack.getEnchantmentTags())
-			{
-				if (((CompoundTag) enchantment).getString("id").equals("minecraft:unbreaking"))
-					unbreaking_lvl = ((CompoundTag)enchantment).getShort("lvl");
+			if (level instanceof net.minecraft.server.level.ServerLevel serverLevel) {
+				int damage = net.minecraft.world.item.enchantment.EnchantmentHelper.processDurabilityChange(serverLevel, itemstack, 1);
+				itemstack.setDamageValue(itemstack.getDamageValue() + damage);
 			}
-
-			itemstack.setDamageValue(itemstack.getDamageValue()+
-					(
-							unbreaking_lvl==0
-									?
-									1
-									:
-									(new Random().nextInt(unbreaking_lvl+1)==1?1:0)
-					));
 
 			if (itemstack.getDamageValue() >= itemstack.getMaxDamage())
 				this.items.set(0, ItemStack.EMPTY);
 		}
 	}
 
-	protected int getBurnTime(ItemStack stack) {
+	protected static int getBurnTime(ItemStack stack) {
 		if (stack.isEmpty()) {
 			return 0;
 		} else {
@@ -395,7 +420,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		}
 	}
 
-	public boolean isFuel(ItemStack stack) {
+	public static boolean isFuel(ItemStack stack) {
 		return getBurnTime(stack) > 0;
 	}
 
@@ -463,7 +488,7 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 	 */
 	public void setItem(int pIndex, ItemStack pStack) {
 		ItemStack itemstack = this.items.get(pIndex);
-		boolean flag = !pStack.isEmpty() && ItemStack.isSameItemSameTags(itemstack, pStack);
+		boolean flag = !pStack.isEmpty() && ItemStack.isSameItemSameComponents(itemstack, pStack);
 		this.items.set(pIndex, pStack);
 		if (pStack.getCount() > this.getMaxStackSize()) {
 			pStack.setCount(this.getMaxStackSize());
@@ -500,25 +525,6 @@ public class GasCentrifugeBlockEntity extends BaseContainerBlockEntity implement
 		} else {
 			return false;
 		}
-	}
-
-	net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
-			net.minecraftforge.items.wrapper.SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
-
-	@Override
-	public <T> net.minecraftforge.common.util.@NotNull LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable Direction facing) {
-		if (!this.remove && facing != null && capability == ForgeCapabilities.ITEM_HANDLER) {
-			if (facing == Direction.UP)
-				return handlers[0].cast();
-			else if (facing == Direction.DOWN)
-				return handlers[1].cast();
-			else
-				return handlers[2].cast();
-		}
-		if (!this.remove && facing != null && capability == ForgeCapabilities.ENERGY) {
-			return energyStorage.cast();
-		}
-		return super.getCapability(capability, facing);
 	}
 
 	@Override

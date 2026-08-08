@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "lightestlamp:carbon_nanotube"
+    }
+  },
+  "pattern": [
+    "NN",
+    "NN"
+  ],
+  "result": {
+    "count": 16,
+    "id": "lightestlamp:vanta_black"
+  }
+}

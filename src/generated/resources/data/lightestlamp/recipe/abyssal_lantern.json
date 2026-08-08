@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "H": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "L": {
+      "item": "lightestlamp:deep_ocean_lantern"
+    },
+    "R": {
+      "item": "lightestlamp:xenon_tube_block"
+    }
+  },
+  "pattern": [
+    "RHR",
+    "HLH",
+    "RHR"
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:abyssal_lantern"
+  }
+}

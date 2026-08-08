@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "lightestlamp:radon_tube_block"
+    },
+    "L": {
+      "item": "lightestlamp:eta_lamp"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "BLB",
+    "LSL",
+    "BLB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:omega_lamp"
+  }
+}

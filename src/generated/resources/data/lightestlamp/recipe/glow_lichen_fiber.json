@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:glow_lichen"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:glow_lichen_fiber"
+  }
+}

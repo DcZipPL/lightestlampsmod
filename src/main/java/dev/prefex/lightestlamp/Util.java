@@ -11,7 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.core.registries.Registries;
 
 import java.util.List;
 
@@ -20,8 +20,7 @@ public class Util
     public static final String MOD_ID = "lightestlamp";
 
     public static TagKey<Item> getCentrifugablesTag() {
-        var tagManager = ForgeRegistries.ITEMS.tags();
-        return tagManager.createTagKey(new ResourceLocation("lightestlamp:centrifugable_for_glowing_dust"));
+        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "centrifugable_for_glowing_dust"));
     }
 
     public static void repelEntitiesInAABBFromPoint(Level world, AABB effectBounds, double x, double y, double z, boolean ignore)

@@ -1,0 +1,8 @@
+{
+  "neoforge:conditions": [{ "type": "neoforge:mod_loaded", "modid": "modern_industrialization" }],
+  "type": "modern_industrialization:macerator",
+  "duration": 100,
+  "eu": 2,
+  "item_inputs": [{ "amount": 1, "tag": "c:ingots/lanthanum" }],
+  "item_outputs": [{ "amount": 1, "item": "lightestlamp:lanthanum_dust" }]
+}

@@ -1,50 +1,36 @@
 package dev.prefex.lightestlamp.util.network;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.network.NetworkEvent;
+import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeBlockEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.function.Supplier;
+public record PacketButtonRedstone(BlockPos pos) implements CustomPacketPayload {
+    public static final Type<PacketButtonRedstone> TYPE = new Type<>(
+            ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "button_redstone"));
+    public static final StreamCodec<RegistryFriendlyByteBuf, PacketButtonRedstone> STREAM_CODEC = StreamCodec.composite(
+            BlockPos.STREAM_CODEC, PacketButtonRedstone::pos, PacketButtonRedstone::new);
 
-public class PacketButtonRedstone
-{
-    private final BlockPos pos;
-    private final int type;
-
-    public PacketButtonRedstone(FriendlyByteBuf buf)
-    {
-        pos = buf.readBlockPos();
-        type = buf.readInt();
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
-    public PacketButtonRedstone(BlockPos pos, int type)
-    {
-        this.pos = pos;
-        this.type = type;
-    }
+    static void handle(PacketButtonRedstone payload, IPayloadContext context) {
+        if (!(context.player() instanceof ServerPlayer player)
+                || !player.level().hasChunkAt(payload.pos)
+                || !payload.pos.closerToCenterThan(player.position(), 8.0)) {
+            return;
+        }
 
-    public void toBytes(FriendlyByteBuf buf)
-    {
-        buf.writeBlockPos(pos);
-        buf.writeInt(type);
-    }
-
-    public void handle(Supplier<NetworkEvent.Context> ctx)
-    {
-        ctx.get().enqueueWork(() ->
-        {
-            BlockEntity be = ctx.get().getSender().getCommandSenderWorld().getBlockEntity(pos);
-            if (be instanceof GasCentrifugeBlockEntity)
-            {
-                GasCentrifugeBlockEntity gbe = ((GasCentrifugeBlockEntity) be);
-                if (gbe.getRedstoneMode()>=2)
-                    gbe.setRedstoneMode(0);
-                else
-                    gbe.setRedstoneMode(gbe.getRedstoneMode()+1);
-            }
-        });
-        ctx.get().setPacketHandled(true);
+        if (player.level().getBlockEntity(payload.pos) instanceof GasCentrifugeBlockEntity blockEntity) {
+            blockEntity.setRedstoneMode((blockEntity.getRedstoneMode() + 1) % 3);
+            blockEntity.setChanged();
+        }
     }
 }

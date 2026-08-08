@@ -5,6 +5,8 @@ import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModItems;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeRecipe;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -17,23 +19,23 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public class ModRecipeProvider extends RecipeProvider {
 
-	public ModRecipeProvider(PackOutput pOutput) {
-		super(pOutput);
+	public ModRecipeProvider(PackOutput pOutput, CompletableFuture<HolderLookup.Provider> registries) {
+		super(pOutput, registries);
 	}
 
 	@Override
-	protected void buildRecipes(Consumer<FinishedRecipe> pWriter) {
-		TagKey<Item> lanthanum_ingot = ItemTags.create(new ResourceLocation("forge","ingots/lanthanum"));
-		TagKey<Item> lanthanum_nugget = ItemTags.create(new ResourceLocation("forge","nuggets/lanthanum"));
+	protected void buildRecipes(RecipeOutput pWriter) {
+		TagKey<Item> lanthanum_ingot = ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "ingots/lanthanum"));
+		TagKey<Item> lanthanum_nugget = ItemTags.create(ResourceLocation.fromNamespaceAndPath("c", "nuggets/lanthanum"));
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ABYSSAL_LANTERN.get())
 				.define('L', ModBlocks.DEEP_OCEAN_LANTERN.get())
@@ -273,7 +275,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
 		ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.GLOW_LICHEN_FIBER.get())
 				.requires(Items.GLOW_LICHEN)
-				.unlockedBy("has_"+ForgeRegistries.ITEMS.getKey(Items.GLOW_LICHEN).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
+				.unlockedBy("has_"+BuiltInRegistries.ITEM.getKey(Items.GLOW_LICHEN).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 						.of(Items.GLOW_LICHEN)
 						.build()))
 				.save(pWriter);
@@ -303,7 +305,7 @@ public class ModRecipeProvider extends RecipeProvider {
 					.define('D', d)
 					.pattern("DD")
 					.pattern("DD")
-					.unlockedBy("has_"+ Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(d)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
+					.unlockedBy("has_"+ Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(d)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 							.of(d)
 							.build()))
 					.save(pWriter);
@@ -322,7 +324,7 @@ public class ModRecipeProvider extends RecipeProvider {
 					.define('T', t)
 					.pattern("TT")
 					.pattern("TT")
-					.unlockedBy("has_"+ Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(t)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
+					.unlockedBy("has_"+ Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(t)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 							.of(t)
 							.build()))
 					.save(pWriter);
@@ -383,7 +385,7 @@ public class ModRecipeProvider extends RecipeProvider {
 		_pileToDustMap.forEach((i,o)->{
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, o)
 					.requires(i,4)
-					.unlockedBy("has_"+Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
+					.unlockedBy("has_"+Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(i)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 							.of(lanthanum_ingot)
 							.build()))
 					.save(pWriter);
@@ -394,7 +396,7 @@ public class ModRecipeProvider extends RecipeProvider {
 		_pileToDustMap.forEach((o,i)->{
 			ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, o,4)
 					.requires(i)
-					.unlockedBy("has_"+Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(i)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
+					.unlockedBy("has_"+Objects.requireNonNull(BuiltInRegistries.ITEM.getKey(i)).getPath(), inventoryTrigger(ItemPredicate.Builder.item()
 							.of(lanthanum_ingot)
 							.build()))
 					.save(pWriter);

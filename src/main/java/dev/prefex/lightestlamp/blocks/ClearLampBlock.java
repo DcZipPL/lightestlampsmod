@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 
 public class ClearLampBlock extends Block {
 	public ClearLampBlock(BlockBehaviour.Properties properties){
-		super(Properties.copy(Blocks.GLOWSTONE));
+		super(Properties.ofFullCopy(Blocks.GLOWSTONE));
 		this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.POWERED, Boolean.FALSE));
 	}
 

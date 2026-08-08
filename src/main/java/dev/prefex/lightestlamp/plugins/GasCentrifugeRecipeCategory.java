@@ -6,6 +6,7 @@ import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.drawable.IDrawable;
+import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.RecipeIngredientRole;
@@ -28,8 +29,20 @@ public record GasCentrifugeRecipeCategory(IGuiHelper guiHelper) implements IReci
     }
 
     @Override
-    public @NotNull IDrawable getBackground() {
-        return guiHelper.createDrawable(new ResourceLocation(Util.MOD_ID,"textures/gui/container/gas_centrifuge.png"),8,8,142,70);
+    public int getWidth() {
+        return 142;
+    }
+
+    @Override
+    public int getHeight() {
+        return 70;
+    }
+
+    @Override
+    public void createRecipeExtras(IRecipeExtrasBuilder builder, GasCentrifugeRecipe recipe, IFocusGroup focuses) {
+        builder.addDrawable(guiHelper.createDrawable(
+                ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "textures/gui/container/gas_centrifuge.png"),
+                8, 8, 142, 70), 0, 0);
     }
 
     @Override
@@ -49,7 +62,7 @@ public record GasCentrifugeRecipeCategory(IGuiHelper guiHelper) implements IReci
 
     @Override
     public @NotNull ResourceLocation getRegistryName(GasCentrifugeRecipe recipe) {
-        return new ResourceLocation(Util.MOD_ID, GAS_CENTRIFUGE);
+        return ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, GAS_CENTRIFUGE);
     }
 
     /*

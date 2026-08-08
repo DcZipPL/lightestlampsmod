@@ -1,5 +1,6 @@
 package dev.prefex.lightestlamp.blocks;
 
+import com.mojang.serialization.MapCodec;
 import dev.prefex.lightestlamp.init.ModBlockEntities;
 import dev.prefex.lightestlamp.init.ModBlocks;
 import net.minecraft.ChatFormatting;
@@ -9,6 +10,7 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -43,10 +45,15 @@ public class LightestLampBlock extends BaseEntityBlock {
     }
 
     public LightestLampBlock(Type type, Tier tier){
-        super(Properties.copy(Blocks.GLOWSTONE));
+        super(Properties.ofFullCopy(Blocks.GLOWSTONE));
         this.registerDefaultState(this.stateDefinition.any().setValue(BlockStateProperties.POWERED, Boolean.FALSE));
         _type = type;
         _tier = tier;
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return MapCodec.unit(this);
     }
 
     @Override
@@ -87,7 +94,7 @@ public class LightestLampBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void appendHoverText(ItemStack pStack, @Nullable BlockGetter pLevel, List<Component> pTooltip, TooltipFlag pFlag) {
+    public void appendHoverText(ItemStack pStack, Item.TooltipContext pContext, List<Component> pTooltip, TooltipFlag pFlag) {
         pTooltip.add(Component.translatable("tooltip.lightestlamp.type."+_tier.name().toLowerCase()).setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
         if (_tier.ordinal() > 4)
             pTooltip.add(Component.translatable("tooltip.lightestlamp.always_active").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
@@ -96,7 +103,7 @@ public class LightestLampBlock extends BaseEntityBlock {
         if (_tier.ordinal() > 1)
             pTooltip.add(Component.translatable("tooltip.lightestlamp.penetration").setStyle(Style.EMPTY.withColor(ChatFormatting.GRAY)));
 
-        super.appendHoverText(pStack, pLevel, pTooltip, pFlag);
+        super.appendHoverText(pStack, pContext, pTooltip, pFlag);
     }
 
     /**

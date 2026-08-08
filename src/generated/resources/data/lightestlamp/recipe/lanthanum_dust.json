@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lightestlamp:lanthanum_pile"
+    },
+    {
+      "item": "lightestlamp:lanthanum_pile"
+    },
+    {
+      "item": "lightestlamp:lanthanum_pile"
+    },
+    {
+      "item": "lightestlamp:lanthanum_pile"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:lanthanum_dust"
+  }
+}

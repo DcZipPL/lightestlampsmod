@@ -1,56 +1,55 @@
 package dev.prefex.lightestlamp.machine.gascentrifuge;
 
-import com.google.common.collect.Lists;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.prefex.lightestlamp.init.ModMiscs;
-import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.Container;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeInput;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@MethodsReturnNonnullByDefault
-public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, List<ItemStack> output, ResourceLocation id) implements Recipe<Container> {
-
-    public boolean matches(Container pInv, Level pLevel) {
-        return this.filter.test(pInv.getItem(0)) && this.input.test(pInv.getItem(1));
+public record GasCentrifugeRecipe(
+        Ingredient filter,
+        Ingredient input,
+        ItemStack first,
+        ItemStack second,
+        ItemStack third,
+        ItemStack fourth
+) implements Recipe<GasCentrifugeRecipe.Input> {
+    @Override
+    public boolean matches(Input input, Level level) {
+        return filter.test(input.filter()) && this.input.test(input.fuel());
     }
 
-    /**
-     * Returns nothing. See assemble() with array.
-     */
     @Override
-    @Deprecated
-    public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
-        return ItemStack.EMPTY;
+    public ItemStack assemble(Input input, HolderLookup.Provider registries) {
+        return first.copy();
     }
 
     public ItemStack[] assemble() {
-        return this.output.stream().map(ItemStack::copy).toArray(ItemStack[]::new);
+        return output().stream().map(ItemStack::copy).toArray(ItemStack[]::new);
     }
 
-    /**
-     * Used to determine if this recipe can fit in a grid of the given width/height
-     */
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
+    public List<ItemStack> output() {
+        return List.of(first, second, third, fourth);
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
         return true;
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
-        return null;
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return id;
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
+        return first.copy();
     }
 
     @Override
@@ -63,46 +62,50 @@ public record GasCentrifugeRecipe(Ingredient filter, Ingredient input, List<Item
         return ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get();
     }
 
-    public static class Serializer implements RecipeSerializer<GasCentrifugeRecipe> {
-        private ItemStack orEmpty(JsonObject pJson, String pMemberName){
-            ItemStack o = ItemStack.EMPTY;
-            try {
-                o = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(pJson, pMemberName));
-            }catch(Exception ignored){}
-            return o;
+    public record Input(ItemStack filter, ItemStack fuel) implements RecipeInput {
+        @Override
+        public ItemStack getItem(int index) {
+            return switch (index) {
+                case 0 -> filter;
+                case 1 -> fuel;
+                default -> throw new IndexOutOfBoundsException(index);
+            };
         }
 
         @Override
-        public GasCentrifugeRecipe fromJson(ResourceLocation pRecipeId, JsonObject pJson) {
-            Ingredient f = Ingredient.fromJson(GsonHelper.getAsJsonObject(pJson, "filter"));
-            Ingredient i = Ingredient.fromJson(GsonHelper.getAsJsonObject(pJson, "input"));
-            ItemStack o0 = orEmpty(pJson,"first");
-            ItemStack o1 = orEmpty(pJson,"second");
-            ItemStack o2 = orEmpty(pJson,"third");
-            ItemStack o3 = orEmpty(pJson,"fourth");
-            return new GasCentrifugeRecipe(f,i, Lists.newArrayList(o0,o1,o2,o3),pRecipeId);
+        public int size() {
+            return 2;
+        }
+    }
+
+    public static final class Serializer implements RecipeSerializer<GasCentrifugeRecipe> {
+        private static final MapCodec<GasCentrifugeRecipe> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+                Ingredient.CODEC_NONEMPTY.fieldOf("filter").forGetter(GasCentrifugeRecipe::filter),
+                Ingredient.CODEC_NONEMPTY.fieldOf("input").forGetter(GasCentrifugeRecipe::input),
+                ItemStack.OPTIONAL_CODEC.optionalFieldOf("first", ItemStack.EMPTY).forGetter(GasCentrifugeRecipe::first),
+                ItemStack.OPTIONAL_CODEC.optionalFieldOf("second", ItemStack.EMPTY).forGetter(GasCentrifugeRecipe::second),
+                ItemStack.OPTIONAL_CODEC.optionalFieldOf("third", ItemStack.EMPTY).forGetter(GasCentrifugeRecipe::third),
+                ItemStack.OPTIONAL_CODEC.optionalFieldOf("fourth", ItemStack.EMPTY).forGetter(GasCentrifugeRecipe::fourth)
+        ).apply(instance, GasCentrifugeRecipe::new));
+
+        private static final StreamCodec<RegistryFriendlyByteBuf, GasCentrifugeRecipe> STREAM_CODEC = StreamCodec.composite(
+                Ingredient.CONTENTS_STREAM_CODEC, GasCentrifugeRecipe::filter,
+                Ingredient.CONTENTS_STREAM_CODEC, GasCentrifugeRecipe::input,
+                ItemStack.OPTIONAL_STREAM_CODEC, GasCentrifugeRecipe::first,
+                ItemStack.OPTIONAL_STREAM_CODEC, GasCentrifugeRecipe::second,
+                ItemStack.OPTIONAL_STREAM_CODEC, GasCentrifugeRecipe::third,
+                ItemStack.OPTIONAL_STREAM_CODEC, GasCentrifugeRecipe::fourth,
+                GasCentrifugeRecipe::new
+        );
+
+        @Override
+        public MapCodec<GasCentrifugeRecipe> codec() {
+            return CODEC;
         }
 
-        @Nullable
         @Override
-        public GasCentrifugeRecipe fromNetwork(ResourceLocation pRecipeId, FriendlyByteBuf pBuffer) {
-            Ingredient f = Ingredient.fromNetwork(pBuffer);
-            Ingredient i = Ingredient.fromNetwork(pBuffer);
-            ItemStack o0 = pBuffer.readItem();
-            ItemStack o1 = pBuffer.readItem();
-            ItemStack o2 = pBuffer.readItem();
-            ItemStack o3 = pBuffer.readItem();
-            return new GasCentrifugeRecipe(f,i,Lists.newArrayList(o0,o1,o2,o3),pRecipeId);
-        }
-
-        @Override
-        public void toNetwork(FriendlyByteBuf pBuffer, GasCentrifugeRecipe pRecipe) {
-            pRecipe.filter.toNetwork(pBuffer);
-            pRecipe.input.toNetwork(pBuffer);
-            pBuffer.writeItem(pRecipe.output.get(0));
-            pBuffer.writeItem(pRecipe.output.get(1));
-            pBuffer.writeItem(pRecipe.output.get(2));
-            pBuffer.writeItem(pRecipe.output.get(3));
+        public StreamCodec<RegistryFriendlyByteBuf, GasCentrifugeRecipe> streamCodec() {
+            return STREAM_CODEC;
         }
     }
 }

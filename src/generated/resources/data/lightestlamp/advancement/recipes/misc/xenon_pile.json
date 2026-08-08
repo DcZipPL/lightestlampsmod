@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "lightestlamp:xenon_pile"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_xenon_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/lanthanum"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_xenon_dust"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "lightestlamp:xenon_pile"
+    ]
+  }
+}

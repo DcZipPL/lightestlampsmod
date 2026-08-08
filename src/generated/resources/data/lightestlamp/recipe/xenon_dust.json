@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lightestlamp:xenon_pile"
+    },
+    {
+      "item": "lightestlamp:xenon_pile"
+    },
+    {
+      "item": "lightestlamp:xenon_pile"
+    },
+    {
+      "item": "lightestlamp:xenon_pile"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:xenon_dust"
+  }
+}

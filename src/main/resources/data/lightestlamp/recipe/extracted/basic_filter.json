@@ -1,0 +1,24 @@
+{
+	"type": "lightestlamp:glowstone_centrifuge",
+	"_": "WARNING: 'input' field is hardcoded. You can add 'fuel' type by using lightestlamp:centrifugable_for_glowing_dust tag!",
+	"filter":
+	{
+		"item": "lightestlamp:basic_filter"
+	},
+	"input":
+	{
+		"tag": "lightestlamp:centrifugable_for_glowing_dust"
+	},
+	"first":
+	{
+		"id": "lightestlamp:neon_dust"
+	},
+	"second":
+	{
+		"id": "lightestlamp:argon_dust"
+	},
+	"third":
+	{
+		"id": "lightestlamp:krypton_pile"
+	}
+}

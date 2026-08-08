@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-30T18:51:09.0906635	Block States: lightestlamp
+// 1.21.1	2026-08-08T15:01:42.772346073	Block States: lightestlamp
 a7fcdff24d9efa2456f60e8c99a925fa11afa259 assets/lightestlamp/blockstates/abyssal_lantern.json
 93932d6650fd6a3ebfc4cc5185a2b8b1f54ffaee assets/lightestlamp/blockstates/alchemical_lamp.json
 c742c31c40da3fed6e00cfd2c7646c842bd95619 assets/lightestlamp/blockstates/argon_block.json
@@ -32,7 +32,7 @@ e585bb88bc60c14187094b6a7ad404b6f4adc067 assets/lightestlamp/models/block/argon_
 5865c625022c71f29181a37b5b2e03b38ef9bc19 assets/lightestlamp/models/block/deep_sea_lantern.json
 cd831031e3930100bc934eec7493870649334491 assets/lightestlamp/models/block/eta_lamp.json
 de7425b99b27a9639f51f34e2e94967192a6a2be assets/lightestlamp/models/block/gas_centrifuge.json
-80ab56b77a22ea4e7b1d7598fad9daf80b273623 assets/lightestlamp/models/block/glowing_glass_block.json
+f274edc08eac9e52c543b3002d8c63241b4a0a13 assets/lightestlamp/models/block/glowing_glass_block.json
 0283ef19f7516121e5fdd03fbfc7a8b4a3e14677 assets/lightestlamp/models/block/krypton_block.json
 4ac134f36a6c0799ef590ef53932bc65be277e2d assets/lightestlamp/models/block/krypton_tube_block.json
 d5289a8f02785ed3910641f6e3ce7e7346d376dc assets/lightestlamp/models/block/krypton_tube_block_horizontal.json

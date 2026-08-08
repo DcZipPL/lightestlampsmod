@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "c:ingots/lanthanum"
+    },
+    "N": {
+      "tag": "c:nuggets/lanthanum"
+    }
+  },
+  "pattern": [
+    "N N",
+    " I ",
+    "N N"
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:lanthanum_mesh"
+  }
+}

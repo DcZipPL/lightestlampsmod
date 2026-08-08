@@ -1,0 +1,7 @@
+{
+  "neoforge:conditions": [{ "type": "neoforge:mod_loaded", "modid": "oritech" }],
+  "type": "oritech:grinder",
+  "ingredients": [{ "tag": "c:raw_materials/lanthanum" }],
+  "results": [{ "count": 2, "id": "lightestlamp:lanthanum_dust" }],
+  "time": 40
+}

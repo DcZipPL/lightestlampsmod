@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "minecraft:sea_lantern"
+    },
+    "P": {
+      "item": "minecraft:prismarine_crystals"
+    }
+  },
+  "pattern": [
+    "PPP",
+    "PLP",
+    "PPP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:clear_sea_lantern"
+  }
+}

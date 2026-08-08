@@ -3,18 +3,19 @@ package dev.prefex.lightestlamp.datagen;
 import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModItems;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
 
 public class ModLootTables extends BlockLootSubProvider {
-	protected ModLootTables() {
-		super(Collections.emptySet(), FeatureFlags.REGISTRY.allFlags());
+	protected ModLootTables(HolderLookup.Provider registries) {
+		super(Collections.emptySet(), FeatureFlags.REGISTRY.allFlags(), registries);
 	}
 
 	@Override
@@ -41,7 +42,6 @@ public class ModLootTables extends BlockLootSubProvider {
 		this.dropSelf(ModBlocks.XENON_TUBE_BLOCK.get());
 		this.dropSelf(ModBlocks.RADON_TUBE_BLOCK.get());
 		this.dropSelf(ModBlocks.VANTA_BLACK.get());
-		this.dropSelf(ModBlocks.CURTAIN_BLOCK.get());
 		this.add(ModBlocks.NEON_BLOCK.get(), block ->createSingleItemTableWithSilkTouch(
 				block, ModItems.NEON_DUST.get(), UniformGenerator.between(1,4)
 		));
@@ -68,7 +68,7 @@ public class ModLootTables extends BlockLootSubProvider {
 	@Override
 	protected @NotNull Iterable<Block> getKnownBlocks() {
 		// Exclusion list
-		return ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).filter(block ->
+		return ModBlocks.BLOCKS.getEntries().stream().map(holder -> (Block) holder.get()).filter(block ->
 				block != ModBlocks.LIGHT_AIR.get()
 				&& block != ModBlocks.WATERLOGGABLE_LIGHT_AIR.get()
 				&& block != ModBlocks.OCC.get()

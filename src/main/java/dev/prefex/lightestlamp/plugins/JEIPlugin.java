@@ -33,7 +33,11 @@ public class JEIPlugin implements IModPlugin
     @Override
     public void registerRecipes(IRecipeRegistration reg)
     {
-        List<GasCentrifugeRecipe> recipes = Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get());
+        List<GasCentrifugeRecipe> recipes = Minecraft.getInstance().level.getRecipeManager()
+                .getAllRecipesFor(ModMiscs.GLOWSTONE_CENTRIFUGE_RECIPE_TYPE.get())
+                .stream()
+                .map(net.minecraft.world.item.crafting.RecipeHolder::value)
+                .toList();
 
         reg.addRecipes(
                 JEI_RECIPE, recipes
@@ -52,6 +56,6 @@ public class JEIPlugin implements IModPlugin
 
     @Override
     public ResourceLocation getPluginUid() {
-        return new ResourceLocation(Util.MOD_ID, GAS_CENTRIFUGE);
+        return ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, GAS_CENTRIFUGE);
     }
 }

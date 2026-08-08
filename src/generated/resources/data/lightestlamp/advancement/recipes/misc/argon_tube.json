@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_glass_tube": {
+      "conditions": {
+        "items": [
+          {
+            "items": "lightestlamp:argon_dust"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "lightestlamp:argon_tube"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_glass_tube"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "lightestlamp:argon_tube"
+    ]
+  }
+}

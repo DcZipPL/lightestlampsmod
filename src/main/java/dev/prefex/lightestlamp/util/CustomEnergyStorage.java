@@ -1,9 +1,10 @@
 package dev.prefex.lightestlamp.util;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.energy.EnergyStorage;
+import net.neoforged.neoforge.common.util.INBTSerializable;
+import net.neoforged.neoforge.energy.EnergyStorage;
 
 public class CustomEnergyStorage extends EnergyStorage implements INBTSerializable<Tag> {
 
@@ -16,26 +17,22 @@ public class CustomEnergyStorage extends EnergyStorage implements INBTSerializab
     }
 
     public void setEnergy(int energy) {
-        this.energy = energy;
+        this.energy = Math.clamp(energy, 0, capacity);
     }
 
     public void addEnergy(int energy) {
-        this.energy += energy;
-        if (this.energy > getMaxEnergyStored()) {
-            this.energy = getEnergyStored();
-        }
+        setEnergy(this.energy + energy);
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         CompoundTag tag = new CompoundTag();
         tag.putInt("energy", getEnergyStored());
         return tag;
     }
 
     @Override // TODO: It works?
-    public void deserializeNBT(Tag nbt) {
-        super.deserializeNBT(nbt);
+    public void deserializeNBT(HolderLookup.Provider provider, Tag nbt) {
         setEnergy(((CompoundTag)nbt).getInt("energy"));
     }
 }

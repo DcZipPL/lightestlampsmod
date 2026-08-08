@@ -2,6 +2,7 @@ package dev.prefex.lightestlamp.machine.gascentrifuge;
 
 import dev.prefex.lightestlamp.Config;
 import dev.prefex.lightestlamp.init.ModMiscs;
+import dev.prefex.lightestlamp.items.FilterItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.Container;
@@ -11,8 +12,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +27,14 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
 
     public static final Logger LOGGER = LoggerFactory.getLogger(GasCentrifugeMenu.class);
 
-    protected GasCentrifugeMenu(MenuType<?> containerTypeIn, int id, Inventory playerInventoryIn, Container furnaceInventoryIn, ContainerData data, @NotNull FriendlyByteBuf buf) {
+    protected GasCentrifugeMenu(MenuType<?> containerTypeIn, int id, Inventory playerInventoryIn, Container furnaceInventoryIn, ContainerData data, BlockPos pos) {
         super(containerTypeIn, id);
         checkContainerSize(furnaceInventoryIn, 6);
         checkContainerDataCount(data, 7);
         this.furnaceInventory = furnaceInventoryIn;
         this.data = data;
         this.level = playerInventoryIn.player.getCommandSenderWorld();
-        this.pos = buf.readBlockPos();
+        this.pos = pos;
         this.addSlot(new Slot(furnaceInventoryIn, 0, 16, 35));
         this.addSlot(new Slot(furnaceInventoryIn, 1, 41, 35));
         this.addSlot(new FurnaceResultSlot(playerInventoryIn.player, furnaceInventoryIn, 2, 99, 19));
@@ -56,7 +57,7 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
 
     public GasCentrifugeMenu(int i, Inventory playerInventory, @NotNull FriendlyByteBuf packetBuffer)
     {
-        this(ModMiscs.GAS_CENTRIFUGE.get(), i, playerInventory, new SimpleContainer(6), new SimpleContainerData(7),packetBuffer);
+        this(ModMiscs.GAS_CENTRIFUGE.get(), i, playerInventory, new SimpleContainer(6), new SimpleContainerData(7), packetBuffer.readBlockPos());
     }
 
     public BlockPos getBlockPos()
@@ -92,14 +93,18 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
                 sourceSlot.onQuickCraft(sourceStack, copiedStack);
             } else if (slotIndex != 1 && slotIndex != 0) {
                 if (this.isFilter(sourceStack)) {
-                    if (!this.moveItemStackTo(sourceStack, 0, 2, false)) {
+                    if (!this.moveItemStackTo(sourceStack, 0, 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (GasCentrifugeBlockEntity.isFuel(sourceStack)) {
+                    if (!this.moveItemStackTo(sourceStack, 1, 2, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (slotIndex >= 6 && slotIndex < 33) {
                     if (!this.moveItemStackTo(sourceStack, 33, 42, false)) {
                         return ItemStack.EMPTY;
                     }
-                } else if (slotIndex >= 33 && slotIndex < 42 && !this.moveItemStackTo(sourceStack, 3, 30, false)) {
+                } else if (slotIndex >= 33 && slotIndex < 42 && !this.moveItemStackTo(sourceStack, 6, 33, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (!this.moveItemStackTo(sourceStack, 6, 42, false)) {
@@ -123,7 +128,7 @@ public class GasCentrifugeMenu extends AbstractContainerMenu
     }
 
     protected boolean isFilter(ItemStack itemStack) {
-        return true;
+        return itemStack.getItem() instanceof FilterItem;
     }
 
     @OnlyIn(Dist.CLIENT)

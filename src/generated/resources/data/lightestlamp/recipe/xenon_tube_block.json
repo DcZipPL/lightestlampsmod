@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "T": {
+      "item": "lightestlamp:xenon_tube"
+    }
+  },
+  "pattern": [
+    "TT",
+    "TT"
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:xenon_tube_block"
+  }
+}

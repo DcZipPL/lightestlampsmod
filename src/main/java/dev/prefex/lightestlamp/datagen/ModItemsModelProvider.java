@@ -3,13 +3,14 @@ package dev.prefex.lightestlamp.datagen;
 import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.init.ModBlocks;
 import dev.prefex.lightestlamp.init.ModItems;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.minecraft.world.item.BlockItem;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ModItemsModelProvider extends ItemModelProvider {
 
@@ -19,17 +20,22 @@ public class ModItemsModelProvider extends ItemModelProvider {
 
 	@Override
 	protected void registerModels() {
-		ModItems.ITEMS.getEntries().stream().map(RegistryObject::get).forEach(item -> {
-			withExistingParent(ForgeRegistries.ITEMS.getKey(item).getPath(),new ResourceLocation("item/generated"))
-					.texture("layer0",new ResourceLocation(Util.MOD_ID,"item/"+ForgeRegistries.ITEMS.getKey(item).getPath()));
+		ModItems.ITEMS.getEntries().stream().map(DeferredHolder::get).forEach(item -> {
+			if (item instanceof BlockItem) {
+				return;
+			}
+			String path = BuiltInRegistries.ITEM.getKey(item).getPath();
+			withExistingParent(path, ResourceLocation.withDefaultNamespace("item/generated"))
+					.texture("layer0", ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "item/" + path));
 		});
-		ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
+		ModBlocks.BLOCKS.getEntries().stream().map(DeferredHolder::get).forEach(block -> {
 			if (block != ModBlocks.OCC.get()
 					&& block != ModBlocks.LIGHT_AIR.get()
 					&& block != ModBlocks.WATERLOGGABLE_LIGHT_AIR.get()
 					&& block != ModBlocks.JUNGLE_LANTERN.get()
 					&& block != ModBlocks.CURTAIN_BLOCK.get()) {
-				withExistingParent(ForgeRegistries.BLOCKS.getKey(block).getPath(), Util.MOD_ID+":block/"+ForgeRegistries.BLOCKS.getKey(block).getPath());
+				String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
+				withExistingParent(path, Util.MOD_ID + ":block/" + path);
 			}
 		});
 	}

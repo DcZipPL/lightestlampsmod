@@ -1,0 +1,32 @@
+{
+    "type": "minecraft:crafting_shaped",
+   
+    "pattern":
+    [
+        "DMD",
+        "MSM",
+        "DMD"
+    ],
+   
+    "key":
+    {
+        "S":
+        {
+            "item": "lightestlamp:stickandbowl"
+        },
+        "M":
+        {
+            "item": "lightestlamp:xenon_dust"
+        },
+        "D":
+        {
+            "item": "minecraft:diamond"
+        }
+    },
+   
+    "result":
+    {
+        "id": "lightestlamp:alchemical_dust",
+        "count": 3
+    }
+}

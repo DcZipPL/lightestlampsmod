@@ -1,39 +1,16 @@
 package dev.prefex.lightestlamp.util.network;
 
-import dev.prefex.lightestlamp.Util;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
-import static org.apache.http.params.CoreProtocolPNames.PROTOCOL_VERSION;
+public final class Networking {
+    private static final String PROTOCOL_VERSION = "1";
 
-public class Networking
-{
-    public static SimpleChannel INSTANCE;
-    private static int ID = 0;
-
-    public static int nextID()
-    {
-        return ID++;
+    private Networking() {
     }
 
-    public static void registerMessages()
-    {
-        INSTANCE = NetworkRegistry.newSimpleChannel(
-                new ResourceLocation(Util.MOD_ID, "main"),
-                () -> PROTOCOL_VERSION,
-                PROTOCOL_VERSION::equals,
-                PROTOCOL_VERSION::equals
-        );
-        INSTANCE.registerMessage(nextID(),
-                PacketButtonRedstone.class,
-                PacketButtonRedstone::toBytes,
-                PacketButtonRedstone::new,
-                PacketButtonRedstone::handle);
-        INSTANCE.registerMessage(nextID(),
-                PacketButtonModeControl.class,
-                PacketButtonModeControl::toBytes,
-                PacketButtonModeControl::new,
-                PacketButtonModeControl::handle);
+    public static void register(RegisterPayloadHandlersEvent event) {
+        var registrar = event.registrar(PROTOCOL_VERSION);
+        registrar.playToServer(PacketButtonRedstone.TYPE, PacketButtonRedstone.STREAM_CODEC, PacketButtonRedstone::handle);
+        registrar.playToServer(PacketButtonModeControl.TYPE, PacketButtonModeControl.STREAM_CODEC, PacketButtonModeControl::handle);
     }
 }

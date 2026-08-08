@@ -1,4 +1,4 @@
-// 1.20.1	2023-08-30T18:51:09.0886656	Item Models: lightestlamp
+// 1.21.1	2026-08-08T15:01:42.771033325	Item Models: lightestlamp
 bb09fd0cb91d6073debfeab99813feda10abb284 assets/lightestlamp/models/item/abyssal_lantern.json
 0f86598c0b9da88e8c09c61a671b330c79eeeea2 assets/lightestlamp/models/item/alchemical_dust.json
 b7f83a7c23da388974b518dcc6a0d82f0723d496 assets/lightestlamp/models/item/alchemical_lamp.json
@@ -24,8 +24,8 @@ ca2a065eef149880bc84762aebf3f9919ab3bcba assets/lightestlamp/models/item/epsilon
 fd7f8ebc1528c51fe62eb2e0acdc42c50455480d assets/lightestlamp/models/item/gamma_lamp.json
 8a93499813d90bda74e0d967c49db317cc0dbc2f assets/lightestlamp/models/item/gas_centrifuge.json
 f29278488ce6261b26c9c76503d55a5c53cfdda0 assets/lightestlamp/models/item/glass_tube.json
-8f891c179f327cf1c06fd7e5930dca303c901858 assets/lightestlamp/models/item/glowing_glass_block.json
 ed5cbe1c6df0c84b4f8ce7ed0b7f6c3b4829fccb assets/lightestlamp/models/item/glow_lichen_fiber.json
+8f891c179f327cf1c06fd7e5930dca303c901858 assets/lightestlamp/models/item/glowing_glass_block.json
 bfdb957269fb919698b18cbb0bca4d63874c0751 assets/lightestlamp/models/item/krypton_block.json
 6e468172e2d1cc42e04499115768f0a7a8a9049a assets/lightestlamp/models/item/krypton_dust.json
 915e89f2eb9d42e4c54a3c0cb4b1e0aa2d5a48cc assets/lightestlamp/models/item/krypton_filter.json

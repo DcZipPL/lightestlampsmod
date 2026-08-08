@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_argon_dust": {
+      "conditions": {
+        "items": [
+          {
+            "items": "lightestlamp:argon_dust"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "lightestlamp:argon_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_argon_dust"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "lightestlamp:argon_block"
+    ]
+  }
+}

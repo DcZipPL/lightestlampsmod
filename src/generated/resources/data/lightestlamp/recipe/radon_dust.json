@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "lightestlamp:radon_pile"
+    },
+    {
+      "item": "lightestlamp:radon_pile"
+    },
+    {
+      "item": "lightestlamp:radon_pile"
+    },
+    {
+      "item": "lightestlamp:radon_pile"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:radon_dust"
+  }
+}

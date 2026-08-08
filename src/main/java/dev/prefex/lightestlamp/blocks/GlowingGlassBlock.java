@@ -4,14 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.GlassBlock;
+import net.minecraft.world.level.block.TransparentBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class GlowingGlassBlock extends GlassBlock
+public class GlowingGlassBlock extends TransparentBlock
 {
     public GlowingGlassBlock()
     {
-        super(Block.Properties.copy(Blocks.GLASS));
+        super(Block.Properties.ofFullCopy(Blocks.GLASS));
     }
 
     @Override

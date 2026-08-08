@@ -11,7 +11,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CurtainBlock extends IronBarsBlock {
 	public CurtainBlock() {
-		super(BlockBehaviour.Properties.copy(Blocks.BLACK_WOOL).noCollission());
+		super(BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WOOL).noCollission());
 	}
 
 	@Override

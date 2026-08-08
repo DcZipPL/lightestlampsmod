@@ -3,7 +3,6 @@ package dev.prefex.lightestlamp.machine.gascentrifuge;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.prefex.lightestlamp.Config;
 import dev.prefex.lightestlamp.Util;
-import dev.prefex.lightestlamp.util.network.Networking;
 import dev.prefex.lightestlamp.util.network.PacketButtonModeControl;
 import dev.prefex.lightestlamp.util.network.PacketButtonRedstone;
 import net.minecraft.ChatFormatting;
@@ -15,8 +14,9 @@ import net.minecraft.network.chat.*;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMenu>
 {
-    public static final ResourceLocation texture = new ResourceLocation(Util.MOD_ID,"textures/gui/container/gas_centrifuge.png");
+    public static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "textures/gui/container/gas_centrifuge.png");
     private final GasCentrifugeMenu sc;
 
     public GasCentrifugeScreen(GasCentrifugeMenu screenContainer, Inventory inv, Component titleIn)
@@ -40,7 +40,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
 
     @Override
     public void render(GuiGraphics graphics, int x, int y, float pPartialTick) {
-        renderBackground(graphics);
+        renderBackground(graphics, x, y, pPartialTick);
         super.render(graphics, x, y, pPartialTick);
         renderTooltip(graphics,x,y);
 
@@ -220,7 +220,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
                 } else {
                     sc.data.set(1, sc.data.get(1)+1);
                 }
-                Networking.INSTANCE.sendToServer(new PacketButtonRedstone(sc.getBlockPos(),0));
+                PacketDistributor.sendToServer(new PacketButtonRedstone(sc.getBlockPos()));
             }
         }
         // Clicked Power button
@@ -237,7 +237,7 @@ public class GasCentrifugeScreen extends AbstractContainerScreen<GasCentrifugeMe
                     } else {
                         sc.data.set(4, sc.data.get(4) + 1);
                     }
-                    Networking.INSTANCE.sendToServer(new PacketButtonModeControl(sc.getBlockPos(), 0));
+                    PacketDistributor.sendToServer(new PacketButtonModeControl(sc.getBlockPos(), sc.data.get(4)));
                 }
             }
         }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "lightestlamp:clear_lamp"
+    },
+    "T": {
+      "item": "lightestlamp:neon_tube"
+    }
+  },
+  "pattern": [
+    " T ",
+    "TLT",
+    " T "
+  ],
+  "result": {
+    "count": 1,
+    "id": "lightestlamp:alpha_lamp"
+  }
+}

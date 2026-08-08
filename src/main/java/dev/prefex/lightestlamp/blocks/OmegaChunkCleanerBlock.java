@@ -1,5 +1,6 @@
 package dev.prefex.lightestlamp.blocks;
 
+import com.mojang.serialization.MapCodec;
 import dev.prefex.lightestlamp.entities.cleaners.OmegaChunkCleanerBlockEntity;
 import dev.prefex.lightestlamp.init.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -12,9 +13,16 @@ import org.jetbrains.annotations.Nullable;
 
 public class OmegaChunkCleanerBlock extends ChunkCleanerBlock
 {
+    public static final MapCodec<OmegaChunkCleanerBlock> CODEC = simpleCodec(OmegaChunkCleanerBlock::new);
+
     public OmegaChunkCleanerBlock(Properties properties)
     {
         super(properties);
+    }
+
+    @Override
+    protected MapCodec<? extends OmegaChunkCleanerBlock> codec() {
+        return CODEC;
     }
 
     @org.jetbrains.annotations.Nullable

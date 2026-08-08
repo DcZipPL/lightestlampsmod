@@ -2,14 +2,14 @@ package dev.prefex.lightestlamp.datagen;
 
 import dev.prefex.lightestlamp.Util;
 import dev.prefex.lightestlamp.init.ModBlocks;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.RotatedPillarBlock;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ModBlocksStateProvider extends BlockStateProvider {
 
@@ -19,7 +19,7 @@ public class ModBlocksStateProvider extends BlockStateProvider {
 
 	@Override
 	protected void registerStatesAndModels() {
-		ModBlocks.BLOCKS.getEntries().stream().map(RegistryObject::get).forEach(block -> {
+		ModBlocks.BLOCKS.getEntries().stream().map(DeferredHolder::get).forEach(block -> {
 			if (block instanceof RotatedPillarBlock){
 				axisBlock((RotatedPillarBlock) block);
 			}
@@ -32,10 +32,14 @@ public class ModBlocksStateProvider extends BlockStateProvider {
 				// TODO: add lamp models here
 			}
 			else if (block == ModBlocks.GLOWSTONE_CENTRIFUGE.get()){
-				simpleBlock(ModBlocks.GLOWSTONE_CENTRIFUGE.get(), models().cubeBottomTop(ForgeRegistries.BLOCKS.getKey(block).getPath(),
-						new ResourceLocation(Util.MOD_ID,"block/machine/"+ ForgeRegistries.BLOCKS.getKey(block).getPath()+"_side"),
-						new ResourceLocation(Util.MOD_ID,"block/machine/"+ForgeRegistries.BLOCKS.getKey(block).getPath()+"_bottom"),
-						new ResourceLocation(Util.MOD_ID,"block/machine/"+ForgeRegistries.BLOCKS.getKey(block).getPath())));
+				String path = BuiltInRegistries.BLOCK.getKey(block).getPath();
+				simpleBlock(ModBlocks.GLOWSTONE_CENTRIFUGE.get(), models().cubeBottomTop(path,
+						ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "block/machine/" + path + "_side"),
+						ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "block/machine/" + path + "_bottom"),
+						ResourceLocation.fromNamespaceAndPath(Util.MOD_ID, "block/machine/" + path)));
+			}
+			else if (block == ModBlocks.GLOWING_GLASS_BLOCK.get()) {
+				simpleBlock(block, models().cubeAll(BuiltInRegistries.BLOCK.getKey(block).getPath(), blockTexture(block)).renderType("minecraft:cutout"));
 			}
 			else if (block != ModBlocks.CURTAIN_BLOCK.get()
 					&& block != ModBlocks.OCC.get()

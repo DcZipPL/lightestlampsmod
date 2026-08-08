@@ -1,0 +1,7 @@
+{
+  "neoforge:conditions": [{ "type": "neoforge:mod_loaded", "modid": "immersiveengineering" }],
+  "type": "immersiveengineering:crusher",
+  "energy": 6000,
+  "input": { "tag": "c:raw_materials/lanthanum" },
+  "result": { "count": 2, "id": "lightestlamp:lanthanum_dust" }
+}

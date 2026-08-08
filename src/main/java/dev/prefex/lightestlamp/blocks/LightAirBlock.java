@@ -15,7 +15,7 @@ public class LightAirBlock extends AirBlock
 {
     public LightAirBlock()
     {
-        super(Block.Properties.copy(Blocks.AIR));
+        super(Block.Properties.ofFullCopy(Blocks.AIR));
     }
 
     @Override

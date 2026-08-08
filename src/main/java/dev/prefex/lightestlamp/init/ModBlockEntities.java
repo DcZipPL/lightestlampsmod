@@ -5,24 +5,24 @@ import dev.prefex.lightestlamp.entities.AlchemicalLampBlockEntity;
 import dev.prefex.lightestlamp.entities.NormalLampBlockEntity;
 import dev.prefex.lightestlamp.entities.OmegaLampBlockEntity;
 import dev.prefex.lightestlamp.entities.cleaners.OmegaChunkCleanerBlockEntity;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import dev.prefex.lightestlamp.machine.gascentrifuge.GasCentrifugeBlockEntity;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ModBlockEntities
 {
     public static void init(IEventBus modEventBus){
         ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
     }
-    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, Util.MOD_ID);
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, Util.MOD_ID);
 
-    public static final RegistryObject<BlockEntityType<OmegaChunkCleanerBlockEntity>> OCC_BE = BLOCK_ENTITIES.register(
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OmegaChunkCleanerBlockEntity>> OCC_BE = BLOCK_ENTITIES.register(
             "occ_be", () -> BlockEntityType.Builder.of(OmegaChunkCleanerBlockEntity::new, ModBlocks.OCC.get()).build(null)
     );
-    public static final RegistryObject<BlockEntityType<NormalLampBlockEntity>> NORMAL_LAMP_BE = BLOCK_ENTITIES.register(
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<NormalLampBlockEntity>> NORMAL_LAMP_BE = BLOCK_ENTITIES.register(
             "normal_lamp_be", () -> BlockEntityType.Builder.of(NormalLampBlockEntity::new,
                     ModBlocks.ALPHA_LAMP.get(),
                     ModBlocks.BETA_LAMP.get(),
@@ -39,13 +39,13 @@ public class ModBlockEntities
                     ModBlocks.ABYSSAL_LANTERN.get()
             ).build(null)
     );
-    public static final RegistryObject<BlockEntityType<OmegaLampBlockEntity>> OMEGA_BE = BLOCK_ENTITIES.register(
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<OmegaLampBlockEntity>> OMEGA_BE = BLOCK_ENTITIES.register(
             "omega_be", () -> BlockEntityType.Builder.of(OmegaLampBlockEntity::new, ModBlocks.OMEGA_LAMP.get()).build(null)
     );
-    public static final RegistryObject<BlockEntityType<AlchemicalLampBlockEntity>> ALCHEMICALLAMP_BE = BLOCK_ENTITIES.register(
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AlchemicalLampBlockEntity>> ALCHEMICALLAMP_BE = BLOCK_ENTITIES.register(
             "alchemical_be", () -> BlockEntityType.Builder.of(AlchemicalLampBlockEntity::new, ModBlocks.ALCHEMICAL_LAMP.get()).build(null)
     );
-    public static final RegistryObject<BlockEntityType<GasCentrifugeBlockEntity>> CENTRIFUGE_BE = BLOCK_ENTITIES.register(
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<GasCentrifugeBlockEntity>> CENTRIFUGE_BE = BLOCK_ENTITIES.register(
             "centrifuge_be", () -> BlockEntityType.Builder.of(GasCentrifugeBlockEntity::new, ModBlocks.GLOWSTONE_CENTRIFUGE.get()).build(null)
     );
 }

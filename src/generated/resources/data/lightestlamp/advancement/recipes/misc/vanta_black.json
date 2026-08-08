@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_carbon_nanotube": {
+      "conditions": {
+        "items": [
+          {
+            "items": "lightestlamp:carbon_nanotube"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "lightestlamp:vanta_black"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_carbon_nanotube"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "lightestlamp:vanta_black"
+    ]
+  }
+}
